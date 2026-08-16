@@ -15,10 +15,14 @@ from accounting import (  # noqa: E402
     PASS_N_ITER,
     PASS_SINGLE,
     PASS_TREES,
+    Baseline,
     CostRecord,
     count_passes,
     estimator_count,
+    iter_count,
     measure,
+    resolve_iter_passes,
+    snapshot,
 )
 
 warnings.filterwarnings("ignore")
@@ -97,16 +101,129 @@ def test_incremental_fit_charges_only_added_trees(data):
     model = RandomForestClassifier(
         n_estimators=100, max_depth=3, random_state=0, n_jobs=1, warm_start=True
     ).fit(X, y)
-    baseline = estimator_count(model)
-    assert baseline == 100
+    base = snapshot(model)
+    assert base.n_estimators == 100
 
     def grow():
         model.n_estimators += 5
         return model.fit(X, y)
 
-    _, cost = measure(grow, n_rows=len(X), baseline_estimators=baseline)
+    _, cost = measure(grow, n_rows=len(X), baseline=base)
     assert cost.n_estimators_fitted == 5, "must charge added trees, not all 105"
     assert cost.work_units == 5 * N_ROWS
+
+
+# --- n_iter_ semantics -------------------------------------------------------
+#
+# scikit-learn does not document whether repeated partial_fit accumulates
+# n_iter_. These tests pin the behaviour we measured (1.9.0: it resets) and
+# prove the accounting stays correct if a future version starts accumulating.
+
+
+@pytest.mark.parametrize("kind", ["sgd", "mlp"])
+def test_repeated_partial_fit_charges_one_pass_each_time(data, kind):
+    """Five consecutive nudges on one model must cost five passes, not one."""
+    from sklearn.linear_model import SGDClassifier
+    from sklearn.neural_network import MLPClassifier
+
+    X, y = data
+    model = (
+        SGDClassifier(random_state=0)
+        if kind == "sgd"
+        else MLPClassifier(hidden_layer_sizes=(8,), random_state=0)
+    )
+
+    charged = []
+    for _ in range(5):
+        base = snapshot(model)
+        _, cost = measure(
+            lambda: model.partial_fit(X, y, classes=[0, 1]),
+            n_rows=len(X),
+            baseline=base,
+        )
+        charged.append(cost.n_passes)
+
+    assert charged == [1, 1, 1, 1, 1], (
+        f"each partial_fit is one epoch and must be charged as such; got {charged}"
+    )
+
+
+@pytest.mark.parametrize("kind", ["sgd", "mlp"])
+def test_partial_fit_does_not_accumulate_n_iter_on_this_sklearn(data, kind):
+    """Documents the observed 1.9.0 behaviour. If this fails, sklearn changed
+    its convention -- resolve_iter_passes already handles it, but the README
+    and the docstring in accounting.py need updating."""
+    from sklearn.linear_model import SGDClassifier
+    from sklearn.neural_network import MLPClassifier
+
+    X, y = data
+    model = (
+        SGDClassifier(random_state=0)
+        if kind == "sgd"
+        else MLPClassifier(hidden_layer_sizes=(8,), random_state=0)
+    )
+
+    observed = []
+    for _ in range(5):
+        model.partial_fit(X, y, classes=[0, 1])
+        observed.append(iter_count(model))
+
+    assert observed == [1, 1, 1, 1, 1], (
+        f"sklearn n_iter_ convention changed: {observed}"
+    )
+
+
+def test_resolve_iter_passes_handles_accumulating_counters():
+    """If n_iter_ accumulates (1, 2, 3...), charge the delta."""
+    assert resolve_iter_passes(current=1, baseline=0) == 1
+    assert resolve_iter_passes(current=2, baseline=1) == 1
+    assert resolve_iter_passes(current=3, baseline=2) == 1
+    assert resolve_iter_passes(current=36, baseline=0) == 36
+
+
+def test_resolve_iter_passes_handles_resetting_counters():
+    """If n_iter_ resets (1, 1, 1...), charge the raw value.
+
+    A naive delta would give 1 - 1 = 0 here and record every nudge as free,
+    which is worse than an overcharge: it would fabricate the result.
+    """
+    assert resolve_iter_passes(current=1, baseline=1) == 1
+    assert resolve_iter_passes(current=1, baseline=5) == 1
+
+
+def test_accounting_is_correct_under_a_hypothetical_accumulating_sklearn(data):
+    """End-to-end proof the delta rule works if the convention flips."""
+
+    class FakeAccumulatingModel:
+        """Stands in for an sklearn version where partial_fit accumulates."""
+
+        def __init__(self):
+            self.n_iter_ = 0
+
+        def partial_fit(self, *_args, **_kwargs):
+            self.n_iter_ += 1
+            return self
+
+    model = FakeAccumulatingModel()
+    charged = []
+    for _ in range(5):
+        base = snapshot(model)
+        _, cost = measure(lambda: model.partial_fit(), n_rows=N_ROWS, baseline=base)
+        charged.append(cost.n_passes)
+
+    assert model.n_iter_ == 5, "fixture should accumulate"
+    assert charged == [1, 1, 1, 1, 1], (
+        f"accumulating counter must still charge one pass per call; got {charged}"
+    )
+
+
+def test_snapshot_captures_both_dimensions(data):
+    from sklearn.ensemble import RandomForestClassifier
+
+    X, y = data
+    rf = RandomForestClassifier(n_estimators=7, max_depth=2, random_state=0).fit(X, y)
+    assert snapshot(rf) == Baseline(n_estimators=7, n_iter=0)
+    assert snapshot(None) == Baseline(n_estimators=0, n_iter=0)
 
 
 def test_sgd_fit_and_partial_fit_are_distinguishable(data):

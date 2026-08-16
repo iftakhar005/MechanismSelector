@@ -23,17 +23,22 @@ epochs (36 on a small synthetic set) while `partial_fit` runs exactly one --
 a 36x cost difference. Collapsing both to "one fit call" would erase precisely
 the saving this study measures.
 
-`n_iter_` is per-call rather than cumulative for both SGD and MLP (verified
-against scikit-learn 1.9.0), so it is read directly. Tree ensembles accumulate
-under `warm_start` / `xgb_model`, so those are measured as a delta against a
-baseline captured before the fit.
+Tree ensembles accumulate under `warm_start` / `xgb_model`, so those are
+measured as a delta against a baseline captured before the fit.
+
+`n_iter_` is per-call rather than cumulative for both SGD and MLP on
+scikit-learn 1.9.0: five consecutive `partial_fit` calls on the same model
+report ``n_iter_ = 1`` every time, including with ``warm_start=True``, while the
+loss falls monotonically -- the model carries state, only the counter resets.
+This is undocumented and could change, so the pass count is not hardcoded to
+either behaviour. See `resolve_iter_passes`.
 """
 
 from __future__ import annotations
 
 import time
 from dataclasses import dataclass, replace
-from typing import Any, Callable
+from typing import Any, Callable, NamedTuple
 
 # Provenance tags for n_passes, recorded so every number is auditable.
 PASS_TREES = "trees"
@@ -114,6 +119,48 @@ class CostRecord:
         return replace(self, energy_kwh=energy_kwh)
 
 
+class Baseline(NamedTuple):
+    """Model state captured immediately before a fit, so an incremental fit
+    is charged only for the work it actually added."""
+
+    n_estimators: int
+    n_iter: int
+
+
+def snapshot(model: Any) -> Baseline:
+    """Capture the pre-fit baseline. Pass the result to ``measure(baseline=...)``."""
+    return Baseline(n_estimators=estimator_count(model), n_iter=iter_count(model))
+
+
+def iter_count(model: Any) -> int:
+    """Current ``n_iter_``, or 0 if absent/unfitted."""
+    if model is None:
+        return 0
+    n_iter = getattr(model, "n_iter_", None)
+    if n_iter is None:
+        return 0
+    return int(max(n_iter)) if hasattr(n_iter, "__iter__") else int(n_iter)
+
+
+def resolve_iter_passes(current: int, baseline: int) -> int:
+    """Charge epochs correctly whether ``n_iter_`` accumulates or resets.
+
+    scikit-learn does not document whether repeated ``partial_fit`` calls
+    accumulate ``n_iter_``. On 1.9.0 SGD and MLP both reset it to 1 per call,
+    but relying on that would silently misprice every nudge if a future
+    version changed it -- and a plain delta would be worse than wrong: under
+    reset semantics ``1 - 1 = 0`` would record nudges as free.
+
+    The rule below is correct under both conventions:
+
+    - counter grew  -> it accumulates, charge the difference
+    - counter did not grow -> it reset, charge the value as-is
+    """
+    if current > baseline:
+        return current - baseline
+    return current
+
+
 def estimator_count(model: Any) -> int:
     """Current number of fitted estimators, or 0 if the model has none/unfitted.
 
@@ -138,23 +185,24 @@ def estimator_count(model: Any) -> int:
     return 0
 
 
-def count_passes(model: Any, baseline_estimators: int = 0) -> tuple[int, int, str]:
+def count_passes(model: Any, baseline: Baseline | None = None) -> tuple[int, int, str]:
     """Derive (n_estimators_fitted, n_passes, pass_source) from a fitted model.
 
     Args:
         model: the model *after* fitting.
-        baseline_estimators: estimator count captured before the fit, so
-            incremental fits report only the capacity they added.
+        baseline: state captured before the fit via ``snapshot``, so an
+            incremental fit reports only the work it added. ``None`` means a
+            fit from scratch.
     """
+    base = baseline or Baseline(0, 0)
+
     total_estimators = estimator_count(model)
     if total_estimators > 0:
-        added = max(0, total_estimators - baseline_estimators)
+        added = max(0, total_estimators - base.n_estimators)
         return added, added, PASS_TREES
 
-    n_iter = getattr(model, "n_iter_", None)
-    if n_iter is not None:
-        # MLP exposes an int; some estimators expose an array (one per target).
-        passes = int(max(n_iter)) if hasattr(n_iter, "__iter__") else int(n_iter)
+    if getattr(model, "n_iter_", None) is not None:
+        passes = resolve_iter_passes(iter_count(model), base.n_iter)
         return 0, passes, PASS_N_ITER
 
     # Closed-form estimators (GaussianNB): exactly one traversal of the data.
@@ -165,7 +213,7 @@ def measure(
     fn: Callable[[], Any],
     *,
     n_rows: int,
-    baseline_estimators: int = 0,
+    baseline: Baseline | None = None,
     energy_kwh: float | None = None,
 ) -> tuple[Any, CostRecord]:
     """Run a fitting operation and record its exact cost.
@@ -173,24 +221,24 @@ def measure(
     Args:
         fn: zero-arg callable that performs the fit and returns the model.
         n_rows: training rows the operation was given.
-        baseline_estimators: estimator count before the fit; pass
-            ``estimator_count(model)`` for incremental fits so only added
-            capacity is charged.
+        baseline: state captured before the fit via ``snapshot(model)``, so an
+            incremental fit is charged only for what it added. ``None`` means
+            a fit from scratch.
         energy_kwh: optional externally measured energy. Secondary only.
 
     Returns:
         ``(model, CostRecord)``.
 
     Note:
-        The spec's signature is ``measure(fn)``; ``n_rows`` and
-        ``baseline_estimators`` are required because neither is recoverable
-        from the fitted model alone.
+        The spec's signature is ``measure(fn)``; ``n_rows`` and ``baseline``
+        are required because neither is recoverable from the fitted model
+        alone.
     """
     start = time.perf_counter()
     model = fn()
     elapsed = time.perf_counter() - start
 
-    n_estimators, n_passes, source = count_passes(model, baseline_estimators)
+    n_estimators, n_passes, source = count_passes(model, baseline)
 
     return model, CostRecord(
         n_estimators_fitted=n_estimators,

@@ -124,11 +124,32 @@ saving this study measures. Measured on a 10,000-row synthetic set,
 both to 1 would erase a real 36× cost difference and silently overstate the
 nudge's advantage for those models.
 
-`n_iter_` is per-call rather than cumulative for both SGD and MLP (verified
-against scikit-learn 1.9.0), so it is read directly. Tree ensembles accumulate
-under `warm_start` / `xgb_model`, so those are measured as a delta against a
-baseline captured before the fit — charging a nudge for all 315 trees when it
-only added 15 would destroy the economic argument.
+Tree ensembles accumulate under `warm_start` / `xgb_model`, so those are
+measured as a delta against a baseline captured before the fit — charging a
+nudge for all 315 trees when it only added 15 would destroy the economic
+argument.
+
+### The `n_iter_` convention is not assumed
+
+scikit-learn does not document whether repeated `partial_fit` calls accumulate
+`n_iter_`. Measured on 1.9.0, five consecutive calls on the same model:
+
+```
+SGD:  n_iter_ = 1, 1, 1, 1, 1
+MLP:  n_iter_ = 1, 1, 1, 1, 1     (loss 0.751 → 0.744 → 0.737 → 0.731 → 0.724)
+```
+
+Both **reset** rather than accumulate, including with `warm_start=True`. The
+falling loss confirms the model carries state across calls — only the counter
+resets.
+
+The accounting does not hardcode this. A plain delta would be actively wrong
+under reset semantics (`1 - 1 = 0`), recording every nudge as free — worse than
+an overcharge, because it would fabricate the headline result. `resolve_iter_passes`
+charges the delta when the counter grew and the raw value when it did not, which
+is correct under either convention. Two tests pin the observed 1.9.0 behaviour so
+a future version change fails loudly, and a third proves the rule still holds
+against a fake accumulating estimator.
 
 `CostRecord` stores `n_passes` and `pass_source` alongside `n_estimators_fitted`
 so every number in the results is auditable back to where it came from.
