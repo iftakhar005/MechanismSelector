@@ -34,7 +34,7 @@ scikit-learn 1.9.0, numpy 2.5.2, pandas 3.0.5.
 | Phase | Module | Gate | Status |
 |---|---|---|---|
 | 1 | `datasets.py` | all five loaders return correctly shaped arrays | **PASS** |
-| 2 | `accounting.py` | 300-tree fit = 30× work units of 10-tree fit | pending |
+| 2 | `accounting.py` | 300-tree fit = 30× work units of 10-tree fit | **PASS** |
 | 3 | `mechanisms.py` | nudge cheaper than rebuild; RF tree count constant; SVC raises | pending |
 | 4 | `selector.py` | holdout rows never appear in training data | pending |
 | 5 | `policies.py` | all five policies run end-to-end | pending |
@@ -95,3 +95,66 @@ standard way the dataset is used in the drift literature — but it means covtyp
 accuracy figures should be read alongside the balance above, not as if the
 stream were balanced. Reported, not corrected: rebalancing would require
 reordering, which is forbidden.
+
+## Phase 2 notes — operation accounting
+
+```bash
+.venv/Scripts/python.exe -m pytest tests/test_accounting.py -q
+```
+
+`work_units = n_passes × n_rows_processed`. Exact, deterministic, hardware-independent.
+
+### What counts as a pass
+
+A pass is one traversal of the training data. The count is read from the fitted
+model, never assumed:
+
+| Model | Passes | Source |
+|---|---|---|
+| `XGBClassifier` | boosting rounds added | `booster.num_boosted_rounds()` delta |
+| `RandomForestClassifier` | trees added | `len(estimators_)` delta |
+| `SGDClassifier` | epochs actually run | `n_iter_` |
+| `MLPClassifier` | epochs actually run | `n_iter_` |
+| `GaussianNB` | 1 | closed-form, single pass |
+
+**Why not simply count one pass per fit call.** That would make `fit` and
+`partial_fit` indistinguishable for SGD and MLP — and their difference *is* the
+saving this study measures. Measured on a 10,000-row synthetic set,
+`SGDClassifier.fit` runs 36 epochs where `partial_fit` runs exactly 1. Flattening
+both to 1 would erase a real 36× cost difference and silently overstate the
+nudge's advantage for those models.
+
+`n_iter_` is per-call rather than cumulative for both SGD and MLP (verified
+against scikit-learn 1.9.0), so it is read directly. Tree ensembles accumulate
+under `warm_start` / `xgb_model`, so those are measured as a delta against a
+baseline captured before the fit — charging a nudge for all 315 trees when it
+only added 15 would destroy the economic argument.
+
+`CostRecord` stores `n_passes` and `pass_source` alongside `n_estimators_fitted`
+so every number in the results is auditable back to where it came from.
+
+### GaussianNB is a control case, not a candidate for savings
+
+GaussianNB is expected to show **minimal or no savings**, by construction. Its
+rebuild is already a single closed-form pass over the data, so a nudge
+(`partial_fit`, also one pass) costs essentially the same as a rebuild. There is
+no 20:1 ratio to exploit.
+
+It stays in the grid deliberately. Which model families admit a meaningful
+mechanism choice is itself a reportable finding, and GaussianNB is the negative
+control that shows the selector is not manufacturing savings where none exist.
+A policy that "saves" on GaussianNB would be evidence of a measurement bug.
+
+### Cross-model comparison
+
+Work units are **not** comparable across model families — one XGBoost tree and
+one GaussianNB pass are not the same unit of work. Cross-model comparison goes
+through the "% of `AlwaysRebuild`" normalisation, which is the headline table
+anyway. Within a (dataset, model) cell the comparison is exact.
+
+### Secondary metrics
+
+`wall_clock_s` and `energy_kwh` are recorded but never read by decision logic.
+Energy is left `None` at the operation level and captured once per run by the
+runner, because starting a CodeCarbon tracker per fit would cost more than the
+fits themselves.
