@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+results/
+!results/dataset_manifest.json
+emissions.csv
+.pytest_cache/
