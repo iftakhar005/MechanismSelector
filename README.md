@@ -35,7 +35,7 @@ scikit-learn 1.9.0, numpy 2.5.2, pandas 3.0.5.
 |---|---|---|---|
 | 1 | `datasets.py` | all five loaders return correctly shaped arrays | **PASS** |
 | 2 | `accounting.py` | 300-tree fit = 30× work units of 10-tree fit | **PASS** |
-| 3 | `mechanisms.py` | nudge cheaper than rebuild; RF tree count constant; SVC raises | pending |
+| 3 | `mechanisms.py` | nudge cheaper than rebuild; RF tree count constant; SVC raises | **PASS** |
 | 4 | `selector.py` | holdout rows never appear in training data | pending |
 | 5 | `policies.py` | all five policies run end-to-end | pending |
 | 6 | `runner.py` | full grid, 500-row CSV | pending |
@@ -179,3 +179,86 @@ anyway. Within a (dataset, model) cell the comparison is exact.
 Energy is left `None` at the operation level and captured once per run by the
 runner, because starting a CodeCarbon tracker per fit would cost more than the
 fits themselves.
+
+## Phase 3 notes — mechanism library
+
+```bash
+.venv/Scripts/python.exe -m pytest tests/test_mechanisms.py -q
+.venv/Scripts/python.exe experiments/verify_mechanisms.py
+```
+
+### A nudge is not one operation
+
+The spec's "add capacity equal to 5% of the model's original size" describes the
+tree ensembles exactly. It does not describe the others, because they have no
+capacity to add:
+
+| Family | What a nudge actually is | Governed by |
+|---|---|---|
+| `XGBClassifier` | append `ceil(0.05 × original)` boosting rounds | the 5% rule |
+| `RandomForestClassifier` | append `ceil(0.05 × original)` trees, drop the same number of oldest | the 5% rule |
+| `SGDClassifier` | one extra epoch (`partial_fit`) | convergence behaviour |
+| `MLPClassifier` | one extra epoch (`partial_fit`) | convergence behaviour |
+| `GaussianNB` | update sufficient statistics (`partial_fit`) | closed form |
+
+A nudge is therefore **each family's cheapest available incremental update**,
+not a uniform 5% of anything. The paper should describe it that way. The
+rebuild:nudge ratio is a measured quantity per family, not a constant the 5%
+rule implies.
+
+### Measured rebuild:nudge ratios
+
+Window 1,000 rows; nudge trains on 800 (the 80% train part), rebuild on all
+1,000 — the configuration the selector actually uses.
+
+| Stream | Model | Nudge WU | Rebuild WU | Ratio | Nudge as % of rebuild |
+|---|---|---|---|---|---|
+| elec2 | xgb | 4,000 | 100,000 | 25.0× | 4.0% |
+| elec2 | rf | 4,000 | 100,000 | 25.0× | 4.0% |
+| elec2 | sgd | 800 | 78,000 | 97.5× | 1.0% |
+| elec2 | gnb | 800 | 1,000 | 1.2× | 80.0% |
+| insects_abrupt | xgb | 4,000 | 100,000 | 25.0× | 4.0% |
+| insects_abrupt | rf | 4,000 | 100,000 | 25.0× | 4.0% |
+| insects_abrupt | sgd | 800 | 126,000 | 157.5× | 0.6% |
+| insects_abrupt | gnb | 800 | 1,000 | 1.2× | 80.0% |
+| covtype | xgb | 4,000 | 100,000 | 25.0× | 4.0% |
+| covtype | rf | 4,000 | 100,000 | 25.0× | 4.0% |
+| covtype | sgd | 800 | 96,000 | 120.0× | 0.8% |
+| covtype | gnb | 800 | 1,000 | 1.2× | 80.0% |
+
+**Trees are 25×, not 20×.** The 5% rule alone would give 20:1, but the nudge
+trains on the 80% train part while the rebuild uses the full window:
+`0.05 × 0.8 = 0.04`, so 4% and 25:1. Quote the measured figure, not the
+construction figure.
+
+**SGD varies from 97× to 158× across streams**, because its ratio is set by how
+many epochs `fit` needs to converge on that data (78, 126 and 96 epochs
+respectively) rather than by any fixed rule. This is a per-dataset property, and
+reporting a single SGD ratio would misrepresent it.
+
+**GaussianNB's 1.2× is not a saving.** Both operations are exactly one pass; the
+entire difference is that the nudge sees 800 rows and the rebuild sees 1,000.
+That is a window-size artifact, not a mechanism advantage — read as "no saving
+available," which is what a negative control should show. If GaussianNB ever
+reports a large saving in the final results, that is a measurement bug, not a
+finding.
+
+### Design decision — Random Forest tree replacement
+
+`warm_start` only ever *adds* trees. Under sustained drift the forest fills with
+stale trees and the nudge stops working — the model appears to adapt early and
+fail later, which looks like a real finding but is an implementation artifact.
+This is dilution, not adaptation.
+
+`NudgeMechanism` therefore adds `k` trees and drops the `k` oldest, holding the
+forest at its original size. Tests pin all three properties that matter: the
+count stays constant over 10 nudges, the retained trees are genuinely the newest
+(not the same ones each time), and each nudge is still charged for the `k` trees
+it fitted — truncation must not make repeated nudges look free.
+
+### Unsupported families
+
+`SVC` and `KNeighborsClassifier` raise `MechanismUnavailable`. No incremental
+mechanism exists for either. This is a recorded outcome rather than an error to
+work around: which model families admit a mechanism choice is itself a
+reportable finding.
