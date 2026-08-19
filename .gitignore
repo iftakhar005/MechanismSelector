@@ -3,5 +3,7 @@ __pycache__/
 *.pyc
 results/
 !results/dataset_manifest.json
+!results/mechanism_ratios.json
+!results/test_report.txt
 emissions.csv
 .pytest_cache/
