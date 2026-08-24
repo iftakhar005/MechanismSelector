@@ -36,7 +36,7 @@ scikit-learn 1.9.0, numpy 2.5.2, pandas 3.0.5.
 | 1 | `datasets.py` | all five loaders return correctly shaped arrays | **PASS** |
 | 2 | `accounting.py` | 300-tree fit = 30× work units of 10-tree fit | **PASS** |
 | 3 | `mechanisms.py` | nudge cheaper than rebuild; RF tree count constant; SVC raises | **PASS** |
-| 4 | `selector.py` | holdout rows never appear in training data | pending |
+| 4 | `selector.py` | holdout rows never appear in training data | **PASS** |
 | 5 | `policies.py` | all five policies run end-to-end | pending |
 | 6 | `runner.py` | full grid, 500-row CSV | pending |
 | 7 | `analysis.py` | four figures, Friedman + Nemenyi | pending |
@@ -262,3 +262,115 @@ it fitted — truncation must not make repeated nudges look free.
 mechanism exists for either. This is a recorded outcome rather than an error to
 work around: which model families admit a mechanism choice is itself a
 reportable finding.
+
+## Phase 4 notes — the selector
+
+```bash
+.venv/Scripts/python.exe -m pytest tests/test_selector.py -q
+.venv/Scripts/python.exe experiments/verify_selector.py
+```
+
+### Framing: try-and-escalate, not prediction
+
+`MechanismSelector` is a **cost-ordered try-and-escalate policy under an
+accuracy constraint**. The decision variable at runtime is accuracy — a nudge
+is kept if it clears the floor on held-out data, discarded and escalated to a
+rebuild if it does not. Cost does not decide anything; it only sets the order
+in which options are attempted (cheapest first) and is what makes attempting
+the cheap option rational: a nudge costs a few percent of a rebuild, so trying
+and occasionally failing is cheaper than building a predictor of when it would
+succeed. Earlier phrasing described this as "selection by measured compute" —
+that overstates what the mechanism does and has been corrected everywhere,
+including in `selector.py`'s docstrings.
+
+### Procedure
+
+1. Split the adaptation window by **time**: `train_part` is the older
+   `1 - holdout_frac` prefix, `holdout` is the most recent `holdout_frac`
+   suffix. Never a random split.
+2. Score the current model on `holdout`. Good enough (within `floor_drop` of
+   `reference_accuracy`) → `SKIP`, zero cost, model returned unchanged.
+3. Otherwise nudge a **copy** of the model on `train_part` only (the holdout
+   never appears in any training data) and score the nudge on the same
+   holdout. Clears the floor → `NUDGE`.
+4. Otherwise rebuild from scratch on the full window (holdout included) and
+   use that. The failed nudge's cost is **added** to the rebuild's, not
+   discarded — see below.
+
+### The reference-accuracy problem
+
+`reference_accuracy` is an input to `adapt()`, not state the selector
+maintains. After a `REBUILD` the model has trained on the entire window, so no
+clean data remains inside it to certify a new baseline — scoring on the
+post-rebuild holdout would be scoring on data the model just trained on and
+would set an inflated baseline, against which every subsequent `SKIP` would be
+judged unfairly.
+
+**The runner owns `reference_accuracy` and must re-measure it from unseen
+future rows** after every `adapt()` call: take the next `N_REF` (default 200)
+rows the stream hasn't produced yet, score the returned model on them, and use
+that as `reference_accuracy` for the next alarm. Those rows then continue
+through the normal stream loop as usual — they are not consumed. If fewer than
+`N_REF` rows remain, carry the previous `reference_accuracy` forward and log
+that this happened. `experiments/verify_selector.py` implements this rule as a
+manual, single-pass illustration (not the Phase 6 runner).
+
+### Guard condition — degrading to REBUILD on small windows
+
+Below `min_holdout_rows` (default 50) or `min_train_rows` (default 100), a
+holdout is too small for its accuracy read to be signal rather than noise —
+with a 20-row holdout, a single misclassification moves accuracy by 5 points,
+larger than the default 2-point floor.
+
+**This bypasses both the `SKIP` and the `NUDGE` checks, not just the nudge.**
+The spec text only explicitly says "do not attempt a nudge," but the stated
+rationale — the accuracy estimate is noise — applies just as much to trusting
+a tiny holdout's "the model is still fine" as it does to trusting its "the
+nudge worked." Since a drift alarm already fired to get here, we don't have a
+reliable signal to justify doing nothing, so the safe default is to spend the
+cost and rebuild. `acc_before` is still computed and recorded on the small
+holdout for audit purposes, but the decision does not use it.
+`AdaptResult.degraded_to_rebuild` flags every time this happened, so the
+analysis can count it.
+
+### REBUILD's `acc_after` is optimistic
+
+A `REBUILD` trains on the full window, holdout included, then is scored on
+that same holdout — data it just trained on. `acc_after` for a `REBUILD` is
+therefore **not comparable** to `acc_before` / `acc_nudged`, which are always
+scored on data the model being evaluated has never seen. This is correct
+behaviour (the rebuild is the final answer and should use everything
+available) but downstream analysis must not treat it as apples-to-apples.
+
+### Cost accounting
+
+A `REBUILD` outcome's cost is `nudge_cost + rebuild_cost`, never `rebuild_cost`
+alone — the wasted nudge attempt is not discarded. Silently dropping it would
+flatter the method's headline number (spec trap #5). A `SKIP`'s cost is an
+exact `CostRecord.zero()`, not a near-zero approximation.
+
+### Scoring
+
+Default scorer is plain accuracy, but it is injectable
+(`scorer: Callable = accuracy_score`) because the multi-class streams
+(`insects_*`, `covtype`) are severely imbalanced. Experiments on those streams
+should use `balanced_accuracy_score`; `elec2` uses plain accuracy. `floor_drop`
+is in the units of whichever scorer is chosen, and every result row must
+record which scorer was used — do not silently mix them across a grid.
+
+### Manual verification — elec2 + XGBoost, one pass
+
+34 fixed-size 1,000-row windows walked across `elec2`, each treated as if a
+drift alarm had just fired on it (this is a lightweight stand-in for Phase 6's
+ADWIN-triggered loop, not the loop itself):
+
+```
+SKIP=14  NUDGE=10  REBUILD=10  (degraded_to_rebuild=0)
+```
+
+**Nudge success rate: 10 / 20 = 50%** of the times a nudge was attempted, it
+recovered accuracy above the floor without needing a rebuild. The core
+economic argument only requires this to exceed ~4% (the measured nudge cost as
+a fraction of rebuild cost for XGBoost, see Phase 3 table) for try-first to be
+worth it on expectation — 50% clears that by a wide margin on this stream. Full
+JSON in `results/selector_manual_run_elec2_xgb.json`.
