@@ -1,7 +1,7 @@
 .venv/
 __pycache__/
 *.pyc
-results/
+results/*
 !results/dataset_manifest.json
 !results/mechanism_ratios.json
 !results/test_report.txt

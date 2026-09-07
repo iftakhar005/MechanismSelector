@@ -1,0 +1,84 @@
+[
+  {
+    "name": "elec2",
+    "n_rows": 45312,
+    "n_features": 8,
+    "n_classes": 2,
+    "class_balance": {
+      "0": 26075,
+      "1": 19237
+    },
+    "dtype": "float64",
+    "has_nan": false,
+    "source": "river.datasets.Elec2 (Harries 1999, NSW electricity market)"
+  },
+  {
+    "name": "insects_abrupt",
+    "n_rows": 52848,
+    "n_features": 33,
+    "n_classes": 6,
+    "class_balance": {
+      "0": 8808,
+      "1": 8808,
+      "2": 8808,
+      "3": 8808,
+      "4": 8808,
+      "5": 8808
+    },
+    "dtype": "float64",
+    "has_nan": false,
+    "source": "river.datasets.Insects(abrupt_balanced) (Souza et al. 2020)"
+  },
+  {
+    "name": "insects_gradual",
+    "n_rows": 24150,
+    "n_features": 33,
+    "n_classes": 6,
+    "class_balance": {
+      "0": 4025,
+      "1": 4025,
+      "2": 4025,
+      "3": 4025,
+      "4": 4025,
+      "5": 4025
+    },
+    "dtype": "float64",
+    "has_nan": false,
+    "source": "river.datasets.Insects(gradual_balanced) (Souza et al. 2020)"
+  },
+  {
+    "name": "insects_incremental",
+    "n_rows": 57018,
+    "n_features": 33,
+    "n_classes": 6,
+    "class_balance": {
+      "0": 9503,
+      "1": 9503,
+      "2": 9503,
+      "3": 9503,
+      "4": 9503,
+      "5": 9503
+    },
+    "dtype": "float64",
+    "has_nan": false,
+    "source": "river.datasets.Insects(incremental_balanced) (Souza et al. 2020)"
+  },
+  {
+    "name": "covtype",
+    "n_rows": 100000,
+    "n_features": 54,
+    "n_classes": 7,
+    "class_balance": {
+      "0": 22026,
+      "1": 66751,
+      "2": 2160,
+      "3": 2160,
+      "4": 2583,
+      "5": 2160,
+      "6": 2160
+    },
+    "dtype": "float64",
+    "has_nan": false,
+    "source": "sklearn.datasets.fetch_covtype (Blackard & Dean 1999, UCI)"
+  }
+]
