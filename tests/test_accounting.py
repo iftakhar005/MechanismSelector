@@ -324,3 +324,14 @@ def test_energy_is_never_required(data):
     _, cost = measure(lambda: GaussianNB().fit(X, y), n_rows=len(X))
     assert cost.energy_kwh is None
     assert cost.work_units > 0
+
+
+def test_placeholder_rows_accumulate_and_are_never_charged():
+    nudge = CostRecord(5, 5, PASS_TREES, 800, 5 * 800, 0.1, None, n_placeholder_rows=2)
+    rebuild = CostRecord(100, 100, PASS_TREES, 1000, 100 * 1000, 1.0, None, n_placeholder_rows=3)
+    total = nudge + rebuild
+
+    assert total.n_placeholder_rows == 5
+    assert total.n_rows_processed == 1800, "placeholders are not training rows"
+    assert total.work_units == 5 * 800 + 100 * 1000
+    assert CostRecord.zero().n_placeholder_rows == 0

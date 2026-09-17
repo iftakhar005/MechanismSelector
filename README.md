@@ -634,3 +634,78 @@ from chunk size 1 and chunk size 700 under real ADWIN on a drifting stream.
 - **Energy is secondary and whole-run.** CodeCarbon, process mode, no RAPL on
   this CPU — an estimate. Measured runs imply 10–16 W, which is plausible for
   this laptop.
+
+## Phase 7 plan — requirements fixed before analysis
+
+These were set before any grid result was examined, so the analysis cannot be
+shaped to fit the results.
+
+### Effective sample size and uncertainty
+
+**XGBoost and GaussianNB cells are collapsed to one observation each.** Neither
+model uses randomness at these settings, so their five seeds reproduce one
+result. Counting them as five would be pseudo-replication. The statistical
+tests therefore use:
+
+| Model | Cells | Observations per cell | Total |
+|---|---|---|---|
+| Random Forest | 5 | 5 seeds | 25 |
+| SGD | 5 | 5 seeds | 25 |
+| XGBoost | 5 | 1 (collapsed) | 5 |
+| GaussianNB | 5 | 1 (collapsed) | 5 |
+| **effective n** | | | **60, not 100** |
+
+Determinism is verified on the real grid, not assumed from the probe: before
+collapsing, the analysis checks that every XGBoost and GaussianNB seed produced
+identical outcome fields, and stops if any did not.
+
+**Error bars exist only for Random Forest and SGD.** Deterministic cells have no
+seed variance to estimate, so they are shown as point values, visibly distinct
+from RF/SGD intervals. No figure or table presents uniform confidence intervals
+across the grid.
+
+**Recommended sensitivity analysis: n = 20.** The 50 RF/SGD observations are not
+fully independent either: all five seeds in a cell replay the same stream and
+share every drift point, differing only in model randomness. The standard
+treatment for Friedman/Nemenyi comparisons in machine learning (Demšar, 2006) is
+one observation per dataset — here one per (dataset, model) cell, seeds averaged,
+n = 20. The paper should report whether conclusions at n = 60 survive at n = 20.
+
+### Placeholder sensitivity
+
+Every adaptation event records whether zero-weight class placeholders were
+injected and how many (`placeholders_injected`, `n_placeholder_rows`); every run
+records totals. Headline results are reported twice — over all adaptations, and
+restricted to adaptations with no placeholders — with the share of affected
+adaptations stated per dataset. Affected-window counts are expected to be large
+on covtype and small elsewhere.
+
+`experiments/placeholder_sanity.py` tests whether placeholders are harmless
+rather than merely absent: it forces them into every adaptation fit on elec2,
+where none are needed, for Random Forest and SGD, and compares the effect against
+changing the seed. Results are recorded in the Phase 6 notes once run.
+
+### Diagnostic: does nudge quality decay as nudges accumulate?
+
+On elec2, `AlwaysNudge` scored below `NeverAdapt`, and XGBoost rounds added by
+nudges are shallower than the original rounds (per-prediction cost grew 2.45×
+while rounds grew 2.70×). Both are consistent with nudges fitting the recent
+window rather than extending the model. If nudge quality decays with repetition,
+that is a finding about the limits of cheap repair and is reported as one.
+
+- **Unit:** every NUDGE event, with `nudges_since_rebuild` (consecutive nudges
+  since the last rebuild or the initial fit) as the accumulation depth.
+- **Quality measures:** holdout gain `acc_nudged − acc_before` (out-of-sample);
+  accuracy of the nudged model on the following 200 rows (the next event's
+  reference, when not carried forward).
+- **The confounder is stream position.** Later windows may simply be harder.
+  `FixedSchedule(k=3)` controls for it: its nudge depth cycles 1, 2, 1, 2 at the
+  same stream positions where `AlwaysNudge`'s depth keeps growing. Decay caused
+  by accumulation appears in `AlwaysNudge` and not in `FixedSchedule` at matched
+  positions; decay caused by position appears in both.
+- **Family contrast:** Random Forest retires its oldest trees and stays constant
+  in size; XGBoost accumulates. Decay in XGBoost only points at accumulation;
+  decay in both points at fitting the recent window.
+- **Mechanism check, if decay appears:** replay a small number of XGBoost
+  `AlwaysNudge` runs and measure nodes added per nudge, to test the
+  shallower-rounds explanation directly rather than inferring it.

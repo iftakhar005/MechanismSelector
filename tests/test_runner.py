@@ -89,7 +89,7 @@ def spying(calls):
             def adapt(self, model, X, y, reference_accuracy):
                 result = inner.adapt(model, X, y, reference_accuracy)
                 calls.append({"X": X.copy(), "y": y.copy(), "ref": reference_accuracy,
-                              "returned": result.model})
+                              "returned": result.model, "result": result})
                 return result
 
         return Spy()
@@ -359,3 +359,79 @@ def test_grid_isolates_a_failing_run_and_keeps_going(tmp_path):
     with (tmp_path / "grid_failures.csv").open(newline="", encoding="utf-8") as f:
         failures = list(csv.DictReader(f))
     assert len(failures) == 1 and "boom" in failures[0]["error"]
+
+
+# --- placeholder logging --------------------------------------------------------------
+
+
+def missing_class_stream():
+    """3-class stream with stretches that lack classes, and an init slice missing one."""
+    X, y = drifting_stream(n=3000, n_classes=3)
+    y[:300] = np.where(y[:300] == 2, 0, y[:300])
+    y[1200:1900] = 1
+    return X, y, np.arange(3)
+
+
+def n_missing(y_part, classes):
+    return len(np.setdiff1d(classes, np.unique(y_part)))
+
+
+@pytest.mark.parametrize("model_name", ["xgb", "rf", "sgd"])
+@pytest.mark.parametrize("policy_key", ["always_rebuild", "always_nudge"])
+def test_event_placeholder_counts_match_the_rows_each_operation_received(model_name, policy_key):
+    X, y, classes = missing_class_stream()
+    calls = []
+    record, events = run_stream(X, y, model_name, policy_key, 0, CFG,
+                                detector_factory=scripted({500, 950, 1100, 1300, 1500, 1750, 2200}),
+                                policy_factory=spying(calls))
+
+    for call, ev in zip(calls, events):
+        if policy_key == "always_rebuild":
+            expected = n_missing(call["y"], classes)               # rebuild fits the full window
+        elif model_name in ("xgb", "rf"):
+            k = int(len(call["y"]) * (1 - CFG.holdout_frac))
+            expected = n_missing(call["y"][:k], classes)           # nudge fits the train part
+        else:
+            expected = 0                                           # partial_fit needs none
+        assert ev["n_placeholder_rows"] == expected
+        assert ev["placeholders_injected"] is (expected > 0)
+
+    assert any(e["placeholders_injected"] for e in events) or model_name == "sgd" and policy_key == "always_nudge", (
+        "precondition: this stream must actually trigger placeholders"
+    )
+    assert record["total_placeholder_rows"] == sum(e["n_placeholder_rows"] for e in events)
+    assert record["n_adaptations_with_placeholders"] == sum(e["placeholders_injected"] for e in events)
+
+
+def test_selector_rebuild_event_counts_placeholders_from_both_operations():
+    X, y, classes = missing_class_stream()
+    calls = []
+    _, events = run_stream(X, y, "xgb", "mechanism_selector", 0, CFG,
+                           detector_factory=scripted({950, 1100, 1300, 1500, 1750}),
+                           policy_factory=spying(calls))
+
+    checked = 0
+    for call, ev in zip(calls, events):
+        if ev["action"] != REBUILD or ev["degraded_to_rebuild"]:
+            continue
+        k = int(len(call["y"]) * (1 - CFG.holdout_frac))
+        assert ev["n_placeholder_rows"] == n_missing(call["y"][:k], classes) + n_missing(call["y"], classes)
+        checked += 1
+    assert checked >= 1, "precondition: at least one nudge-then-rebuild on an affected window"
+
+
+def test_initial_placeholder_rows_are_recorded():
+    X, y, _ = missing_class_stream()                # class 2 absent from the init slice
+    record, _ = run_stream(X, y, "xgb", "never_adapt", 0, CFG)
+    assert record["initial_placeholder_rows"] == 1
+
+    X2, y2 = drifting_stream(n=3000, n_classes=3)
+    assert run_stream(X2, y2, "xgb", "never_adapt", 0, CFG)[0]["initial_placeholder_rows"] == 0
+
+
+def test_nudges_since_rebuild_counts_consecutive_nudges_and_resets_on_rebuild():
+    X, y = drifting_stream()
+    _, events = run_stream(X, y, "gnb", "fixed_schedule", 0, CFG, detector_factory=scripted(range(0, 3000, 150)))
+
+    depths = [e["nudges_since_rebuild"] for e in events]
+    assert depths[:6] == [1, 2, 0, 1, 2, 0], "k=3: NUDGE, NUDGE, REBUILD repeating"

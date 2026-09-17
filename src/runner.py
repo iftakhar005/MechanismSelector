@@ -100,6 +100,7 @@ RECORD_FIELDS = [
     "n_alarms", "n_adaptations", "n_skip", "n_nudge", "n_rebuild", "n_degraded",
     "n_alarms_deferred", "n_alarms_coalesced", "n_alarms_unserved", "n_reference_carried",
     "n_nudge_attempts", "n_nudge_successes",
+    "n_adaptations_with_placeholders", "total_placeholder_rows", "initial_placeholder_rows",
     "total_work_units", "total_estimators_fitted", "total_rows_processed", "total_passes",
     "total_wall_clock_s", "total_energy_kwh", "initial_work_units",
     "final_prequential_accuracy", "mean_prequential_accuracy",
@@ -119,6 +120,7 @@ EVENT_FIELDS = [
     "acc_before", "acc_nudged", "acc_after",
     "work_units", "n_passes", "n_estimators_fitted", "rows_processed",
     "cumulative_work_units", "model_size_after", "model_size_unit",
+    "placeholders_injected", "n_placeholder_rows", "nudges_since_rebuild",
 ]
 
 
@@ -211,6 +213,7 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
     model = spec.factory(seed)
     X0, y0, kw = anchor_missing_classes(X[:n_init_train], y[:n_init_train], classes)
     model, init_cost = measure(lambda: model.fit(X0, y0, **kw), n_rows=n_init_train)
+    initial_placeholder_rows = len(y0) - n_init_train
     reference_accuracy = float(scorer(y[n_init_train:n_init], model.predict(X[n_init_train:n_init])))
 
     probe = X[max(0, n - config.probe_rows):]
@@ -227,6 +230,8 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
     counts = {SKIP: 0, NUDGE: 0, REBUILD: 0}
     n_alarms = n_degraded = n_deferred = n_coalesced = n_carried = 0
     n_nudge_attempts = 0
+    n_with_placeholders = total_placeholders = 0
+    nudges_since_rebuild = 0  # consecutive-nudge depth; the initial model counts as a rebuild
     totals = dict(work_units=0, estimators=0, rows=0, passes=0, wall=0.0)
 
     buf_start = n_init
@@ -278,6 +283,12 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
             counts[result.action] += 1
             n_degraded += int(result.degraded_to_rebuild)
             n_nudge_attempts += int(result.acc_nudged is not None)
+            n_with_placeholders += int(cost.n_placeholder_rows > 0)
+            total_placeholders += cost.n_placeholder_rows
+            if result.action == REBUILD:
+                nudges_since_rebuild = 0
+            elif result.action == NUDGE:
+                nudges_since_rebuild += 1
             totals["work_units"] += cost.work_units
             totals["estimators"] += cost.n_estimators_fitted
             totals["rows"] += cost.n_rows_processed
@@ -297,6 +308,9 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                 "n_estimators_fitted": cost.n_estimators_fitted, "rows_processed": cost.n_rows_processed,
                 "cumulative_work_units": totals["work_units"],
                 "model_size_after": size_after, "model_size_unit": size_unit,
+                "placeholders_injected": cost.n_placeholder_rows > 0,
+                "n_placeholder_rows": cost.n_placeholder_rows,
+                "nudges_since_rebuild": nudges_since_rebuild,
             })
 
             buf_start = row + 1
@@ -323,6 +337,9 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
         "n_reference_carried": n_carried,
         "n_nudge_attempts": n_nudge_attempts,
         "n_nudge_successes": counts[NUDGE] if is_selector else None,
+        "n_adaptations_with_placeholders": n_with_placeholders,
+        "total_placeholder_rows": total_placeholders,
+        "initial_placeholder_rows": initial_placeholder_rows,
         "total_work_units": totals["work_units"], "total_estimators_fitted": totals["estimators"],
         "total_rows_processed": totals["rows"], "total_passes": totals["passes"],
         "total_wall_clock_s": totals["wall"], "total_energy_kwh": None,

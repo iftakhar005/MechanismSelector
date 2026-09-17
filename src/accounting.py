@@ -63,6 +63,11 @@ class CostRecord:
         work_units: ``n_passes * n_rows_processed``. The headline number.
         wall_clock_s: secondary. Never used in decision logic.
         energy_kwh: secondary, often None. Never used in decision logic.
+        n_placeholder_rows: zero-weight rows appended so the fit saw every
+            class (see `mechanisms.anchor_missing_classes`). Audit metadata,
+            like `pass_source`: never charged, never counted in
+            `n_rows_processed`, recorded so results can be reported with and
+            without the operations it affected.
     """
 
     n_estimators_fitted: int
@@ -72,6 +77,7 @@ class CostRecord:
     work_units: int
     wall_clock_s: float
     energy_kwh: float | None
+    n_placeholder_rows: int = 0
 
     @staticmethod
     def zero() -> "CostRecord":
@@ -112,6 +118,7 @@ class CostRecord:
             work_units=self.work_units + other.work_units,
             wall_clock_s=self.wall_clock_s + other.wall_clock_s,
             energy_kwh=sum(energies) if energies else None,
+            n_placeholder_rows=self.n_placeholder_rows + other.n_placeholder_rows,
         )
 
     def with_energy(self, energy_kwh: float | None) -> "CostRecord":

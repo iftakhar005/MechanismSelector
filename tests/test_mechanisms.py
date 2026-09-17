@@ -385,3 +385,22 @@ def test_anchor_adds_one_zero_weight_copy_per_missing_class():
 def test_anchor_refuses_an_empty_window():
     with pytest.raises(ValueError):
         anchor_missing_classes(np.empty((0, 3)), np.empty(0, dtype=int), np.arange(2))
+
+
+@pytest.mark.parametrize("name", GRID_MODELS)
+def test_placeholder_count_is_recorded_on_the_cost(name, full_class_data):
+    X_full, y_full = full_class_data
+    X_win, y_win = missing_class_windows()["missing_3_to_6"]     # 4 classes absent
+    spec = make_spec(name, SEVEN)
+    rng = np.random.default_rng(0)
+
+    _, rebuild_cost = RebuildMechanism(spec).apply(None, X_win, y_win, rng)
+    assert rebuild_cost.n_placeholder_rows == 4
+
+    full = spec.factory(0).fit(X_full, y_full)
+    _, nudge_cost = NudgeMechanism(spec).apply(full, X_win, y_win, rng)
+    expected = 4 if name in ("xgb", "rf") else 0   # partial_fit declares classes itself
+    assert nudge_cost.n_placeholder_rows == expected
+
+    _, clean = RebuildMechanism(spec).apply(None, X_full, y_full, rng)
+    assert clean.n_placeholder_rows == 0, "no class missing, no placeholders"

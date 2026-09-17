@@ -75,7 +75,7 @@ Measured properties, pinned by tests:
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any, Callable, Protocol
 
 import numpy as np
@@ -267,6 +267,11 @@ def anchor_missing_classes(
     return X_anchored, y_anchored, {"sample_weight": weight}
 
 
+def _record_placeholders(cost: CostRecord, n_placeholders: int) -> CostRecord:
+    """Attach how many placeholder rows the operation used. Never charged."""
+    return replace(cost, n_placeholder_rows=n_placeholders) if n_placeholders else cost
+
+
 # --- mechanisms --------------------------------------------------------------
 
 
@@ -291,7 +296,8 @@ class RebuildMechanism:
     def apply(self, model, X, y, rng) -> tuple[Any, CostRecord]:  # noqa: ARG002
         fresh = self.spec.factory(self.seed)
         X_fit, y_fit, kwargs = anchor_missing_classes(X, y, self.spec.classes)
-        return measure(lambda: fresh.fit(X_fit, y_fit, **kwargs), n_rows=len(X))
+        fitted, cost = measure(lambda: fresh.fit(X_fit, y_fit, **kwargs), n_rows=len(X))
+        return fitted, _record_placeholders(cost, len(y_fit) - len(y))
 
 
 @dataclass
@@ -335,11 +341,12 @@ class NudgeMechanism:
         extended.set_params(n_estimators=k)
         X_fit, y_fit, kwargs = anchor_missing_classes(X, y, self.spec.classes)
 
-        return measure(
+        fitted, cost = measure(
             lambda: extended.fit(X_fit, y_fit, xgb_model=booster, **kwargs),
             n_rows=len(X),
             baseline=base,
         )
+        return fitted, _record_placeholders(cost, len(y_fit) - len(y))
 
     def _nudge_rf(self, model, X, y) -> tuple[Any, CostRecord]:
         """Add k trees and drop the k oldest, keeping the forest a fixed size.
@@ -365,7 +372,7 @@ class NudgeMechanism:
 
         fitted.estimators_ = fitted.estimators_[k:]  # drop k oldest, retain k newest
         fitted.n_estimators = len(fitted.estimators_)
-        return fitted, cost
+        return fitted, _record_placeholders(cost, len(y_fit) - len(y))
 
     def _nudge_partial(self, model, X, y) -> tuple[Any, CostRecord]:
         """One incremental update via partial_fit.
