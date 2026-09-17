@@ -734,3 +734,51 @@ that is a finding about the limits of cheap repair and is reported as one.
 - **Mechanism check, if decay appears:** replay a small number of XGBoost
   `AlwaysNudge` runs and measure nodes added per nudge, to test the
   shallower-rounds explanation directly rather than inferring it.
+
+### Requirements added after seed 0 (set before the full grid)
+
+**Failure modes are reported per model family, never averaged.** Seed 0
+suggests the nudge fails for different reasons in different families. XGBoost's
+nudge moves accuracy but recovers only a fraction of the deficit (elec2 median:
+~20%). Random Forest and GaussianNB nudges leave holdout accuracy exactly
+unchanged in 55–88% of attempts. Averaging those into a single "nudge
+effectiveness" figure would describe no real model. Each family is reported on
+its own.
+
+To tell "changed nothing" apart from "changed predictions that happened to
+cancel out", every nudge now logs `nudge_prediction_change`: the share of
+holdout predictions the nudge altered. Accuracy alone cannot make that
+distinction.
+
+**The alarm-time deficit is recorded at every alarm, unconditionally.**
+`accuracy_deficit = reference_accuracy_used − acc_before` is logged for every
+adaptation of every policy. Positive means the model is below its recent
+accuracy; negative means ADWIN fired on an *improvement*. The unconditional
+distribution comes from `NeverAdapt` and `AlwaysNudge`, which act on every
+alarm. The selector's own nudge attempts must not be used for this: it nudges
+only when the model is already below its floor, so its attempts show a deficit
+by construction. Deficits are measured when the adaptation is served; if an
+alarm was deferred by the minimum-buffer guard, that is up to 99 rows after it
+fired (`deferred_rows`).
+
+Whether detector-triggered adaptation reliably implies a deficit is a question
+independent of this method.
+
+### Known limitation — class sensitivity of the reference on covtype
+
+On multi-class streams the reference is balanced accuracy over the next 200
+rows, and on covtype those slices usually contain only one or two classes
+(79–86% of slices at seed 0). The reference depends on that class mix: fewer
+classes, higher reference (Spearman ρ from −0.28 to −0.43, p ≤ 0.004).
+
+This was examined and deliberately left as specified. The holdout it is compared
+against is equally class-sparse (median 2 classes on both sides), and rescoring
+each seed-0 decision on only the classes both sides share removed just 3%, 12%
+and 11% of the alarm-time deficit for XGBoost, Random Forest and GaussianNB. The
+rest is real accuracy loss. For SGD the mismatch accounted for its whole gap, but
+in the selector's favour. Changing the scorer after seeing results would have
+been post-hoc tuning in either direction.
+
+An earlier analysis described the covtype reference as "13–42 points inflated".
+That compared it against whole-stream accuracy over all seven classes, which is
+not the comparison the floor makes, and it overstated the problem.

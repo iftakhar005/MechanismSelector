@@ -435,3 +435,19 @@ def test_nudges_since_rebuild_counts_consecutive_nudges_and_resets_on_rebuild():
 
     depths = [e["nudges_since_rebuild"] for e in events]
     assert depths[:6] == [1, 2, 0, 1, 2, 0], "k=3: NUDGE, NUDGE, REBUILD repeating"
+
+
+@pytest.mark.parametrize("policy_key", ["never_adapt", "always_nudge", "mechanism_selector"])
+def test_every_event_logs_the_deficit_at_alarm_time(policy_key):
+    X, y = drifting_stream()
+    _, events = run_stream(X, y, "xgb", policy_key, 0, CFG, detector_factory=scripted(range(0, 3000, 150)))
+
+    assert len(events) > 5
+    for ev in events:
+        assert ev["accuracy_deficit"] == pytest.approx(ev["reference_accuracy_used"] - ev["acc_before"]), (
+            "positive deficit = model below its reference; negative = alarm fired on an improvement"
+        )
+        nudged = ev["acc_nudged"] is not None
+        assert (ev["nudge_prediction_change"] is not None) == nudged
+        if nudged:
+            assert 0.0 <= ev["nudge_prediction_change"] <= 1.0

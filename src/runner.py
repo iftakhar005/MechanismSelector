@@ -121,6 +121,7 @@ EVENT_FIELDS = [
     "work_units", "n_passes", "n_estimators_fitted", "rows_processed",
     "cumulative_work_units", "model_size_after", "model_size_unit",
     "placeholders_injected", "n_placeholder_rows", "nudges_since_rebuild",
+    "accuracy_deficit", "nudge_prediction_change",
 ]
 
 
@@ -311,6 +312,8 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                 "placeholders_injected": cost.n_placeholder_rows > 0,
                 "n_placeholder_rows": cost.n_placeholder_rows,
                 "nudges_since_rebuild": nudges_since_rebuild,
+                "accuracy_deficit": reference_accuracy - result.acc_before,
+                "nudge_prediction_change": result.prediction_change,
             })
 
             buf_start = row + 1

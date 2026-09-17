@@ -139,6 +139,11 @@ class AdaptResult:
         n_holdout_rows: rows in the holdout.
         degraded_to_rebuild: True if the window was too small to trust a
             holdout-based decision, so REBUILD was taken unconditionally.
+        prediction_change: share of holdout rows whose predicted label the
+            nudge changed, whenever a nudge was performed; otherwise None.
+            Distinguishes a nudge that moved predictions without improving
+            accuracy from one that left predictions untouched -- accuracy
+            alone cannot, because flips can cancel.
     """
 
     model: Any
@@ -151,6 +156,7 @@ class AdaptResult:
     n_train_rows: int
     n_holdout_rows: int
     degraded_to_rebuild: bool = False
+    prediction_change: float | None = None
 
 
 class MechanismSelector:
@@ -198,7 +204,11 @@ class MechanismSelector:
         self.seed = seed
 
     def _score(self, model: Any, X: np.ndarray, y: np.ndarray) -> float:
-        return float(self.scorer(y, model.predict(X)))
+        return self._predict_score(model, X, y)[1]
+
+    def _predict_score(self, model: Any, X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, float]:
+        predictions = model.predict(X)
+        return predictions, float(self.scorer(y, predictions))
 
     def _split(
         self, X: np.ndarray, y: np.ndarray
@@ -253,7 +263,7 @@ class MechanismSelector:
                 degraded_to_rebuild=True,
             )
 
-        acc_before = self._score(model, X_holdout, y_holdout)
+        pred_before, acc_before = self._predict_score(model, X_holdout, y_holdout)
 
         if acc_before >= floor:
             return AdaptResult(
@@ -272,7 +282,8 @@ class MechanismSelector:
         candidate, nudge_cost = self.nudge_mechanism.apply(
             candidate, X_train, y_train, rng
         )
-        acc_nudged = self._score(candidate, X_holdout, y_holdout)
+        pred_nudged, acc_nudged = self._predict_score(candidate, X_holdout, y_holdout)
+        prediction_change = float(np.mean(pred_nudged != pred_before))
 
         if acc_nudged >= floor:
             return AdaptResult(
@@ -285,6 +296,7 @@ class MechanismSelector:
                 floor=floor,
                 n_train_rows=n_train_rows,
                 n_holdout_rows=n_holdout_rows,
+                prediction_change=prediction_change,
             )
 
         fresh, rebuild_cost = self.rebuild_mechanism.apply(
@@ -302,4 +314,5 @@ class MechanismSelector:
             floor=floor,
             n_train_rows=n_train_rows,
             n_holdout_rows=n_holdout_rows,
+            prediction_change=prediction_change,
         )

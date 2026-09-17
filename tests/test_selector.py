@@ -402,3 +402,31 @@ def test_all_four_model_families(name):
 
     assert result.action in (SKIP, NUDGE, REBUILD)
     assert isinstance(result, AdaptResult)
+
+
+# --- prediction change ---------------------------------------------------------
+
+
+def test_prediction_change_is_recorded_whenever_a_nudge_is_performed():
+    X, y = make_window(n=1000, seed=20)
+
+    flips = build_selector(FakeMechanism(NUDGE_COST, mutate_in_place), FakeMechanism(REBUILD_COST, flip_label))
+    nudged = flips.adapt(FakeModel(label=0), X, y, reference_accuracy=1.0)
+    assert nudged.action == NUDGE
+    assert nudged.prediction_change == 1.0, "label 0 -> 1 changes every holdout prediction"
+
+    unchanged = lambda model, X, y: FakeModel(label=model.label)  # noqa: E731
+    stays = build_selector(FakeMechanism(NUDGE_COST, unchanged), FakeMechanism(REBUILD_COST, flip_label))
+    escalated = stays.adapt(FakeModel(label=0), X, y, reference_accuracy=1.0)
+    assert escalated.action == REBUILD
+    assert escalated.prediction_change == 0.0, "the failed nudge changed nothing, and that is recorded"
+
+
+def test_prediction_change_is_none_when_no_nudge_happens():
+    X, y = make_window(n=1000, seed=21)
+    sel = build_selector(FakeMechanism(NUDGE_COST, mutate_in_place), FakeMechanism(REBUILD_COST, flip_label))
+    assert sel.adapt(FakeModel(label=1), X, y, reference_accuracy=1.0).prediction_change is None  # SKIP
+
+    small_X, small_y = make_window(n=60, seed=22)
+    degraded = sel.adapt(FakeModel(label=1), small_X, small_y, reference_accuracy=1.0)
+    assert degraded.degraded_to_rebuild and degraded.prediction_change is None

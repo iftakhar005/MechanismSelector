@@ -124,7 +124,11 @@ class _FixedActionPolicy:
         self.seed = seed
 
     def _score(self, model: Any, X: np.ndarray, y: np.ndarray) -> float:
-        return float(self.scorer(y, model.predict(X)))
+        return self._predict_score(model, X, y)[1]
+
+    def _predict_score(self, model: Any, X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, float]:
+        predictions = model.predict(X)
+        return predictions, float(self.scorer(y, predictions))
 
     def _skip(self, model, X_window, y_window) -> AdaptResult:
         _, _, X_holdout, y_holdout = temporal_split(X_window, y_window, self.holdout_frac)
@@ -147,11 +151,11 @@ class _FixedActionPolicy:
         X_train, y_train, X_holdout, y_holdout = temporal_split(
             X_window, y_window, self.holdout_frac
         )
-        acc_before = self._score(model, X_holdout, y_holdout)
+        pred_before, acc_before = self._predict_score(model, X_holdout, y_holdout)
 
         candidate = copy.deepcopy(model)  # the caller's model is never mutated
         candidate, cost = self.nudge_mechanism.apply(candidate, X_train, y_train, rng)
-        acc_nudged = self._score(candidate, X_holdout, y_holdout)
+        pred_nudged, acc_nudged = self._predict_score(candidate, X_holdout, y_holdout)
 
         return AdaptResult(
             model=candidate,
@@ -163,6 +167,7 @@ class _FixedActionPolicy:
             floor=math.nan,
             n_train_rows=len(X_train),
             n_holdout_rows=len(X_holdout),
+            prediction_change=float(np.mean(pred_nudged != pred_before)),
         )
 
     def _rebuild(self, model, X_window, y_window) -> AdaptResult:

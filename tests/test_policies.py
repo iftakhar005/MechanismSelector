@@ -347,3 +347,10 @@ def test_all_five_policies_run_on_every_grid_model(key, name):
         assert result.cost.work_units >= 0
         model = result.model
         assert hasattr(model, "predict")
+
+
+def test_baseline_prediction_change_recorded_for_nudges_only():
+    X, y = window()
+    assert AlwaysNudge(*mechanisms()).adapt(FakeModel(0), X, y, 1.0).prediction_change == 1.0
+    assert AlwaysRebuild(*mechanisms()).adapt(FakeModel(0), X, y, 1.0).prediction_change is None
+    assert NeverAdapt(*mechanisms()).adapt(FakeModel(0), X, y, 1.0).prediction_change is None
