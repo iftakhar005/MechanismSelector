@@ -8,5 +8,6 @@ results/*
 !results/selector_manual_run_elec2_xgb.json
 !results/policies_manual_run_elec2_xgb.json
 !results/grid/
+!results/placeholder_sanity.json
 emissions.csv
 .pytest_cache/

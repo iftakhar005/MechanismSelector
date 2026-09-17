@@ -600,6 +600,31 @@ Random Forest and SGD they shift the bootstrap / shuffle random stream without
 carrying weight — a different, equally valid draw, and only on windows actually
 missing a class. Details in `mechanisms.py`.
 
+**Placeholder sanity check** (`experiments/placeholder_sanity.py`,
+`results/placeholder_sanity.json`). Forced one zero-weight placeholder into
+every adaptation fit on elec2 — where no class is ever missing — for Random
+Forest and SGD, all five policies, seeds 0–4, against the unmodified runs:
+
+| | Random Forest | SGD |
+|---|---|---|
+| controls (no adaptation fit) identical | yes | yes |
+| adaptation runs bit-for-bit identical | 0 / 20 | 0 / 15 |
+| mean prequential accuracy: forced − normal | +0.17 pp, 95% CI [−0.42, +0.76] | −0.44 pp, 95% CI [−1.71, +0.82] |
+| size of that effect vs a seed change | 1.12× (MWU p = 0.96) | 1.25× (p = 0.32) |
+| last-1,000-row accuracy: effect vs a seed change | 1.24× (p = 0.73) | **1.77× (p = 0.032; Holm 0.19)** |
+| total work units: effect vs a seed change | 0.76× (p = 0.81) | 1.04× (p = 0.98) |
+
+Read it as **no detectable bias, not proof of no bias**. For Random Forest,
+bias in the headline accuracy is bounded to under a point either way, and every
+effect is the size of a seed change: placeholders behave like a different random
+draw. For SGD the accuracy bound is wider (up to −1.7 pp is not ruled out), and
+end-of-stream accuracy moved 1.77× more than a seed change — not significant
+after correcting for six tests, but not dismissed either. Two limits: this tests
+the random-stream effect of a placeholder row, not the absent-class case (that
+was tested separately: placeholder-only classes receive no probability mass);
+and n = 15–20 runs gives modest power. Phase 7's with/without-placeholder
+reporting remains required; this check does not replace it.
+
 **Reference accuracy, measured causally.** After each adaptation the returned
 model's accuracy on the next 200 rows becomes the reference for the next alarm —
 the Phase 4 rule — but scored as those rows arrive rather than by reading ahead,

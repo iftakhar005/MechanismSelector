@@ -64,9 +64,14 @@ Measured properties, pinned by tests:
   identical with or without them.
 - They are *not* bit-for-bit inert for Random Forest and SGD. They carry zero
   weight, but they are still indices in the bootstrap / shuffle, which shifts the
-  random stream -- the result is a different, equally valid draw, not a biased
-  model. This happens only on windows actually missing a class, identically for
-  every policy.
+  random stream. `experiments/placeholder_sanity.py` forced them into every
+  adaptation fit on elec2 (where none are needed): no detectable bias in mean
+  prequential accuracy (RF 95% CI -0.42 to +0.76 pp; SGD -1.71 to +0.82 pp), and
+  effects comparable to a change of seed -- except SGD's last-1,000-row accuracy,
+  which moved 1.77x more than a seed change (p = 0.032 uncorrected, 0.19 after
+  Holm correction over six tests). That supports "a different draw" for Random
+  Forest; for SGD it is weaker. It happens only on windows actually missing a
+  class, identically for every policy, and every affected adaptation is logged.
 - Work units count real rows only. Placeholders are bookkeeping, not training.
 - A window with every class present gets no placeholders, so every result on
   such windows is unchanged by this handling.
