@@ -13,12 +13,24 @@
    deficit, reported only when the median deficit is at least
    `MIN_DEFICIT_PP` points -- below that the ratio is dominated by noise
    (a +12.9 gain over a +1.3 deficit is not a 1,000% recovery).
-4. **Rebuild vs no adaptation**: mean prequential accuracy of `AlwaysRebuild`
+4. **What a nudge does to predictions**: `nudge_prediction_change`, the share of
+   holdout predictions a nudge altered, and how often it altered none. Separates
+   "changed nothing" from "changed predictions that cancelled out", which
+   accuracy alone cannot.
+5. **Does an alarm imply a deficit?** The unconditional deficit at every alarm,
+   from `NeverAdapt` (the model never changes, so alarms reflect the stream and
+   detector alone) and `AlwaysNudge`, including the share of alarms that fired
+   on an improvement (negative deficit).
+6. **Rebuild vs no adaptation**: mean prequential accuracy of `AlwaysRebuild`
    against `NeverAdapt`, with the rows the initial model was trained on and the
    size of the windows rebuilds actually used.
 
 Accuracies are in each stream's scorer (plain for binary, balanced for
 multi-class), in percentage points.
+
+XGBoost and GaussianNB are deterministic -- every seed produces identical events
+(verified on the grid) -- so only seed 0 is read for them. Pooling all five
+would count every event five times.
 
     python experiments/contribution_numbers.py [grid_dir]
 """
@@ -34,6 +46,7 @@ from statistics import median, quantiles
 ROOT = Path(__file__).resolve().parents[1]
 GRID = ROOT / "results" / "grid"
 MIN_DEFICIT_PP = 2.0
+DETERMINISTIC_MODELS = {"xgb", "gnb"}
 
 
 def number(value: str) -> float | None:
@@ -55,7 +68,8 @@ def summary(values: list[float]) -> dict:
 
 def events_for(grid: Path, dataset: str, model: str, policy: str) -> list[dict]:
     rows = []
-    for path in sorted((grid / "events").glob(f"{dataset}__{model}__{policy}__*.csv")):
+    seeds = "0" if model in DETERMINISTIC_MODELS else "*"
+    for path in sorted((grid / "events").glob(f"{dataset}__{model}__{policy}__{seeds}.csv")):
         with path.open(newline="", encoding="utf-8") as f:
             rows.extend(csv.DictReader(f))
     return rows
@@ -89,6 +103,11 @@ def main(grid: Path = GRID) -> int:
         deficit = [100 * (number(e["reference_accuracy_used"]) - number(e["acc_before"]))
                    for e in nudge_events if e["reference_carried"] == "False"]
         windows = [int(e["buffer_rows"]) for e in rebuild_events]
+        change = [100 * number(e["nudge_prediction_change"]) for e in nudge_events
+                  if e.get("nudge_prediction_change") not in (None, "", "None")]
+        never_events = events_for(grid, dataset, model, "never_adapt")
+        deficit_never = [100 * number(e["accuracy_deficit"]) for e in never_events
+                         if e["reference_carried"] == "False" and e.get("accuracy_deficit") not in (None, "")]
 
         gain_u, gain_c, deficit_s = summary(unconditional), summary(conditional), summary(deficit)
         recovered = (gain_u["median"] / deficit_s["median"]
@@ -106,6 +125,12 @@ def main(grid: Path = GRID) -> int:
             "never_adapt_accuracy": median(never_acc) if never_acc else None,
             "initial_training_rows": init_rows,
             "rebuild_window_rows": summary([float(w) for w in windows]),
+            "nudge_prediction_change_pct": summary(change),
+            "share_of_nudges_changing_no_prediction": (sum(c == 0 for c in change) / len(change)) if change else None,
+            "share_of_nudges_with_zero_accuracy_change": (sum(g == 0 for g in unconditional) / len(unconditional)) if unconditional else None,
+            "deficit_at_alarm_never_adapt": summary(deficit_never),
+            "share_of_alarms_on_improvement_never_adapt": (sum(d < 0 for d in deficit_never) / len(deficit_never)) if deficit_never else None,
+            "share_of_alarms_on_improvement_always_nudge": (sum(d < 0 for d in deficit) / len(deficit)) if deficit else None,
         }
 
         def fmt(s):

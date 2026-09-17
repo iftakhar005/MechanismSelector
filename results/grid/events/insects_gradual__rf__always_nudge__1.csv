@@ -1,0 +1,8 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_gradual,rf,always_nudge,1,0,3278,3278,0,864,NUDGE,False,0.564655523848349,False,nan,0.5236559139784946,0.5236559139784946,0.5236559139784946,3455,5,5,691,3455,100,trees,True,1,1,0.0409996098698544,0.0
+insects_gradual,rf,always_nudge,1,1,10574,10574,0,1000,NUDGE,False,0.4273391812865497,False,nan,0.41815476190476186,0.41815476190476186,0.41815476190476186,4000,5,5,800,7455,100,trees,False,0,2,0.009184419381787823,0.01
+insects_gradual,rf,always_nudge,1,2,12366,12366,0,1000,NUDGE,False,0.3333333333333333,False,nan,0.0,0.0,0.0,4000,5,5,800,11455,100,trees,True,3,3,0.3333333333333333,0.0
+insects_gradual,rf,always_nudge,1,3,13838,13838,0,1000,NUDGE,False,0.0,False,nan,0.6315789473684211,0.6315789473684211,0.6315789473684211,4000,5,5,800,15455,100,trees,True,5,4,-0.6315789473684211,0.0
+insects_gradual,rf,always_nudge,1,4,13934,13938,4,100,NUDGE,False,0.0,True,nan,0.0,0.0,0.0,400,5,5,80,15855,100,trees,True,3,5,0.0,0.05
+insects_gradual,rf,always_nudge,1,5,22990,22990,0,1000,NUDGE,False,0.18154761904761904,False,nan,0.27279569892473116,0.2701075268817204,0.2701075268817204,4000,5,5,800,19855,100,trees,False,0,6,-0.09124807987711211,0.025
+insects_gradual,rf,always_nudge,1,6,23374,23374,0,384,NUDGE,False,0.24441687344913152,False,nan,0.0,0.0,0.0,1535,5,5,307,21390,100,trees,True,3,7,0.24441687344913152,0.025974025974025976

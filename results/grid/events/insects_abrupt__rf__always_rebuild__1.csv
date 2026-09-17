@@ -1,0 +1,11 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_abrupt,rf,always_rebuild,1,0,12643,12643,0,1000,REBUILD,False,0.696805621401028,False,nan,0.6792157899853133,,1.0,100000,100,100,1000,100000,100,trees,False,0,0,0.017589831415714685,
+insects_abrupt,rf,always_rebuild,1,1,14499,14499,0,1000,REBUILD,False,0.31,False,nan,0.2463810101901924,,1.0,100000,100,100,1000,200000,100,trees,False,0,0,0.0636189898098076,
+insects_abrupt,rf,always_rebuild,1,2,18019,18019,0,1000,REBUILD,False,0.3925793650793651,False,nan,0.4174768518518519,,1.0,100000,100,100,1000,300000,100,trees,False,0,0,-0.02489748677248682,
+insects_abrupt,rf,always_rebuild,1,3,19651,19651,0,1000,REBUILD,False,0.37042606516290727,False,nan,0.20674319727891155,,1.0,100000,100,100,1000,400000,100,trees,False,0,0,0.16368286788399572,
+insects_abrupt,rf,always_rebuild,1,4,28035,28035,0,1000,REBUILD,False,0.38331186357502145,False,nan,0.396494708994709,,1.0,100000,100,100,1000,500000,100,trees,False,0,0,-0.013182845419687561,
+insects_abrupt,rf,always_rebuild,1,5,33827,33827,0,1000,REBUILD,False,0.43492063492063493,False,nan,0.3442040598290598,,1.0,100000,100,100,1000,600000,100,trees,False,0,0,0.0907165750915751,
+insects_abrupt,rf,always_rebuild,1,6,38531,38531,0,1000,REBUILD,False,0.6334657690468307,False,nan,0.485,,1.0,100000,100,100,1000,700000,100,trees,False,0,0,0.14846576904683073,
+insects_abrupt,rf,always_rebuild,1,7,38723,38723,0,192,REBUILD,False,0.6334657690468307,True,nan,0.32936507936507936,,1.0,19200,100,100,192,719200,100,trees,False,0,0,0.30410068968175136,
+insects_abrupt,rf,always_rebuild,1,8,46915,46915,0,1000,REBUILD,False,0.3577543557382267,False,nan,0.4372888239116309,,1.0,100000,100,100,1000,819200,100,trees,False,0,0,-0.07953446817340415,
+insects_abrupt,rf,always_rebuild,1,9,52131,52131,0,1000,REBUILD,False,0.5727030677213969,False,nan,0.5931210691823899,,1.0,100000,100,100,1000,919200,100,trees,True,2,0,-0.02041800146099304,

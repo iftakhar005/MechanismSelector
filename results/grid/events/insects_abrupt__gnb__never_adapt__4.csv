@@ -1,0 +1,9 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_abrupt,gnb,never_adapt,4,0,13091,13091,0,1000,SKIP,False,0.6463030138345929,False,nan,0.71,,0.71,0,0,0,0,0,402,params,False,0,0,-0.06369698616540709,
+insects_abrupt,gnb,never_adapt,4,1,14403,14403,0,1000,SKIP,False,0.75,False,nan,0.15855855855855855,,0.15855855855855855,0,0,0,0,0,402,params,False,0,0,0.5914414414414415,
+insects_abrupt,gnb,never_adapt,4,2,18019,18019,0,1000,SKIP,False,0.05823080294837004,False,nan,0.08558723196881092,,0.08558723196881092,0,0,0,0,0,402,params,False,0,0,-0.02735642902044088,
+insects_abrupt,gnb,never_adapt,4,3,19555,19555,0,1000,SKIP,False,0.18696741854636592,False,nan,0.3640318438623523,,0.3640318438623523,0,0,0,0,0,402,params,False,0,0,-0.1770644253159864,
+insects_abrupt,gnb,never_adapt,4,4,33539,33539,0,1000,SKIP,False,0.619302299726828,False,nan,0.3673780487804878,,0.3673780487804878,0,0,0,0,0,402,params,False,0,0,0.25192425094634024,
+insects_abrupt,gnb,never_adapt,4,5,38403,38403,0,1000,SKIP,False,0.36247869266161953,False,nan,0.265,,0.265,0,0,0,0,0,402,params,False,0,0,0.09747869266161951,
+insects_abrupt,gnb,never_adapt,4,6,38755,38755,0,352,SKIP,False,0.235,False,nan,0.5122303622303622,,0.5122303622303622,0,0,0,0,0,402,params,False,0,0,-0.27723036223036224,
+insects_abrupt,gnb,never_adapt,4,7,46915,46915,0,1000,SKIP,False,0.5017404622667782,False,nan,0.5941009932238003,,0.5941009932238003,0,0,0,0,0,402,params,False,0,0,-0.09236053095702212,

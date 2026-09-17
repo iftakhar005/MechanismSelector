@@ -1,0 +1,10 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_abrupt,xgb,never_adapt,3,0,12643,12643,0,1000,SKIP,False,0.7295633099702555,False,nan,0.6816385981890546,,0.6816385981890546,0,0,0,0,0,100,rounds,False,0,0,0.047924711781200946,
+insects_abrupt,xgb,never_adapt,3,1,16291,16291,0,1000,SKIP,False,0.125,False,nan,0.1282513005202081,,0.1282513005202081,0,0,0,0,0,100,rounds,False,0,0,-0.0032513005202081113,
+insects_abrupt,xgb,never_adapt,3,2,17923,17923,0,1000,SKIP,False,0.2750919733643986,False,nan,0.170479302832244,,0.170479302832244,0,0,0,0,0,100,rounds,False,0,0,0.10461267053215462,
+insects_abrupt,xgb,never_adapt,3,3,19491,19491,0,1000,SKIP,False,0.4772727272727273,False,nan,0.47101449275362317,,0.47101449275362317,0,0,0,0,0,100,rounds,False,0,0,0.006258234519104122,
+insects_abrupt,xgb,never_adapt,3,4,33187,33187,0,1000,SKIP,False,0.6094065656565657,False,nan,0.5130269036519036,,0.5130269036519036,0,0,0,0,0,100,rounds,False,0,0,0.09637966200466208,
+insects_abrupt,xgb,never_adapt,3,5,38211,38211,0,1000,SKIP,False,0.47259897828863345,False,nan,0.43764424312369526,,0.43764424312369526,0,0,0,0,0,100,rounds,False,0,0,0.03495473516493819,
+insects_abrupt,xgb,never_adapt,3,6,38723,38723,0,512,SKIP,False,0.045,False,nan,0.6556980056980057,,0.6556980056980057,0,0,0,0,0,100,rounds,False,0,0,-0.6106980056980057,
+insects_abrupt,xgb,never_adapt,3,7,46979,46979,0,1000,SKIP,False,0.5304148189557042,False,nan,0.5951554497850338,,0.5951554497850338,0,0,0,0,0,100,rounds,False,0,0,-0.06474063082932957,
+insects_abrupt,xgb,never_adapt,3,8,52067,52067,0,1000,SKIP,False,0.5998353096179183,False,nan,0.6373954599761051,,0.6373954599761051,0,0,0,0,0,100,rounds,False,0,0,-0.03756015035818683,

@@ -1,0 +1,12 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_abrupt,sgd,mechanism_selector,1,0,12707,12707,0,1000,SKIP,False,0.2639601098312003,False,0.24396010983120028,0.2660092465079677,,0.2660092465079677,0,0,0,0,0,204,params,False,0,0,-0.002049136676767427,
+insects_abrupt,sgd,mechanism_selector,1,1,14371,14371,0,1000,SKIP,False,0.0,False,-0.02,0.43,,0.43,0,0,0,0,0,204,params,False,0,0,-0.43,
+insects_abrupt,sgd,mechanism_selector,1,2,18307,18307,0,1000,REBUILD,False,0.2318706834960705,False,0.21187068349607052,0.17289719626168223,0.0,0.0,106800,107,0,1800,106800,204,params,False,0,0,0.05897348723438828,0.605
+insects_abrupt,sgd,mechanism_selector,1,3,19555,19555,0,1000,SKIP,False,0.0,False,-0.02,0.2,,0.2,0,0,0,0,106800,204,params,False,0,0,-0.2,
+insects_abrupt,sgd,mechanism_selector,1,4,28035,28035,0,1000,SKIP,False,0.16666666666666666,False,0.14666666666666667,0.16666666666666666,,0.16666666666666666,0,0,0,0,106800,204,params,False,0,0,0.0,
+insects_abrupt,sgd,mechanism_selector,1,5,33315,33315,0,1000,SKIP,False,0.0,False,-0.02,0.16666666666666666,,0.16666666666666666,0,0,0,0,106800,204,params,False,0,0,-0.16666666666666666,
+insects_abrupt,sgd,mechanism_selector,1,6,38307,38307,0,1000,SKIP,False,0.16666666666666666,False,0.14666666666666667,0.16666666666666666,,0.16666666666666666,0,0,0,0,106800,204,params,False,0,0,0.0,
+insects_abrupt,sgd,mechanism_selector,1,7,38755,38755,0,448,SKIP,False,0.0,False,-0.02,0.16666666666666666,,0.16666666666666666,0,0,0,0,106800,204,params,False,0,0,-0.16666666666666666,
+insects_abrupt,sgd,mechanism_selector,1,8,39683,39683,0,928,SKIP,False,0.16666666666666666,False,0.14666666666666667,0.16666666666666666,,0.16666666666666666,0,0,0,0,106800,204,params,False,0,0,0.0,
+insects_abrupt,sgd,mechanism_selector,1,9,46819,46819,0,1000,SKIP,False,0.0,False,-0.02,0.16666666666666666,,0.16666666666666666,0,0,0,0,106800,204,params,False,0,0,-0.16666666666666666,
+insects_abrupt,sgd,mechanism_selector,1,10,52099,52099,0,1000,SKIP,False,0.25,False,0.23,0.25,,0.25,0,0,0,0,106800,204,params,False,0,0,0.0,

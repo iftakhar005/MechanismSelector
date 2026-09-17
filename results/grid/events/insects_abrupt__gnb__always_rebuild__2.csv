@@ -1,0 +1,11 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_abrupt,gnb,always_rebuild,2,0,13091,13091,0,1000,REBUILD,False,0.6463030138345929,False,nan,0.71,,0.805,1000,1,0,1000,1000,402,params,False,0,0,-0.06369698616540709,
+insects_abrupt,gnb,always_rebuild,2,1,14403,14403,0,1000,REBUILD,False,0.8,False,nan,0.1855855855855856,,0.8691586544527722,1000,1,0,1000,2000,402,params,True,1,0,0.6144144144144145,
+insects_abrupt,gnb,always_rebuild,2,2,17923,17923,0,1000,REBUILD,False,0.44765067933355757,False,nan,0.48742308138859863,,0.600235621939476,1000,1,0,1000,3000,402,params,False,0,0,-0.03977240205504107,
+insects_abrupt,gnb,always_rebuild,2,3,19555,19555,0,1000,REBUILD,False,0.5689935064935066,False,nan,0.3497742816208472,,0.7717554672505609,1000,1,0,1000,4000,402,params,True,1,0,0.21921922487265932,
+insects_abrupt,gnb,always_rebuild,2,4,28131,28131,0,1000,REBUILD,False,0.39434809309023144,False,nan,0.5111156095366622,,0.662840841148636,1000,1,0,1000,5000,402,params,False,0,0,-0.1167675164464308,
+insects_abrupt,gnb,always_rebuild,2,5,33315,33315,0,1000,REBUILD,False,0.5705345016836896,False,nan,0.3287718067979806,,0.6444486738977344,1000,1,0,1000,6000,402,params,False,0,0,0.24176269488570895,
+insects_abrupt,gnb,always_rebuild,2,6,38627,38627,0,1000,REBUILD,False,0.3958283413097774,False,nan,0.49,,0.8,1000,1,0,1000,7000,402,params,False,0,0,-0.09417165869022259,
+insects_abrupt,gnb,always_rebuild,2,7,39011,39011,0,384,REBUILD,False,0.28526377836722666,False,nan,0.25217864923747274,,0.6821214596949892,384,1,0,384,7384,402,params,False,0,0,0.03308512912975392,
+insects_abrupt,gnb,always_rebuild,2,8,47011,47011,0,1000,REBUILD,False,0.6087232906587745,False,nan,0.4411171861220993,,0.6348694432546381,1000,1,0,1000,8384,402,params,False,0,0,0.16760610453667518,
+insects_abrupt,gnb,always_rebuild,2,9,52067,52067,0,1000,REBUILD,False,0.6549534987232647,False,nan,0.6515403652500427,,0.7668117426181942,1000,1,0,1000,9384,402,params,True,2,0,0.0034131334732220298,

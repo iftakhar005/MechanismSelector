@@ -1,0 +1,4 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_incremental,xgb,never_adapt,4,0,10148,10148,0,1000,SKIP,False,0.6066916627820071,False,nan,0.4104622909769969,,0.4104622909769969,0,0,0,0,0,100,rounds,False,0,0,0.19622937180501027,
+insects_incremental,xgb,never_adapt,4,1,15204,15204,0,1000,SKIP,False,0.40049019607843134,False,nan,0.3202255771915215,,0.3202255771915215,0,0,0,0,0,100,rounds,False,0,0,0.08026461888690983,
+insects_incremental,xgb,never_adapt,4,2,40100,40100,0,1000,SKIP,False,0.2456167861409797,False,nan,0.1219580045789916,,0.1219580045789916,0,0,0,0,0,100,rounds,False,0,0,0.1236587815619881,

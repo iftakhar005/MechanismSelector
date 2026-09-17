@@ -1,0 +1,11 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_abrupt,sgd,never_adapt,1,0,12707,12707,0,1000,SKIP,False,0.2639601098312003,False,nan,0.2660092465079677,,0.2660092465079677,0,0,0,0,0,204,params,False,0,0,-0.002049136676767427,
+insects_abrupt,sgd,never_adapt,1,1,14371,14371,0,1000,SKIP,False,0.0,False,nan,0.43,,0.43,0,0,0,0,0,204,params,False,0,0,-0.43,
+insects_abrupt,sgd,never_adapt,1,2,18307,18307,0,1000,SKIP,False,0.2318706834960705,False,nan,0.17289719626168223,,0.17289719626168223,0,0,0,0,0,204,params,False,0,0,0.05897348723438828,
+insects_abrupt,sgd,never_adapt,1,3,19811,19811,0,1000,SKIP,False,0.18269230769230768,False,nan,0.3757905138339921,,0.3757905138339921,0,0,0,0,0,204,params,False,0,0,-0.1930982061416844,
+insects_abrupt,sgd,never_adapt,1,4,28131,28131,0,1000,SKIP,False,0.18843410273183192,False,nan,0.13271152564956695,,0.13271152564956695,0,0,0,0,0,204,params,False,0,0,0.05572257708226497,
+insects_abrupt,sgd,never_adapt,1,5,33379,33379,0,1000,SKIP,False,0.191591784338896,False,nan,0.2965432098765432,,0.2965432098765432,0,0,0,0,0,204,params,False,0,0,-0.10495142553764719,
+insects_abrupt,sgd,never_adapt,1,6,38243,38243,0,1000,SKIP,False,0.2465965786446418,False,nan,0.30359848484848484,,0.30359848484848484,0,0,0,0,0,204,params,False,0,0,-0.057001906203843045,
+insects_abrupt,sgd,never_adapt,1,7,38723,38723,0,480,SKIP,False,0.0,False,nan,0.25925925925925924,,0.25925925925925924,0,0,0,0,0,204,params,False,0,0,-0.25925925925925924,
+insects_abrupt,sgd,never_adapt,1,8,46915,46915,0,1000,SKIP,False,0.23939205522101245,False,nan,0.2341351062842291,,0.2341351062842291,0,0,0,0,0,204,params,False,0,0,0.005256948936783357,
+insects_abrupt,sgd,never_adapt,1,9,52099,52099,0,1000,SKIP,False,0.3100424464595794,False,nan,0.28056338814595605,,0.28056338814595605,0,0,0,0,0,204,params,False,0,0,0.029479058313623352,

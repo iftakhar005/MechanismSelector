@@ -38,7 +38,7 @@ scikit-learn 1.9.0, numpy 2.5.2, pandas 3.0.5.
 | 3 | `mechanisms.py` | nudge cheaper than rebuild; RF tree count constant; SVC raises | **PASS** |
 | 4 | `selector.py` | holdout rows never appear in training data | **PASS** |
 | 5 | `policies.py` | all five policies run end-to-end | **PASS** |
-| 6 | `runner.py` | full grid, 500-row CSV | in progress — runner built and tested, grid running |
+| 6 | `runner.py` | full grid, 500-row CSV | **PASS** |
 | 7 | `analysis.py` | four figures, Friedman + Nemenyi | pending |
 | 8 | packaging | minimal installable package, public API = `MechanismSelector.adapt()` | pending |
 
@@ -782,3 +782,25 @@ been post-hoc tuning in either direction.
 An earlier analysis described the covtype reference as "13–42 points inflated".
 That compared it against whole-stream accuracy over all seven classes, which is
 not the comparison the floor makes, and it overstated the problem.
+
+
+### Grid run record
+
+Completed 2026-09-17 on commit `c74fddf`: 500 runs, 500 unique, no failures,
+energy recorded for every run. Seed 0 was run twice — before and after the
+placeholder / prediction-change / deficit logging was added — and all 100 runs
+and 5,840 adaptation events matched on every outcome field, so the logging
+changed no result. Seeds 1–4 took 52 minutes.
+
+**Determinism verified on the grid, not assumed.** Across all 39 outcome fields,
+XGBoost and GaussianNB are identical over seeds 0–4 in 25 of 25 (dataset,
+policy) groups; Random Forest and SGD differ in 25 of 25. The Phase 7 collapse
+to effective n = 60 is justified by the data.
+
+Analysis scripts over the finished grid:
+
+| Script | Output |
+|---|---|
+| `experiments/margin_report.py` | selector vs FixedSchedule, per cell |
+| `experiments/contribution_numbers.py` | nudge gain, prediction change, alarm-time deficit, rebuild vs no adaptation |
+| `experiments/alarm_direction.py` | whether each NeverAdapt alarm fired on a rise or a fall in error rate, replayed from the detector itself; reproduces every NeverAdapt alarm count exactly |

@@ -1,0 +1,12 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_abrupt,sgd,never_adapt,3,0,12739,12739,0,1000,SKIP,False,0.19527267174912455,False,nan,0.15476190476190474,,0.15476190476190474,0,0,0,0,0,204,params,False,0,0,0.04051076698721981,
+insects_abrupt,sgd,never_adapt,3,1,14563,14563,0,1000,SKIP,False,0.0,False,nan,0.2197735849056604,,0.2197735849056604,0,0,0,0,0,204,params,False,0,0,-0.2197735849056604,
+insects_abrupt,sgd,never_adapt,3,2,17891,17891,0,1000,SKIP,False,0.22972848596410494,False,nan,0.18284600389863548,,0.18284600389863548,0,0,0,0,0,204,params,False,0,0,0.046882482065469466,
+insects_abrupt,sgd,never_adapt,3,3,19491,19491,0,1000,SKIP,False,0.47701149425287354,False,nan,0.5,,0.5,0,0,0,0,0,204,params,False,0,0,-0.022988505747126464,
+insects_abrupt,sgd,never_adapt,3,4,28067,28067,0,1000,SKIP,False,0.1870580808080808,False,nan,0.19203192640692637,,0.19203192640692637,0,0,0,0,0,204,params,False,0,0,-0.004973845598845561,
+insects_abrupt,sgd,never_adapt,3,5,33379,33379,0,1000,SKIP,False,0.03399122807017543,False,nan,0.17087058322690507,,0.17087058322690507,0,0,0,0,0,204,params,False,0,0,-0.13687935515672964,
+insects_abrupt,sgd,never_adapt,3,6,38275,38275,0,1000,SKIP,False,0.19857357357357355,False,nan,0.1923076923076923,,0.1923076923076923,0,0,0,0,0,204,params,False,0,0,0.006265881265881262,
+insects_abrupt,sgd,never_adapt,3,7,38755,38755,0,480,SKIP,False,0.0,False,nan,0.16550925925925927,,0.16550925925925927,0,0,0,0,0,204,params,False,0,0,-0.16550925925925927,
+insects_abrupt,sgd,never_adapt,3,8,39907,39907,0,1000,SKIP,False,0.1924717095769727,False,nan,0.2477055190571098,,0.2477055190571098,0,0,0,0,0,204,params,False,0,0,-0.05523380948013709,
+insects_abrupt,sgd,never_adapt,3,9,46883,46883,0,1000,SKIP,False,0.16455923235584252,False,nan,0.20838274044795788,,0.20838274044795788,0,0,0,0,0,204,params,False,0,0,-0.043823508092115354,
+insects_abrupt,sgd,never_adapt,3,10,52643,52643,0,1000,SKIP,False,0.03198308783415166,False,nan,0.0,,0.0,0,0,0,0,0,204,params,False,0,0,0.03198308783415166,

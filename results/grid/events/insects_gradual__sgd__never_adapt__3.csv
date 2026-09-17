@@ -1,0 +1,7 @@
+dataset,model,policy_key,seed,event_index,alarm_row,adapt_row,deferred_rows,buffer_rows,action,degraded_to_rebuild,reference_accuracy_used,reference_carried,floor,acc_before,acc_nudged,acc_after,work_units,n_passes,n_estimators_fitted,rows_processed,cumulative_work_units,model_size_after,model_size_unit,placeholders_injected,n_placeholder_rows,nudges_since_rebuild,accuracy_deficit,nudge_prediction_change
+insects_gradual,sgd,never_adapt,3,0,3310,3310,0,896,SKIP,False,0.2243273542600897,False,nan,0.2292307692307692,,0.2292307692307692,0,0,0,0,0,204,params,False,0,0,-0.004903414970679504,
+insects_gradual,sgd,never_adapt,3,1,10958,10958,0,1000,SKIP,False,0.15,False,nan,0.0984984984984985,,0.0984984984984985,0,0,0,0,0,204,params,False,0,0,0.0515015015015015,
+insects_gradual,sgd,never_adapt,3,2,12046,12046,0,1000,SKIP,False,0.1369047619047619,False,nan,0.16,,0.16,0,0,0,0,0,204,params,False,0,0,-0.023095238095238113,
+insects_gradual,sgd,never_adapt,3,3,13870,13870,0,1000,SKIP,False,0.135,False,nan,0.4121261575361943,,0.4121261575361943,0,0,0,0,0,204,params,False,0,0,-0.2771261575361943,
+insects_gradual,sgd,never_adapt,3,4,22862,22862,0,1000,SKIP,False,0.21800301148127235,False,nan,0.1921125671125671,,0.1921125671125671,0,0,0,0,0,204,params,False,0,0,0.025890444368705245,
+insects_gradual,sgd,never_adapt,3,5,23342,23342,0,480,SKIP,False,0.35052293672983326,False,nan,0.4038461538461539,,0.4038461538461539,0,0,0,0,0,204,params,False,0,0,-0.053323217116320654,
