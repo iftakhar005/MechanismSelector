@@ -59,7 +59,10 @@ event log.
 ADWIN flags a significant change in error rate in either direction, so a clear
 improvement after an adaptation can itself raise an alarm. The spec feeds ADWIN
 the raw error stream and does not reset it; this runner does the same, for every
-policy alike.
+policy alike. Each adaptation records the direction of the alarm that triggered
+it (`alarm_direction`), read from the detector's own error estimate, and each run
+records how much adaptation cost was spent on alarms fired by a *falling* error
+rate.
 """
 
 from __future__ import annotations
@@ -101,6 +104,7 @@ RECORD_FIELDS = [
     "n_alarms_deferred", "n_alarms_coalesced", "n_alarms_unserved", "n_reference_carried",
     "n_nudge_attempts", "n_nudge_successes",
     "n_adaptations_with_placeholders", "total_placeholder_rows", "initial_placeholder_rows",
+    "n_adaptations_on_falling_error", "work_units_on_falling_error",
     "total_work_units", "total_estimators_fitted", "total_rows_processed", "total_passes",
     "total_wall_clock_s", "total_energy_kwh", "initial_work_units",
     "final_prequential_accuracy", "mean_prequential_accuracy",
@@ -122,6 +126,7 @@ EVENT_FIELDS = [
     "cumulative_work_units", "model_size_after", "model_size_unit",
     "placeholders_injected", "n_placeholder_rows", "nudges_since_rebuild",
     "accuracy_deficit", "nudge_prediction_change",
+    "alarm_error_before", "alarm_error_after", "alarm_direction",
 ]
 
 
@@ -141,6 +146,25 @@ class RunConfig:
     adwin_delta: float = 0.002
     track_energy: bool = True
     energy_country_iso: str = "USA"  # affects only the CO2 figure, which is not recorded
+
+
+def alarm_direction(before: float | None, after: float | None) -> str | None:
+    """Which way the error rate moved at an alarm, read from the detector itself.
+
+    ADWIN drops the older part of its window when it alarms. Its error estimate
+    just before the update covers the whole window; just after, only the
+    retained recent part. A lower estimate afterwards means the change it
+    detected was a *fall* in error -- the model got better, or the stream got
+    easier. None when the detector exposes no estimate (e.g. a scripted test
+    detector). Reading the estimate never changes the detector.
+    """
+    if before is None or after is None:
+        return None
+    if after < before:
+        return "error_down"
+    if after > before:
+        return "error_up"
+    return "flat"
 
 
 def scorer_for(classes: np.ndarray) -> tuple[Callable, str]:
@@ -231,6 +255,8 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
     counts = {SKIP: 0, NUDGE: 0, REBUILD: 0}
     n_alarms = n_degraded = n_deferred = n_coalesced = n_carried = 0
     n_nudge_attempts = 0
+    n_on_falling = work_on_falling = 0
+    alarm_before = alarm_after = None  # detector error estimate around the alarm that opened the episode
     n_with_placeholders = total_placeholders = 0
     nudges_since_rebuild = 0  # consecutive-nudge depth; the initial model counts as a rebuild
     totals = dict(work_units=0, estimators=0, rows=0, passes=0, wall=0.0)
@@ -255,12 +281,14 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                 reference_accuracy = float(scorer(y[ref_start:row + 1], preds[ref_start - n_init:row + 1 - n_init]))
                 ref_ready = True
 
+            estimate_before = getattr(detector, "estimation", None)
             detector.update(int(pred != y[row]))
             if detector.drift_detected:
                 n_alarms += 1
                 if pending_since is None:
                     pending_since = row
                     deferral_counted = False
+                    alarm_before, alarm_after = estimate_before, getattr(detector, "estimation", None)
                 else:
                     n_coalesced += 1
 
@@ -291,6 +319,10 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
             elif result.action == NUDGE:
                 nudges_since_rebuild += 1
             totals["work_units"] += cost.work_units
+            direction = alarm_direction(alarm_before, alarm_after)
+            if direction == "error_down":
+                n_on_falling += 1
+                work_on_falling += cost.work_units
             totals["estimators"] += cost.n_estimators_fitted
             totals["rows"] += cost.n_rows_processed
             totals["passes"] += cost.n_passes
@@ -314,6 +346,8 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                 "nudges_since_rebuild": nudges_since_rebuild,
                 "accuracy_deficit": reference_accuracy - result.acc_before,
                 "nudge_prediction_change": result.prediction_change,
+                "alarm_error_before": alarm_before, "alarm_error_after": alarm_after,
+                "alarm_direction": direction,
             })
 
             buf_start = row + 1
@@ -341,6 +375,8 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
         "n_nudge_attempts": n_nudge_attempts,
         "n_nudge_successes": counts[NUDGE] if is_selector else None,
         "n_adaptations_with_placeholders": n_with_placeholders,
+        "n_adaptations_on_falling_error": n_on_falling,
+        "work_units_on_falling_error": work_on_falling,
         "total_placeholder_rows": total_placeholders,
         "initial_placeholder_rows": initial_placeholder_rows,
         "total_work_units": totals["work_units"], "total_estimators_fitted": totals["estimators"],

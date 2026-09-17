@@ -451,3 +451,57 @@ def test_every_event_logs_the_deficit_at_alarm_time(policy_key):
         assert (ev["nudge_prediction_change"] is not None) == nudged
         if nudged:
             assert 0.0 <= ev["nudge_prediction_change"] <= 1.0
+
+
+# --- alarm direction -----------------------------------------------------------------------
+
+
+def replay_directions(X, y, model_name, seed, cfg):
+    """Independent replay: NeverAdapt's error stream through a fresh ADWIN."""
+    from river.drift import ADWIN
+
+    from mechanisms import anchor_missing_classes
+
+    n = len(X)
+    n_init = int(n * cfg.init_frac)
+    n_train = int(n_init * (1 - cfg.init_holdout_frac))
+    X0, y0, kw = anchor_missing_classes(X[:n_train], y[:n_train], np.unique(y))
+    model = make_spec(model_name, np.unique(y)).factory(seed).fit(X0, y0, **kw)
+    errors = (model.predict(X[n_init:]) != y[n_init:]).astype(int)
+    detector, out = ADWIN(delta=cfg.adwin_delta), {}
+    for step, err in enumerate(errors):
+        before = detector.estimation
+        detector.update(int(err))
+        if detector.drift_detected:
+            out[n_init + step] = "error_down" if detector.estimation < before else (
+                "error_up" if detector.estimation > before else "flat")
+    return out
+
+
+def test_logged_alarm_direction_matches_an_independent_detector_replay():
+    X, y = drifting_stream(n=4000, n_segments=8)
+    _, events = run_stream(X, y, "gnb", "never_adapt", 0, CFG)
+    replay = replay_directions(X, y, "gnb", 0, CFG)
+
+    assert len(events) >= 3, "precondition: real ADWIN alarms"
+    for ev in events:
+        assert ev["alarm_direction"] == replay[ev["alarm_row"]]
+        assert (ev["alarm_error_after"] < ev["alarm_error_before"]) == (ev["alarm_direction"] == "error_down")
+
+
+@pytest.mark.parametrize("policy_key", ["always_rebuild", "fixed_schedule", "mechanism_selector"])
+def test_cost_on_falling_error_alarms_is_the_sum_over_those_events(policy_key):
+    X, y = drifting_stream(n=4000, n_segments=8)
+    record, events = run_stream(X, y, "xgb", policy_key, 0, CFG)
+
+    down = [e for e in events if e["alarm_direction"] == "error_down"]
+    assert record["n_adaptations_on_falling_error"] == len(down)
+    assert record["work_units_on_falling_error"] == sum(e["work_units"] for e in down)
+    assert all(e["alarm_direction"] in ("error_up", "error_down", "flat") for e in events)
+
+
+def test_detectors_without_an_estimate_log_no_direction():
+    X, y = drifting_stream()
+    record, events = run_stream(X, y, "gnb", "always_rebuild", 0, CFG, detector_factory=scripted({200, 900}))
+    assert events and all(e["alarm_direction"] is None for e in events)
+    assert record["n_adaptations_on_falling_error"] == 0
