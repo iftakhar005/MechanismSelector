@@ -21,6 +21,55 @@ see `experiments/verify_mechanisms.py`, which records it.
 
 `GaussianNB` is a deliberate negative control: its rebuild is already a single
 closed-form pass, so nudge and rebuild cost the same and no saving is available.
+
+## Same label, different effect on model size
+
+The two tree ensembles share the word "nudge" but not its consequences:
+
+- **Random Forest stays a constant size.** Each nudge adds k trees and retires
+  the k oldest, so the forest is `original_size` trees forever.
+- **XGBoost grows without bound.** Boosting rounds are sequential corrections;
+  there is no oldest round that can be dropped without invalidating the rounds
+  built on top of it. Each nudge appends k rounds permanently, so a model nudged
+  n times has `original_size + n * k` rounds -- measured at 100 -> 270 after 34
+  nudges on elec2.
+
+That asymmetry matters beyond training cost. Every prediction a grown booster
+makes afterwards evaluates every round, so a policy that nudges often buys cheap
+training with permanently more expensive inference. Training work units alone
+would hide this; the runner therefore records initial and final model size and
+per-row inference cost for every run (see `footprint.py`). SGD and GaussianNB
+nudges update parameters in place and do not change model size at all.
+
+## Windows missing a class
+
+A drift window routinely lacks some of the stream's classes: 92% of 1,000-row
+covtype windows do, and about 22% of insects_abrupt and insects_gradual windows.
+Estimators that learn their class set from `y` in `fit` then either crash
+(XGBoost continuing a booster, or labels that are not contiguous) or silently
+build a model over fewer classes, which corrupts the next nudge.
+
+Every `fit`-based operation -- all rebuilds, and the XGBoost and Random Forest
+nudges -- therefore appends one **zero-weight placeholder row per missing
+class** (see `anchor_missing_classes`). The model learns the full class set;
+the placeholders contribute no training signal. `partial_fit` needs none of
+this, because `classes=` already declares the full set.
+
+Measured properties, pinned by tests:
+
+- Placeholders carry no probability mass: a class present only as a placeholder
+  gets exactly 0 probability from Random Forest and GaussianNB, and under 1e-6
+  from XGBoost, and is predicted on no rows by any of the four models.
+- They are exactly inert for XGBoost and GaussianNB: the fitted model is
+  identical with or without them.
+- They are *not* bit-for-bit inert for Random Forest and SGD. They carry zero
+  weight, but they are still indices in the bootstrap / shuffle, which shifts the
+  random stream -- the result is a different, equally valid draw, not a biased
+  model. This happens only on windows actually missing a class, identically for
+  every policy.
+- Work units count real rows only. Placeholders are bookkeeping, not training.
+- A window with every class present gets no placeholders, so every result on
+  such windows is unchanged by this handling.
 """
 
 from __future__ import annotations
@@ -188,6 +237,36 @@ def nudge_size(spec: ModelSpec, nudge_frac: float = DEFAULT_NUDGE_FRAC) -> int:
     return max(1, math.ceil(nudge_frac * spec.original_size))
 
 
+# --- class coverage ----------------------------------------------------------
+
+
+def anchor_missing_classes(
+    X: np.ndarray, y: np.ndarray, classes: np.ndarray
+) -> tuple[np.ndarray, np.ndarray, dict]:
+    """Append one zero-weight placeholder row per class absent from `y`.
+
+    Returns ``(X, y, fit_kwargs)``. When every class is present the inputs are
+    returned untouched with empty kwargs, so the fit call is exactly what it
+    would have been without this function.
+
+    Each placeholder copies the window's first row rather than using zeros, so
+    it introduces no new feature values -- and therefore no new candidate split
+    thresholds for the tree learners.
+    """
+    if len(X) == 0:
+        raise ValueError(
+            "cannot fit on an empty window; the runner's minimum-buffer guard "
+            "should have prevented this call"
+        )
+    missing = np.setdiff1d(np.asarray(classes), np.unique(y))
+    if missing.size == 0:
+        return X, y, {}
+    X_anchored = np.vstack([X, np.repeat(X[:1], missing.size, axis=0)])
+    y_anchored = np.concatenate([y, missing.astype(y.dtype)])
+    weight = np.concatenate([np.ones(len(y)), np.zeros(missing.size)])
+    return X_anchored, y_anchored, {"sample_weight": weight}
+
+
 # --- mechanisms --------------------------------------------------------------
 
 
@@ -211,7 +290,8 @@ class RebuildMechanism:
 
     def apply(self, model, X, y, rng) -> tuple[Any, CostRecord]:  # noqa: ARG002
         fresh = self.spec.factory(self.seed)
-        return measure(lambda: fresh.fit(X, y), n_rows=len(X))
+        X_fit, y_fit, kwargs = anchor_missing_classes(X, y, self.spec.classes)
+        return measure(lambda: fresh.fit(X_fit, y_fit, **kwargs), n_rows=len(X))
 
 
 @dataclass
@@ -241,16 +321,22 @@ class NudgeMechanism:
         )
 
     def _nudge_xgb(self, model, X, y) -> tuple[Any, CostRecord]:
-        """Append boosting rounds on top of the existing booster."""
+        """Append boosting rounds on top of the existing booster.
+
+        The model grows permanently: rounds are sequential corrections, so no
+        old round can be retired the way Random Forest retires trees. See
+        "Same label, different effect on model size" in the module docstring.
+        """
         k = nudge_size(self.spec, self.nudge_frac)
         base = snapshot(model)
         booster = model.get_booster()
 
         extended = self.spec.factory(self.seed)
         extended.set_params(n_estimators=k)
+        X_fit, y_fit, kwargs = anchor_missing_classes(X, y, self.spec.classes)
 
         return measure(
-            lambda: extended.fit(X, y, xgb_model=booster),
+            lambda: extended.fit(X_fit, y_fit, xgb_model=booster, **kwargs),
             n_rows=len(X),
             baseline=base,
         )
@@ -266,11 +352,12 @@ class NudgeMechanism:
         """
         k = nudge_size(self.spec, self.nudge_frac)
         base = snapshot(model)
+        X_fit, y_fit, kwargs = anchor_missing_classes(X, y, self.spec.classes)
 
         def grow():
             model.set_params(warm_start=True)
             model.n_estimators = base.n_estimators + k
-            return model.fit(X, y)
+            return model.fit(X_fit, y_fit, **kwargs)
 
         # Cost is measured while the k new trees are still present; truncation
         # afterwards must not erase the work that was genuinely done.

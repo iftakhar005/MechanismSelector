@@ -17,6 +17,7 @@ from mechanisms import (  # noqa: E402
     NudgeMechanism,
     RebuildMechanism,
     SkipMechanism,
+    anchor_missing_classes,
     make_spec,
     nudge_size,
 )
@@ -284,3 +285,103 @@ def test_all_grid_models_are_nudgeable(name, data):
     nudged, cost = NudgeMechanism(spec).apply(model, X, y, np.random.default_rng(0))
     assert nudged is not None
     assert cost.work_units > 0
+
+
+# --- windows missing a class ---------------------------------------------------
+#
+# 92% of 1,000-row covtype windows lack at least one class. Before placeholder
+# rows, an XGBoost nudge on such a window raised, and a Random Forest rebuilt on
+# a class subset crashed at prediction after its next nudge.
+
+SEVEN = np.arange(7)
+
+
+def missing_class_windows():
+    rng = np.random.default_rng(7)
+    return {
+        "missing_3_to_6": (rng.normal(size=(300, 5)), rng.integers(0, 3, 300)),
+        "non_contiguous": (rng.normal(size=(300, 5)), rng.choice([0, 2, 5], 300)),
+        "single_class": (rng.normal(size=(300, 5)), np.full(300, 4)),
+    }
+
+
+@pytest.fixture(scope="module")
+def full_class_data():
+    rng = np.random.default_rng(8)
+    return rng.normal(size=(2000, 5)), rng.integers(0, 7, 2000)
+
+
+@pytest.mark.parametrize("window_kind", ["missing_3_to_6", "non_contiguous", "single_class"])
+@pytest.mark.parametrize("name", GRID_MODELS)
+def test_rebuild_then_nudge_survive_windows_missing_classes(name, window_kind, full_class_data):
+    X_full, y_full = full_class_data
+    X_win, y_win = missing_class_windows()[window_kind]
+    spec = make_spec(name, SEVEN)
+    rng = np.random.default_rng(0)
+
+    rebuilt, rebuild_cost = RebuildMechanism(spec).apply(None, X_win, y_win, rng)
+    assert list(rebuilt.classes_) == list(SEVEN), "rebuild must know every stream class"
+    assert rebuild_cost.n_rows_processed == len(X_win), "placeholders are not charged"
+
+    nudged, _ = NudgeMechanism(spec).apply(rebuilt, X_full[:300], y_full[:300], rng)
+    assert np.all(np.isin(nudged.predict(X_full), SEVEN))
+
+    full = spec.factory(0).fit(X_full, y_full)
+    nudged_full, nudge_cost = NudgeMechanism(spec).apply(full, X_win, y_win, rng)
+    assert nudge_cost.n_rows_processed == len(X_win)
+    assert np.all(np.isin(nudged_full.predict(X_full), SEVEN))
+
+
+@pytest.mark.parametrize("name", GRID_MODELS)
+def test_placeholder_classes_are_never_predicted(name, full_class_data):
+    X_full, _ = full_class_data
+    X_win, y_win = missing_class_windows()["missing_3_to_6"]
+    rebuilt, _ = RebuildMechanism(make_spec(name, SEVEN)).apply(
+        None, X_win, y_win, np.random.default_rng(0)
+    )
+
+    assert not np.any(np.isin(rebuilt.predict(X_full), [3, 4, 5, 6]))
+    if name != "sgd":
+        mass = rebuilt.predict_proba(X_full)[:, 3:].max()
+        limit = 0.0 if name in ("rf", "gnb") else 1e-4
+        assert mass <= limit, f"placeholder classes carry probability mass {mass}"
+
+
+@pytest.mark.parametrize("name", ["xgb", "gnb"])
+def test_zero_weight_placeholders_are_exactly_inert(name):
+    """For XGBoost and GaussianNB a zero-weight row changes nothing at all.
+    (Random Forest and SGD are documented as not bit-for-bit inert: the rows
+    shift the bootstrap / shuffle random stream without carrying weight.)"""
+    rng = np.random.default_rng(3)
+    X, y = rng.normal(size=(600, 5)), rng.integers(0, 4, 600)
+    X_test = rng.normal(size=(300, 5))
+    spec = make_spec(name, np.arange(4))
+
+    plain = spec.factory(0).fit(X, y)
+    padded = spec.factory(0).fit(
+        np.vstack([X, X[:4]]), np.concatenate([y, y[:4]]),
+        sample_weight=np.concatenate([np.ones(600), np.zeros(4)]),
+    )
+    assert np.allclose(plain.predict_proba(X_test), padded.predict_proba(X_test))
+
+
+def test_anchor_is_a_no_op_when_every_class_is_present():
+    X = np.arange(12, dtype=float).reshape(6, 2)
+    y = np.array([0, 1, 2, 0, 1, 2])
+    X_out, y_out, kwargs = anchor_missing_classes(X, y, np.arange(3))
+    assert X_out is X and y_out is y and kwargs == {}
+
+
+def test_anchor_adds_one_zero_weight_copy_per_missing_class():
+    X = np.arange(8, dtype=float).reshape(4, 2)
+    y = np.array([0, 0, 2, 2])
+    X_out, y_out, kwargs = anchor_missing_classes(X, y, np.arange(5))
+
+    assert list(y_out[4:]) == [1, 3, 4]
+    assert np.array_equal(X_out[4:], np.repeat(X[:1], 3, axis=0)), "copies, not zeros"
+    assert list(kwargs["sample_weight"]) == [1, 1, 1, 1, 0, 0, 0]
+
+
+def test_anchor_refuses_an_empty_window():
+    with pytest.raises(ValueError):
+        anchor_missing_classes(np.empty((0, 3)), np.empty(0, dtype=int), np.arange(2))

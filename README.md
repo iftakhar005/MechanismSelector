@@ -38,7 +38,7 @@ scikit-learn 1.9.0, numpy 2.5.2, pandas 3.0.5.
 | 3 | `mechanisms.py` | nudge cheaper than rebuild; RF tree count constant; SVC raises | **PASS** |
 | 4 | `selector.py` | holdout rows never appear in training data | **PASS** |
 | 5 | `policies.py` | all five policies run end-to-end | **PASS** |
-| 6 | `runner.py` | full grid, 500-row CSV | pending |
+| 6 | `runner.py` | full grid, 500-row CSV | in progress — runner built and tested, grid running |
 | 7 | `analysis.py` | four figures, Friedman + Nemenyi | pending |
 | 8 | packaging | minimal installable package, public API = `MechanismSelector.adapt()` | pending |
 
@@ -205,6 +205,41 @@ A nudge is therefore **each family's cheapest available incremental update**,
 not a uniform 5% of anything. The paper should describe it that way. The
 rebuild:nudge ratio is a measured quantity per family, not a constant the 5%
 rule implies.
+
+### Same label, different effect on model size
+
+Random Forest and XGBoost share the word "nudge" but not what it does to the
+model:
+
+| Family | Effect of n nudges on model size |
+|---|---|
+| Random Forest | **constant** — k trees added, k oldest retired, always `original_size` trees |
+| XGBoost | **grows without bound** — `original_size + n × k` rounds; measured 100 → 270 after 34 nudges |
+| SGD, GaussianNB | **constant** — parameters updated in place |
+
+XGBoost cannot retire rounds the way Random Forest retires trees: boosting rounds
+are sequential corrections, and dropping an early round invalidates every round
+built on top of it.
+
+This matters beyond training. Every later prediction evaluates every round, so a
+policy that nudges XGBoost often buys cheap training with permanently more
+expensive inference. Measured for `AlwaysNudge` on elec2 over 34 nudges, on a
+fixed 1,000-row probe:
+
+| | Before | After | Growth |
+|---|---|---|---|
+| boosting rounds | 100 | 270 | 2.70× |
+| tree nodes (memory) | 4,704 | 10,718 | 2.28× |
+| **node visits per prediction** | **582.0** | **1,425.1** | **2.45×** |
+| measured µs per prediction (secondary) | 7.40 | 14.56 | 1.97× |
+
+Per-prediction cost grows **2.45×, not the 2.7× the round count suggests** —
+rounds added on 1,000-row windows are shallower than the original rounds trained
+on 4,000 rows. Quote the node-visit figure. `AlwaysNudge` reports ~4% of
+`AlwaysRebuild`'s training work while every later prediction costs 2.45× more,
+and training work units alone would never show it. Phase 6 therefore records initial and final model size and
+per-row inference cost for every run (see `footprint.py` and the Phase 6 notes).
+Comparisons of nudge-heavy policies on XGBoost must report both.
 
 ### Measured rebuild:nudge ratios
 
@@ -380,9 +415,14 @@ exact `CostRecord.zero()`, not a near-zero approximation.
 ### Scoring
 
 Default scorer is plain accuracy, but it is injectable
-(`scorer: Callable = accuracy_score`) because the multi-class streams
-(`insects_*`, `covtype`) are severely imbalanced. Experiments on those streams
-should use `balanced_accuracy_score`; `elec2` uses plain accuracy. `floor_drop`
+(`scorer: Callable = accuracy_score`). Multi-class streams use
+`balanced_accuracy_score`; `elec2` uses plain accuracy. `covtype` is severely
+imbalanced overall. The `insects_*` streams are *not* — the Phase 1 manifest
+shows exactly equal class counts in every variant — but individual windows are:
+about 22% of 1,000-row `insects_abrupt` and `insects_gradual` windows lack a
+class entirely. Balanced accuracy is the right scorer for all multi-class
+streams for that reason. (An earlier version of this note described the insects
+streams as severely imbalanced overall, which the manifest contradicts.) `floor_drop`
 is in the units of whichever scorer is chosen, and every result row must
 record which scorer was used — do not silently mix them across a grid.
 
@@ -503,3 +543,94 @@ One observation to carry into Phase 6: `AlwaysNudge` scored marginally *below*
 retires any — Random Forest has a replacement policy, XGBoost does not — so
 `AlwaysNudge`'s booster grows from 100 to 270 rounds over this run. Whether that
 growth explains the gap has not been tested.
+
+## Phase 6 notes — experiment runner
+
+```bash
+.venv/Scripts/python.exe -m pytest tests/test_runner.py tests/test_footprint.py -q
+.venv/Scripts/python.exe experiments/run_all.py --dry-run     # show the plan
+.venv/Scripts/python.exe experiments/run_all.py               # run / resume the grid
+.venv/Scripts/python.exe experiments/margin_report.py         # selector vs FixedSchedule, any time
+```
+
+5 datasets × 4 models × 5 policies × 5 seeds = 500 runs. Each run streams the
+dataset prequentially: predict, score, buffer, feed ADWIN; on an alarm, call the
+policy on the buffer.
+
+### Outputs
+
+| File | Contents |
+|---|---|
+| `results/grid/grid.csv` | one row per run, written and fsynced as each run finishes |
+| `results/grid/events/*.csv` | one row per adaptation: action, costs, accuracies, reference used, model size after |
+| `results/grid/grid_failures.csv` | any run that raised, with traceback; the grid continues |
+| `results/grid/run.log` | progress |
+
+Rerunning `run_all.py` skips completed runs, so the grid survives interruption.
+Runs are ordered seed-first, with the key policies first inside each cell, so
+after seed 0 every cell has a full replicate and `margin_report.py` can answer
+whether the selector is beating FixedSchedule before the other 400 runs finish.
+
+### Beyond the spec: what the runner adds, and why
+
+**Model size and inference cost, per run.** Initial and final model size (rounds,
+trees or parameters), total tree nodes, and exact node visits (or parameters
+read) per prediction on a fixed probe set, plus measured prediction time as a
+secondary figure. Model size after every adaptation is in the event log, so
+growth over the stream can be reconstructed. Without this, a nudge-heavy XGBoost
+policy looks like a 96% saving while inference cost grows 2.45×; see "Same label,
+different effect on model size" under Phase 3.
+
+**Minimum buffer before adapting.** An alarm on a buffer smaller than 100 rows is
+deferred until the buffer reaches 100, then served; alarms during a deferral are
+coalesced. Deferrals, coalesced alarms and alarms left unserved at stream end
+are all counted. 100 is well below the selector's own small-window threshold
+(~250 rows), so that guard still fires and is still measured.
+
+**Windows missing a class.** Not an edge case: 92% of 1,000-row covtype windows
+and ~22% of insects_abrupt and insects_gradual windows lack a class. Before the
+fix, an XGBoost nudge on such a window crashed, and a Random Forest rebuilt on a
+class subset crashed at prediction after its next nudge. A guard that waited for
+every class would have all but stopped adaptation on covtype. Instead, every
+`fit`-based operation adds one zero-weight placeholder row per missing class so
+the model always knows the full class set. Placeholders carry no probability
+mass (placeholder-only classes are predicted on no rows by any model), are
+exactly inert for XGBoost and GaussianNB, and are not charged as work. For
+Random Forest and SGD they shift the bootstrap / shuffle random stream without
+carrying weight — a different, equally valid draw, and only on windows actually
+missing a class. Details in `mechanisms.py`.
+
+**Reference accuracy, measured causally.** After each adaptation the returned
+model's accuracy on the next 200 rows becomes the reference for the next alarm —
+the Phase 4 rule — but scored as those rows arrive rather than by reading ahead,
+so no decision uses a label the stream has not yet produced. If the next alarm
+is served before 200 rows arrive, the previous reference is carried forward and
+flagged.
+
+**Chunked prediction, proven exact.** Predicting row by row is 430×–1,300× slower
+than predicting in batches. The model does not change between adaptations, so
+batch predictions are identical; after an adaptation, the rest of the batch is
+re-predicted with the new model. A test requires identical records and events
+from chunk size 1 and chunk size 700 under real ADWIN on a drifting stream.
+
+### Things the analysis must account for
+
+- **XGBoost and GaussianNB give identical results for every seed.** Neither uses
+  randomness at these settings, so 10 of the 20 cells contain one result
+  repeated five times, not five replicates. Treating them as independent blocks
+  in the Friedman / Wilcoxon tests would inflate significance. Collapse or
+  aggregate them in Phase 7.
+- **Each policy sees its own alarm sequence.** Different models make different
+  errors, so ADWIN fires at different rows per policy. Compare totals, not
+  alarm-by-alarm.
+- **ADWIN is two-sided.** It flags significant *improvement* as well as
+  degradation, and the spec does not reset it after adapting, so an adaptation
+  that works can trigger another alarm. Same rule for every policy.
+- **`total_work_units` counts adaptations only.** Initial training is identical
+  within a cell and reported separately as `initial_work_units`.
+- **Accuracy comes in two forms.** Plain and balanced prequential accuracy are
+  both recorded; use the one matching the run's `scorer` column. `mean_*` is over
+  the whole stream, `final_*` over its last 1,000 rows.
+- **Energy is secondary and whole-run.** CodeCarbon, process mode, no RAPL on
+  this CPU — an estimate. Measured runs imply 10–16 W, which is plausible for
+  this laptop.
