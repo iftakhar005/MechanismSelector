@@ -333,6 +333,34 @@ holdout for audit purposes, but the decision does not use it.
 `AdaptResult.degraded_to_rebuild` flags every time this happened, so the
 analysis can count it.
 
+**The thresholds are checked against the rows `_split` actually produces**, not
+against `len(window) × holdout_frac`. The two disagree by rounding: a 249-row
+window really splits into 199 train and 50 holdout rows, but `249 × 0.2 = 49.8`
+would report it as under the 50-row minimum and force an unnecessary rebuild.
+The original guard used the approximation, which was harmless at 1,000-row
+windows but wrong exactly where this guard fires — the Phase 6 runner clears its
+buffer after every adaptation, so small windows are the common case. Fixed
+before Phase 5; a parametrised test pins windows of 245, 246, 249 and 250 rows,
+and was confirmed to fail against the old guard.
+
+### Rebuild construction belongs to the mechanism
+
+`MechanismSelector` takes no `model_factory`. An earlier version accepted one,
+but `RebuildMechanism` already constructs its own model from its `ModelSpec` and
+ignored the one it was handed — two sources of truth for what a rebuild builds,
+where a disagreement would have been silently resolved in the spec's favour.
+The selector now passes `None` as the rebuild's model argument, because a
+rebuild has nothing to inherit.
+
+That choice is defensive, not cosmetic. If a rebuild were ever handed the live
+model and snapshotted it as a cost baseline, the old model's estimators would be
+subtracted from the new one's. Measured: a 100-tree rebuild handed a 300-tree
+model is billed **0 work units instead of 100,000**. Tests pin both sides — the
+selector hands the rebuild `None` on both the normal and degraded paths, and
+`RebuildMechanism.apply()` never reads its model argument (a tripwire object
+fails on any attribute access) and produces identical cost and predictions
+whatever it is passed.
+
 ### REBUILD's `acc_after` is optimistic
 
 A `REBUILD` trains on the full window, holdout included, then is scored on
@@ -374,3 +402,17 @@ economic argument only requires this to exceed ~4% (the measured nudge cost as
 a fraction of rebuild cost for XGBoost, see Phase 3 table) for try-first to be
 worth it on expectation — 50% clears that by a wide margin on this stream. Full
 JSON in `results/selector_manual_run_elec2_xgb.json`.
+
+**Evidence status and scope.** When this section was first written, the cited
+JSON was never committed — `results/` was wholly git-ignored at the time, so the
+file was silently dropped. The figure was then reproduced from the committed
+script, byte-identically across all 34 windows, and the JSON is now tracked. It
+was reproduced again after the guard and `model_factory` fixes with identical
+output, so those fixes did not change behaviour at this window size.
+
+Read the 50% narrowly. It is **one stream, one model, one seed, 20 nudge
+attempts**, on fixed windows rather than ADWIN alarms. At n = 20 the 95% Wilson
+interval is roughly **30%–70%** — wide, but its lower bound still sits far above
+the ~4% break-even. It shows the cheap path is viable on `elec2` with XGBoost;
+it is not an estimate of the nudge success rate in general. That number comes
+from the Phase 6 grid.

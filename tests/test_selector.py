@@ -89,7 +89,6 @@ def make_window(n=1000, seed=0, marker=False):
 
 def build_selector(nudge_mechanism, rebuild_mechanism, **kwargs):
     return MechanismSelector(
-        model_factory=lambda: FakeModel(label=0),
         nudge_mechanism=nudge_mechanism,
         rebuild_mechanism=rebuild_mechanism,
         **kwargs,
@@ -308,6 +307,64 @@ def test_small_window_degrades_to_rebuild():
     assert result.degraded_to_rebuild is True
 
 
+@pytest.mark.parametrize(
+    "n, real_holdout, should_degrade",
+    [
+        # Default holdout_frac=0.2, min_holdout_rows=50. For n in 246..249 the
+        # approximation n * 0.2 falls just under 50 while _split really yields
+        # exactly 50 holdout rows -- the old guard degraded these wrongly.
+        (246, 50, False),
+        (249, 50, False),
+        (250, 50, False),
+        (245, 49, True),
+    ],
+)
+def test_degraded_guard_uses_real_split_lengths(n, real_holdout, should_degrade):
+    X, y = make_window(n=n, seed=14)
+    sel = build_selector(
+        FakeMechanism(NUDGE_COST, mutate_in_place),
+        FakeMechanism(REBUILD_COST, flip_label),
+    )
+    _, _, X_holdout, _ = sel._split(X, y)
+    assert len(X_holdout) == real_holdout, "fixture assumption about _split broke"
+
+    model = FakeModel(label=1)  # 100% accurate: SKIPs whenever not degraded
+    result = sel.adapt(model, X, y, reference_accuracy=1.0)
+
+    assert result.degraded_to_rebuild is should_degrade
+    assert result.action == (REBUILD if should_degrade else SKIP)
+    assert result.n_holdout_rows == real_holdout, (
+        "the recorded holdout size must be the one the decision was based on"
+    )
+
+
+def test_rebuild_is_handed_no_model_to_inherit_from():
+    """The rebuild mechanism owns construction. The selector must not hand it
+    the live model: a rebuild that snapshotted it as a cost baseline would
+    subtract the old model's estimators and bill itself at near zero."""
+    X, y = make_window(n=1000, seed=15)
+    still_wrong = lambda model, X, y: FakeModel(label=0)
+    rebuild = FakeMechanism(REBUILD_COST, flip_label)
+    sel = build_selector(FakeMechanism(NUDGE_COST, still_wrong), rebuild)
+
+    result = sel.adapt(FakeModel(label=0), X, y, reference_accuracy=1.0)
+
+    assert result.action == REBUILD
+    assert len(rebuild.calls) == 1
+    assert rebuild.calls[0][0] is None
+
+
+def test_degraded_rebuild_is_also_handed_no_model():
+    X, y = make_window(n=60, seed=16)
+    rebuild = FakeMechanism(REBUILD_COST, flip_label)
+    sel = build_selector(FakeMechanism(NUDGE_COST, mutate_in_place), rebuild)
+
+    result = sel.adapt(FakeModel(label=1), X, y, reference_accuracy=1.0)
+
+    assert result.degraded_to_rebuild is True
+    assert rebuild.calls[0][0] is None
+
+
 def test_floor_is_recorded():
     X, y = make_window(n=1000, seed=13)
     sel = build_selector(
@@ -336,7 +393,6 @@ def test_all_four_model_families(name):
     model = spec.factory(0).fit(X, y)
 
     sel = MechanismSelector(
-        model_factory=lambda: spec.factory(0),
         nudge_mechanism=NudgeMechanism(spec),
         rebuild_mechanism=RebuildMechanism(spec),
         seed=0,

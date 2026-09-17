@@ -28,9 +28,29 @@ predictor of when it would succeed.
 `reference_accuracy` is an input, not something this module maintains. After a
 REBUILD the model has trained on the entire window, so no clean holdout
 remains inside it to certify a new baseline -- that would require scoring on
-data the model has already seen. The caller (the runner, from Phase 6) is
-responsible for re-measuring `reference_accuracy` on unseen future rows after
-`adapt()` returns. See `PHASE4_PROMPT.md` Section 5.
+data the model has already seen.
+
+The caller (the runner, from Phase 6) therefore owns the baseline, and must
+follow this rule after every `adapt()` call:
+
+1. Score the *returned* model on the next N rows the stream has not yet
+   produced -- rows no model has trained on -- and use that as the
+   `reference_accuracy` for the next alarm. Default N = 200.
+2. Those N rows are not consumed: they continue through the normal stream loop
+   afterwards (predicted, counted in prequential accuracy, buffered) like any
+   other row. Skipping them would remove them from prequential accuracy.
+3. If fewer than N rows remain, carry the previous `reference_accuracy`
+   forward rather than scoring on a shorter, noisier slice, and log that this
+   happened.
+
+It must never use `AdaptResult.acc_after` as the new baseline: for a REBUILD
+that number is scored on training data (see below) and would inflate the floor
+for every later decision.
+
+`experiments/verify_selector.py` illustrates the scoring rule with N = 200, but
+it has no stream loop -- it only walks fixed windows -- so it steps past the N
+reference rows instead of feeding them onward. That shortcut is specific to the
+script and is not the runner's rule.
 
 ## Guard condition
 
@@ -41,6 +61,23 @@ trust *any* decision computed from that holdout, so it bypasses both the SKIP
 and NUDGE checks and goes straight to REBUILD (`degraded_to_rebuild=True`).
 `acc_before` is still recorded (from the small holdout) for audit purposes,
 but it is not used to decide anything in this branch.
+
+The thresholds are checked against the row counts `_split` actually produces,
+not against `len(window) * holdout_frac`. The two differ by rounding: a
+249-row window splits into 199 train and 50 holdout rows, while
+`249 * 0.2 = 49.8` would wrongly report it as under the 50-row minimum. Windows
+this small are the common case, not an edge case -- the runner clears its
+buffer after every adaptation, so the guard fires exactly where the rounding
+lives.
+
+## Rebuild construction
+
+The rebuild mechanism owns model construction; this module never builds a
+model itself. It passes `None` as the model argument to
+`rebuild_mechanism.apply`, because there is nothing a rebuild should inherit.
+Passing the live model instead would invite a rebuild to snapshot it as a
+cost baseline -- subtracting the old model's estimators from the new one's and
+billing the rebuild at or near zero.
 
 ## REBUILD's `acc_after` is optimistic
 
@@ -104,14 +141,12 @@ class MechanismSelector:
     """Cost-ordered try-and-escalate policy under an accuracy constraint.
 
     Args:
-        model_factory: zero-arg callable building a fresh, unfitted model with
-            identical hyperparameters and no carried state. Used for REBUILD --
-            never `copy.deepcopy` of the live model, which could carry stale
-            fitted state forward.
         nudge_mechanism: a `mechanisms.py` Mechanism applied to a *copy* of the
             current model, trained on `train_part` only.
-        rebuild_mechanism: a `mechanisms.py` Mechanism applied to a fresh model
-            from `model_factory`, trained on the full window.
+        rebuild_mechanism: a `mechanisms.py` Mechanism that constructs a fresh
+            model itself and trains it on the full window. It is handed `None`
+            as its model argument -- see "Rebuild construction" in the module
+            docstring.
         holdout_frac: fraction of the window held out as the most recent slice.
         floor_drop: how far below `reference_accuracy` is still acceptable.
             In the units of `scorer` -- e.g. 0.02 means 2 percentage points
@@ -126,7 +161,6 @@ class MechanismSelector:
 
     def __init__(
         self,
-        model_factory: Callable[[], Any],
         nudge_mechanism: Any,
         rebuild_mechanism: Any,
         holdout_frac: float = 0.20,
@@ -136,7 +170,6 @@ class MechanismSelector:
         scorer: Callable[[np.ndarray, np.ndarray], float] = accuracy_score,
         seed: int = 0,
     ):
-        self.model_factory = model_factory
         self.nudge_mechanism = nudge_mechanism
         self.rebuild_mechanism = rebuild_mechanism
         self.holdout_frac = holdout_frac
@@ -158,10 +191,17 @@ class MechanismSelector:
         k = int(len(X) * (1 - self.holdout_frac))
         return X[:k], y[:k], X[k:], y[k:]
 
-    def _is_degraded(self, n: int) -> bool:
+    def _is_degraded(self, X: np.ndarray, y: np.ndarray) -> bool:
+        """True if the split this window actually produces is too small to trust.
+
+        Checks the real row counts from `_split`, not `len(X) * holdout_frac`:
+        the two disagree by rounding, and the disagreement falls exactly on
+        the small windows this guard exists for.
+        """
+        X_train, _, X_holdout, _ = self._split(X, y)
         return (
-            n * self.holdout_frac < self.min_holdout_rows
-            or n * (1 - self.holdout_frac) < self.min_train_rows
+            len(X_holdout) < self.min_holdout_rows
+            or len(X_train) < self.min_train_rows
         )
 
     def adapt(
@@ -172,19 +212,17 @@ class MechanismSelector:
         reference_accuracy: float,
     ) -> AdaptResult:
         floor = reference_accuracy - self.floor_drop
-        n = len(X_window)
         rng = np.random.default_rng(self.seed)
 
         X_train, y_train, X_holdout, y_holdout = self._split(X_window, y_window)
         n_train_rows, n_holdout_rows = len(X_train), len(X_holdout)
 
-        if self._is_degraded(n):
+        if self._is_degraded(X_window, y_window):
             # Holdout too small to trust for any decision (SKIP or NUDGE) --
             # go straight to REBUILD. acc_before is recorded for audit only.
             acc_before = self._score(model, X_holdout, y_holdout)
-            fresh = self.model_factory()
             fresh, rebuild_cost = self.rebuild_mechanism.apply(
-                fresh, X_window, y_window, rng
+                None, X_window, y_window, rng
             )
             acc_after = self._score(fresh, X_holdout, y_holdout)
             return AdaptResult(
@@ -234,9 +272,8 @@ class MechanismSelector:
                 n_holdout_rows=n_holdout_rows,
             )
 
-        fresh = self.model_factory()
         fresh, rebuild_cost = self.rebuild_mechanism.apply(
-            fresh, X_window, y_window, rng
+            None, X_window, y_window, rng
         )
         acc_after = self._score(fresh, X_holdout, y_holdout)
 

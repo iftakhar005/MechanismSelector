@@ -5,5 +5,6 @@ results/*
 !results/dataset_manifest.json
 !results/mechanism_ratios.json
 !results/test_report.txt
+!results/selector_manual_run_elec2_xgb.json
 emissions.csv
 .pytest_cache/

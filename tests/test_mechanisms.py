@@ -190,6 +190,77 @@ def test_rebuild_carries_no_state_from_the_old_model(data):
     assert list(model.estimators_) == old_trees, "old model must not be mutated"
 
 
+# --- RebuildMechanism ignores its model argument -----------------------------
+#
+# The selector hands RebuildMechanism.apply() `None` and relies on the
+# mechanism to construct everything itself. If apply() ever started reading
+# its model argument -- most dangerously as `baseline=snapshot(model)` -- the
+# old model's estimator count would be subtracted from the fresh model's and
+# the rebuild billed at or near zero. These tests pin that it does not.
+
+
+class Tripwire:
+    """Fails the test on any attribute access at all, so 'ignores its model
+    argument' means never even read -- not merely that the output looks right."""
+
+    def __getattribute__(self, name):
+        raise AssertionError(
+            f"RebuildMechanism.apply() read .{name} from its model argument; "
+            "it must construct from its own spec and ignore the argument"
+        )
+
+
+@pytest.mark.parametrize("name", GRID_MODELS)
+def test_rebuild_never_reads_its_model_argument(name, data):
+    X, y = data
+    spec = make_spec(name, CLASSES)
+
+    rebuilt, cost = RebuildMechanism(spec).apply(
+        Tripwire(), X, y, np.random.default_rng(0)
+    )
+
+    assert rebuilt is not None
+    assert cost.work_units > 0
+
+
+@pytest.mark.parametrize("name", GRID_MODELS)
+def test_rebuild_cost_and_model_independent_of_model_argument(name, data):
+    """Same window, three very different model arguments -> identical rebuild.
+
+    The foreign model is deliberately a *larger* ensemble (300 vs 100) fitted on
+    different data: if its estimator count were ever used as a cost baseline,
+    max(0, 100 - 300) would bill the rebuild at zero and this test would fail.
+    """
+    X, y = data
+    spec = make_spec(name, CLASSES)
+
+    foreign_spec = make_spec(name, CLASSES, n_estimators=300)
+    X_other, y_other = X[::-1][:500], y[::-1][:500]
+    foreign = foreign_spec.factory(99).fit(X_other, y_other)
+
+    outcomes = []
+    for arg in (None, Tripwire(), foreign):
+        rebuilt, cost = RebuildMechanism(spec).apply(arg, X, y, np.random.default_rng(0))
+        outcomes.append((rebuilt, cost))
+        assert rebuilt is not arg
+
+    costs = [c for _, c in outcomes]
+    assert len({c.work_units for c in costs}) == 1, (
+        f"rebuild cost depended on the model argument: {[c.work_units for c in costs]}"
+    )
+    assert len({c.n_passes for c in costs}) == 1
+
+    predictions = [m.predict(X) for m, _ in outcomes]
+    assert all(np.array_equal(predictions[0], p) for p in predictions[1:]), (
+        "rebuilt model differed depending on the model argument -- state leaked in"
+    )
+
+    if spec.original_size is not None:
+        assert costs[0].n_estimators_fitted == spec.original_size, (
+            "a rebuild must be charged for its full ensemble, never a delta"
+        )
+
+
 def test_partial_fit_survives_a_window_missing_a_class(data):
     """Spec trap #3: classes= must be passed on every call."""
     X, y = data

@@ -4,12 +4,13 @@ over elec2 with XGBoost.
 This is NOT the stream runner (that's Phase 6 -- no ADWIN, no baselines, no
 CSV grid). It is a lightweight walk over the stream in fixed-size windows,
 just to observe that all three actions are reachable on real data and to
-report a SKIP/NUDGE/REBUILD tally, per PHASE4_PROMPT.md Sec. 10.
+report a SKIP/NUDGE/REBUILD tally.
 
 Each window is treated as if a drift alarm had just fired on it. After each
 `adapt()` call, `reference_accuracy` is re-measured on the next N_REF unseen
-rows, per the Sec. 5 rule -- never on the just-adapted holdout, which would be
-data the model (in the REBUILD case) just trained on.
+rows, following the rule in `selector.py`'s module docstring ("The
+reference-accuracy problem") -- never on the just-adapted holdout, which would
+be data the model (in the REBUILD case) just trained on.
 
 Run:  python experiments/verify_selector.py
 """
@@ -50,7 +51,6 @@ def main() -> int:
     cursor = INIT_ROWS + N_REF
 
     sel = MechanismSelector(
-        model_factory=lambda: spec.factory(SEED),
         nudge_mechanism=NudgeMechanism(spec, seed=SEED),
         rebuild_mechanism=RebuildMechanism(spec, seed=SEED),
         seed=SEED,
@@ -98,7 +98,8 @@ def main() -> int:
 
         cursor += WINDOW
 
-        # Sec. 5: re-measure reference_accuracy on unseen future rows only.
+        # Re-measure reference_accuracy on unseen future rows only; never
+        # reuse result.acc_after, which is in-sample for a REBUILD.
         if cursor + N_REF <= len(X):
             ref_X, ref_y = X[cursor : cursor + N_REF], y[cursor : cursor + N_REF]
             reference_accuracy = float(np.mean(model.predict(ref_X) == ref_y))

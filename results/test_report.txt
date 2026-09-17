@@ -1,54 +1,84 @@
 MechanismSelector - test run record
-Generated: 2026-08-19 13:43:36
-Commit:    8f9dc30 - Phase 3: mechanism library with measured per-family cost ratios
+Generated: 2026-09-17 10:08:49
+Tree:      working tree on top of 0a1e2da, including the changes committed with this report
 Python:    Python 3.12.3
 
 ========================================================================
 
 ============================= test session starts =============================
 platform win32 -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- E:\My-Projects\MechanismSelector\.venv\Scripts\python.exe
-cachedir: .pytest_cache
 rootdir: E:\My-Projects\MechanismSelector
-collecting ... collected 38 items
+collecting ... collected 69 items
 
-tests/test_accounting.py::test_gate_300_trees_is_exactly_30x_10_trees PASSED [  2%]
-tests/test_accounting.py::test_gate_holds_for_xgboost PASSED             [  5%]
-tests/test_accounting.py::test_work_units_is_deterministic PASSED        [  7%]
-tests/test_accounting.py::test_incremental_fit_charges_only_added_trees PASSED [ 10%]
-tests/test_accounting.py::test_repeated_partial_fit_charges_one_pass_each_time[sgd] PASSED [ 13%]
-tests/test_accounting.py::test_repeated_partial_fit_charges_one_pass_each_time[mlp] PASSED [ 15%]
-tests/test_accounting.py::test_partial_fit_does_not_accumulate_n_iter_on_this_sklearn[sgd] PASSED [ 18%]
-tests/test_accounting.py::test_partial_fit_does_not_accumulate_n_iter_on_this_sklearn[mlp] PASSED [ 21%]
-tests/test_accounting.py::test_resolve_iter_passes_handles_accumulating_counters PASSED [ 23%]
-tests/test_accounting.py::test_resolve_iter_passes_handles_resetting_counters PASSED [ 26%]
-tests/test_accounting.py::test_accounting_is_correct_under_a_hypothetical_accumulating_sklearn PASSED [ 28%]
-tests/test_accounting.py::test_snapshot_captures_both_dimensions PASSED  [ 31%]
-tests/test_accounting.py::test_sgd_fit_and_partial_fit_are_distinguishable PASSED [ 34%]
-tests/test_accounting.py::test_mlp_fit_and_partial_fit_are_distinguishable PASSED [ 36%]
-tests/test_accounting.py::test_gaussian_nb_is_a_single_pass PASSED       [ 39%]
-tests/test_accounting.py::test_pass_source_is_recorded_for_audit PASSED  [ 42%]
-tests/test_accounting.py::test_cost_records_accumulate PASSED            [ 44%]
-tests/test_accounting.py::test_zero_record_is_additive_identity PASSED   [ 47%]
-tests/test_accounting.py::test_energy_is_never_required PASSED           [ 50%]
-tests/test_mechanisms.py::test_gate_nudge_is_cheaper_than_rebuild[xgb] PASSED [ 52%]
-tests/test_mechanisms.py::test_gate_nudge_is_cheaper_than_rebuild[rf] PASSED [ 55%]
-tests/test_mechanisms.py::test_gate_nudge_is_cheaper_than_rebuild[sgd] PASSED [ 57%]
-tests/test_mechanisms.py::test_gate_nudge_is_cheaper_than_rebuild[gnb] PASSED [ 60%]
-tests/test_mechanisms.py::test_gate_rf_keeps_constant_tree_count_over_ten_nudges PASSED [ 63%]
-tests/test_mechanisms.py::test_gate_rf_ten_nudges_still_charge_full_cost PASSED [ 65%]
-tests/test_mechanisms.py::test_gate_rf_replacement_actually_swaps_trees PASSED [ 68%]
-tests/test_mechanisms.py::test_gate_unsupported_models_raise[svc] PASSED [ 71%]
-tests/test_mechanisms.py::test_gate_unsupported_models_raise[knn] PASSED [ 73%]
-tests/test_mechanisms.py::test_skip_is_free_and_does_not_touch_the_model PASSED [ 76%]
-tests/test_mechanisms.py::test_nudge_size_is_five_percent_of_original PASSED [ 78%]
-tests/test_mechanisms.py::test_nudge_size_does_not_compound_across_nudges PASSED [ 81%]
-tests/test_mechanisms.py::test_xgb_nudge_appends_to_existing_booster PASSED [ 84%]
-tests/test_mechanisms.py::test_rebuild_carries_no_state_from_the_old_model PASSED [ 86%]
-tests/test_mechanisms.py::test_partial_fit_survives_a_window_missing_a_class PASSED [ 89%]
-tests/test_mechanisms.py::test_all_grid_models_are_nudgeable[xgb] PASSED [ 92%]
-tests/test_mechanisms.py::test_all_grid_models_are_nudgeable[rf] PASSED  [ 94%]
-tests/test_mechanisms.py::test_all_grid_models_are_nudgeable[sgd] PASSED [ 97%]
-tests/test_mechanisms.py::test_all_grid_models_are_nudgeable[gnb] PASSED [100%]
+tests/test_accounting.py::test_gate_300_trees_is_exactly_30x_10_trees PASSED [  1%]
+tests/test_accounting.py::test_gate_holds_for_xgboost PASSED             [  2%]
+tests/test_accounting.py::test_work_units_is_deterministic PASSED        [  4%]
+tests/test_accounting.py::test_incremental_fit_charges_only_added_trees PASSED [  5%]
+tests/test_accounting.py::test_repeated_partial_fit_charges_one_pass_each_time[sgd] PASSED [  7%]
+tests/test_accounting.py::test_repeated_partial_fit_charges_one_pass_each_time[mlp] PASSED [  8%]
+tests/test_accounting.py::test_partial_fit_does_not_accumulate_n_iter_on_this_sklearn[sgd] PASSED [ 10%]
+tests/test_accounting.py::test_partial_fit_does_not_accumulate_n_iter_on_this_sklearn[mlp] PASSED [ 11%]
+tests/test_accounting.py::test_resolve_iter_passes_handles_accumulating_counters PASSED [ 13%]
+tests/test_accounting.py::test_resolve_iter_passes_handles_resetting_counters PASSED [ 14%]
+tests/test_accounting.py::test_accounting_is_correct_under_a_hypothetical_accumulating_sklearn PASSED [ 15%]
+tests/test_accounting.py::test_snapshot_captures_both_dimensions PASSED  [ 17%]
+tests/test_accounting.py::test_sgd_fit_and_partial_fit_are_distinguishable PASSED [ 18%]
+tests/test_accounting.py::test_mlp_fit_and_partial_fit_are_distinguishable PASSED [ 20%]
+tests/test_accounting.py::test_gaussian_nb_is_a_single_pass PASSED       [ 21%]
+tests/test_accounting.py::test_pass_source_is_recorded_for_audit PASSED  [ 23%]
+tests/test_accounting.py::test_cost_records_accumulate PASSED            [ 24%]
+tests/test_accounting.py::test_zero_record_is_additive_identity PASSED   [ 26%]
+tests/test_accounting.py::test_energy_is_never_required PASSED           [ 27%]
+tests/test_mechanisms.py::test_gate_nudge_is_cheaper_than_rebuild[xgb] PASSED [ 28%]
+tests/test_mechanisms.py::test_gate_nudge_is_cheaper_than_rebuild[rf] PASSED [ 30%]
+tests/test_mechanisms.py::test_gate_nudge_is_cheaper_than_rebuild[sgd] PASSED [ 31%]
+tests/test_mechanisms.py::test_gate_nudge_is_cheaper_than_rebuild[gnb] PASSED [ 33%]
+tests/test_mechanisms.py::test_gate_rf_keeps_constant_tree_count_over_ten_nudges PASSED [ 34%]
+tests/test_mechanisms.py::test_gate_rf_ten_nudges_still_charge_full_cost PASSED [ 36%]
+tests/test_mechanisms.py::test_gate_rf_replacement_actually_swaps_trees PASSED [ 37%]
+tests/test_mechanisms.py::test_gate_unsupported_models_raise[svc] PASSED [ 39%]
+tests/test_mechanisms.py::test_gate_unsupported_models_raise[knn] PASSED [ 40%]
+tests/test_mechanisms.py::test_skip_is_free_and_does_not_touch_the_model PASSED [ 42%]
+tests/test_mechanisms.py::test_nudge_size_is_five_percent_of_original PASSED [ 43%]
+tests/test_mechanisms.py::test_nudge_size_does_not_compound_across_nudges PASSED [ 44%]
+tests/test_mechanisms.py::test_xgb_nudge_appends_to_existing_booster PASSED [ 46%]
+tests/test_mechanisms.py::test_rebuild_carries_no_state_from_the_old_model PASSED [ 47%]
+tests/test_mechanisms.py::test_rebuild_never_reads_its_model_argument[xgb] PASSED [ 49%]
+tests/test_mechanisms.py::test_rebuild_never_reads_its_model_argument[rf] PASSED [ 50%]
+tests/test_mechanisms.py::test_rebuild_never_reads_its_model_argument[sgd] PASSED [ 52%]
+tests/test_mechanisms.py::test_rebuild_never_reads_its_model_argument[gnb] PASSED [ 53%]
+tests/test_mechanisms.py::test_rebuild_cost_and_model_independent_of_model_argument[xgb] PASSED [ 55%]
+tests/test_mechanisms.py::test_rebuild_cost_and_model_independent_of_model_argument[rf] PASSED [ 56%]
+tests/test_mechanisms.py::test_rebuild_cost_and_model_independent_of_model_argument[sgd] PASSED [ 57%]
+tests/test_mechanisms.py::test_rebuild_cost_and_model_independent_of_model_argument[gnb] PASSED [ 59%]
+tests/test_mechanisms.py::test_partial_fit_survives_a_window_missing_a_class PASSED [ 60%]
+tests/test_mechanisms.py::test_all_grid_models_are_nudgeable[xgb] PASSED [ 62%]
+tests/test_mechanisms.py::test_all_grid_models_are_nudgeable[rf] PASSED  [ 63%]
+tests/test_mechanisms.py::test_all_grid_models_are_nudgeable[sgd] PASSED [ 65%]
+tests/test_mechanisms.py::test_all_grid_models_are_nudgeable[gnb] PASSED [ 66%]
+tests/test_selector.py::test_holdout_rows_never_in_nudge_training PASSED [ 68%]
+tests/test_selector.py::test_holdout_is_the_most_recent_slice PASSED     [ 69%]
+tests/test_selector.py::test_split_is_deterministic PASSED               [ 71%]
+tests/test_selector.py::test_scoring_uses_only_holdout PASSED            [ 72%]
+tests/test_selector.py::test_skip_when_model_still_good PASSED           [ 73%]
+tests/test_selector.py::test_nudge_when_repair_recovers PASSED           [ 75%]
+tests/test_selector.py::test_rebuild_when_nudge_insufficient PASSED      [ 76%]
+tests/test_selector.py::test_rebuild_cost_includes_failed_nudge PASSED   [ 78%]
+tests/test_selector.py::test_skip_cost_is_exactly_zero PASSED            [ 79%]
+tests/test_selector.py::test_input_model_not_mutated_on_rebuild PASSED   [ 81%]
+tests/test_selector.py::test_input_model_not_mutated_on_skip PASSED      [ 82%]
+tests/test_selector.py::test_small_window_degrades_to_rebuild PASSED     [ 84%]
+tests/test_selector.py::test_degraded_guard_uses_real_split_lengths[246-50-False] PASSED [ 85%]
+tests/test_selector.py::test_degraded_guard_uses_real_split_lengths[249-50-False] PASSED [ 86%]
+tests/test_selector.py::test_degraded_guard_uses_real_split_lengths[250-50-False] PASSED [ 88%]
+tests/test_selector.py::test_degraded_guard_uses_real_split_lengths[245-49-True] PASSED [ 89%]
+tests/test_selector.py::test_rebuild_is_handed_no_model_to_inherit_from PASSED [ 91%]
+tests/test_selector.py::test_degraded_rebuild_is_also_handed_no_model PASSED [ 92%]
+tests/test_selector.py::test_floor_is_recorded PASSED                    [ 94%]
+tests/test_selector.py::test_all_four_model_families[xgb] PASSED         [ 95%]
+tests/test_selector.py::test_all_four_model_families[rf] PASSED          [ 97%]
+tests/test_selector.py::test_all_four_model_families[sgd] PASSED         [ 98%]
+tests/test_selector.py::test_all_four_model_families[gnb] PASSED         [100%]
 
 ============================== warnings summary ===============================
 tests/test_accounting.py::test_mlp_fit_and_partial_fit_are_distinguishable
@@ -56,4 +86,4 @@ tests/test_accounting.py::test_mlp_fit_and_partial_fit_are_distinguishable
     warnings.warn(
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-======================= 38 passed, 1 warning in 19.68s ========================
+======================= 69 passed, 1 warning in 14.13s ========================
