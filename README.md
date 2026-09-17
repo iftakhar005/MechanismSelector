@@ -37,7 +37,7 @@ scikit-learn 1.9.0, numpy 2.5.2, pandas 3.0.5.
 | 2 | `accounting.py` | 300-tree fit = 30× work units of 10-tree fit | **PASS** |
 | 3 | `mechanisms.py` | nudge cheaper than rebuild; RF tree count constant; SVC raises | **PASS** |
 | 4 | `selector.py` | holdout rows never appear in training data | **PASS** |
-| 5 | `policies.py` | all five policies run end-to-end | pending |
+| 5 | `policies.py` | all five policies run end-to-end | **PASS** |
 | 6 | `runner.py` | full grid, 500-row CSV | pending |
 | 7 | `analysis.py` | four figures, Friedman + Nemenyi | pending |
 | 8 | packaging | minimal installable package, public API = `MechanismSelector.adapt()` | pending |
@@ -416,3 +416,90 @@ interval is roughly **30%–70%** — wide, but its lower bound still sits far a
 the ~4% break-even. It shows the cheap path is viable on `elec2` with XGBoost;
 it is not an estimate of the nudge success rate in general. That number comes
 from the Phase 6 grid.
+
+## Phase 5 notes — baseline policies
+
+```bash
+.venv/Scripts/python.exe -m pytest tests/test_policies.py -q
+.venv/Scripts/python.exe experiments/verify_policies.py
+```
+
+| Policy | On every drift alarm | Role |
+|---|---|---|
+| `NeverAdapt` | do nothing | lower bound on cost |
+| `AlwaysRebuild` | full rebuild | current practice — the thing to beat |
+| `AlwaysNudge` | cheap update | upper bound on savings |
+| `FixedSchedule(k=3)` | nudge, but rebuild every 3rd alarm | the timer competitor |
+| `MechanismSelector` | nudge, measure, escalate if it fails | ours |
+
+All five share `adapt(model, X_window, y_window, reference_accuracy) -> AdaptResult`.
+`make_policy(key, spec, seed)` builds a fresh instance wired to its mechanisms, so
+the runner never assembles policies by hand.
+
+### Design decision — mechanisms held fixed, only the decision rule varies
+
+Every policy that nudges performs **the same nudge** as the selector: a copy of
+the model, trained on the older 80% of the window. Every policy that rebuilds
+performs **the same rebuild**: a fresh model on the full window, handed `None`.
+The split is one function, `selector.temporal_split`, which the selector's own
+`_split` now delegates to.
+
+Had the baselines trained on the full window, `AlwaysNudge` and `FixedSchedule`
+would see 25% more data per nudge than the selector, and a difference between
+them could be down to data quantity rather than policy. Holding the actions
+fixed makes every difference between policies attributable to *when each chose
+to nudge or rebuild*, which is the claim under test — and it matters most for
+the `FixedSchedule` comparison.
+
+It is enforced by test, not convention: a real-model test checks, for all four
+grid families, that a selector REBUILD costs exactly one `AlwaysNudge` alarm plus
+one `AlwaysRebuild` alarm and produces the same rebuilt model; another checks
+every policy hands its mechanisms the same rows as the selector.
+
+### Consequences worth knowing
+
+- **Baselines keep a holdout they never decide with**, so each nudge stays
+  identical to the selector's and every policy reports the same out-of-sample
+  `acc_before` / `acc_nudged`. `AdaptResult` fields keep the selector's meanings.
+- **Baselines record `floor = NaN`.** They apply no floor; recording one they
+  never used would misrepresent the decision.
+- **Baselines never degrade to REBUILD on small windows.** That guard protects a
+  decision made from a noisy holdout, and baselines make no such decision. The
+  selector will therefore rebuild on tiny windows where `FixedSchedule` nudges —
+  a real property of the method, visible in `degraded_to_rebuild` counts.
+- **A baseline REBUILD is charged for the rebuild alone.** Only the selector ever
+  attempts a nudge before rebuilding, so only the selector carries a wasted nudge.
+- **`FixedSchedule` is stateful** (it counts alarms from 1: NUDGE, NUDGE, REBUILD).
+  Build one instance per run; `make_policy` does. `k=1` equals `AlwaysRebuild`.
+- **No policy mutates the caller's model**, pinned for all five.
+
+### Manual run — elec2 + XGBoost, all five policies
+
+Same walk as the Phase 4 run: 34 fixed 1,000-row windows, `reference_accuracy`
+re-measured on the next 200 unseen rows after each. Every policy starts from the
+same initial model and sees identical windows. The selector's actions match the
+Phase 4 run window for window. Full output in
+`results/policies_manual_run_elec2_xgb.json`.
+
+```
+policy                  SKIP  NUDGE  REBUILD   work units  % rebuild  mean ref acc
+NeverAdapt                34      0        0            0       0.0%        0.7487
+AlwaysRebuild              0      0       34    3,400,000     100.0%        0.7757
+AlwaysNudge                0     34        0      136,000       4.0%        0.7465
+FixedSchedule(k=3)         0     23       11    1,192,000      35.1%        0.7506
+MechanismSelector         14     10       10    1,080,000      31.8%        0.7585
+```
+
+**This is a smoke test, not a result.** One stream, one model, one seed, fixed
+windows instead of ADWIN alarms, and "mean ref acc" is the average over 200-row
+reference slices — out-of-sample, but a proxy, not prequential accuracy. No
+significance testing is possible from one run. On this run the selector cost
+slightly less than `FixedSchedule` (31.8% vs 35.1% of `AlwaysRebuild`) with
+slightly higher reference accuracy (0.7585 vs 0.7506); whether that holds is
+exactly what the Phase 6 grid and Phase 7 statistics exist to answer.
+
+One observation to carry into Phase 6: `AlwaysNudge` scored marginally *below*
+`NeverAdapt` here (0.7465 vs 0.7487). The XGBoost nudge appends rounds and never
+retires any — Random Forest has a replacement policy, XGBoost does not — so
+`AlwaysNudge`'s booster grows from 100 to 270 rounds over this run. Whether that
+growth explains the gap has not been tested.

@@ -105,6 +105,22 @@ NUDGE = "NUDGE"
 REBUILD = "REBUILD"
 
 
+def temporal_split(
+    X: np.ndarray, y: np.ndarray, holdout_frac: float
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Temporal split: train_part is the older prefix, holdout the recent
+    suffix. Never randomised -- a shuffle here would leak future rows into
+    training and invalidate every downstream result.
+
+    Module-level so every policy in `policies.py` splits a window exactly as
+    the selector does. The baselines perform the same nudge on the same rows,
+    so a comparison between policies isolates the decision rule rather than
+    differences in how much data each policy trained on.
+    """
+    k = int(len(X) * (1 - holdout_frac))
+    return X[:k], y[:k], X[k:], y[k:]
+
+
 @dataclass
 class AdaptResult:
     """Everything the runner needs to log one adaptation decision.
@@ -159,6 +175,8 @@ class MechanismSelector:
             (window, model, reference_accuracy, seed) reproduces exactly.
     """
 
+    name = "MechanismSelector"
+
     def __init__(
         self,
         nudge_mechanism: Any,
@@ -185,11 +203,8 @@ class MechanismSelector:
     def _split(
         self, X: np.ndarray, y: np.ndarray
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        """Temporal split: train_part is the older prefix, holdout the recent
-        suffix. Never randomised -- a shuffle here would leak future rows into
-        training and invalidate every downstream result."""
-        k = int(len(X) * (1 - self.holdout_frac))
-        return X[:k], y[:k], X[k:], y[k:]
+        """Temporal split; see `temporal_split`."""
+        return temporal_split(X, y, self.holdout_frac)
 
     def _is_degraded(self, X: np.ndarray, y: np.ndarray) -> bool:
         """True if the split this window actually produces is too small to trust.
