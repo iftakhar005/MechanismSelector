@@ -1,0 +1,21 @@
+dataset,model,SKIP,NUDGE,REBUILD after failed nudge,"REBUILD, window too small"
+elec2,xgb,23.0,5.0,27.0,16.0
+elec2,rf,18.6,0.8,31.6,11.4
+elec2,sgd,17.4,7.6,21.000000000000004,11.2
+elec2,gnb,13.0,13.0,26.0,14.0
+covtype,xgb,5.0,24.0,57.0,3.0
+covtype,rf,34.0,1.8,66.4,18.6
+covtype,sgd,57.4,6.6,14.400000000000006,106.8
+covtype,gnb,65.0,13.0,41.0,122.0
+insects_abrupt,xgb,5.0,1.0,5.0,0.0
+insects_abrupt,rf,4.4,0.4,3.2,1.0
+insects_abrupt,sgd,7.0,1.4,1.2,0.2
+insects_abrupt,gnb,8.0,1.0,1.0,1.0
+insects_gradual,xgb,0.0,1.0,4.0,0.0
+insects_gradual,rf,1.4,0.2,4.4,1.0
+insects_gradual,sgd,3.8,1.0,0.7999999999999999,0.4
+insects_gradual,gnb,1.0,2.0,3.0,1.0
+insects_incremental,xgb,0.0,1.0,3.0,0.0
+insects_incremental,rf,0.2,0.2,5.8,0.0
+insects_incremental,sgd,0.0,0.2,0.2,0.0
+insects_incremental,gnb,0.0,2.0,3.0,0.0

@@ -1,0 +1,2532 @@
+{
+  "determinism_groups_verified": 50,
+  "placeholder_exposure": {
+    "covtype/gnb": {
+      "adaptations": 1310,
+      "with_placeholders": 475,
+      "share": 0.36259541984732824,
+      "initial_training_affected": false,
+      "affected": true
+    },
+    "covtype/rf": {
+      "adaptations": 3963,
+      "with_placeholders": 2972,
+      "share": 0.7499369164774161,
+      "initial_training_affected": false,
+      "affected": true
+    },
+    "covtype/sgd": {
+      "adaptations": 7128,
+      "with_placeholders": 2252,
+      "share": 0.3159371492704826,
+      "initial_training_affected": false,
+      "affected": true
+    },
+    "covtype/xgb": {
+      "adaptations": 441,
+      "with_placeholders": 313,
+      "share": 0.7097505668934241,
+      "initial_training_affected": false,
+      "affected": true
+    },
+    "elec2/gnb": {
+      "adaptations": 361,
+      "with_placeholders": 0,
+      "share": 0.0,
+      "initial_training_affected": false,
+      "affected": false
+    },
+    "elec2/rf": {
+      "adaptations": 1728,
+      "with_placeholders": 0,
+      "share": 0.0,
+      "initial_training_affected": false,
+      "affected": false
+    },
+    "elec2/sgd": {
+      "adaptations": 1597,
+      "with_placeholders": 0,
+      "share": 0.0,
+      "initial_training_affected": false,
+      "affected": false
+    },
+    "elec2/xgb": {
+      "adaptations": 329,
+      "with_placeholders": 0,
+      "share": 0.0,
+      "initial_training_affected": false,
+      "affected": false
+    },
+    "insects_abrupt/gnb": {
+      "adaptations": 47,
+      "with_placeholders": 4,
+      "share": 0.0851063829787234,
+      "initial_training_affected": false,
+      "affected": true
+    },
+    "insects_abrupt/rf": {
+      "adaptations": 227,
+      "with_placeholders": 53,
+      "share": 0.23348017621145375,
+      "initial_training_affected": false,
+      "affected": true
+    },
+    "insects_abrupt/sgd": {
+      "adaptations": 242,
+      "with_placeholders": 14,
+      "share": 0.05785123966942149,
+      "initial_training_affected": false,
+      "affected": true
+    },
+    "insects_abrupt/xgb": {
+      "adaptations": 50,
+      "with_placeholders": 9,
+      "share": 0.18,
+      "initial_training_affected": false,
+      "affected": true
+    },
+    "insects_gradual/gnb": {
+      "adaptations": 32,
+      "with_placeholders": 7,
+      "share": 0.21875,
+      "initial_training_affected": true,
+      "affected": true
+    },
+    "insects_gradual/rf": {
+      "adaptations": 170,
+      "with_placeholders": 94,
+      "share": 0.5529411764705883,
+      "initial_training_affected": true,
+      "affected": true
+    },
+    "insects_gradual/sgd": {
+      "adaptations": 145,
+      "with_placeholders": 26,
+      "share": 0.1793103448275862,
+      "initial_training_affected": true,
+      "affected": true
+    },
+    "insects_gradual/xgb": {
+      "adaptations": 32,
+      "with_placeholders": 17,
+      "share": 0.53125,
+      "initial_training_affected": true,
+      "affected": true
+    },
+    "insects_incremental/gnb": {
+      "adaptations": 24,
+      "with_placeholders": 0,
+      "share": 0.0,
+      "initial_training_affected": false,
+      "affected": false
+    },
+    "insects_incremental/rf": {
+      "adaptations": 124,
+      "with_placeholders": 0,
+      "share": 0.0,
+      "initial_training_affected": false,
+      "affected": false
+    },
+    "insects_incremental/sgd": {
+      "adaptations": 10,
+      "with_placeholders": 0,
+      "share": 0.0,
+      "initial_training_affected": false,
+      "affected": false
+    },
+    "insects_incremental/xgb": {
+      "adaptations": 22,
+      "with_placeholders": 0,
+      "share": 0.0,
+      "initial_training_affected": false,
+      "affected": false
+    }
+  },
+  "placeholder_free_cells": [
+    "elec2/gnb",
+    "elec2/rf",
+    "elec2/sgd",
+    "elec2/xgb",
+    "insects_incremental/gnb",
+    "insects_incremental/rf",
+    "insects_incremental/sgd",
+    "insects_incremental/xgb"
+  ],
+  "statistics": {
+    "all": {
+      "n60": {
+        "n": 60,
+        "metrics": {
+          "accuracy": {
+            "friedman": {
+              "statistic": 6.206896551724283,
+              "p": 0.18422073148103912,
+              "n": 60,
+              "k": 5
+            },
+            "mean_ranks": {
+              "AlwaysRebuild": 2.65,
+              "MechanismSelector": 3.283333333333333,
+              "FixedSchedule": 2.9583333333333335,
+              "AlwaysNudge": 2.925,
+              "NeverAdapt": 3.183333333333333
+            },
+            "critical_difference": 0.7875057671746496,
+            "nemenyi_p": {
+              "AlwaysRebuild": {
+                "AlwaysRebuild": 1.0,
+                "MechanismSelector": 0.181887,
+                "FixedSchedule": 0.822955,
+                "AlwaysNudge": 0.876099,
+                "NeverAdapt": 0.346175
+              },
+              "MechanismSelector": {
+                "AlwaysRebuild": 0.181887,
+                "MechanismSelector": 1.0,
+                "FixedSchedule": 0.792925,
+                "AlwaysNudge": 0.727079,
+                "NeverAdapt": 0.996914
+              },
+              "FixedSchedule": {
+                "AlwaysRebuild": 0.822955,
+                "MechanismSelector": 0.792925,
+                "FixedSchedule": 1.0,
+                "AlwaysNudge": 0.99996,
+                "NeverAdapt": 0.936628
+              },
+              "AlwaysNudge": {
+                "AlwaysRebuild": 0.876099,
+                "MechanismSelector": 0.727079,
+                "FixedSchedule": 0.99996,
+                "AlwaysNudge": 1.0,
+                "NeverAdapt": 0.898905
+              },
+              "NeverAdapt": {
+                "AlwaysRebuild": 0.346175,
+                "MechanismSelector": 0.996914,
+                "FixedSchedule": 0.936628,
+                "AlwaysNudge": 0.898905,
+                "NeverAdapt": 1.0
+              }
+            }
+          },
+          "cost": {
+            "friedman": {
+              "statistic": 205.2052863436125,
+              "p": 2.855019489926825e-43,
+              "n": 60,
+              "k": 5
+            },
+            "mean_ranks": {
+              "AlwaysRebuild": 4.783333333333333,
+              "MechanismSelector": 3.7333333333333334,
+              "FixedSchedule": 3.225,
+              "AlwaysNudge": 2.158333333333333,
+              "NeverAdapt": 1.1
+            },
+            "critical_difference": 0.7875057671746496,
+            "nemenyi_p": {
+              "AlwaysRebuild": {
+                "AlwaysRebuild": 1.0,
+                "MechanismSelector": 0.002555,
+                "FixedSchedule": 1e-06,
+                "AlwaysNudge": 0.0,
+                "NeverAdapt": 0.0
+              },
+              "MechanismSelector": {
+                "AlwaysRebuild": 0.002555,
+                "MechanismSelector": 1.0,
+                "FixedSchedule": 0.396646,
+                "AlwaysNudge": 0.0,
+                "NeverAdapt": 0.0
+              },
+              "FixedSchedule": {
+                "AlwaysRebuild": 1e-06,
+                "MechanismSelector": 0.396646,
+                "FixedSchedule": 1.0,
+                "AlwaysNudge": 0.002051,
+                "NeverAdapt": 0.0
+              },
+              "AlwaysNudge": {
+                "AlwaysRebuild": 0.0,
+                "MechanismSelector": 0.0,
+                "FixedSchedule": 0.002051,
+                "AlwaysNudge": 1.0,
+                "NeverAdapt": 0.00229
+              },
+              "NeverAdapt": {
+                "AlwaysRebuild": 0.0,
+                "MechanismSelector": 0.0,
+                "FixedSchedule": 0.0,
+                "AlwaysNudge": 0.00229,
+                "NeverAdapt": 1.0
+              }
+            }
+          }
+        },
+        "selector_comparisons": [
+          {
+            "metric": "accuracy",
+            "target": "mechanism_selector",
+            "against": "always_rebuild",
+            "n": 60,
+            "n_nonzero": 53,
+            "median_difference": -1.3178110912267726,
+            "target_better_in": 16,
+            "target_worse_in": 37,
+            "p": 0.008668849399605898,
+            "cliffs_delta": -0.06527777777777778,
+            "rank_biserial": -0.4143955276030748,
+            "p_holm": 0.017337698799211796
+          },
+          {
+            "metric": "accuracy",
+            "target": "mechanism_selector",
+            "against": "fixed_schedule",
+            "n": 60,
+            "n_nonzero": 56,
+            "median_difference": 0.0,
+            "target_better_in": 27,
+            "target_worse_in": 29,
+            "p": 0.19463929842365535,
+            "cliffs_delta": 0.06944444444444445,
+            "rank_biserial": 0.19924812030075187,
+            "p_holm": 0.19463929842365535
+          },
+          {
+            "metric": "cost",
+            "target": "mechanism_selector",
+            "against": "always_rebuild",
+            "n": 60,
+            "n_nonzero": 57,
+            "median_difference": -758400.0,
+            "target_better_in": 51,
+            "target_worse_in": 6,
+            "p": 2.745321624997704e-10,
+            "cliffs_delta": -0.32305555555555554,
+            "rank_biserial": -0.9612825166364186,
+            "p_holm": 1.0981286499990816e-09
+          },
+          {
+            "metric": "cost",
+            "target": "mechanism_selector",
+            "against": "fixed_schedule",
+            "n": 60,
+            "n_nonzero": 56,
+            "median_difference": 176579.5,
+            "target_better_in": 15,
+            "target_worse_in": 41,
+            "p": 0.002906948726277546,
+            "cliffs_delta": 0.05694444444444444,
+            "rank_biserial": 0.4573934837092732,
+            "p_holm": 0.008720846178832637
+          }
+        ]
+      },
+      "n20": {
+        "n": 20,
+        "metrics": {
+          "accuracy": {
+            "friedman": {
+              "statistic": 3.6791979949874842,
+              "p": 0.45115868345154353,
+              "n": 20,
+              "k": 5
+            },
+            "mean_ranks": {
+              "AlwaysRebuild": 2.45,
+              "MechanismSelector": 3.35,
+              "FixedSchedule": 3.175,
+              "AlwaysNudge": 2.975,
+              "NeverAdapt": 3.05
+            },
+            "critical_difference": 1.364,
+            "nemenyi_p": {
+              "AlwaysRebuild": {
+                "AlwaysRebuild": 1.0,
+                "MechanismSelector": 0.373481,
+                "FixedSchedule": 0.595149,
+                "AlwaysNudge": 0.831916,
+                "NeverAdapt": 0.751424
+              },
+              "MechanismSelector": {
+                "AlwaysRebuild": 0.373481,
+                "MechanismSelector": 1.0,
+                "FixedSchedule": 0.996788,
+                "AlwaysNudge": 0.944566,
+                "NeverAdapt": 0.975123
+              },
+              "FixedSchedule": {
+                "AlwaysRebuild": 0.595149,
+                "MechanismSelector": 0.996788,
+                "FixedSchedule": 1.0,
+                "AlwaysNudge": 0.994615,
+                "NeverAdapt": 0.99914
+              },
+              "AlwaysNudge": {
+                "AlwaysRebuild": 0.831916,
+                "MechanismSelector": 0.944566,
+                "FixedSchedule": 0.994615,
+                "AlwaysNudge": 1.0,
+                "NeverAdapt": 0.999887
+              },
+              "NeverAdapt": {
+                "AlwaysRebuild": 0.751424,
+                "MechanismSelector": 0.975123,
+                "FixedSchedule": 0.99914,
+                "AlwaysNudge": 0.999887,
+                "NeverAdapt": 1.0
+              }
+            }
+          },
+          "cost": {
+            "friedman": {
+              "statistic": 72.3308270676692,
+              "p": 7.306332560529226e-15,
+              "n": 20,
+              "k": 5
+            },
+            "mean_ranks": {
+              "AlwaysRebuild": 4.9,
+              "MechanismSelector": 3.85,
+              "FixedSchedule": 3.075,
+              "AlwaysNudge": 2.175,
+              "NeverAdapt": 1.0
+            },
+            "critical_difference": 1.364,
+            "nemenyi_p": {
+              "AlwaysRebuild": {
+                "AlwaysRebuild": 1.0,
+                "MechanismSelector": 0.21995,
+                "FixedSchedule": 0.002435,
+                "AlwaysNudge": 1e-06,
+                "NeverAdapt": 0.0
+              },
+              "MechanismSelector": {
+                "AlwaysRebuild": 0.21995,
+                "MechanismSelector": 1.0,
+                "FixedSchedule": 0.529773,
+                "AlwaysNudge": 0.007226,
+                "NeverAdapt": 0.0
+              },
+              "FixedSchedule": {
+                "AlwaysRebuild": 0.002435,
+                "MechanismSelector": 0.529773,
+                "FixedSchedule": 1.0,
+                "AlwaysNudge": 0.373481,
+                "NeverAdapt": 0.000321
+              },
+              "AlwaysNudge": {
+                "AlwaysRebuild": 1e-06,
+                "MechanismSelector": 0.007226,
+                "FixedSchedule": 0.373481,
+                "AlwaysNudge": 1.0,
+                "NeverAdapt": 0.129366
+              },
+              "NeverAdapt": {
+                "AlwaysRebuild": 0.0,
+                "MechanismSelector": 0.0,
+                "FixedSchedule": 0.000321,
+                "AlwaysNudge": 0.129366,
+                "NeverAdapt": 1.0
+              }
+            }
+          }
+        },
+        "selector_comparisons": [
+          {
+            "metric": "accuracy",
+            "target": "mechanism_selector",
+            "against": "always_rebuild",
+            "n": 20,
+            "n_nonzero": 20,
+            "median_difference": -1.5769598587577605,
+            "target_better_in": 4,
+            "target_worse_in": 16,
+            "p": 0.006389617919921875,
+            "cliffs_delta": -0.18,
+            "rank_biserial": -0.6761904761904762,
+            "p_holm": 0.019168853759765625
+          },
+          {
+            "metric": "accuracy",
+            "target": "mechanism_selector",
+            "against": "fixed_schedule",
+            "n": 20,
+            "n_nonzero": 20,
+            "median_difference": 0.1112118208705617,
+            "target_better_in": 11,
+            "target_worse_in": 9,
+            "p": 0.956329345703125,
+            "cliffs_delta": 0.07,
+            "rank_biserial": 0.01904761904761905,
+            "p_holm": 0.956329345703125
+          },
+          {
+            "metric": "cost",
+            "target": "mechanism_selector",
+            "against": "always_rebuild",
+            "n": 20,
+            "n_nonzero": 20,
+            "median_difference": -303712.5,
+            "target_better_in": 18,
+            "target_worse_in": 2,
+            "p": 1.9073486328125e-05,
+            "cliffs_delta": -0.22,
+            "rank_biserial": -0.9523809523809523,
+            "p_holm": 7.62939453125e-05
+          },
+          {
+            "metric": "cost",
+            "target": "mechanism_selector",
+            "against": "fixed_schedule",
+            "n": 20,
+            "n_nonzero": 20,
+            "median_difference": 130897.0,
+            "target_better_in": 4,
+            "target_worse_in": 16,
+            "p": 0.04405403137207031,
+            "cliffs_delta": 0.145,
+            "rank_biserial": 0.5142857142857142,
+            "p_holm": 0.08810806274414062
+          }
+        ]
+      }
+    },
+    "placeholder_free": {
+      "n60": {
+        "n": 24,
+        "metrics": {
+          "accuracy": {
+            "friedman": {
+              "statistic": 19.20194647201946,
+              "p": 0.0007172920885426534,
+              "n": 24,
+              "k": 5
+            },
+            "mean_ranks": {
+              "AlwaysRebuild": 2.375,
+              "MechanismSelector": 3.0833333333333335,
+              "FixedSchedule": 2.9791666666666665,
+              "AlwaysNudge": 2.5208333333333335,
+              "NeverAdapt": 4.041666666666667
+            },
+            "critical_difference": 1.2451559473950777,
+            "nemenyi_p": {
+              "AlwaysRebuild": {
+                "AlwaysRebuild": 1.0,
+                "MechanismSelector": 0.528547,
+                "FixedSchedule": 0.676428,
+                "AlwaysNudge": 0.997748,
+                "NeverAdapt": 0.002421
+              },
+              "MechanismSelector": {
+                "AlwaysRebuild": 0.528547,
+                "MechanismSelector": 1.0,
+                "FixedSchedule": 0.9994,
+                "AlwaysNudge": 0.732408,
+                "NeverAdapt": 0.220121
+              },
+              "FixedSchedule": {
+                "AlwaysRebuild": 0.676428,
+                "MechanismSelector": 0.9994,
+                "FixedSchedule": 1.0,
+                "AlwaysNudge": 0.853584,
+                "NeverAdapt": 0.13604
+              },
+              "AlwaysNudge": {
+                "AlwaysRebuild": 0.997748,
+                "MechanismSelector": 0.732408,
+                "FixedSchedule": 0.853584,
+                "AlwaysNudge": 1.0,
+                "NeverAdapt": 0.00769
+              },
+              "NeverAdapt": {
+                "AlwaysRebuild": 0.002421,
+                "MechanismSelector": 0.220121,
+                "FixedSchedule": 0.13604,
+                "AlwaysNudge": 0.00769,
+                "NeverAdapt": 1.0
+              }
+            }
+          },
+          "cost": {
+            "friedman": {
+              "statistic": 79.778313253012,
+              "p": 1.9407408277212282e-16,
+              "n": 24,
+              "k": 5
+            },
+            "mean_ranks": {
+              "AlwaysRebuild": 4.541666666666667,
+              "MechanismSelector": 4.041666666666667,
+              "FixedSchedule": 2.9791666666666665,
+              "AlwaysNudge": 2.1875,
+              "NeverAdapt": 1.25
+            },
+            "critical_difference": 1.2451559473950777,
+            "nemenyi_p": {
+              "AlwaysRebuild": {
+                "AlwaysRebuild": 1.0,
+                "MechanismSelector": 0.808998,
+                "FixedSchedule": 0.005591,
+                "AlwaysNudge": 2e-06,
+                "NeverAdapt": 0.0
+              },
+              "MechanismSelector": {
+                "AlwaysRebuild": 0.808998,
+                "MechanismSelector": 1.0,
+                "FixedSchedule": 0.13604,
+                "AlwaysNudge": 0.000467,
+                "NeverAdapt": 0.0
+              },
+              "FixedSchedule": {
+                "AlwaysRebuild": 0.005591,
+                "MechanismSelector": 0.13604,
+                "FixedSchedule": 1.0,
+                "AlwaysNudge": 0.412662,
+                "NeverAdapt": 0.001427
+              },
+              "AlwaysNudge": {
+                "AlwaysRebuild": 2e-06,
+                "MechanismSelector": 0.000467,
+                "FixedSchedule": 0.412662,
+                "AlwaysNudge": 1.0,
+                "NeverAdapt": 0.240412
+              },
+              "NeverAdapt": {
+                "AlwaysRebuild": 0.0,
+                "MechanismSelector": 0.0,
+                "FixedSchedule": 0.001427,
+                "AlwaysNudge": 0.240412,
+                "NeverAdapt": 1.0
+              }
+            }
+          }
+        },
+        "selector_comparisons": [
+          {
+            "metric": "accuracy",
+            "target": "mechanism_selector",
+            "against": "always_rebuild",
+            "n": 24,
+            "n_nonzero": 17,
+            "median_difference": -0.26893747368347576,
+            "target_better_in": 5,
+            "target_worse_in": 12,
+            "p": 0.03515697309591544,
+            "cliffs_delta": -0.1267361111111111,
+            "rank_biserial": -0.5816993464052288,
+            "p_holm": 0.07031394619183089
+          },
+          {
+            "metric": "accuracy",
+            "target": "mechanism_selector",
+            "against": "fixed_schedule",
+            "n": 24,
+            "n_nonzero": 20,
+            "median_difference": 0.0,
+            "target_better_in": 10,
+            "target_worse_in": 10,
+            "p": 0.47812547119613813,
+            "cliffs_delta": 0.041666666666666664,
+            "rank_biserial": 0.18095238095238095,
+            "p_holm": 0.47812547119613813
+          },
+          {
+            "metric": "cost",
+            "target": "mechanism_selector",
+            "against": "always_rebuild",
+            "n": 24,
+            "n_nonzero": 21,
+            "median_difference": -182000.0,
+            "target_better_in": 16,
+            "target_worse_in": 5,
+            "p": 0.0007954692501476803,
+            "cliffs_delta": -0.1545138888888889,
+            "rank_biserial": -0.8354978354978355,
+            "p_holm": 0.0023864077504430407
+          },
+          {
+            "metric": "cost",
+            "target": "mechanism_selector",
+            "against": "fixed_schedule",
+            "n": 24,
+            "n_nonzero": 20,
+            "median_difference": 354590.0,
+            "target_better_in": 0,
+            "target_worse_in": 20,
+            "p": 8.832385863081277e-05,
+            "cliffs_delta": 0.22395833333333334,
+            "rank_biserial": 1.0,
+            "p_holm": 0.0003532954345232511
+          }
+        ]
+      },
+      "n20": {
+        "n": 8,
+        "metrics": {
+          "accuracy": {
+            "friedman": {
+              "statistic": 7.220125786163534,
+              "p": 0.12470287223331367,
+              "n": 8,
+              "k": 5
+            },
+            "mean_ranks": {
+              "AlwaysRebuild": 2.25,
+              "MechanismSelector": 2.875,
+              "FixedSchedule": 2.9375,
+              "AlwaysNudge": 2.6875,
+              "NeverAdapt": 4.25
+            },
+            "critical_difference": 2.156673364234835,
+            "nemenyi_p": {
+              "AlwaysRebuild": {
+                "AlwaysRebuild": 1.0,
+                "MechanismSelector": 0.933445,
+                "FixedSchedule": 0.908062,
+                "AlwaysNudge": 0.981551,
+                "NeverAdapt": 0.084101
+              },
+              "MechanismSelector": {
+                "AlwaysRebuild": 0.933445,
+                "MechanismSelector": 1.0,
+                "FixedSchedule": 0.999991,
+                "AlwaysNudge": 0.999302,
+                "NeverAdapt": 0.40974
+              },
+              "FixedSchedule": {
+                "AlwaysRebuild": 0.908062,
+                "MechanismSelector": 0.999991,
+                "FixedSchedule": 1.0,
+                "AlwaysNudge": 0.997837,
+                "NeverAdapt": 0.458838
+              },
+              "AlwaysNudge": {
+                "AlwaysRebuild": 0.981551,
+                "MechanismSelector": 0.999302,
+                "FixedSchedule": 0.997837,
+                "AlwaysNudge": 1.0,
+                "NeverAdapt": 0.277518
+              },
+              "NeverAdapt": {
+                "AlwaysRebuild": 0.084101,
+                "MechanismSelector": 0.40974,
+                "FixedSchedule": 0.458838,
+                "AlwaysNudge": 0.277518,
+                "NeverAdapt": 1.0
+              }
+            }
+          },
+          "cost": {
+            "friedman": {
+              "statistic": 31.119496855345922,
+              "p": 2.89428206112686e-06,
+              "n": 8,
+              "k": 5
+            },
+            "mean_ranks": {
+              "AlwaysRebuild": 4.875,
+              "MechanismSelector": 4.125,
+              "FixedSchedule": 2.9375,
+              "AlwaysNudge": 2.0625,
+              "NeverAdapt": 1.0
+            },
+            "critical_difference": 2.156673364234835,
+            "nemenyi_p": {
+              "AlwaysRebuild": {
+                "AlwaysRebuild": 1.0,
+                "MechanismSelector": 0.87774,
+                "FixedSchedule": 0.102135,
+                "AlwaysNudge": 0.00344,
+                "NeverAdapt": 9e-06
+              },
+              "MechanismSelector": {
+                "AlwaysRebuild": 0.87774,
+                "MechanismSelector": 1.0,
+                "FixedSchedule": 0.561087,
+                "AlwaysNudge": 0.068721,
+                "NeverAdapt": 0.000736
+              },
+              "FixedSchedule": {
+                "AlwaysRebuild": 0.102135,
+                "MechanismSelector": 0.561087,
+                "FixedSchedule": 1.0,
+                "AlwaysNudge": 0.803061,
+                "NeverAdapt": 0.102135
+              },
+              "AlwaysNudge": {
+                "AlwaysRebuild": 0.00344,
+                "MechanismSelector": 0.068721,
+                "FixedSchedule": 0.803061,
+                "AlwaysNudge": 1.0,
+                "NeverAdapt": 0.663593
+              },
+              "NeverAdapt": {
+                "AlwaysRebuild": 9e-06,
+                "MechanismSelector": 0.000736,
+                "FixedSchedule": 0.102135,
+                "AlwaysNudge": 0.663593,
+                "NeverAdapt": 1.0
+              }
+            }
+          }
+        },
+        "selector_comparisons": [
+          {
+            "metric": "accuracy",
+            "target": "mechanism_selector",
+            "against": "always_rebuild",
+            "n": 8,
+            "n_nonzero": 8,
+            "median_difference": -1.1309188102302627,
+            "target_better_in": 1,
+            "target_worse_in": 7,
+            "p": 0.015625,
+            "cliffs_delta": -0.125,
+            "rank_biserial": -0.9444444444444444,
+            "p_holm": 0.046875
+          },
+          {
+            "metric": "accuracy",
+            "target": "mechanism_selector",
+            "against": "fixed_schedule",
+            "n": 8,
+            "n_nonzero": 8,
+            "median_difference": 0.20048398139846668,
+            "target_better_in": 5,
+            "target_worse_in": 3,
+            "p": 1.0,
+            "cliffs_delta": 0.0625,
+            "rank_biserial": 0.0,
+            "p_holm": 1.0
+          },
+          {
+            "metric": "cost",
+            "target": "mechanism_selector",
+            "against": "always_rebuild",
+            "n": 8,
+            "n_nonzero": 8,
+            "median_difference": -120000.0,
+            "target_better_in": 7,
+            "target_worse_in": 1,
+            "p": 0.0234375,
+            "cliffs_delta": -0.15625,
+            "rank_biserial": -0.8888888888888888,
+            "p_holm": 0.046875
+          },
+          {
+            "metric": "cost",
+            "target": "mechanism_selector",
+            "against": "fixed_schedule",
+            "n": 8,
+            "n_nonzero": 8,
+            "median_difference": 240289.5,
+            "target_better_in": 0,
+            "target_worse_in": 8,
+            "p": 0.0078125,
+            "cliffs_delta": 0.21875,
+            "rank_biserial": 1.0,
+            "p_holm": 0.03125
+          }
+        ]
+      }
+    }
+  },
+  "pareto": [
+    {
+      "dataset": "covtype",
+      "model": "gnb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 54.29672256970727,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 95.61022603094266,
+          "accuracy": 51.72651993956088,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 83.29067694254329,
+          "accuracy": 58.05021465081446,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 88.63662506470351,
+          "accuracy": 63.74305774630642,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 65.09634266193369,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "fixed_schedule",
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "FixedSchedule dominates selector",
+      "accuracy_gap_vs_fixed_schedule_pp": -6.32369471125358,
+      "accuracy_gap_seed_sign_consistency": null
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 63.23971109396623,
+          "accuracy_sd": 3.3703020484140316,
+          "cost_pct_sd": 2.8172702174748494
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 79.92725353949771,
+          "accuracy": 69.90674180335955,
+          "accuracy_sd": 10.539171497994383,
+          "cost_pct_sd": 11.801098505629845
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 27.62305238693765,
+          "accuracy": 81.39260767798936,
+          "accuracy_sd": 0.7385689469070739,
+          "cost_pct_sd": 1.4258168005328242
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 4.710526003747006,
+          "accuracy": 76.2548980501559,
+          "accuracy_sd": 0.7701892392437164,
+          "cost_pct_sd": 0.06958115036495668
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 81.12276594142689,
+          "accuracy_sd": 0.3474325847518515,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "fixed_schedule",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "fixed_schedule",
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": 0.2,
+      "selector_vs_fixed_schedule": "FixedSchedule dominates selector",
+      "accuracy_gap_vs_fixed_schedule_pp": -11.485865874629809,
+      "accuracy_gap_seed_sign_consistency": 0.8
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 30.355109170357604,
+          "accuracy_sd": 6.167019786247747,
+          "cost_pct_sd": 18.647456655449563
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 37.75743857478318,
+          "accuracy": 34.75446073330748,
+          "accuracy_sd": 7.415107965504829,
+          "cost_pct_sd": 22.538223371866543
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 40.81637489534248,
+          "accuracy": 34.73095017586596,
+          "accuracy_sd": 3.2344739005760834,
+          "cost_pct_sd": 2.1230813224075185
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 0.09348182973437731,
+          "accuracy": 39.35489068110413,
+          "accuracy_sd": 8.614849557642225,
+          "cost_pct_sd": 0.008634643286942538
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 40.572280287528855,
+          "accuracy_sd": 9.523251609594304,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": 0.4,
+      "selector_vs_fixed_schedule": "selector dominates FixedSchedule",
+      "accuracy_gap_vs_fixed_schedule_pp": 0.023510557441525748,
+      "accuracy_gap_seed_sign_consistency": 0.6
+    },
+    {
+      "dataset": "covtype",
+      "model": "xgb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 64.67111621569704,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 68.36757617233992,
+          "accuracy": 52.14320845210272,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 2.074059747679124,
+          "accuracy": 43.837109055241676,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 3.990047012616044,
+          "accuracy": 77.34124275051335,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 80.35559438997134,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "different operating point: selector more accurate, costs more",
+      "accuracy_gap_vs_fixed_schedule_pp": 8.306099396861043,
+      "accuracy_gap_seed_sign_consistency": null
+    },
+    {
+      "dataset": "elec2",
+      "model": "gnb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 68.10524508962507,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 97.56685070910468,
+          "accuracy": 67.2690713812805,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 91.94002381725669,
+          "accuracy": 68.92915818641033,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 84.64328245101224,
+          "accuracy": 70.51077707756063,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 48.049336700914644,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "always_nudge",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "fixed_schedule"
+      ],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "FixedSchedule dominates selector",
+      "accuracy_gap_vs_fixed_schedule_pp": -1.6600868051298363,
+      "accuracy_gap_seed_sign_consistency": null
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 73.61712562222604,
+          "accuracy_sd": 0.7702111887802663,
+          "cost_pct_sd": 3.184811649500802
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 59.80066473399316,
+          "accuracy": 71.88886981682647,
+          "accuracy_sd": 1.5514223435111558,
+          "cost_pct_sd": 9.696180501565653
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 36.25039634905895,
+          "accuracy": 74.12177239400702,
+          "accuracy_sd": 0.8002969917018985,
+          "cost_pct_sd": 1.4954843785534915
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 4.188277127262021,
+          "accuracy": 74.33167406390231,
+          "accuracy_sd": 0.4742666999574266,
+          "cost_pct_sd": 0.07514303866938113
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 71.04779186385818,
+          "accuracy_sd": 0.27962796969468395,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "always_nudge",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "fixed_schedule"
+      ],
+      "selector_frontier_share_across_seeds": 0.0,
+      "selector_vs_fixed_schedule": "FixedSchedule dominates selector",
+      "accuracy_gap_vs_fixed_schedule_pp": -2.2329025771805533,
+      "accuracy_gap_seed_sign_consistency": 1.0
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 64.52024226968442,
+          "accuracy_sd": 1.3036564770443688,
+          "cost_pct_sd": 12.995844812951095
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 47.81453348068471,
+          "accuracy": 63.094578357568466,
+          "accuracy_sd": 2.731001948015685,
+          "cost_pct_sd": 6.55331578228877
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 33.9121948589803,
+          "accuracy": 62.89252347907113,
+          "accuracy_sd": 0.8773586033860812,
+          "cost_pct_sd": 5.102295657433729
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 1.3679517894630027,
+          "accuracy": 69.7672935926044,
+          "accuracy_sd": 0.44301849862032666,
+          "cost_pct_sd": 0.07198483033843518
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 66.04938574336089,
+          "accuracy_sd": 2.231129214211956,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "always_nudge",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": 0.0,
+      "selector_vs_fixed_schedule": "FixedSchedule cheaper, comparable accuracy",
+      "accuracy_gap_vs_fixed_schedule_pp": 0.20205487849733572,
+      "accuracy_gap_seed_sign_consistency": 0.6
+    },
+    {
+      "dataset": "elec2",
+      "model": "xgb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 74.20367327922317,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 54.81763039760582,
+          "accuracy": 71.26112650499007,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 27.591786019666525,
+          "accuracy": 73.59799906819352,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 3.3199283882000854,
+          "accuracy": 72.19783722812095,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 70.68978200632647,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "always_nudge",
+        "always_rebuild",
+        "fixed_schedule",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "fixed_schedule"
+      ],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "FixedSchedule dominates selector",
+      "accuracy_gap_vs_fixed_schedule_pp": -2.3368725632034426,
+      "accuracy_gap_seed_sign_consistency": null
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "gnb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 57.33682680547112,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 29.07075873827792,
+          "accuracy": 40.23382415452221,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 96.82438192668371,
+          "accuracy": 41.61156070580471,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 59.67604433077579,
+          "accuracy": 48.71829724764514,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 49.116669023416264,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "always_rebuild",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "different operating point: selector cheaper, less accurate",
+      "accuracy_gap_vs_fixed_schedule_pp": -1.3777365512825028,
+      "accuracy_gap_seed_sign_consistency": null
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 56.64421735404587,
+          "accuracy_sd": 1.7679635206308895,
+          "cost_pct_sd": 3.057357028137199
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 35.971696560803025,
+          "accuracy": 50.90066807887193,
+          "accuracy_sd": 1.376427737433839,
+          "cost_pct_sd": 22.969217594550763
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 24.594372223136418,
+          "accuracy": 40.13670492407028,
+          "accuracy_sd": 0.5709127255570711,
+          "cost_pct_sd": 0.21942021788097044
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 3.254586967253579,
+          "accuracy": 56.21244575033188,
+          "accuracy_sd": 0.12905614137875313,
+          "cost_pct_sd": 0.22532604801101125
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 56.41477205662011,
+          "accuracy_sd": 0.09293838473404957,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "always_rebuild",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": 0.0,
+      "selector_vs_fixed_schedule": "different operating point: selector more accurate, costs more",
+      "accuracy_gap_vs_fixed_schedule_pp": 10.763963154801651,
+      "accuracy_gap_seed_sign_consistency": 1.0
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 19.95844248834392,
+          "accuracy_sd": 4.152205657617189,
+          "cost_pct_sd": 31.571707303578297
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 3.9883166840383484,
+          "accuracy": 19.806540390247214,
+          "accuracy_sd": 1.620420931959523,
+          "cost_pct_sd": 2.936369132669866
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 21.666501119699486,
+          "accuracy": 19.512823578791313,
+          "accuracy_sd": 2.6921922962272102,
+          "cost_pct_sd": 26.157338754496884
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 0.2359431275219038,
+          "accuracy": 19.533195127641957,
+          "accuracy_sd": 2.166171015799996,
+          "cost_pct_sd": 0.017904731413803283
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 20.979047067030326,
+          "accuracy_sd": 2.2094395440340984,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": 0.2,
+      "selector_vs_fixed_schedule": "selector dominates FixedSchedule",
+      "accuracy_gap_vs_fixed_schedule_pp": 0.29371681145590145,
+      "accuracy_gap_seed_sign_consistency": 0.8
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "xgb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 56.08586746253009,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 52.952777777777776,
+          "accuracy": 45.39220111710304,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 36.15611111111111,
+          "accuracy": 49.52741244646035,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 4.444444444444445,
+          "accuracy": 50.311379493912476,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 56.89607474919983,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "fixed_schedule",
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "FixedSchedule dominates selector",
+      "accuracy_gap_vs_fixed_schedule_pp": -4.135211329357311,
+      "accuracy_gap_seed_sign_consistency": null
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "gnb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 54.828003264113136,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 119.21985815602837,
+          "accuracy": 53.83971044467268,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 86.63120567375887,
+          "accuracy": 49.8109841843976,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 75.90425531914893,
+          "accuracy": 44.364042375877794,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 34.18107321216655,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "always_nudge",
+        "always_rebuild",
+        "fixed_schedule",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_rebuild"
+      ],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "different operating point: selector more accurate, costs more",
+      "accuracy_gap_vs_fixed_schedule_pp": 4.028726260275086,
+      "accuracy_gap_seed_sign_consistency": null
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 48.69372775102083,
+          "accuracy_sd": 0.18336550699702575,
+          "cost_pct_sd": 0.7615890660283456
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 72.22711010514018,
+          "accuracy": 44.88181032769554,
+          "accuracy_sd": 3.53659044694167,
+          "cost_pct_sd": 15.889360970514483
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 38.75657126168224,
+          "accuracy": 29.218720223477977,
+          "accuracy_sd": 0.3480239628305609,
+          "cost_pct_sd": 0.010612180091812438
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 3.899678738317757,
+          "accuracy": 28.093763376232253,
+          "accuracy_sd": 0.23337167331887423,
+          "cost_pct_sd": 0.010612180091814225
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 28.165380195369824,
+          "accuracy_sd": 0.24016124695377208,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "always_rebuild",
+        "fixed_schedule",
+        "mechanism_selector",
+        "never_adapt"
+      ],
+      "selector_on_frontier": true,
+      "selector_dominated_by": [],
+      "selector_frontier_share_across_seeds": 1.0,
+      "selector_vs_fixed_schedule": "different operating point: selector more accurate, costs more",
+      "accuracy_gap_vs_fixed_schedule_pp": 15.663090104217563,
+      "accuracy_gap_seed_sign_consistency": 1.0
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 19.521196568362278,
+          "accuracy_sd": 2.2502227061511966,
+          "cost_pct_sd": 22.749200399417376
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 7.769875403200303,
+          "accuracy": 19.552143345308227,
+          "accuracy_sd": 3.1402326409411345,
+          "cost_pct_sd": 10.202186018995747
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 33.65042059325786,
+          "accuracy": 23.364236979242822,
+          "accuracy_sd": 5.5275610306095535,
+          "cost_pct_sd": 1.8021380411632797
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 0.12730377585225475,
+          "accuracy": 21.58842005831296,
+          "accuracy_sd": 3.508828173737574,
+          "cost_pct_sd": 0.005345484398123023
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 20.558921122565586,
+          "accuracy_sd": 1.081508084791943,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "always_nudge",
+        "fixed_schedule",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_nudge",
+        "never_adapt"
+      ],
+      "selector_frontier_share_across_seeds": 0.2,
+      "selector_vs_fixed_schedule": "different operating point: selector cheaper, less accurate",
+      "accuracy_gap_vs_fixed_schedule_pp": -3.8120936339345945,
+      "accuracy_gap_seed_sign_consistency": 0.8
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "xgb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 50.92618247809012,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 68.92917798913044,
+          "accuracy": 39.67950636678477,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 36.74422554347826,
+          "accuracy": 43.52276381149092,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 3.3721127717391304,
+          "accuracy": 29.5254943738491,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 30.604911004506917,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "always_rebuild",
+        "fixed_schedule",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "fixed_schedule"
+      ],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "FixedSchedule dominates selector",
+      "accuracy_gap_vs_fixed_schedule_pp": -3.843257444706147,
+      "accuracy_gap_seed_sign_consistency": null
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "gnb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 54.845222439592824,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 140.0,
+          "accuracy": 54.204232760415984,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 84.0,
+          "accuracy": 52.756519113796905,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 64.0,
+          "accuracy": 33.10340357140152,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 20.591008171981258,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "always_nudge",
+        "always_rebuild",
+        "fixed_schedule",
+        "never_adapt"
+      ],
+      "selector_on_frontier": false,
+      "selector_dominated_by": [
+        "always_rebuild"
+      ],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "different operating point: selector more accurate, costs more",
+      "accuracy_gap_vs_fixed_schedule_pp": 1.4477136466190785,
+      "accuracy_gap_seed_sign_consistency": null
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 62.32306780925667,
+          "accuracy_sd": 1.4536627536025424,
+          "cost_pct_sd": 13.551927136362366
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 91.51515151515152,
+          "accuracy": 61.75057334981163,
+          "accuracy_sd": 1.319497372414009,
+          "cost_pct_sd": 17.152692967375643
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 16.96969696969697,
+          "accuracy": 40.62214401412581,
+          "accuracy_sd": 0.15006909909422833,
+          "cost_pct_sd": 0.0
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 2.4242424242424243,
+          "accuracy": 23.82194067485836,
+          "accuracy_sd": 0.4163767918420061,
+          "cost_pct_sd": 0.0
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 21.24395358209042,
+          "accuracy_sd": 0.24025227415425446,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "always_nudge",
+        "always_rebuild",
+        "fixed_schedule",
+        "mechanism_selector",
+        "never_adapt"
+      ],
+      "selector_on_frontier": true,
+      "selector_dominated_by": [],
+      "selector_frontier_share_across_seeds": 0.4,
+      "selector_vs_fixed_schedule": "different operating point: selector more accurate, costs more",
+      "accuracy_gap_vs_fixed_schedule_pp": 21.128429335685823,
+      "accuracy_gap_seed_sign_consistency": 1.0
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "n_seeds": 5,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 19.93297147003556,
+          "accuracy_sd": 3.7165449241922803,
+          "cost_pct_sd": 143.137256844271
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 62.54716981132076,
+          "accuracy": 20.4705134636163,
+          "accuracy_sd": 3.7300314893720845,
+          "cost_pct_sd": 138.80737887463434
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 0.7547169811320755,
+          "accuracy": 20.251625683980215,
+          "accuracy_sd": 3.4862981597822547,
+          "cost_pct_sd": 1.0334387877455964
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 0.7547169811320755,
+          "accuracy": 20.251625683980215,
+          "accuracy_sd": 3.4862981597822547,
+          "cost_pct_sd": 1.0334387877455964
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 20.420525354855855,
+          "accuracy_sd": 4.5315582261102385,
+          "cost_pct_sd": 0.0
+        }
+      },
+      "frontier": [
+        "mechanism_selector",
+        "never_adapt"
+      ],
+      "selector_on_frontier": true,
+      "selector_dominated_by": [],
+      "selector_frontier_share_across_seeds": 0.8,
+      "selector_vs_fixed_schedule": "FixedSchedule cheaper, comparable accuracy",
+      "accuracy_gap_vs_fixed_schedule_pp": 0.2188877796360842,
+      "accuracy_gap_seed_sign_consistency": 0.2
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "xgb",
+      "n_seeds": 1,
+      "policies": {
+        "always_rebuild": {
+          "cost_pct_of_rebuild": 100.0,
+          "accuracy": 60.08576287377034,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "mechanism_selector": {
+          "cost_pct_of_rebuild": 63.2,
+          "accuracy": 57.73367887668904,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "fixed_schedule": {
+          "cost_pct_of_rebuild": 23.2,
+          "accuracy": 57.53476579238944,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "always_nudge": {
+          "cost_pct_of_rebuild": 4.0,
+          "accuracy": 53.15446396888341,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        },
+        "never_adapt": {
+          "cost_pct_of_rebuild": 0.0,
+          "accuracy": 22.011747061026064,
+          "accuracy_sd": null,
+          "cost_pct_sd": null
+        }
+      },
+      "frontier": [
+        "always_nudge",
+        "always_rebuild",
+        "fixed_schedule",
+        "mechanism_selector",
+        "never_adapt"
+      ],
+      "selector_on_frontier": true,
+      "selector_dominated_by": [],
+      "selector_frontier_share_across_seeds": null,
+      "selector_vs_fixed_schedule": "FixedSchedule cheaper, comparable accuracy",
+      "accuracy_gap_vs_fixed_schedule_pp": 0.19891308429959764,
+      "accuracy_gap_seed_sign_consistency": null
+    }
+  ],
+  "event_split": {
+    "xgb": {
+      "share_of_always_nudge_windows_complete": 0.330188679245283,
+      "always_nudge_all": {
+        "n": 212,
+        "median_gain_pp": 2.5227272727272707,
+        "share_accuracy_unchanged": 0.13679245283018868,
+        "median_prediction_change_pct": 9.0,
+        "share_no_prediction_changed": 0.1179245283018868
+      },
+      "always_nudge_complete_windows": {
+        "n": 70,
+        "median_gain_pp": 3.205619412515964,
+        "share_accuracy_unchanged": 0.05714285714285714,
+        "median_prediction_change_pct": 17.492877492877493,
+        "share_no_prediction_changed": 0.02857142857142857
+      },
+      "selector_success_all": {
+        "attempts": 128,
+        "successes": 32,
+        "rate": 0.25
+      },
+      "selector_success_complete_windows": {
+        "attempts": 40,
+        "successes": 6,
+        "rate": 0.15
+      }
+    },
+    "rf": {
+      "share_of_always_nudge_windows_complete": 0.22547974413646055,
+      "always_nudge_all": {
+        "n": 1876,
+        "median_gain_pp": 0.0,
+        "share_accuracy_unchanged": 0.6247334754797441,
+        "median_prediction_change_pct": 0.0,
+        "share_no_prediction_changed": 0.6023454157782516
+      },
+      "always_nudge_complete_windows": {
+        "n": 423,
+        "median_gain_pp": 0.0,
+        "share_accuracy_unchanged": 0.475177304964539,
+        "median_prediction_change_pct": 0.625,
+        "share_no_prediction_changed": 0.42789598108747046
+      },
+      "selector_success_all": {
+        "attempts": 574,
+        "successes": 17,
+        "rate": 0.029616724738675958
+      },
+      "selector_success_complete_windows": {
+        "attempts": 209,
+        "successes": 6,
+        "rate": 0.028708133971291867
+      }
+    },
+    "gnb": {
+      "share_of_always_nudge_windows_complete": 0.24175824175824176,
+      "always_nudge_all": {
+        "n": 364,
+        "median_gain_pp": 0.0,
+        "share_accuracy_unchanged": 0.782967032967033,
+        "median_prediction_change_pct": 0.0,
+        "share_no_prediction_changed": 0.771978021978022
+      },
+      "always_nudge_complete_windows": {
+        "n": 88,
+        "median_gain_pp": 0.0,
+        "share_accuracy_unchanged": 0.5227272727272727,
+        "median_prediction_change_pct": 0.0,
+        "share_no_prediction_changed": 0.5113636363636364
+      },
+      "selector_success_all": {
+        "attempts": 105,
+        "successes": 31,
+        "rate": 0.29523809523809524
+      },
+      "selector_success_complete_windows": {
+        "attempts": 47,
+        "successes": 16,
+        "rate": 0.3404255319148936
+      }
+    },
+    "sgd": {
+      "share_of_always_nudge_windows_complete": 0.2064977973568282,
+      "always_nudge_all": {
+        "n": 1816,
+        "median_gain_pp": 0.0,
+        "share_accuracy_unchanged": 0.4647577092511013,
+        "median_prediction_change_pct": 9.428879310344827,
+        "share_no_prediction_changed": 0.401431718061674
+      },
+      "always_nudge_complete_windows": {
+        "n": 375,
+        "median_gain_pp": 0.0,
+        "share_accuracy_unchanged": 0.11733333333333333,
+        "median_prediction_change_pct": 21.153846153846153,
+        "share_no_prediction_changed": 0.096
+      },
+      "selector_success_all": {
+        "attempts": 272,
+        "successes": 84,
+        "rate": 0.3088235294117647
+      },
+      "selector_success_complete_windows": {
+        "attempts": 166,
+        "successes": 49,
+        "rate": 0.29518072289156627
+      }
+    }
+  },
+  "decay": {
+    "xgb": {
+      "runs": [
+        {
+          "dataset": "covtype",
+          "seed": 0,
+          "n_always_nudge": 138,
+          "n_fixed_schedule": 6,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        },
+        {
+          "dataset": "elec2",
+          "seed": 0,
+          "n_always_nudge": 53,
+          "n_fixed_schedule": 35,
+          "trend_gain": 0.09999999999999999,
+          "trend_prediction_change": -0.6
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 0,
+          "n_always_nudge": 10,
+          "n_fixed_schedule": 8,
+          "trend_gain": -0.09999999999999999,
+          "trend_prediction_change": 0.09999999999999999
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 0,
+          "n_always_nudge": 6,
+          "n_fixed_schedule": 5,
+          "trend_gain": -0.9486832980505139,
+          "trend_prediction_change": -0.316227766016838
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 0,
+          "n_always_nudge": 5,
+          "n_fixed_schedule": 4,
+          "trend_gain": 1.0,
+          "trend_prediction_change": 0.5
+        }
+      ],
+      "gain": {
+        "runs_with_trend": 4,
+        "median_trend": 0.0,
+        "share_negative": 0.5,
+        "wilcoxon_p": null
+      },
+      "prediction_change": {
+        "runs_with_trend": 4,
+        "median_trend": -0.10811388300841901,
+        "share_negative": 0.5,
+        "wilcoxon_p": null
+      },
+      "always_nudge_gain_vs_position": {
+        "n": 212,
+        "rho": -0.08108201694785203,
+        "p": 0.23978328195109852
+      },
+      "fixed_schedule_gain_vs_position": {
+        "n": 58,
+        "rho": 0.23468791381669252,
+        "p": 0.07618234693519581
+      }
+    },
+    "rf": {
+      "runs": [
+        {
+          "dataset": "covtype",
+          "seed": 0,
+          "n_always_nudge": 270,
+          "n_fixed_schedule": 108,
+          "trend_gain": 0.09999999999999999,
+          "trend_prediction_change": 0.09999999999999999
+        },
+        {
+          "dataset": "covtype",
+          "seed": 1,
+          "n_always_nudge": 276,
+          "n_fixed_schedule": 89,
+          "trend_gain": -0.3,
+          "trend_prediction_change": 0.09999999999999999
+        },
+        {
+          "dataset": "covtype",
+          "seed": 2,
+          "n_always_nudge": 277,
+          "n_fixed_schedule": 89,
+          "trend_gain": -0.19999999999999998,
+          "trend_prediction_change": -0.3
+        },
+        {
+          "dataset": "covtype",
+          "seed": 3,
+          "n_always_nudge": 289,
+          "n_fixed_schedule": 92,
+          "trend_gain": -0.39999999999999997,
+          "trend_prediction_change": 0.3
+        },
+        {
+          "dataset": "covtype",
+          "seed": 4,
+          "n_always_nudge": 304,
+          "n_fixed_schedule": 92,
+          "trend_gain": -0.09999999999999999,
+          "trend_prediction_change": -0.09999999999999999
+        },
+        {
+          "dataset": "elec2",
+          "seed": 0,
+          "n_always_nudge": 74,
+          "n_fixed_schedule": 48,
+          "trend_gain": 0.3,
+          "trend_prediction_change": -0.3
+        },
+        {
+          "dataset": "elec2",
+          "seed": 1,
+          "n_always_nudge": 72,
+          "n_fixed_schedule": 43,
+          "trend_gain": 0.19999999999999998,
+          "trend_prediction_change": -0.09999999999999999
+        },
+        {
+          "dataset": "elec2",
+          "seed": 2,
+          "n_always_nudge": 68,
+          "n_fixed_schedule": 47,
+          "trend_gain": 0.09999999999999999,
+          "trend_prediction_change": 0.0
+        },
+        {
+          "dataset": "elec2",
+          "seed": 3,
+          "n_always_nudge": 78,
+          "n_fixed_schedule": 46,
+          "trend_gain": 0.19999999999999998,
+          "trend_prediction_change": -0.7
+        },
+        {
+          "dataset": "elec2",
+          "seed": 4,
+          "n_always_nudge": 71,
+          "n_fixed_schedule": 43,
+          "trend_gain": -0.8999999999999998,
+          "trend_prediction_change": -0.6
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 0,
+          "n_always_nudge": 8,
+          "n_fixed_schedule": 6,
+          "trend_gain": -0.6000000000000001,
+          "trend_prediction_change": -0.39999999999999997
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 1,
+          "n_always_nudge": 9,
+          "n_fixed_schedule": 7,
+          "trend_gain": -0.6668859288553501,
+          "trend_prediction_change": -0.19999999999999998
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 2,
+          "n_always_nudge": 8,
+          "n_fixed_schedule": 7,
+          "trend_gain": 0.35909242322980395,
+          "trend_prediction_change": -0.3
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 3,
+          "n_always_nudge": 9,
+          "n_fixed_schedule": 6,
+          "trend_gain": -0.19999999999999998,
+          "trend_prediction_change": -0.7745966692414834
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 4,
+          "n_always_nudge": 8,
+          "n_fixed_schedule": 7,
+          "trend_gain": 0.8720815992723809,
+          "trend_prediction_change": -0.49999999999999994
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 0,
+          "n_always_nudge": 7,
+          "n_fixed_schedule": 4,
+          "trend_gain": -0.8660254037844387,
+          "trend_prediction_change": 0.8660254037844387
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 1,
+          "n_always_nudge": 7,
+          "n_fixed_schedule": 4,
+          "trend_gain": 0.0,
+          "trend_prediction_change": 0.8660254037844387
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 2,
+          "n_always_nudge": 7,
+          "n_fixed_schedule": 4,
+          "trend_gain": -0.8660254037844387,
+          "trend_prediction_change": 0.8660254037844387
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 3,
+          "n_always_nudge": 7,
+          "n_fixed_schedule": 4,
+          "trend_gain": 0.8660254037844387,
+          "trend_prediction_change": -0.8660254037844387
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 4,
+          "n_always_nudge": 7,
+          "n_fixed_schedule": 4,
+          "trend_gain": 0.8660254037844387,
+          "trend_prediction_change": -0.8660254037844387
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 0,
+          "n_always_nudge": 4,
+          "n_fixed_schedule": 3,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 1,
+          "n_always_nudge": 4,
+          "n_fixed_schedule": 3,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 2,
+          "n_always_nudge": 4,
+          "n_fixed_schedule": 3,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 3,
+          "n_always_nudge": 4,
+          "n_fixed_schedule": 3,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 4,
+          "n_always_nudge": 4,
+          "n_fixed_schedule": 3,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        }
+      ],
+      "gain": {
+        "runs_with_trend": 20,
+        "median_trend": -0.049999999999999996,
+        "share_negative": 0.5,
+        "wilcoxon_p": 0.6140470877747211
+      },
+      "prediction_change": {
+        "runs_with_trend": 20,
+        "median_trend": -0.25,
+        "share_negative": 0.65,
+        "wilcoxon_p": 0.20309178757716784
+      },
+      "always_nudge_gain_vs_position": {
+        "n": 1876,
+        "rho": -0.0014359249702586144,
+        "p": 0.9504413630769122
+      },
+      "fixed_schedule_gain_vs_position": {
+        "n": 765,
+        "rho": 0.0740157680993296,
+        "p": 0.04069391057893773
+      }
+    },
+    "gnb": {
+      "runs": [
+        {
+          "dataset": "covtype",
+          "seed": 0,
+          "n_always_nudge": 274,
+          "n_fixed_schedule": 158,
+          "trend_gain": 0.3,
+          "trend_prediction_change": -0.09999999999999999
+        },
+        {
+          "dataset": "elec2",
+          "seed": 0,
+          "n_always_nudge": 73,
+          "n_fixed_schedule": 54,
+          "trend_gain": 0.3,
+          "trend_prediction_change": 0.49999999999999994
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 0,
+          "n_always_nudge": 7,
+          "n_fixed_schedule": 8,
+          "trend_gain": -0.6,
+          "trend_prediction_change": -0.6
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 0,
+          "n_always_nudge": 6,
+          "n_fixed_schedule": 5,
+          "trend_gain": -0.316227766016838,
+          "trend_prediction_change": 0.316227766016838
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 0,
+          "n_always_nudge": 4,
+          "n_fixed_schedule": 4,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        }
+      ],
+      "gain": {
+        "runs_with_trend": 4,
+        "median_trend": -0.008113883008419004,
+        "share_negative": 0.5,
+        "wilcoxon_p": null
+      },
+      "prediction_change": {
+        "runs_with_trend": 4,
+        "median_trend": 0.10811388300841901,
+        "share_negative": 0.5,
+        "wilcoxon_p": null
+      },
+      "always_nudge_gain_vs_position": {
+        "n": 364,
+        "rho": -0.11896818282329502,
+        "p": 0.023205834071275914
+      },
+      "fixed_schedule_gain_vs_position": {
+        "n": 229,
+        "rho": -0.039729256026004675,
+        "p": 0.5497338703306989
+      }
+    },
+    "sgd": {
+      "runs": [
+        {
+          "dataset": "covtype",
+          "seed": 0,
+          "n_always_nudge": 308,
+          "n_fixed_schedule": 168,
+          "trend_gain": 0.7999999999999999,
+          "trend_prediction_change": 0.3
+        },
+        {
+          "dataset": "covtype",
+          "seed": 1,
+          "n_always_nudge": 272,
+          "n_fixed_schedule": 171,
+          "trend_gain": 0.7,
+          "trend_prediction_change": 0.3
+        },
+        {
+          "dataset": "covtype",
+          "seed": 2,
+          "n_always_nudge": 283,
+          "n_fixed_schedule": 176,
+          "trend_gain": 0.49999999999999994,
+          "trend_prediction_change": 0.0
+        },
+        {
+          "dataset": "covtype",
+          "seed": 3,
+          "n_always_nudge": 241,
+          "n_fixed_schedule": 163,
+          "trend_gain": 0.3,
+          "trend_prediction_change": 0.19999999999999998
+        },
+        {
+          "dataset": "covtype",
+          "seed": 4,
+          "n_always_nudge": 307,
+          "n_fixed_schedule": 169,
+          "trend_gain": 0.19999999999999998,
+          "trend_prediction_change": -0.7999999999999999
+        },
+        {
+          "dataset": "elec2",
+          "seed": 0,
+          "n_always_nudge": 64,
+          "n_fixed_schedule": 37,
+          "trend_gain": 0.8999999999999998,
+          "trend_prediction_change": -0.6
+        },
+        {
+          "dataset": "elec2",
+          "seed": 1,
+          "n_always_nudge": 70,
+          "n_fixed_schedule": 42,
+          "trend_gain": 0.6,
+          "trend_prediction_change": -0.3
+        },
+        {
+          "dataset": "elec2",
+          "seed": 2,
+          "n_always_nudge": 62,
+          "n_fixed_schedule": 40,
+          "trend_gain": -0.7,
+          "trend_prediction_change": -0.19999999999999998
+        },
+        {
+          "dataset": "elec2",
+          "seed": 3,
+          "n_always_nudge": 60,
+          "n_fixed_schedule": 36,
+          "trend_gain": 0.49999999999999994,
+          "trend_prediction_change": -0.7999999999999999
+        },
+        {
+          "dataset": "elec2",
+          "seed": 4,
+          "n_always_nudge": 73,
+          "n_fixed_schedule": 41,
+          "trend_gain": -0.7,
+          "trend_prediction_change": -0.09999999999999999
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 0,
+          "n_always_nudge": 10,
+          "n_fixed_schedule": 6,
+          "trend_gain": -0.3,
+          "trend_prediction_change": -0.09999999999999999
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 1,
+          "n_always_nudge": 9,
+          "n_fixed_schedule": 6,
+          "trend_gain": 0.39999999999999997,
+          "trend_prediction_change": 0.6000000000000001
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 2,
+          "n_always_nudge": 8,
+          "n_fixed_schedule": 6,
+          "trend_gain": -0.39999999999999997,
+          "trend_prediction_change": 0.39999999999999997
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 3,
+          "n_always_nudge": 10,
+          "n_fixed_schedule": 7,
+          "trend_gain": 0.39999999999999997,
+          "trend_prediction_change": 0.7999999999999999
+        },
+        {
+          "dataset": "insects_abrupt",
+          "seed": 4,
+          "n_always_nudge": 10,
+          "n_fixed_schedule": 7,
+          "trend_gain": 0.49999999999999994,
+          "trend_prediction_change": -0.051298917604257706
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 0,
+          "n_always_nudge": 5,
+          "n_fixed_schedule": 5,
+          "trend_gain": -0.316227766016838,
+          "trend_prediction_change": -0.316227766016838
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 1,
+          "n_always_nudge": 5,
+          "n_fixed_schedule": 4,
+          "trend_gain": 0.9486832980505139,
+          "trend_prediction_change": -0.7378647873726218
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 2,
+          "n_always_nudge": 6,
+          "n_fixed_schedule": 4,
+          "trend_gain": -0.8660254037844387,
+          "trend_prediction_change": 0.8660254037844387
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 3,
+          "n_always_nudge": 5,
+          "n_fixed_schedule": 3,
+          "trend_gain": 0.8660254037844387,
+          "trend_prediction_change": 0.8660254037844387
+        },
+        {
+          "dataset": "insects_gradual",
+          "seed": 4,
+          "n_always_nudge": 6,
+          "n_fixed_schedule": 5,
+          "trend_gain": -0.316227766016838,
+          "trend_prediction_change": -0.316227766016838
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 0,
+          "n_always_nudge": 0,
+          "n_fixed_schedule": 0,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 1,
+          "n_always_nudge": 0,
+          "n_fixed_schedule": 0,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 2,
+          "n_always_nudge": 0,
+          "n_fixed_schedule": 0,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 3,
+          "n_always_nudge": 1,
+          "n_fixed_schedule": 1,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        },
+        {
+          "dataset": "insects_incremental",
+          "seed": 4,
+          "n_always_nudge": 1,
+          "n_fixed_schedule": 1,
+          "trend_gain": null,
+          "trend_prediction_change": null
+        }
+      ],
+      "gain": {
+        "runs_with_trend": 20,
+        "median_trend": 0.39999999999999997,
+        "share_negative": 0.35,
+        "wilcoxon_p": 0.12536375467195543
+      },
+      "prediction_change": {
+        "runs_with_trend": 20,
+        "median_trend": -0.07564945880212885,
+        "share_negative": 0.55,
+        "wilcoxon_p": 0.983927244636252
+      },
+      "always_nudge_gain_vs_position": {
+        "n": 1816,
+        "rho": 0.06516902182962453,
+        "p": 0.005466264623656637
+      },
+      "fixed_schedule_gain_vs_position": {
+        "n": 1098,
+        "rho": 0.013113071861745223,
+        "p": 0.6642597048809299
+      }
+    }
+  }
+}

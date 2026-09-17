@@ -39,7 +39,7 @@ scikit-learn 1.9.0, numpy 2.5.2, pandas 3.0.5.
 | 4 | `selector.py` | holdout rows never appear in training data | **PASS** |
 | 5 | `policies.py` | all five policies run end-to-end | **PASS** |
 | 6 | `runner.py` | full grid, 500-row CSV | **PASS** |
-| 7 | `analysis.py` | four figures, Friedman + Nemenyi | pending |
+| 7 | `analysis.py` | four figures, Friedman + Nemenyi | **PASS** |
 | 8 | packaging | minimal installable package, public API = `MechanismSelector.adapt()` | pending |
 
 ## Phase 1 notes — data layer
@@ -804,3 +804,109 @@ Analysis scripts over the finished grid:
 | `experiments/margin_report.py` | selector vs FixedSchedule, per cell |
 | `experiments/contribution_numbers.py` | nudge gain, prediction change, alarm-time deficit, rebuild vs no adaptation |
 | `experiments/alarm_direction.py` | whether each NeverAdapt alarm fired on a rise or a fall in error rate, replayed from the detector itself; reproduces every NeverAdapt alarm count exactly |
+
+
+## Phase 7 notes — analysis
+
+```bash
+.venv/Scripts/python.exe -m pytest tests/test_analysis.py -q
+.venv/Scripts/python.exe experiments/run_analysis.py      # statistics -> results/analysis/phase7.json
+.venv/Scripts/python.exe experiments/make_figures.py      # figures/ + results/analysis/figure_data/*.csv
+```
+
+Every figure has its plotted values as CSV alongside it. Palettes were run through
+the dataviz validator; scatter plots use three hues only, with the other two
+policies in grey, distinguished by marker shape.
+
+### Methods as run
+
+- **Observations.** Primary analysis n = 60 (RF/SGD per seed; XGBoost and
+  GaussianNB collapsed after `verify_determinism` confirmed identical seeds),
+  sensitivity n = 20 (one observation per cell, Demšar 2006).
+- **Metrics.** Accuracy = mean prequential accuracy in each stream's scorer.
+  Cost = total adaptation work units; tests rank within blocks, so raw units are
+  equivalent to % of AlwaysRebuild.
+- **Tests.** Friedman across the five policies; Nemenyi post-hoc with critical
+  difference; paired Wilcoxon signed-rank for the selector against AlwaysRebuild
+  and against FixedSchedule on both metrics, Holm-corrected across those four
+  tests within each (scope, level).
+- **Effect sizes.** Cliff's δ as specified, and the matched-pairs rank-biserial
+  r. Cliff's δ treats the samples as unpaired, so between-cell variation swamps
+  it (|δ| ≤ 0.32 even where every paired difference has the same sign); r is the
+  effect size that matches the paired test and is the one to read.
+- **Placeholder scope.** Statistics are repeated on cells where no adaptation and
+  no initial training used a placeholder: elec2 and insects_incremental, 8 of 20
+  cells. That scope is **confounded with dataset** — it cannot separate a
+  placeholder effect from a stream effect.
+- **Event-level placeholder split** uses window class coverage (did the
+  window's 80% training part contain every class), not whether a placeholder was
+  injected. An injection filter is outcome-dependent: for the selector the
+  injecting operation is usually the rebuild after a failed nudge, so it removes
+  mostly failures. A first version made that mistake and inflated selector nudge
+  success from 30% to 50% (GaussianNB) and 31% to 41% (SGD); corrected before
+  reporting.
+
+### Results
+
+**Accuracy: no detectable difference between policies.** Friedman p = 0.18
+(n = 60) and 0.45 (n = 20); all five within one critical difference.
+
+**Cost: strongly different** (Friedman p = 3e-43 at n = 60, 7e-15 at n = 20).
+Mean rank: NeverAdapt 1.1, AlwaysNudge 2.2, FixedSchedule 3.2, selector 3.7,
+AlwaysRebuild 4.8.
+
+| Selector vs | metric | n = 60 | n = 20 |
+|---|---|---|---|
+| AlwaysRebuild | cost | cheaper in 51/60, Holm p = 1e-9, r = −0.96 | cheaper in 18/20, Holm p = 8e-5 |
+| AlwaysRebuild | accuracy | median −1.3 pp, worse in 37/60, Holm p = 0.017, r = −0.41 | median −1.6 pp, Holm p = 0.019 |
+| FixedSchedule | cost | dearer in 41/60, Holm p = 0.009, r = +0.46 | dearer in 16/20, **Holm p = 0.088** |
+| FixedSchedule | accuracy | median 0.0 pp, Holm p = 0.19 | Holm p = 0.96 |
+
+**The selector-vs-FixedSchedule cost difference does not survive the n = 20
+sensitivity analysis**, and Nemenyi does not separate the two even at n = 60
+(rank difference 0.50 < CD 0.79). The selector-vs-AlwaysRebuild results survive
+both levels. On placeholder-free cells, FixedSchedule is cheaper in 20/20 blocks
+(Holm p = 0.0004) and 8/8 cells (Holm p = 0.031), with no accuracy difference.
+
+**Pareto.** The selector is on the per-cell cost-accuracy frontier in 4 of 20
+cells: insects_gradual RF (5/5 seeds), insects_incremental RF (2/5), SGD (4/5)
+and XGBoost. Of the 6 cells where it is more accurate than FixedSchedule at
+higher cost, it is on the frontier in 2 (insects_gradual RF +15.7 pp,
+insects_incremental RF +21.1 pp, both 5/5 seeds) — genuinely different operating
+points. In the other 4 its accuracy is available more cheaply from another
+policy: AlwaysNudge or NeverAdapt on covtype XGBoost and insects_abrupt RF, and
+AlwaysRebuild on insects_gradual and insects_incremental GaussianNB, where the
+selector costs 119% and 140% of AlwaysRebuild. **NeverAdapt dominates the
+selector in 10 of 20 cells.**
+
+**Nudge behaviour by family** (AlwaysNudge, every alarm; complete windows in
+brackets): XGBoost changes predictions in 88% of nudges (97%), median gain
++2.5 pp (+3.2); Random Forest changes none in 60% (43%), median gain 0.0 (0.0);
+GaussianNB changes none in 77% (51%), median gain 0.0 (0.0); SGD changes none in
+40% (10%) with median prediction change 9.4% (21.2%) and median gain 0.0 (0.0),
+its accuracy change spanning ±100 points. Complete windows are a minority —
+21–33% of nudges — and come mostly from elec2 and insects_incremental.
+
+**Nudge decay with accumulation: no evidence.** Matched-position trend of
+AlwaysNudge minus FixedSchedule: Random Forest median −0.05, negative in 50% of
+20 runs, Wilcoxon p = 0.61; SGD median +0.40 (opposite direction), negative in
+35%, p = 0.13. XGBoost and GaussianNB are underpowered — deterministic, so one
+run per dataset, and only 4 runs had enough shared positions — and are
+inconclusive rather than negative. The conditional mechanism replay was not run.
+
+**Detector.** 45% of 4,681 NeverAdapt alarms fired on a fall in error rate
+(median 40% across cells); see `alarm_direction.py` and Figure 1. Scope: river's
+two-sided ADWIN, δ = 0.002, fed the raw 0/1 error stream and never reset.
+
+### Figures
+
+| File | Shows |
+|---|---|
+| `fig1_alarm_direction.png` | share of alarms on falling error, per cell |
+| `fig2_nudge_failure_modes.png` | prediction change and accuracy change per nudge, per family |
+| `fig3_pareto_per_cell.png` | cost-accuracy points and frontier, per cell |
+| `fig4_selector_actions.png` | selector SKIP / NUDGE / REBUILD mix, per cell |
+| `fig5_cumulative_cost.png` | cumulative cost along the stream, seed 0 |
+| `fig6_nudge_success_by_drift.png` | selector nudge success by stream |
+| `fig7_critical_difference.png` | Nemenyi CD diagrams, both metrics, n = 60 and n = 20 |
+| `fig8_nudge_decay_diagnostic.png` | matched-position decay trend per run |
