@@ -44,6 +44,8 @@ def main() -> int:
     parser.add_argument("--policies", nargs="+", default=list(POLICY_KEYS), choices=POLICY_KEYS)
     parser.add_argument("--out", type=Path, default=ROOT / "results" / "grid")
     parser.add_argument("--no-energy", action="store_true", help="skip CodeCarbon (secondary metric)")
+    parser.add_argument("--detector", choices=("adwin", "ddm"), default="adwin",
+                        help="drift detector; DDM is the one-sided contrast condition")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -68,7 +70,7 @@ def main() -> int:
         with log_path.open("a", encoding="utf-8") as f:
             f.write(line + "\n")
 
-    config = RunConfig(track_energy=not args.no_energy)
+    config = RunConfig(track_energy=not args.no_energy, detector=args.detector)
     started = time.perf_counter()
     result = run_grid(args.out, seeds=args.seeds, datasets=args.datasets, models=args.models,
                       policies=args.policies, config=config, log=log)

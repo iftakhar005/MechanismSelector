@@ -505,3 +505,56 @@ def test_detectors_without_an_estimate_log_no_direction():
     record, events = run_stream(X, y, "gnb", "always_rebuild", 0, CFG, detector_factory=scripted({200, 900}))
     assert events and all(e["alarm_direction"] is None for e in events)
     assert record["n_adaptations_on_falling_error"] == 0
+
+
+# --- detector choice and detector-independent direction --------------------------------------
+
+
+def test_window_error_rates_use_the_rows_ending_at_the_alarm():
+    from runner import window_error_rates
+
+    errors = np.array([0] * 10 + [1] * 10, dtype=np.int8)
+    assert window_error_rates(errors, end=19, width=10) == (1.0, 0.0), "error rose"
+    assert window_error_rates(errors, end=9, width=10) == (None, None), "no prior window yet"
+    falling = errors[::-1].copy()
+    assert window_error_rates(falling, end=19, width=10) == (0.0, 1.0), "error fell"
+
+
+def test_ddm_detector_runs_and_is_recorded_in_config():
+    import json as _json
+
+    X, y = drifting_stream(n=4000, n_segments=8)
+    cfg = RunConfig(**{**CFG.__dict__, "detector": "ddm"})
+    record, events = run_stream(X, y, "gnb", "always_rebuild", 0, cfg)
+
+    assert _json.loads(record["config_json"])["detector"] == "ddm"
+    assert record["n_alarms"] >= 1, "precondition: DDM alarms on an abruptly drifting stream"
+    for ev in events:
+        assert ev["alarm_direction"] is None, "DDM exposes no windowed estimate"
+        if ev["window_error_recent_200"] is not None:
+            assert 0.0 <= ev["window_error_recent_200"] <= 1.0
+
+
+def test_logged_window_rates_match_the_prequential_errors():
+    X, y = drifting_stream(n=4000, n_segments=8)
+    n_init = int(len(X) * CFG.init_frac)
+    n_train = int(n_init * (1 - CFG.init_holdout_frac))
+    _, events = run_stream(X, y, "gnb", "never_adapt", 0, CFG)
+    model = make_spec("gnb", np.unique(y)).factory(0).fit(X[:n_train], y[:n_train])
+    errors = (model.predict(X[n_init:]) != y[n_init:]).astype(float)
+
+    checked = 0
+    for ev in events:
+        if ev["window_error_recent_100"] is None:
+            continue
+        end = ev["alarm_row"] - n_init
+        assert ev["window_error_recent_100"] == pytest.approx(errors[end - 99:end + 1].mean())
+        assert ev["window_error_prior_100"] == pytest.approx(errors[end - 199:end - 99].mean())
+        checked += 1
+    assert checked >= 1
+
+
+def test_unknown_detector_is_rejected():
+    X, y = drifting_stream()
+    with pytest.raises(ValueError):
+        run_stream(X, y, "gnb", "never_adapt", 0, RunConfig(**{**CFG.__dict__, "detector": "kswin"}))

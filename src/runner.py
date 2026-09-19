@@ -127,6 +127,9 @@ EVENT_FIELDS = [
     "placeholders_injected", "n_placeholder_rows", "nudges_since_rebuild",
     "accuracy_deficit", "nudge_prediction_change",
     "alarm_error_before", "alarm_error_after", "alarm_direction",
+    "window_error_recent_100", "window_error_prior_100",
+    "window_error_recent_200", "window_error_prior_200",
+    "window_error_recent_500", "window_error_prior_500",
 ]
 
 
@@ -146,6 +149,7 @@ class RunConfig:
     adwin_delta: float = 0.002
     track_energy: bool = True
     energy_country_iso: str = "USA"  # affects only the CO2 figure, which is not recorded
+    detector: str = "adwin"  # "adwin" (primary) or "ddm" (one-sided contrast, library defaults)
 
 
 def alarm_direction(before: float | None, after: float | None) -> str | None:
@@ -173,10 +177,42 @@ def scorer_for(classes: np.ndarray) -> tuple[Callable, str]:
     return balanced_accuracy_score, "balanced_accuracy"
 
 
+#: Window lengths for the detector-independent direction measure. Fixed before
+#: any DDM run: 200 is the reference length used throughout; 100 and 500 are
+#: sensitivity checks.
+DIRECTION_WINDOWS = (100, 200, 500)
+
+
 def default_detector(config: RunConfig):
+    """ADWIN (two-sided) by default; DDM (one-sided) as the contrast condition.
+
+    DDM uses river's library defaults (warm_start=30, warning_threshold=2.0,
+    drift_threshold=3.0), deliberately untuned.
+    """
+    if config.detector == "ddm":
+        from river.drift.binary import DDM
+
+        return DDM()
+    if config.detector != "adwin":
+        raise ValueError(f"unknown detector {config.detector!r}")
     from river.drift import ADWIN
 
     return ADWIN(delta=config.adwin_delta)
+
+
+def window_error_rates(errors: np.ndarray, end: int, width: int) -> tuple[float | None, float | None]:
+    """Prequential error rate over the `width` rows ending at index `end`
+    (inclusive), and over the `width` rows before those.
+
+    A direction measure that does not depend on the detector: DDM exposes no
+    windowed estimate, and by its own statistic every DDM alarm is a rise by
+    construction. None when the stream has not yet produced both windows.
+    """
+    start_recent = end + 1 - width
+    start_prior = start_recent - width
+    if start_prior < 0:
+        return None, None
+    return float(errors[start_recent:end + 1].mean()), float(errors[start_prior:start_recent].mean())
 
 
 def run_stream(
@@ -257,6 +293,8 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
     n_nudge_attempts = 0
     n_on_falling = work_on_falling = 0
     alarm_before = alarm_after = None  # detector error estimate around the alarm that opened the episode
+    alarm_windows: dict = {}
+    errors = np.zeros(n - n_init, dtype=np.int8)
     n_with_placeholders = total_placeholders = 0
     nudges_since_rebuild = 0  # consecutive-nudge depth; the initial model counts as a rebuild
     totals = dict(work_units=0, estimators=0, rows=0, passes=0, wall=0.0)
@@ -276,6 +314,7 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
         for offset, row in enumerate(range(t, chunk_end)):
             pred = chunk_preds[offset]
             preds[row - n_init] = pred
+            errors[row - n_init] = pred != y[row]
 
             if not ref_ready and row - ref_start + 1 == config.n_ref:
                 reference_accuracy = float(scorer(y[ref_start:row + 1], preds[ref_start - n_init:row + 1 - n_init]))
@@ -289,6 +328,11 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                     pending_since = row
                     deferral_counted = False
                     alarm_before, alarm_after = estimate_before, getattr(detector, "estimation", None)
+                    alarm_windows = {}
+                    for width in DIRECTION_WINDOWS:
+                        recent, prior = window_error_rates(errors, row - n_init, width)
+                        alarm_windows[f"window_error_recent_{width}"] = recent
+                        alarm_windows[f"window_error_prior_{width}"] = prior
                 else:
                     n_coalesced += 1
 
@@ -348,6 +392,7 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                 "nudge_prediction_change": result.prediction_change,
                 "alarm_error_before": alarm_before, "alarm_error_after": alarm_after,
                 "alarm_direction": direction,
+                **alarm_windows,
             })
 
             buf_start = row + 1
