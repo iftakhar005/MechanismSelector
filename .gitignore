@@ -10,6 +10,7 @@ results/*
 !results/grid/
 !results/analysis/
 !results/grid_direction/
+!results/grid_ddm/
 !results/placeholder_sanity.json
 emissions.csv
 .pytest_cache/

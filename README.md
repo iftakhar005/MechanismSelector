@@ -1065,3 +1065,127 @@ their result. No explanatory connection is claimed.
 | `fig9_never_adapt_vs_adaptive.png` | NeverAdapt minus each adaptive policy, per cell, strict and robust dominance |
 | `fig10_alarm_quality_vs_payoff.png` | falling-error alarm share against rebuild's gain, cells and streams |
 | `fig11_cost_on_falling_error_alarms.png` | share of adaptations and cost on falling-error alarms, per policy and stream |
+
+
+## Phase 7b — DDM as a one-sided detector contrast
+
+Added after the main grid, as a contrast condition. Nothing in the ADWIN results
+changed: the ADWIN grids were not re-run or modified, 20 ADWIN runs re-executed on
+the Phase 7b code matched the committed grid on every outcome field, and the
+pre-existing tests pass unmodified.
+
+```bash
+.venv/Scripts/python.exe experiments/run_all.py --detector ddm --out results/grid_ddm
+.venv/Scripts/python.exe experiments/ddm_contrast.py
+```
+
+**Detector:** `river.drift.binary.DDM` (river 0.25.0), library defaults —
+`warm_start=30`, `warning_threshold=2.0`, `drift_threshold=3.0` — untuned.
+Everything else identical to the ADWIN grid: 500 runs, same streams, models,
+policies, seeds, windows, guards and accounting. **Gate:** 500/500 runs, no
+failures; NeverAdapt replay reproduces every alarm count exactly for both
+detectors.
+
+### Measuring direction for a detector with no window
+
+ADWIN's direction was read from its own error estimate around each alarm. DDM
+has no such estimate, and by its own statistic — running error rate since its last
+reset exceeding its running minimum by 3σ — every DDM alarm is a rise by
+construction. Scoring it that way would make the contrast true by definition.
+
+1. **The pre-specified rule failed validation.** Before any DDM run, direction was
+   defined as the prequential error rate over the 200 rows ending at the alarm
+   against the 200 before (100 and 500 as sensitivity). On ADWIN's alarms it
+   agrees with ADWIN's own measure on only 1,965 of 4,680
+   (42%) — worse than chance — and swings with the window
+   (covtype SGD under DDM: 28% / 81% / 59% "falling" at 100 / 200 / 500). A short
+   fixed window before an alarm measures noise, not the change the detector found.
+   Its results are in `ddm_contrast.json` but are **not used for any conclusion**.
+2. **The measure used instead** is the accuracy deficit at the alarm (reference
+   accuracy minus accuracy on the window's holdout), logged for every event in both
+   grids and detector-independent. It had already validated ADWIN's direction
+   before DDM existed; quantified here, its sign agrees with ADWIN's own direction
+   on 5,361 of 6,107 alarms (88%). It is a second
+   measure adopted after the first failed, and is declared as such. It covers only
+   alarms whose reference was freshly measured (not carried forward), which excludes
+   alarms arriving within 200 rows of the previous event.
+
+### Results
+
+**Alarm counts — DDM fires more, not less.** NeverAdapt, same error stream:
+
+| Cell | ADWIN | DDM |
+|---|---|---|
+| elec2/xgb | 79 | 128 |
+| elec2/rf | 400 | 827 |
+| elec2/sgd | 417 | 639 |
+| elec2/gnb | 64 | 32 |
+| insects_abrupt/xgb | 9 | 5 |
+| insects_abrupt/rf | 42 | 17 |
+| insects_abrupt/sgd | 54 | 5 |
+| insects_abrupt/gnb | 8 | 2 |
+| insects_gradual/xgb | 7 | 4 |
+| insects_gradual/rf | 35 | 23 |
+| insects_gradual/sgd | 31 | 15 |
+| insects_gradual/gnb | 5 | 3 |
+| insects_incremental/xgb | 3 | 3 |
+| insects_incremental/rf | 20 | 14 |
+| insects_incremental/sgd | 2 | 2 |
+| insects_incremental/gnb | 5 | 4 |
+| covtype/xgb | 114 | 205 |
+| covtype/rf | 785 | 1,854 |
+| covtype/sgd | 2,280 | 1,013 |
+| covtype/gnb | 321 | 397 |
+| **total** | **4,681** | **5,192** |
+
+DDM fires far more on elec2 and covtype Random Forest and XGBoost, and far less on
+the insects streams and covtype SGD. Under every adaptive policy it triggers more
+adaptations than ADWIN.
+
+**Alarms fired while the model sits above its reference accuracy** (deficit < 0),
+and median rows since the previous adaptation for alarms above / below reference:
+
+| Policy | ADWIN | DDM | ADWIN rows above / below | DDM rows above / below |
+|---|---|---|---|---|
+| NeverAdapt | 45% of 2,432 | 33% of 2,024 | 384 / 320 | 350 / 305 |
+| AlwaysRebuild | 34% of 1,933 | 29% of 1,399 | 416 / 736 | 370 / 340 |
+| FixedSchedule | 35% of 2,153 | 24% of 1,903 | 384 / 512 | 336 / 315 |
+| MechanismSelector | 42% of 2,021 | 43% of 1,445 | 352 / 704 | 328 / 352 |
+
+- A one-sided detector **reduces but does not remove** alarms with the model above
+  its reference: 45% → 33% under NeverAdapt, 34–35% → 24–29% under AlwaysRebuild and
+  FixedSchedule.
+- The **self-triggering signature disappears.** Under ADWIN, above-reference alarms
+  under the adaptive policies arrive much sooner after an adaptation than
+  below-reference ones (AlwaysRebuild 416 vs 736 rows); under DDM the two are about
+  equal. That is consistent with detecting *falls* being what lets an adaptation
+  trigger its own next alarm.
+- The finding is therefore **broader than two-sidedness**. What makes a third of
+  DDM's alarms fire with the model above its reference has **not been
+  investigated**. A candidate — DDM measures rises against its own running minimum,
+  a low-water mark that a lucky stretch after each reset drags down — is a
+  hypothesis, not a result.
+- The selector's share is not comparable: its decision *is* the deficit against a
+  floor, so alarms with the model above its reference are ones it skips at zero cost
+  by construction.
+
+**Policy comparison — partly detector-dependent.** Holm-adjusted p, selector against:
+
+| Against | Metric | ADWIN n = 60 | DDM n = 60 | ADWIN n = 20 | DDM n = 20 |
+|---|---|---|---|---|---|
+| AlwaysRebuild | accuracy | 0.017 | 0.054 | 0.019 | 0.03 |
+| AlwaysRebuild | cost | 1.1e-09 | 2.2e-07 | 7.6e-05 | 0.00025 |
+| FixedSchedule | accuracy | 0.19 | 0.83 | 0.96 | 0.81 |
+| FixedSchedule | cost | 0.0087 | 0.065 | 0.088 | 0.4 |
+
+- **FixedSchedule being cheaper than the selector does not hold under DDM** (Holm
+  p = 0.065 at n = 60). With the ADWIN result already failing the n = 20
+  sensitivity check, it should not be reported as a finding.
+- The selector remains cheaper than AlwaysRebuild under both detectors; its lower
+  accuracy than AlwaysRebuild is borderline at n = 60 under DDM
+  (p = 0.054) and significant at n = 20.
+- Accuracy across all five policies remains non-significant under both detectors
+  (Friedman p = 0.24 / 0.47 under DDM).
+- NeverAdapt dominance (strict): ADWIN 9 / 9 / 11 / 10,
+  DDM 8 / 8 / 7 / 7 cells
+  (AlwaysRebuild / FixedSchedule / AlwaysNudge / selector).
