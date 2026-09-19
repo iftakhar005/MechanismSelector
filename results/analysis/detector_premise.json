@@ -1,0 +1,3067 @@
+{
+  "never_adapt_dominance": {
+    "always_rebuild": {
+      "n_cells_dominated": 9,
+      "cells_dominated": [
+        "covtype/gnb",
+        "covtype/rf",
+        "covtype/sgd",
+        "covtype/xgb",
+        "elec2/sgd",
+        "insects_abrupt/sgd",
+        "insects_abrupt/xgb",
+        "insects_gradual/sgd",
+        "insects_incremental/sgd"
+      ],
+      "n_cells_dominated_robust": 5,
+      "cells_dominated_robust": [
+        "covtype/gnb",
+        "covtype/rf",
+        "covtype/sgd",
+        "covtype/xgb",
+        "insects_gradual/sgd"
+      ],
+      "cells": [
+        {
+          "cell": "covtype/gnb",
+          "never_minus_policy_pp": 10.79962009222642,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/rf",
+          "never_minus_policy_pp": 17.883054847460663,
+          "seed_min_pp": 13.855634653264303,
+          "seed_max_pp": 23.13840977088425,
+          "never_better_in_seeds": 5,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/sgd",
+          "never_minus_policy_pp": 10.217171117171251,
+          "seed_min_pp": -4.72453857963821,
+          "seed_max_pp": 27.543415947533727,
+          "never_better_in_seeds": 4,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/xgb",
+          "never_minus_policy_pp": 15.684478174274304,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "elec2/gnb",
+          "never_minus_policy_pp": -20.055908388710428,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "elec2/rf",
+          "never_minus_policy_pp": -2.5693337583678613,
+          "seed_min_pp": -3.3814766680561945,
+          "seed_max_pp": -2.1137294328241154,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "elec2/sgd",
+          "never_minus_policy_pp": 1.52914347367647,
+          "seed_min_pp": -2.5894411613251194,
+          "seed_max_pp": 6.078811211103208,
+          "never_better_in_seeds": 3,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "elec2/xgb",
+          "never_minus_policy_pp": -3.5138912728967,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_abrupt/gnb",
+          "never_minus_policy_pp": -8.220157782054855,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_abrupt/rf",
+          "never_minus_policy_pp": -0.22944529742576236,
+          "seed_min_pp": -1.537952845305064,
+          "seed_max_pp": 2.765339915502352,
+          "never_better_in_seeds": 1,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_abrupt/sgd",
+          "never_minus_policy_pp": 1.020604578686406,
+          "seed_min_pp": -5.47601339262809,
+          "seed_max_pp": 9.4947751551626,
+          "never_better_in_seeds": 3,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/xgb",
+          "never_minus_policy_pp": 0.8102072866697441,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_gradual/gnb",
+          "never_minus_policy_pp": -20.646930051946583,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_gradual/rf",
+          "never_minus_policy_pp": -20.528347555651006,
+          "seed_min_pp": -20.815974698209356,
+          "seed_max_pp": -20.212988562855006,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_gradual/sgd",
+          "never_minus_policy_pp": 1.037724554203308,
+          "seed_min_pp": -1.2042738402792459,
+          "seed_max_pp": 3.8602772377103065,
+          "never_better_in_seeds": 4,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_gradual/xgb",
+          "never_minus_policy_pp": -20.321271473583202,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/gnb",
+          "never_minus_policy_pp": -34.254214267611566,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/rf",
+          "never_minus_policy_pp": -41.07911422716625,
+          "seed_min_pp": -42.4348390900589,
+          "seed_max_pp": -38.60039888692574,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/sgd",
+          "never_minus_policy_pp": 0.4875538848202936,
+          "seed_min_pp": -0.11043076888952186,
+          "seed_max_pp": 2.548200192990972,
+          "never_better_in_seeds": 1,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_incremental/xgb",
+          "never_minus_policy_pp": -38.07401581274428,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        }
+      ]
+    },
+    "fixed_schedule": {
+      "n_cells_dominated": 9,
+      "cells_dominated": [
+        "covtype/gnb",
+        "covtype/sgd",
+        "covtype/xgb",
+        "elec2/sgd",
+        "insects_abrupt/gnb",
+        "insects_abrupt/rf",
+        "insects_abrupt/sgd",
+        "insects_abrupt/xgb",
+        "insects_incremental/sgd"
+      ],
+      "n_cells_dominated_robust": 6,
+      "cells_dominated_robust": [
+        "covtype/gnb",
+        "covtype/xgb",
+        "elec2/sgd",
+        "insects_abrupt/gnb",
+        "insects_abrupt/rf",
+        "insects_abrupt/xgb"
+      ],
+      "cells": [
+        {
+          "cell": "covtype/gnb",
+          "never_minus_policy_pp": 7.0461280111192295,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/rf",
+          "never_minus_policy_pp": -0.26984173656246924,
+          "seed_min_pp": -1.3433321553316233,
+          "seed_max_pp": 0.3216527614207081,
+          "never_better_in_seeds": 2,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "covtype/sgd",
+          "never_minus_policy_pp": 5.841330111662899,
+          "seed_min_pp": -0.5685928474974631,
+          "seed_max_pp": 17.99333747036429,
+          "never_better_in_seeds": 3,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/xgb",
+          "never_minus_policy_pp": 36.51848533472967,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "elec2/gnb",
+          "never_minus_policy_pp": -20.87982148549569,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "elec2/rf",
+          "never_minus_policy_pp": -3.0739805301488445,
+          "seed_min_pp": -4.406463794414066,
+          "seed_max_pp": -1.5742625242147028,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "elec2/sgd",
+          "never_minus_policy_pp": 3.1568622642897566,
+          "seed_min_pp": -0.7037591035040833,
+          "seed_max_pp": 7.437286971874158,
+          "never_better_in_seeds": 4,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "elec2/xgb",
+          "never_minus_policy_pp": -2.908217061867049,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_abrupt/gnb",
+          "never_minus_policy_pp": 7.505108317611551,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/rf",
+          "never_minus_policy_pp": 16.27806713254983,
+          "seed_min_pp": 15.525354194561153,
+          "seed_max_pp": 16.649181750699547,
+          "never_better_in_seeds": 5,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/sgd",
+          "never_minus_policy_pp": 1.466223488239013,
+          "seed_min_pp": -2.597035098270517,
+          "seed_max_pp": 5.828886354686972,
+          "never_better_in_seeds": 3,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/xgb",
+          "never_minus_policy_pp": 7.36866230273948,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_gradual/gnb",
+          "never_minus_policy_pp": -15.629910972231045,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_gradual/rf",
+          "never_minus_policy_pp": -1.0533400281081526,
+          "seed_min_pp": -1.4217262508451043,
+          "seed_max_pp": -0.6257127602794093,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_gradual/sgd",
+          "never_minus_policy_pp": -2.805315856677236,
+          "seed_min_pp": -9.710270071574783,
+          "seed_max_pp": 3.013747441622346,
+          "never_better_in_seeds": 1,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_gradual/xgb",
+          "never_minus_policy_pp": -12.917852806984001,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/gnb",
+          "never_minus_policy_pp": -32.16551094181565,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/rf",
+          "never_minus_policy_pp": -19.37819043203539,
+          "seed_min_pp": -19.681783517454367,
+          "seed_max_pp": -19.019272997008056,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/sgd",
+          "never_minus_policy_pp": 0.16889967087563917,
+          "seed_min_pp": -2.798140736793208,
+          "seed_max_pp": 3.6426390911714037,
+          "never_better_in_seeds": 1,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_incremental/xgb",
+          "never_minus_policy_pp": -35.52301873136338,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        }
+      ]
+    },
+    "always_nudge": {
+      "n_cells_dominated": 11,
+      "cells_dominated": [
+        "covtype/gnb",
+        "covtype/rf",
+        "covtype/sgd",
+        "covtype/xgb",
+        "insects_abrupt/gnb",
+        "insects_abrupt/rf",
+        "insects_abrupt/sgd",
+        "insects_abrupt/xgb",
+        "insects_gradual/rf",
+        "insects_gradual/xgb",
+        "insects_incremental/sgd"
+      ],
+      "n_cells_dominated_robust": 6,
+      "cells_dominated_robust": [
+        "covtype/gnb",
+        "covtype/rf",
+        "covtype/sgd",
+        "covtype/xgb",
+        "insects_abrupt/xgb",
+        "insects_gradual/xgb"
+      ],
+      "cells": [
+        {
+          "cell": "covtype/gnb",
+          "never_minus_policy_pp": 1.3532849156272704,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/rf",
+          "never_minus_policy_pp": 4.86786789127099,
+          "seed_min_pp": 4.058046685733402,
+          "seed_max_pp": 5.618172872516354,
+          "never_better_in_seeds": 5,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/sgd",
+          "never_minus_policy_pp": 1.2173896064247245,
+          "seed_min_pp": -1.6525231611847886,
+          "seed_max_pp": 3.682690935653646,
+          "never_better_in_seeds": 4,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/xgb",
+          "never_minus_policy_pp": 3.014351639457999,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "elec2/gnb",
+          "never_minus_policy_pp": -22.46144037664599,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "elec2/rf",
+          "never_minus_policy_pp": -3.2838822000441326,
+          "seed_min_pp": -3.9430126774723533,
+          "seed_max_pp": -2.5281381035285904,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "elec2/sgd",
+          "never_minus_policy_pp": -3.7179078492435167,
+          "seed_min_pp": -6.8536818616512605,
+          "seed_max_pp": -1.2260611559304522,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "elec2/xgb",
+          "never_minus_policy_pp": -1.5080552217944785,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_abrupt/gnb",
+          "never_minus_policy_pp": 0.3983717757711247,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/rf",
+          "never_minus_policy_pp": 0.2023263062882279,
+          "seed_min_pp": 0.16164075461705352,
+          "seed_max_pp": 0.25471021297879304,
+          "never_better_in_seeds": 5,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/sgd",
+          "never_minus_policy_pp": 1.445851939388369,
+          "seed_min_pp": -1.800865364514035,
+          "seed_max_pp": 7.80304443359956,
+          "never_better_in_seeds": 2,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/xgb",
+          "never_minus_policy_pp": 6.584695255287357,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_gradual/gnb",
+          "never_minus_policy_pp": -10.182969163711242,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_gradual/rf",
+          "never_minus_policy_pp": 0.07161681913757079,
+          "seed_min_pp": -0.050439055393621146,
+          "seed_max_pp": 0.2014888417123153,
+          "never_better_in_seeds": 3,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_gradual/sgd",
+          "never_minus_policy_pp": -1.0294989357473732,
+          "seed_min_pp": -5.789003224029397,
+          "seed_max_pp": 2.879544622329931,
+          "never_better_in_seeds": 2,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_gradual/xgb",
+          "never_minus_policy_pp": 1.0794166306578177,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_incremental/gnb",
+          "never_minus_policy_pp": -12.512395399420264,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/rf",
+          "never_minus_policy_pp": -2.577987092767941,
+          "seed_min_pp": -2.9209281801938936,
+          "seed_max_pp": -2.2195153774252034,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/sgd",
+          "never_minus_policy_pp": 0.16889967087563917,
+          "seed_min_pp": -2.798140736793208,
+          "seed_max_pp": 3.6426390911714037,
+          "never_better_in_seeds": 1,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_incremental/xgb",
+          "never_minus_policy_pp": -31.14271690785735,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        }
+      ]
+    },
+    "mechanism_selector": {
+      "n_cells_dominated": 10,
+      "cells_dominated": [
+        "covtype/gnb",
+        "covtype/rf",
+        "covtype/sgd",
+        "covtype/xgb",
+        "elec2/sgd",
+        "insects_abrupt/gnb",
+        "insects_abrupt/rf",
+        "insects_abrupt/sgd",
+        "insects_abrupt/xgb",
+        "insects_gradual/sgd"
+      ],
+      "n_cells_dominated_robust": 7,
+      "cells_dominated_robust": [
+        "covtype/gnb",
+        "covtype/xgb",
+        "elec2/sgd",
+        "insects_abrupt/gnb",
+        "insects_abrupt/rf",
+        "insects_abrupt/xgb",
+        "insects_gradual/sgd"
+      ],
+      "cells": [
+        {
+          "cell": "covtype/gnb",
+          "never_minus_policy_pp": 13.36982272237281,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/rf",
+          "never_minus_policy_pp": 11.21602413806734,
+          "seed_min_pp": -0.7294488356048419,
+          "seed_max_pp": 19.553393901323112,
+          "never_better_in_seeds": 3,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/sgd",
+          "never_minus_policy_pp": 5.817819554221373,
+          "seed_min_pp": -10.298629033989329,
+          "seed_max_pp": 22.558316759896293,
+          "never_better_in_seeds": 3,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "covtype/xgb",
+          "never_minus_policy_pp": 28.212385937868625,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "elec2/gnb",
+          "never_minus_policy_pp": -19.219734680365853,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "elec2/rf",
+          "never_minus_policy_pp": -0.8410779529682912,
+          "seed_min_pp": -2.915573428802631,
+          "seed_max_pp": 1.439395797062346,
+          "never_better_in_seeds": 2,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "elec2/sgd",
+          "never_minus_policy_pp": 2.954807385792421,
+          "seed_min_pp": -1.005370147862962,
+          "seed_max_pp": 5.845859591476426,
+          "never_better_in_seeds": 4,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "elec2/xgb",
+          "never_minus_policy_pp": -0.5713444986636063,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_abrupt/gnb",
+          "never_minus_policy_pp": 8.882844868894054,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/rf",
+          "never_minus_policy_pp": 5.514103977748178,
+          "seed_min_pp": 3.817124794112317,
+          "seed_max_pp": 7.77154341557727,
+          "never_better_in_seeds": 5,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/sgd",
+          "never_minus_policy_pp": 1.1725066767831116,
+          "seed_min_pp": -2.3291447596649277,
+          "seed_max_pp": 6.060624406143393,
+          "never_better_in_seeds": 3,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_abrupt/xgb",
+          "never_minus_policy_pp": 11.503873632096791,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_gradual/gnb",
+          "never_minus_policy_pp": -19.65863723250613,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_gradual/rf",
+          "never_minus_policy_pp": -16.716430132325716,
+          "seed_min_pp": -19.4937675298039,
+          "seed_max_pp": -12.17438172467729,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_gradual/sgd",
+          "never_minus_policy_pp": 1.0067777772573585,
+          "seed_min_pp": -3.529679479672229,
+          "seed_max_pp": 5.121023195831929,
+          "never_better_in_seeds": 4,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": true
+        },
+        {
+          "cell": "insects_gradual/xgb",
+          "never_minus_policy_pp": -9.074595362277854,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/gnb",
+          "never_minus_policy_pp": -33.613224588434726,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/rf",
+          "never_minus_policy_pp": -40.50661976772121,
+          "seed_min_pp": -41.51324961298488,
+          "seed_max_pp": -38.60039888692574,
+          "never_better_in_seeds": 0,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/sgd",
+          "never_minus_policy_pp": -0.049988108760445016,
+          "seed_min_pp": -2.798140736793208,
+          "seed_max_pp": 2.548200192990972,
+          "never_better_in_seeds": 1,
+          "n_seeds": 5,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        },
+        {
+          "cell": "insects_incremental/xgb",
+          "never_minus_policy_pp": -35.72193181566298,
+          "seed_min_pp": null,
+          "seed_max_pp": null,
+          "never_better_in_seeds": null,
+          "n_seeds": 1,
+          "policy_spent_cost": true,
+          "never_adapt_dominates": false
+        }
+      ]
+    }
+  },
+  "never_adapt_paired_tests": {
+    "n60": [
+      {
+        "policy": "AlwaysRebuild",
+        "n": 60,
+        "median_never_minus_policy_pp": -0.6887729795924784,
+        "never_better_in": 24,
+        "never_worse_in": 33,
+        "p": 0.126152291818292,
+        "rank_biserial": -0.23290986085904417,
+        "p_holm": 0.504609167273168
+      },
+      {
+        "policy": "FixedSchedule",
+        "n": 60,
+        "median_never_minus_policy_pp": -0.4569437131994931,
+        "never_better_in": 23,
+        "never_worse_in": 34,
+        "p": 0.5539054980083051,
+        "rank_biserial": -0.09013914095583787,
+        "p_holm": 1.0
+      },
+      {
+        "policy": "AlwaysNudge",
+        "n": 60,
+        "median_never_minus_policy_pp": -0.014326578303242243,
+        "never_better_in": 27,
+        "never_worse_in": 30,
+        "p": 0.3110534589203813,
+        "rank_biserial": -0.1542649727767695,
+        "p_holm": 0.9331603767611438
+      },
+      {
+        "policy": "MechanismSelector",
+        "n": 60,
+        "median_never_minus_policy_pp": 0.0,
+        "never_better_in": 29,
+        "never_worse_in": 28,
+        "p": 0.559238615813684,
+        "rank_biserial": -0.08892921960072596,
+        "p_holm": 1.0
+      }
+    ],
+    "n20": [
+      {
+        "policy": "AlwaysRebuild",
+        "n": 20,
+        "median_never_minus_policy_pp": -1.3993895278968118,
+        "never_better_in": 9,
+        "never_worse_in": 11,
+        "p": 0.15364646911621094,
+        "rank_biserial": -0.37142857142857144,
+        "p_holm": 0.6145858764648438
+      },
+      {
+        "policy": "FixedSchedule",
+        "n": 20,
+        "median_never_minus_policy_pp": -0.6615908823353109,
+        "never_better_in": 9,
+        "never_worse_in": 11,
+        "p": 0.5958194732666016,
+        "rank_biserial": -0.14285714285714285,
+        "p_holm": 1.0
+      },
+      {
+        "policy": "AlwaysNudge",
+        "n": 20,
+        "median_never_minus_policy_pp": 0.12025824500660498,
+        "never_better_in": 11,
+        "never_worse_in": 9,
+        "p": 0.4304332733154297,
+        "rank_biserial": -0.20952380952380953,
+        "p_holm": 1.0
+      },
+      {
+        "policy": "MechanismSelector",
+        "n": 20,
+        "median_never_minus_policy_pp": 0.47839483424845675,
+        "never_better_in": 10,
+        "never_worse_in": 10,
+        "p": 0.6476554870605469,
+        "rank_biserial": -0.12380952380952381,
+        "p_holm": 1.0
+      }
+    ]
+  },
+  "per_stream": {
+    "elec2": {
+      "n_blocks": 12,
+      "friedman_p": 0.0002890257128854386,
+      "median_rebuild_minus_never_pp": 2.3074470954611286,
+      "median_best_adaptive_minus_never_pp": 3.6561143669846317,
+      "mean_ranks": {
+        "AlwaysRebuild": 2.75,
+        "MechanismSelector": 4.0,
+        "FixedSchedule": 2.9166666666666665,
+        "AlwaysNudge": 1.4166666666666667,
+        "NeverAdapt": 3.9166666666666665
+      }
+    },
+    "covtype": {
+      "n_blocks": 12,
+      "friedman_p": 0.0068814470496249515,
+      "median_rebuild_minus_never_pp": -14.770056413769304,
+      "median_best_adaptive_minus_never_pp": 0.19933073001648438,
+      "mean_ranks": {
+        "AlwaysRebuild": 4.083333333333333,
+        "MechanismSelector": 3.5833333333333335,
+        "FixedSchedule": 2.5,
+        "AlwaysNudge": 2.9166666666666665,
+        "NeverAdapt": 1.9166666666666667
+      }
+    },
+    "insects_abrupt": {
+      "n_blocks": 12,
+      "friedman_p": 0.0070852949145488444,
+      "median_rebuild_minus_never_pp": 0.4428489208243285,
+      "median_best_adaptive_minus_never_pp": 1.5134342804912677,
+      "mean_ranks": {
+        "AlwaysRebuild": 2.1666666666666665,
+        "MechanismSelector": 3.9166666666666665,
+        "FixedSchedule": 3.8333333333333335,
+        "AlwaysNudge": 2.9166666666666665,
+        "NeverAdapt": 2.1666666666666665
+      }
+    },
+    "insects_gradual": {
+      "n_blocks": 12,
+      "friedman_p": 0.04773253288431626,
+      "median_rebuild_minus_never_pp": 20.267130018219106,
+      "median_best_adaptive_minus_never_pp": 20.267130018219106,
+      "mean_ranks": {
+        "AlwaysRebuild": 2.25,
+        "MechanismSelector": 2.75,
+        "FixedSchedule": 2.5,
+        "AlwaysNudge": 3.75,
+        "NeverAdapt": 3.75
+      }
+    },
+    "insects_incremental": {
+      "n_blocks": 12,
+      "friedman_p": 0.00011400993117057123,
+      "median_rebuild_minus_never_pp": 36.16411504017792,
+      "median_best_adaptive_minus_never_pp": 36.16411504017792,
+      "mean_ranks": {
+        "AlwaysRebuild": 2.0,
+        "MechanismSelector": 2.1666666666666665,
+        "FixedSchedule": 3.0416666666666665,
+        "AlwaysNudge": 3.625,
+        "NeverAdapt": 4.166666666666667
+      }
+    }
+  },
+  "alarm_quality_vs_payoff": {
+    "cells": [
+      {
+        "dataset": "covtype",
+        "model": "gnb",
+        "alarms": 321,
+        "share_falling": 0.5015576323987538,
+        "rebuild_gain_over_never_pp": -10.79962009222642
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "alarms": 785,
+        "share_falling": 0.3159235668789809,
+        "rebuild_gain_over_never_pp": -17.883054847460663
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "alarms": 2280,
+        "share_falling": 0.5162280701754386,
+        "rebuild_gain_over_never_pp": -10.217171117171251
+      },
+      {
+        "dataset": "covtype",
+        "model": "xgb",
+        "alarms": 114,
+        "share_falling": 0.14912280701754385,
+        "rebuild_gain_over_never_pp": -15.684478174274304
+      },
+      {
+        "dataset": "elec2",
+        "model": "gnb",
+        "alarms": 64,
+        "share_falling": 0.453125,
+        "rebuild_gain_over_never_pp": 20.055908388710428
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "alarms": 400,
+        "share_falling": 0.405,
+        "rebuild_gain_over_never_pp": 2.5693337583678613
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "alarms": 417,
+        "share_falling": 0.42685851318944845,
+        "rebuild_gain_over_never_pp": -1.52914347367647
+      },
+      {
+        "dataset": "elec2",
+        "model": "xgb",
+        "alarms": 79,
+        "share_falling": 0.4050632911392405,
+        "rebuild_gain_over_never_pp": 3.5138912728967
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "gnb",
+        "alarms": 8,
+        "share_falling": 0.625,
+        "rebuild_gain_over_never_pp": 8.220157782054855
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "alarms": 42,
+        "share_falling": 0.40476190476190477,
+        "rebuild_gain_over_never_pp": 0.22944529742576236
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "alarms": 54,
+        "share_falling": 0.5,
+        "rebuild_gain_over_never_pp": -1.020604578686406
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "xgb",
+        "alarms": 9,
+        "share_falling": 0.3333333333333333,
+        "rebuild_gain_over_never_pp": -0.8102072866697441
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "gnb",
+        "alarms": 5,
+        "share_falling": 0.4,
+        "rebuild_gain_over_never_pp": 20.646930051946583
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "alarms": 35,
+        "share_falling": 0.2857142857142857,
+        "rebuild_gain_over_never_pp": 20.528347555651006
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "alarms": 31,
+        "share_falling": 0.41935483870967744,
+        "rebuild_gain_over_never_pp": -1.037724554203308
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "xgb",
+        "alarms": 7,
+        "share_falling": 0.2857142857142857,
+        "rebuild_gain_over_never_pp": 20.321271473583202
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "gnb",
+        "alarms": 5,
+        "share_falling": 0.0,
+        "rebuild_gain_over_never_pp": 34.254214267611566
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "alarms": 20,
+        "share_falling": 0.25,
+        "rebuild_gain_over_never_pp": 41.07911422716625
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "alarms": 2,
+        "share_falling": 0.0,
+        "rebuild_gain_over_never_pp": -0.4875538848202936
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "xgb",
+        "alarms": 3,
+        "share_falling": 0.0,
+        "rebuild_gain_over_never_pp": 38.07401581274428
+      }
+    ],
+    "cell_level": {
+      "n": 20,
+      "spearman_rho": -0.3969875213023668,
+      "p": 0.0830755058734643
+    },
+    "streams": [
+      {
+        "dataset": "covtype",
+        "share_falling": 0.458,
+        "mean_rebuild_gain_pp": -13.64608105778316
+      },
+      {
+        "dataset": "elec2",
+        "share_falling": 0.41770833333333335,
+        "mean_rebuild_gain_pp": 6.15249748657463
+      },
+      {
+        "dataset": "insects_abrupt",
+        "share_falling": 0.46017699115044247,
+        "mean_rebuild_gain_pp": 1.6546978035311168
+      },
+      {
+        "dataset": "insects_gradual",
+        "share_falling": 0.34615384615384615,
+        "mean_rebuild_gain_pp": 15.114706131744372
+      },
+      {
+        "dataset": "insects_incremental",
+        "share_falling": 0.16666666666666666,
+        "mean_rebuild_gain_pp": 28.22994760567545
+      }
+    ],
+    "stream_level": {
+      "n": 5,
+      "spearman_rho": -0.8999999999999998,
+      "p": 0.03738607346849874
+    }
+  },
+  "adaptive_cost_on_falling_error": {
+    "runs": 180,
+    "outcome_mismatches_vs_main_grid": [],
+    "by_policy": {
+      "AlwaysRebuild": {
+        "adaptations": 3004,
+        "with_direction": 3004,
+        "share_on_falling_error": 0.3252330226364847,
+        "share_of_work_units_on_falling_error": 0.35571984028225906
+      },
+      "MechanismSelector": {
+        "adaptations": 2830,
+        "with_direction": 2830,
+        "share_on_falling_error": 0.3399293286219081,
+        "share_of_work_units_on_falling_error": 0.248913098056232
+      },
+      "FixedSchedule": {
+        "adaptations": 3200,
+        "with_direction": 3200,
+        "share_on_falling_error": 0.335,
+        "share_of_work_units_on_falling_error": 0.28726390393099416
+      }
+    },
+    "per_run": [
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 59,
+        "on_falling_error": 16,
+        "work_units": 3468000.0,
+        "work_units_on_falling_error": 1140000.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 52,
+        "on_falling_error": 18,
+        "work_units": 1737105.0,
+        "work_units_on_falling_error": 64000.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 71,
+        "on_falling_error": 17,
+        "work_units": 1282310.0,
+        "work_units_on_falling_error": 279925.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 61,
+        "on_falling_error": 19,
+        "work_units": 2279084.0,
+        "work_units_on_falling_error": 707624.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 52,
+        "on_falling_error": 20,
+        "work_units": 759753.0,
+        "work_units_on_falling_error": 42480.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 55,
+        "on_falling_error": 22,
+        "work_units": 580910.0,
+        "work_units_on_falling_error": 197635.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 10,
+        "on_falling_error": 1,
+        "work_units": 986400.0,
+        "work_units_on_falling_error": 86400.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 10,
+        "on_falling_error": 2,
+        "work_units": 740800.0,
+        "work_units_on_falling_error": 104000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 9,
+        "on_falling_error": 3,
+        "work_units": 236800.0,
+        "work_units_on_falling_error": 12000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 10,
+        "on_falling_error": 5,
+        "work_units": 1915448.0,
+        "work_units_on_falling_error": 1364448.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 11,
+        "on_falling_error": 5,
+        "work_units": 161355.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 9,
+        "on_falling_error": 4,
+        "work_units": 2117800.0,
+        "work_units_on_falling_error": 1114600.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 544000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 1,
+        "work_units": 454460.0,
+        "work_units_on_falling_error": 36605.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 6,
+        "on_falling_error": 1,
+        "work_units": 212350.0,
+        "work_units_on_falling_error": 100000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 6,
+        "on_falling_error": 2,
+        "work_units": 3454000.0,
+        "work_units_on_falling_error": 1480000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 6,
+        "on_falling_error": 3,
+        "work_units": 800.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 1,
+        "work_units": 1095677.0,
+        "work_units_on_falling_error": 80.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 700000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 728000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 4,
+        "on_falling_error": 0,
+        "work_units": 112000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 0,
+        "on_falling_error": 0,
+        "work_units": 0.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 0,
+        "on_falling_error": 0,
+        "work_units": 0.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 0,
+        "on_falling_error": 0,
+        "work_units": 0.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 95,
+        "on_falling_error": 6,
+        "work_units": 6795200.0,
+        "work_units_on_falling_error": 184000.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 125,
+        "on_falling_error": 21,
+        "work_units": 6116960.0,
+        "work_units_on_falling_error": 511200.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 162,
+        "on_falling_error": 28,
+        "work_units": 1909910.0,
+        "work_units_on_falling_error": 125440.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 264,
+        "on_falling_error": 133,
+        "work_units": 64090208.0,
+        "work_units_on_falling_error": 29180320.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 251,
+        "on_falling_error": 99,
+        "work_units": 31659946.0,
+        "work_units_on_falling_error": 10244918.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 251,
+        "on_falling_error": 110,
+        "work_units": 25354427.0,
+        "work_units_on_falling_error": 7864716.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 60,
+        "on_falling_error": 18,
+        "work_units": 3500000.0,
+        "work_units_on_falling_error": 949600.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 69,
+        "on_falling_error": 21,
+        "work_units": 2283545.0,
+        "work_units_on_falling_error": 64000.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 64,
+        "on_falling_error": 18,
+        "work_units": 1254785.0,
+        "work_units_on_falling_error": 321615.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 54,
+        "on_falling_error": 18,
+        "work_units": 2014852.0,
+        "work_units_on_falling_error": 744056.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 70,
+        "on_falling_error": 26,
+        "work_units": 1089705.0,
+        "work_units_on_falling_error": 73030.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 63,
+        "on_falling_error": 25,
+        "work_units": 788525.0,
+        "work_units_on_falling_error": 363642.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 10,
+        "on_falling_error": 0,
+        "work_units": 919200.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 9,
+        "on_falling_error": 3,
+        "work_units": 224000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 10,
+        "on_falling_error": 3,
+        "work_units": 240800.0,
+        "work_units_on_falling_error": 12000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 8,
+        "on_falling_error": 6,
+        "work_units": 2706000.0,
+        "work_units_on_falling_error": 2512000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 11,
+        "on_falling_error": 5,
+        "work_units": 106800.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 9,
+        "on_falling_error": 4,
+        "work_units": 355800.0,
+        "work_units_on_falling_error": 161400.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 544000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 7,
+        "on_falling_error": 1,
+        "work_units": 454460.0,
+        "work_units_on_falling_error": 36605.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 6,
+        "on_falling_error": 1,
+        "work_units": 212350.0,
+        "work_units_on_falling_error": 100000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 5,
+        "on_falling_error": 2,
+        "work_units": 2783000.0,
+        "work_units_on_falling_error": 1125000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 6,
+        "on_falling_error": 2,
+        "work_units": 98932.0,
+        "work_units_on_falling_error": 332.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 5,
+        "on_falling_error": 1,
+        "work_units": 1003116.0,
+        "work_units_on_falling_error": 800.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 700000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 6,
+        "on_falling_error": 0,
+        "work_units": 524000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 4,
+        "on_falling_error": 0,
+        "work_units": 112000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 0,
+        "on_falling_error": 0,
+        "work_units": 0.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 0,
+        "on_falling_error": 0,
+        "work_units": 0.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 0,
+        "on_falling_error": 0,
+        "work_units": 0.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 85,
+        "on_falling_error": 3,
+        "work_units": 6555200.0,
+        "work_units_on_falling_error": 129200.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 98,
+        "on_falling_error": 6,
+        "work_units": 6207980.0,
+        "work_units_on_falling_error": 133200.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 133,
+        "on_falling_error": 18,
+        "work_units": 1991685.0,
+        "work_units_on_falling_error": 211310.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 1,
+        "adaptations": 202,
+        "on_falling_error": 102,
+        "work_units": 48485200.0,
+        "work_units_on_falling_error": 22434000.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 1,
+        "adaptations": 11,
+        "on_falling_error": 5,
+        "work_units": 1070547.0,
+        "work_units_on_falling_error": 416691.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 1,
+        "adaptations": 256,
+        "on_falling_error": 111,
+        "work_units": 24183620.0,
+        "work_units_on_falling_error": 7230531.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 67,
+        "on_falling_error": 18,
+        "work_units": 3618400.0,
+        "work_units_on_falling_error": 938400.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 64,
+        "on_falling_error": 23,
+        "work_units": 1845435.0,
+        "work_units_on_falling_error": 32400.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 70,
+        "on_falling_error": 26,
+        "work_units": 1211490.0,
+        "work_units_on_falling_error": 543880.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 63,
+        "on_falling_error": 26,
+        "work_units": 2283120.0,
+        "work_units_on_falling_error": 921096.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 60,
+        "on_falling_error": 26,
+        "work_units": 933325.0,
+        "work_units_on_falling_error": 50880.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 60,
+        "on_falling_error": 16,
+        "work_units": 658294.0,
+        "work_units_on_falling_error": 32060.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 10,
+        "on_falling_error": 1,
+        "work_units": 986400.0,
+        "work_units_on_falling_error": 86400.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 8,
+        "on_falling_error": 2,
+        "work_units": 331200.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 10,
+        "on_falling_error": 3,
+        "work_units": 240640.0,
+        "work_units_on_falling_error": 11840.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 9,
+        "on_falling_error": 2,
+        "work_units": 4502000.0,
+        "work_units_on_falling_error": 1106000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 10,
+        "on_falling_error": 5,
+        "work_units": 250400.0,
+        "work_units_on_falling_error": 800.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 8,
+        "on_falling_error": 4,
+        "work_units": 195800.0,
+        "work_units_on_falling_error": 93400.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 553600.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 7,
+        "on_falling_error": 1,
+        "work_units": 354460.0,
+        "work_units_on_falling_error": 36605.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 6,
+        "on_falling_error": 1,
+        "work_units": 212350.0,
+        "work_units_on_falling_error": 100000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 7,
+        "on_falling_error": 2,
+        "work_units": 3493000.0,
+        "work_units_on_falling_error": 209000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 6,
+        "on_falling_error": 2,
+        "work_units": 805363.0,
+        "work_units_on_falling_error": 100800.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 6,
+        "on_falling_error": 2,
+        "work_units": 1097396.0,
+        "work_units_on_falling_error": 1000080.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 700000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 6,
+        "on_falling_error": 0,
+        "work_units": 520000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 4,
+        "on_falling_error": 0,
+        "work_units": 112000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 0,
+        "on_falling_error": 0,
+        "work_units": 0.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 0,
+        "on_falling_error": 0,
+        "work_units": 0.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 0,
+        "on_falling_error": 0,
+        "work_units": 0.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 92,
+        "on_falling_error": 3,
+        "work_units": 7038400.0,
+        "work_units_on_falling_error": 186800.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 109,
+        "on_falling_error": 10,
+        "work_units": 4994310.0,
+        "work_units_on_falling_error": 262800.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 133,
+        "on_falling_error": 15,
+        "work_units": 1731035.0,
+        "work_units_on_falling_error": 116710.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 2,
+        "adaptations": 283,
+        "on_falling_error": 141,
+        "work_units": 66138016.0,
+        "work_units_on_falling_error": 29860992.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 2,
+        "adaptations": 295,
+        "on_falling_error": 151,
+        "work_units": 35117130.0,
+        "work_units_on_falling_error": 15245173.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 2,
+        "adaptations": 264,
+        "on_falling_error": 115,
+        "work_units": 25251225.0,
+        "work_units_on_falling_error": 7705807.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 69,
+        "on_falling_error": 16,
+        "work_units": 3675200.0,
+        "work_units_on_falling_error": 758400.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 64,
+        "on_falling_error": 18,
+        "work_units": 2589635.0,
+        "work_units_on_falling_error": 38400.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 69,
+        "on_falling_error": 26,
+        "work_units": 1353675.0,
+        "work_units_on_falling_error": 428960.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 46,
+        "on_falling_error": 14,
+        "work_units": 1741600.0,
+        "work_units_on_falling_error": 585888.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 61,
+        "on_falling_error": 23,
+        "work_units": 1071076.0,
+        "work_units_on_falling_error": 60448.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 53,
+        "on_falling_error": 20,
+        "work_units": 597551.0,
+        "work_units_on_falling_error": 133561.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 10,
+        "on_falling_error": 1,
+        "work_units": 986400.0,
+        "work_units_on_falling_error": 86400.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 9,
+        "on_falling_error": 3,
+        "work_units": 224800.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 9,
+        "on_falling_error": 3,
+        "work_units": 236800.0,
+        "work_units_on_falling_error": 12000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 10,
+        "on_falling_error": 5,
+        "work_units": 2807392.0,
+        "work_units_on_falling_error": 1407000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 10,
+        "on_falling_error": 4,
+        "work_units": 97400.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 10,
+        "on_falling_error": 3,
+        "work_units": 330209.0,
+        "work_units_on_falling_error": 89209.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 547200.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 7,
+        "on_falling_error": 1,
+        "work_units": 454460.0,
+        "work_units_on_falling_error": 36605.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 6,
+        "on_falling_error": 1,
+        "work_units": 212350.0,
+        "work_units_on_falling_error": 100000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 4,
+        "on_falling_error": 1,
+        "work_units": 2118000.0,
+        "work_units_on_falling_error": 107000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 6,
+        "on_falling_error": 2,
+        "work_units": 100600.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 4,
+        "on_falling_error": 1,
+        "work_units": 1002316.0,
+        "work_units_on_falling_error": 800.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 5,
+        "on_falling_error": 0,
+        "work_units": 500000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 5,
+        "on_falling_error": 0,
+        "work_units": 520000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 4,
+        "on_falling_error": 0,
+        "work_units": 112000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 1,
+        "on_falling_error": 0,
+        "work_units": 81000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 1,
+        "on_falling_error": 0,
+        "work_units": 800.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 1,
+        "on_falling_error": 0,
+        "work_units": 800.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 94,
+        "on_falling_error": 7,
+        "work_units": 6604000.0,
+        "work_units_on_falling_error": 260400.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 161,
+        "on_falling_error": 60,
+        "work_units": 4304210.0,
+        "work_units_on_falling_error": 441600.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 138,
+        "on_falling_error": 17,
+        "work_units": 1846435.0,
+        "work_units_on_falling_error": 115960.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 3,
+        "adaptations": 317,
+        "on_falling_error": 142,
+        "work_units": 74855000.0,
+        "work_units_on_falling_error": 28484000.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 3,
+        "adaptations": 152,
+        "on_falling_error": 70,
+        "work_units": 18606434.0,
+        "work_units_on_falling_error": 5644800.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 3,
+        "adaptations": 244,
+        "on_falling_error": 107,
+        "work_units": 22827945.0,
+        "work_units_on_falling_error": 5644301.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 60,
+        "on_falling_error": 23,
+        "work_units": 3399600.0,
+        "work_units_on_falling_error": 1590400.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 63,
+        "on_falling_error": 21,
+        "work_units": 2105795.0,
+        "work_units_on_falling_error": 60800.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 64,
+        "on_falling_error": 21,
+        "work_units": 1299995.0,
+        "work_units_on_falling_error": 222830.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 49,
+        "on_falling_error": 17,
+        "work_units": 1772416.0,
+        "work_units_on_falling_error": 549792.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 43,
+        "on_falling_error": 15,
+        "work_units": 971140.0,
+        "work_units_on_falling_error": 13824.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 61,
+        "on_falling_error": 24,
+        "work_units": 796824.0,
+        "work_units_on_falling_error": 271006.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 10,
+        "on_falling_error": 1,
+        "work_units": 983200.0,
+        "work_units_on_falling_error": 83200.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 9,
+        "on_falling_error": 3,
+        "work_units": 228000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 10,
+        "on_falling_error": 3,
+        "work_units": 240640.0,
+        "work_units_on_falling_error": 11840.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 9,
+        "on_falling_error": 4,
+        "work_units": 3573320.0,
+        "work_units_on_falling_error": 2146320.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 7,
+        "on_falling_error": 4,
+        "work_units": 2400.0,
+        "work_units_on_falling_error": 1600.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 10,
+        "on_falling_error": 7,
+        "work_units": 359600.0,
+        "work_units_on_falling_error": 357200.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 550400.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 7,
+        "on_falling_error": 1,
+        "work_units": 260605.0,
+        "work_units_on_falling_error": 36605.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 6,
+        "on_falling_error": 1,
+        "work_units": 212220.0,
+        "work_units_on_falling_error": 100000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 6,
+        "on_falling_error": 2,
+        "work_units": 3963000.0,
+        "work_units_on_falling_error": 1127000.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 6,
+        "on_falling_error": 4,
+        "work_units": 222800.0,
+        "work_units_on_falling_error": 222800.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 1121963.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 700000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 728000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 4,
+        "on_falling_error": 0,
+        "work_units": 112000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 1,
+        "on_falling_error": 0,
+        "work_units": 131000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 1,
+        "on_falling_error": 0,
+        "work_units": 131800.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 1,
+        "on_falling_error": 0,
+        "work_units": 800.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 88,
+        "on_falling_error": 3,
+        "work_units": 6740800.0,
+        "work_units_on_falling_error": 212800.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 111,
+        "on_falling_error": 9,
+        "work_units": 5338880.0,
+        "work_units_on_falling_error": 272400.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "rf",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 138,
+        "on_falling_error": 18,
+        "work_units": 1839185.0,
+        "work_units_on_falling_error": 249705.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "always_rebuild",
+        "seed": 4,
+        "adaptations": 178,
+        "on_falling_error": 73,
+        "work_units": 49696928.0,
+        "work_units_on_falling_error": 15312000.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "mechanism_selector",
+        "seed": 4,
+        "adaptations": 217,
+        "on_falling_error": 105,
+        "work_units": 28051172.0,
+        "work_units_on_falling_error": 8768201.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "sgd",
+        "policy": "fixed_schedule",
+        "seed": 4,
+        "adaptations": 253,
+        "on_falling_error": 109,
+        "work_units": 26164706.0,
+        "work_units_on_falling_error": 9021928.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "xgb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 74,
+        "on_falling_error": 20,
+        "work_units": 3742400.0,
+        "work_units_on_falling_error": 919200.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "xgb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 71,
+        "on_falling_error": 26,
+        "work_units": 2051495.0,
+        "work_units_on_falling_error": 80000.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "xgb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 52,
+        "on_falling_error": 11,
+        "work_units": 1032595.0,
+        "work_units_on_falling_error": 115490.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "gnb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 77,
+        "on_falling_error": 17,
+        "work_units": 36948.0,
+        "work_units_on_falling_error": 7376.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "gnb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 66,
+        "on_falling_error": 19,
+        "work_units": 36049.0,
+        "work_units_on_falling_error": 1312.0
+      },
+      {
+        "dataset": "elec2",
+        "model": "gnb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 81,
+        "on_falling_error": 26,
+        "work_units": 33970.0,
+        "work_units_on_falling_error": 10020.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "xgb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 9,
+        "on_falling_error": 1,
+        "work_units": 900000.0,
+        "work_units_on_falling_error": 100000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "xgb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 11,
+        "on_falling_error": 4,
+        "work_units": 476575.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "xgb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 11,
+        "on_falling_error": 2,
+        "work_units": 325405.0,
+        "work_units_on_falling_error": 196000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "gnb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 10,
+        "on_falling_error": 2,
+        "work_units": 9384.0,
+        "work_units_on_falling_error": 2000.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "gnb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 11,
+        "on_falling_error": 4,
+        "work_units": 2728.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_abrupt",
+        "model": "gnb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 11,
+        "on_falling_error": 7,
+        "work_units": 9086.0,
+        "work_units_on_falling_error": 5886.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "xgb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 588800.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "xgb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 5,
+        "on_falling_error": 0,
+        "work_units": 405855.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "xgb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 0,
+        "work_units": 216350.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "gnb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 2,
+        "work_units": 5640.0,
+        "work_units_on_falling_error": 1448.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "gnb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 2,
+        "work_units": 6724.0,
+        "work_units_on_falling_error": 2132.0
+      },
+      {
+        "dataset": "insects_gradual",
+        "model": "gnb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 7,
+        "on_falling_error": 2,
+        "work_units": 4886.0,
+        "work_units_on_falling_error": 1107.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "xgb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 5,
+        "on_falling_error": 0,
+        "work_units": 500000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "xgb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 4,
+        "on_falling_error": 0,
+        "work_units": 316000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "xgb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 5,
+        "on_falling_error": 0,
+        "work_units": 116000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "gnb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 5,
+        "on_falling_error": 0,
+        "work_units": 5000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "gnb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 5,
+        "on_falling_error": 0,
+        "work_units": 7000.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "insects_incremental",
+        "model": "gnb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 5,
+        "on_falling_error": 0,
+        "work_units": 4200.0,
+        "work_units_on_falling_error": 0.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "xgb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 92,
+        "on_falling_error": 3,
+        "work_units": 6721600.0,
+        "work_units_on_falling_error": 210000.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "xgb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 89,
+        "on_falling_error": 6,
+        "work_units": 4595395.0,
+        "work_units_on_falling_error": 49040.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "xgb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 8,
+        "on_falling_error": 4,
+        "work_units": 139410.0,
+        "work_units_on_falling_error": 107160.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "gnb",
+        "policy": "always_rebuild",
+        "seed": 0,
+        "adaptations": 238,
+        "on_falling_error": 99,
+        "work_units": 69548.0,
+        "work_units_on_falling_error": 20468.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "gnb",
+        "policy": "mechanism_selector",
+        "seed": 0,
+        "adaptations": 241,
+        "on_falling_error": 100,
+        "work_units": 66495.0,
+        "work_units_on_falling_error": 10561.0
+      },
+      {
+        "dataset": "covtype",
+        "model": "gnb",
+        "policy": "fixed_schedule",
+        "seed": 0,
+        "adaptations": 236,
+        "on_falling_error": 110,
+        "work_units": 57927.0,
+        "work_units_on_falling_error": 22994.0
+      }
+    ]
+  }
+}

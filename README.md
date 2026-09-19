@@ -910,3 +910,158 @@ two-sided ADWIN, δ = 0.002, fed the raw 0/1 error stream and never reset.
 | `fig6_nudge_success_by_drift.png` | selector nudge success by stream |
 | `fig7_critical_difference.png` | Nemenyi CD diagrams, both metrics, n = 60 and n = 20 |
 | `fig8_nudge_decay_diagnostic.png` | matched-position decay trend per run |
+
+
+## Headline analysis — does detector-triggered adaptation pay?
+
+```bash
+.venv/Scripts/python.exe experiments/alarm_direction.py      # NeverAdapt alarm directions, replayed
+.venv/Scripts/python.exe experiments/run_all.py --policies always_rebuild fixed_schedule mechanism_selector \
+    --out results/grid_direction --no-energy ...             # direction-logged adaptive runs (see below)
+.venv/Scripts/python.exe experiments/detector_premise.py     # results/analysis/detector_premise.json
+.venv/Scripts/python.exe experiments/premise_figures.py      # figures 9-11
+```
+
+**Scope, for every claim in this section:** river's two-sided ADWIN, δ = 0.002,
+fed the raw 0/1 prediction-error stream and never reset; five streams, four model
+families. Detectors that react only to rising error, or monitor feature
+distributions, were not tested.
+
+### 1. Alarms do not reliably mean degradation
+
+With the model never changing (NeverAdapt), 45% of 4,681 alarms fired on a
+*fall* in error rate (median 40% across the 20 cells; 0–25% on
+insects_incremental, 40–45% on elec2, up to 62% elsewhere). Measured from the
+detector's own error estimate; the replay reproduces every NeverAdapt alarm
+count in the grid exactly.
+
+Under the adaptive policies (180 direction-logged runs, outcomes identical to
+the main grid):
+
+| Policy | Adaptations on falling-error alarms | Share of adaptation cost |
+|---|---|---|
+| AlwaysRebuild | 33% of 3,004 | 36% |
+| FixedSchedule | 34% of 3,200 | 29% |
+| MechanismSelector | 34% of 2,830 | 25% |
+
+Two independent measurements agree on what these alarms are. At a falling-error
+alarm the model sits a median 26–27 points **above** its reference accuracy
+(rising-error alarms: 14–17 points below). And falling-error alarms arrive a
+median 220–288 rows after the previous adaptation, against 352–512 for rising
+ones — the signature of an adaptation that worked, lowered the error, and so
+triggered the next alarm itself.
+
+What this does **not** show is that those adaptations were worthless: adapting
+after an improvement can still help. The measured claim is that a quarter to a
+third of adaptation compute is spent reacting to alarms that signal the model
+got better.
+
+### 2. Never adapting is competitive — on some streams, not all
+
+NeverAdapt costs nothing, so it dominates any policy it is at least as accurate
+as. Counts over the 20 cells:
+
+| | AlwaysRebuild | FixedSchedule | AlwaysNudge | Selector |
+|---|---|---|---|---|
+| NeverAdapt dominates (strict) | 9 | 9 | 11 | 10 |
+| NeverAdapt dominates (robust) | 5 | 6 | 6 | 7 |
+
+*Robust* requires NeverAdapt to be ahead by at least 1 point and, for Random
+Forest and SGD, in at least 4 of 5 seeds. The strict counts include SGD cells on
+the insects streams where SGD is near chance (~20% balanced accuracy on six
+classes) and margins are under a point.
+
+NeverAdapt accuracy minus each policy's, in points (positive = never adapting was
+more accurate; **bold** = robust dominance; † = strict only):
+
+| Cell | AlwaysRebuild | FixedSchedule | AlwaysNudge | Selector |
+|---|---|---|---|---|
+| covtype/gnb | **+10.8** | **+7.0** | **+1.4** | **+13.4** |
+| covtype/rf | **+17.9** | -0.3 | **+4.9** | +11.2† |
+| covtype/sgd | **+10.2** | +5.8† | **+1.2** | +5.8† |
+| covtype/xgb | **+15.7** | **+36.5** | **+3.0** | **+28.2** |
+| elec2/gnb | -20.1 | -20.9 | -22.5 | -19.2 |
+| elec2/rf | -2.6 | -3.1 | -3.3 | -0.8 |
+| elec2/sgd | +1.5† | **+3.2** | -3.7 | **+3.0** |
+| elec2/xgb | -3.5 | -2.9 | -1.5 | -0.6 |
+| insects_abrupt/gnb | -8.2 | **+7.5** | +0.4† | **+8.9** |
+| insects_abrupt/rf | -0.2 | **+16.3** | +0.2† | **+5.5** |
+| insects_abrupt/sgd | +1.0† | +1.5† | +1.4† | +1.2† |
+| insects_abrupt/xgb | +0.8† | **+7.4** | **+6.6** | **+11.5** |
+| insects_gradual/gnb | -20.6 | -15.6 | -10.2 | -19.7 |
+| insects_gradual/rf | -20.5 | -1.1 | +0.1† | -16.7 |
+| insects_gradual/sgd | **+1.0** | -2.8 | -1.0 | **+1.0** |
+| insects_gradual/xgb | -20.3 | -12.9 | **+1.1** | -9.1 |
+| insects_incremental/gnb | -34.3 | -32.2 | -12.5 | -33.6 |
+| insects_incremental/rf | -41.1 | -19.4 | -2.6 | -40.5 |
+| insects_incremental/sgd | +0.5† | +0.2† | +0.2† | -0.0 |
+| insects_incremental/xgb | -38.1 | -35.5 | -31.1 | -35.7 |
+
+Robust dominance concentrates on **covtype** (all four models against
+AlwaysRebuild, by 10–18 points) and **insects_abrupt**. Pooled over all cells,
+paired Wilcoxon finds no difference between NeverAdapt and any adaptive policy
+(Holm p ≥ 0.50 at n = 60, ≥ 0.61 at n = 20).
+
+**That pooled null is cancellation, not absence of effect.** Within every
+stream, the policies differ significantly in accuracy:
+
+| Stream | Friedman p | Median AlwaysRebuild − NeverAdapt |
+|---|---|---|
+| elec2 | 0.00029 | +2.3 points |
+| covtype | 0.0069 | -14.8 points |
+| insects_abrupt | 0.0071 | +0.4 points |
+| insects_gradual | 0.048 | +20.3 points |
+| insects_incremental | 0.00011 | +36.2 points |
+
+Adaptation gains 20–36 points on the gradual and incremental insects streams and
+loses 15 on covtype. "Drift-triggered adaptation buys no measurable accuracy" is
+therefore **not** supported; what is supported is that whether it pays depends
+strongly on the stream.
+
+### 3. Alarm quality tracks whether adaptation pays — suggestively
+
+Share of NeverAdapt alarms on falling error against AlwaysRebuild's accuracy gain
+over NeverAdapt: Spearman ρ = -0.90 across the 5 streams
+(p = 0.037) and ρ = -0.40 across the 20 cells (p = 0.083).
+The stream-level result rests on 5 points, and cells are not independent. There is
+also a clear counterexample: covtype XGBoost has only 15% falling-error alarms, yet
+rebuilding loses 15.7 points there — covtype's rebuild losses look driven by small,
+class-clustered rebuild windows, not by alarm quality. Report as an association
+worth testing on more streams, not as a mechanism.
+
+### 4. Cheap repair cannot rescue it: four failure modes
+
+The nudge fails differently in each family (Phase 7 notes, Figure 2): XGBoost
+moves predictions but recovers a minority of the deficit; Random Forest and, on
+the long streams, GaussianNB leave predictions unchanged in most nudges; SGD
+changes many predictions with no systematic accuracy gain. None of them turns an
+alarm into a reliable improvement.
+
+### 5. The selector's accuracy check filters improvement alarms — when it can run
+
+On falling-error alarms the selector SKIPs 55%. Of the decisions where it could
+actually evaluate the window, it avoided a rebuild in 96% (547 of 569). Its
+remaining cost on these alarms comes almost entirely from its small-window guard:
+393 of its 415 rebuilds on falling-error alarms (95%) were forced because the
+window was too small to check — and falling-error alarms arrive on small windows
+precisely because they follow the previous adaptation closely. Rebuilding by
+default on small windows is the wrong default for improvement alarms. Reported,
+not changed: altering the method after seeing results would be post-hoc.
+
+### Related work — connection examined and dropped
+
+Poenaru-Olaru et al. (2025, arXiv:2506.13838) report drift-triggered retraining
+costing more energy than periodic retraining for two of three detector
+configurations on one of three datasets, attributing it to over-sensitive
+detectors. Their detectors are unsupervised Kolmogorov–Smirnov tests on feature
+distributions, and their baseline is a time-periodic schedule; "falling error"
+does not exist in that setting, so the mechanism measured here cannot explain
+their result. No explanatory connection is claimed.
+
+### Figures
+
+| File | Shows |
+|---|---|
+| `fig9_never_adapt_vs_adaptive.png` | NeverAdapt minus each adaptive policy, per cell, strict and robust dominance |
+| `fig10_alarm_quality_vs_payoff.png` | falling-error alarm share against rebuild's gain, cells and streams |
+| `fig11_cost_on_falling_error_alarms.png` | share of adaptations and cost on falling-error alarms, per policy and stream |
