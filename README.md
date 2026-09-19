@@ -40,7 +40,8 @@ scikit-learn 1.9.0, numpy 2.5.2, pandas 3.0.5.
 | 5 | `policies.py` | all five policies run end-to-end | **PASS** |
 | 6 | `runner.py` | full grid, 500-row CSV | **PASS** |
 | 7 | `analysis.py` | four figures, Friedman + Nemenyi | **PASS** |
-| 8 | packaging | minimal installable package, public API = `MechanismSelector.adapt()` | pending |
+| 7b | `ddm_contrast.py` | 500 DDM runs, exact NeverAdapt replay | **PASS** |
+| 8 | `package/` | clean-venv `pip install -e .`; README example runs; full suite passes against the installed package | **PASS** (DOI pending) |
 
 ## Phase 1 notes — data layer
 
@@ -1189,3 +1190,36 @@ and median rows since the previous adaptation for alarms above / below reference
 - NeverAdapt dominance (strict): ADWIN 9 / 9 / 11 / 10,
   DDM 8 / 8 / 7 / 7 cells
   (AlwaysRebuild / FixedSchedule / AlwaysNudge / selector).
+
+## Phase 8 — packaging
+
+`package/mechanism_selector/` is the installable package (`pip install -e .`,
+version 0.1.0; its README is `package/README.md`). Its three modules are copies
+of `src/accounting.py`, `src/mechanisms.py` and `src/selector.py` with
+package-relative imports and self-contained docstrings; **no code was changed**.
+`tests/test_package.py` enforces that by comparing syntax trees with docstrings
+stripped, so a behavioural edit to either copy fails the suite.
+
+To run every test against the installed package rather than `src/`:
+
+```bash
+MECHANISM_SELECTOR_TEST_INSTALLED=1 pytest tests/
+```
+
+`tests/conftest.py` then aliases `accounting`, `mechanisms` and `selector` to the
+installed modules, so the runner, policies and all 243 research tests exercise
+the published code. Verified in a fresh venv whose resolver chose numpy 2.5.3 /
+scikit-learn 1.9.1 (newer than the research environment): 251 passed.
+
+Defects found while packaging, reported and deliberately **not** repaired (the
+package must be the code that produced the results):
+
+- `MechanismSelector(seed=...)` has no effect: it seeds an `rng` that
+  `NudgeMechanism` / `RebuildMechanism` ignore. Results are unaffected — every
+  policy passed seeds to the mechanisms directly.
+- The tested constructor takes mechanism objects, so the README example must
+  import `make_spec`, `NudgeMechanism` and `RebuildMechanism` from the
+  `mechanism_selector.mechanisms` submodule. The top-level surface is exactly
+  `MechanismSelector`; the submodule is reachable but not re-exported.
+- `MechanismSelector.name` is a public class attribute (a policy label for the
+  harness).

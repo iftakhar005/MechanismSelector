@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mechanism-selector"
+version = "0.1.0"
+description = "Research artifact: on a drift alarm, try a cheap model update and rebuild only if it fails. Evaluated negative results -- read the README first."
+readme = "package/README.md"
+requires-python = ">=3.10"
+# Minimum versions are the ones the experiments were run with. Older versions
+# are untested; scikit-learn's partial_fit / n_iter_ behaviour is relied on.
+dependencies = [
+    "numpy>=2.5.2",
+    "scikit-learn>=1.9.0",
+]
+
+[project.optional-dependencies]
+# Only needed for make_spec("xgb", ...).
+xgboost = ["xgboost>=3.4.1"]
+
+[tool.setuptools.packages.find]
+where = ["package"]
+include = ["mechanism_selector*"]

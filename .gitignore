@@ -14,3 +14,8 @@ results/*
 !results/placeholder_sanity.json
 emissions.csv
 .pytest_cache/
+
+# packaging build output
+*.egg-info/
+build/
+dist/
