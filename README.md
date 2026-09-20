@@ -1032,6 +1032,17 @@ worth testing on more streams, not as a mechanism.
 
 ### 4. Cheap repair cannot rescue it: four failure modes
 
+**Known defect, documented not repaired.** The nudge is fit on the older 80% of the
+window so the newest 20% can judge it out-of-sample. When a nudge is *kept*, the
+runner clears the buffer, so those newest rows -- the ones most likely to describe
+the drift -- are never trained on by anything. A rebuild does not have this problem
+(it is fit on the full window). Every number in this README was produced with the
+defect present. `experiments/nudge_window_diagnostic.py` measures what it costs:
+at each alarm it fits both the 80% nudge and a full-window nudge from the same
+incoming model, and scores both causally on the next 200 rows. The trajectory
+continues with the 80% nudge, so the diagnostic changes no result here.
+
+
 The nudge fails differently in each family (Phase 7 notes, Figure 2): XGBoost
 moves predictions but recovers a minority of the deficit; Random Forest and, on
 the long streams, GaussianNB leave predictions unchanged in most nudges; SGD

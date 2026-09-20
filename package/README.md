@@ -83,6 +83,11 @@ Never reuse `result.acc_after` — after a rebuild it is measured on training da
 
 These are left exactly as they were when the results were produced.
 
+- **A kept nudge never trains on the newest rows.** The nudge is fit on the older
+  80% of the window so the newest 20% can judge it out-of-sample; when the nudge is
+  kept, those newest rows are never trained on by anything. They are the rows most
+  likely to describe the drift. Re-fit the returned model on them yourself if that
+  matters to you.
 - `MechanismSelector(seed=...)` has no effect with the provided mechanisms. It
   seeds a generator passed to them as `rng`, which they ignore; set
   `NudgeMechanism(seed=...)` and `RebuildMechanism(seed=...)` instead.

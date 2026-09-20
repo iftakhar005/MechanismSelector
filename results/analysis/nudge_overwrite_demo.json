@@ -1,0 +1,158 @@
+{
+  "design": "fit on 2,000 rows of concept A; one nudge on n rows of concept B; score on held-out A and B test sets; compare with a from-scratch fit on the same B rows",
+  "caveat": "synthetic worst case (total relabelling), not a measurement on the benchmark streams",
+  "results": {
+    "xgb": {
+      "baseline_on_A": 1.0,
+      "baseline_on_B": 0.483,
+      "by_rows": {
+        "100": {
+          "nudged_on_A": 0.999,
+          "nudged_on_B": 0.483,
+          "from_scratch_on_A": 0.491,
+          "from_scratch_on_B": 0.995,
+          "nudge_work_units": 500,
+          "nudge_passes": 5
+        },
+        "200": {
+          "nudged_on_A": 0.564,
+          "nudged_on_B": 0.932,
+          "from_scratch_on_A": 0.492,
+          "from_scratch_on_B": 0.998,
+          "nudge_work_units": 1000,
+          "nudge_passes": 5
+        },
+        "400": {
+          "nudged_on_A": 0.493,
+          "nudged_on_B": 0.998,
+          "from_scratch_on_A": 0.493,
+          "from_scratch_on_B": 0.998,
+          "nudge_work_units": 2000,
+          "nudge_passes": 5
+        },
+        "800": {
+          "nudged_on_A": 0.49,
+          "nudged_on_B": 0.983,
+          "from_scratch_on_A": 0.492,
+          "from_scratch_on_B": 1.0,
+          "nudge_work_units": 4000,
+          "nudge_passes": 5
+        }
+      }
+    },
+    "rf": {
+      "baseline_on_A": 1.0,
+      "baseline_on_B": 0.483,
+      "by_rows": {
+        "100": {
+          "nudged_on_A": 1.0,
+          "nudged_on_B": 0.483,
+          "from_scratch_on_A": 0.492,
+          "from_scratch_on_B": 0.998,
+          "nudge_work_units": 500,
+          "nudge_passes": 5
+        },
+        "200": {
+          "nudged_on_A": 1.0,
+          "nudged_on_B": 0.483,
+          "from_scratch_on_A": 0.493,
+          "from_scratch_on_B": 1.0,
+          "nudge_work_units": 1000,
+          "nudge_passes": 5
+        },
+        "400": {
+          "nudged_on_A": 1.0,
+          "nudged_on_B": 0.483,
+          "from_scratch_on_A": 0.492,
+          "from_scratch_on_B": 0.998,
+          "nudge_work_units": 2000,
+          "nudge_passes": 5
+        },
+        "800": {
+          "nudged_on_A": 1.0,
+          "nudged_on_B": 0.483,
+          "from_scratch_on_A": 0.492,
+          "from_scratch_on_B": 0.998,
+          "nudge_work_units": 4000,
+          "nudge_passes": 5
+        }
+      }
+    },
+    "sgd": {
+      "baseline_on_A": 0.988,
+      "baseline_on_B": 0.482,
+      "by_rows": {
+        "100": {
+          "nudged_on_A": 0.806,
+          "nudged_on_B": 0.675,
+          "from_scratch_on_A": 0.462,
+          "from_scratch_on_B": 0.946,
+          "nudge_work_units": 100,
+          "nudge_passes": 1
+        },
+        "200": {
+          "nudged_on_A": 0.603,
+          "nudged_on_B": 0.892,
+          "from_scratch_on_A": 0.555,
+          "from_scratch_on_B": 0.932,
+          "nudge_work_units": 200,
+          "nudge_passes": 1
+        },
+        "400": {
+          "nudged_on_A": 0.484,
+          "nudged_on_B": 0.985,
+          "from_scratch_on_A": 0.502,
+          "from_scratch_on_B": 0.976,
+          "nudge_work_units": 400,
+          "nudge_passes": 1
+        },
+        "800": {
+          "nudged_on_A": 0.501,
+          "nudged_on_B": 0.984,
+          "from_scratch_on_A": 0.493,
+          "from_scratch_on_B": 0.996,
+          "nudge_work_units": 800,
+          "nudge_passes": 1
+        }
+      }
+    },
+    "gnb": {
+      "baseline_on_A": 0.994,
+      "baseline_on_B": 0.483,
+      "by_rows": {
+        "100": {
+          "nudged_on_A": 0.991,
+          "nudged_on_B": 0.49,
+          "from_scratch_on_A": 0.541,
+          "from_scratch_on_B": 0.953,
+          "nudge_work_units": 100,
+          "nudge_passes": 1
+        },
+        "200": {
+          "nudged_on_A": 0.989,
+          "nudged_on_B": 0.497,
+          "from_scratch_on_A": 0.49,
+          "from_scratch_on_B": 0.976,
+          "nudge_work_units": 200,
+          "nudge_passes": 1
+        },
+        "400": {
+          "nudged_on_A": 0.971,
+          "nudged_on_B": 0.517,
+          "from_scratch_on_A": 0.495,
+          "from_scratch_on_B": 0.988,
+          "nudge_work_units": 400,
+          "nudge_passes": 1
+        },
+        "800": {
+          "nudged_on_A": 0.914,
+          "nudged_on_B": 0.574,
+          "from_scratch_on_A": 0.496,
+          "from_scratch_on_B": 0.987,
+          "nudge_work_units": 800,
+          "nudge_passes": 1
+        }
+      }
+    }
+  }
+}

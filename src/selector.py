@@ -23,6 +23,22 @@ predictor of when it would succeed.
    rebuild's, because that honesty is what makes the economic argument
    credible (spec trap #5).
 
+## Known defect: a kept NUDGE never trains on the newest rows
+
+The nudge is fit on `X_train` (the older `1 - holdout_frac` of the window) so
+that the holdout can judge it out-of-sample. When the nudge is *kept*, that
+model is returned and the runner clears its buffer, so the holdout rows -- the
+most recent fifth of the adaptation window, and the rows most likely to carry
+whatever the detector reacted to -- are never trained on by anything. The
+rebuild path does not have this problem: a REBUILD is fit on the full window.
+
+This is a defect, not a trade-off: nothing ever revisits those rows. A caller
+who wants the kept nudge to see them must re-fit it on the holdout after
+`adapt()` returns, which this module does not do. Every result in this
+repository was produced with the defect present, so it is documented rather
+than repaired; `results/analysis/nudge_window_diagnostic.json` measures what it
+costs.
+
 ## The reference-accuracy problem
 
 `reference_accuracy` is an input, not something this module maintains. After a
