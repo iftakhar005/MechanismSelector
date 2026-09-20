@@ -1042,6 +1042,28 @@ at each alarm it fits both the 80% nudge and a full-window nudge from the same
 incoming model, and scores both causally on the next 200 rows. The trajectory
 continues with the 80% nudge, so the diagnostic changes no result here.
 
+Result over 1,225 paired alarms (`results/analysis/nudge_window_diagnostic.json`):
+the newest 20% is worth little. Median gain difference 0.00 pp; floor clearance
+63.5% -> 63.8%; the full-window nudge costs 1.25x more.
+
+| family | n | mean delta | cleared floor, 80% -> full | Wilcoxon p | r | predictions unchanged |
+|---|---|---|---|---|---|---|
+| xgb | 222 | +2.28 pp | 58.1% -> 62.2% | 0.0073 | 0.22 | 5.4% -> 2.7% |
+| rf | 346 | +0.14 pp | 67.3% -> 68.2% | 0.0096 | 0.28 | 52.6% -> 52.9% |
+| sgd | 308 | +0.61 pp | 62.3% -> 59.4% | 0.55 | 0.04 | 14.6% -> 15.3% |
+| gnb | 349 | -0.12 pp | 64.2% -> 64.5% | 0.18 | 0.16 | 61.6% -> 60.7% |
+
+Only XGBoost gains materially. Random Forest's difference is detectable but
+negligible (68% of its paired alarms are exactly tied), SGD and GaussianNB show
+none. **The mechanism is the constraint, not the training slice** -- with one
+family's exception, which is stated rather than generalised.
+
+Not comparable to the 15% nudge success rate: this runs an AlwaysNudge
+trajectory, so it nudges at every alarm including ones where the model is fine,
+and it judges clearance on the next 200 rows rather than the in-window holdout.
+The insects cells contribute 4-10 alarms each, so their per-cell numbers are
+noise; `insects_incremental/sgd` produced none.
+
 
 The nudge fails differently in each family (Phase 7 notes, Figure 2): XGBoost
 moves predictions but recovers a minority of the deficit; Random Forest and, on

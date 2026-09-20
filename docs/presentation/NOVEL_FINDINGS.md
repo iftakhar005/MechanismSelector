@@ -40,6 +40,11 @@ positive median gain (+2.5 points, 212 nudges). (`results/analysis/phase7.json`,
 inert for bagged and closed-form learners, active but directionless for SGD — is a prediction-level
 measurement the accuracy-only literature does not make.
 
+**Limitation, measured:** the nudge is fit on the older 80% of the window. Refitting it on the full
+window at the same 1,225 alarms does not change the picture -- median difference 0.00 pp, floor
+clearance 63.5% to 63.8% -- except for XGBoost (mean +2.28 pp, Wilcoxon p = 0.0073).
+(`results/analysis/nudge_window_diagnostic.json`)
+
 **What it means:** `partial_fit` and `warm_start` are not one capability. Check whether the update
 moves predictions at all before building a policy on it.
 
