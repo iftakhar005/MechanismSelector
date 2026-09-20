@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1020" width="1600" height="1020" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3c4650"/>
+    </marker>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f5a82"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1600" height="1020" fill="#f6f7f4"/>
+
+  <text x="48" y="58" font-size="30" font-weight="600" fill="#12171c">MechanismSelector — runtime architecture</text>
+  <text x="48" y="88" font-size="18" fill="#59636e">One policy, one model family, one stream. Everything below runs per row, in time order.</text>
+
+  <!-- ============ band 1: stream + prequential loop ============ -->
+  <rect x="48" y="118" width="1504" height="212" rx="12" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="70" y="148" font-size="15" font-weight="600" fill="#1f5a82" letter-spacing="1.4">PREQUENTIAL LOOP · runner.py</text>
+
+  <rect x="70" y="166" width="180" height="128" rx="8" fill="#eef1ee" stroke="#b9c0b6"/>
+  <text x="160" y="212" font-size="17" font-weight="600" fill="#12171c" text-anchor="middle">Stream</text>
+  <text x="160" y="238" font-size="14" fill="#59636e" text-anchor="middle">rows in time order</text>
+  <text x="160" y="258" font-size="14" fill="#59636e" text-anchor="middle">never shuffled</text>
+  <text x="160" y="280" font-size="13" fill="#59636e" text-anchor="middle">datasets.py</text>
+
+  <rect x="296" y="166" width="196" height="128" rx="8" fill="#ffffff" stroke="#b9c0b6"/>
+  <text x="394" y="200" font-size="17" font-weight="600" fill="#12171c" text-anchor="middle">Predict the row</text>
+  <text x="394" y="226" font-size="14" fill="#59636e" text-anchor="middle">before its label is used</text>
+  <text x="394" y="252" font-size="14" fill="#59636e" text-anchor="middle">→ prequential accuracy</text>
+  <text x="394" y="280" font-size="13" fill="#59636e" text-anchor="middle">chunked, proven exact</text>
+
+  <rect x="538" y="166" width="196" height="128" rx="8" fill="#ffffff" stroke="#b9c0b6"/>
+  <text x="636" y="200" font-size="17" font-weight="600" fill="#12171c" text-anchor="middle">Buffer</text>
+  <text x="636" y="226" font-size="14" fill="#59636e" text-anchor="middle">last 1,000 rows</text>
+  <text x="636" y="252" font-size="14" fill="#59636e" text-anchor="middle">cleared after adapting</text>
+  <text x="636" y="280" font-size="13" fill="#59636e" text-anchor="middle">min 100 rows to act</text>
+
+  <rect x="780" y="166" width="196" height="128" rx="8" fill="#ffffff" stroke="#b9c0b6"/>
+  <text x="878" y="200" font-size="17" font-weight="600" fill="#12171c" text-anchor="middle">Drift detector</text>
+  <text x="878" y="226" font-size="14" fill="#59636e" text-anchor="middle">ADWIN δ = 0.002</text>
+  <text x="878" y="252" font-size="14" fill="#59636e" text-anchor="middle">or DDM (contrast)</text>
+  <text x="878" y="280" font-size="13" fill="#59636e" text-anchor="middle">fed the 0/1 error</text>
+
+  <rect x="1022" y="166" width="230" height="128" rx="8" fill="#fbf1dc" stroke="#c98a00"/>
+  <text x="1137" y="204" font-size="17" font-weight="600" fill="#6d4a00" text-anchor="middle">ALARM</text>
+  <text x="1137" y="232" font-size="14" fill="#6d4a00" text-anchor="middle">call policy.adapt() with</text>
+  <text x="1137" y="254" font-size="14" fill="#6d4a00" text-anchor="middle">the buffer window and</text>
+  <text x="1137" y="276" font-size="14" fill="#6d4a00" text-anchor="middle">reference_accuracy</text>
+
+  <rect x="1296" y="166" width="234" height="128" rx="8" fill="#ffffff" stroke="#b9c0b6"/>
+  <text x="1413" y="200" font-size="17" font-weight="600" fill="#12171c" text-anchor="middle">Reference accuracy</text>
+  <text x="1413" y="226" font-size="14" fill="#59636e" text-anchor="middle">new model scored on</text>
+  <text x="1413" y="252" font-size="14" fill="#59636e" text-anchor="middle">the next 200 rows</text>
+  <text x="1413" y="280" font-size="13" fill="#59636e" text-anchor="middle">as they arrive — causal</text>
+
+  <line x1="250" y1="230" x2="292" y2="230" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="492" y1="230" x2="534" y2="230" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="734" y1="230" x2="776" y2="230" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="976" y1="230" x2="1018" y2="230" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ============ band 2: the policy ============ -->
+  <rect x="48" y="360" width="1000" height="430" rx="12" fill="#ffffff" stroke="#1f5a82" stroke-width="2"/>
+  <text x="70" y="390" font-size="15" font-weight="600" fill="#1f5a82" letter-spacing="1.4">THE DECISION · selector.py — MechanismSelector.adapt()</text>
+
+  <rect x="70" y="408" width="416" height="68" rx="8" fill="#eaf0f5" stroke="#9fbdd2"/>
+  <text x="278" y="436" font-size="16" font-weight="600" fill="#12171c" text-anchor="middle">Split the window by time</text>
+  <text x="278" y="460" font-size="14" fill="#41525f" text-anchor="middle">older 80% = train · newest 20% = holdout</text>
+
+  <rect x="70" y="496" width="416" height="68" rx="8" fill="#fbf1dc" stroke="#c98a00"/>
+  <text x="278" y="524" font-size="16" font-weight="600" fill="#6d4a00" text-anchor="middle">Window under ~250 rows?</text>
+  <text x="278" y="548" font-size="14" fill="#6d4a00" text-anchor="middle">holdout &lt; 50 or train &lt; 100 → do not trust any check</text>
+
+  <rect x="70" y="584" width="416" height="68" rx="8" fill="#e8f0fb" stroke="#2a78d6"/>
+  <text x="278" y="612" font-size="16" font-weight="600" fill="#12171c" text-anchor="middle">Model still above the floor?</text>
+  <text x="278" y="636" font-size="14" fill="#41525f" text-anchor="middle">floor = reference_accuracy − 0.02</text>
+
+  <rect x="70" y="672" width="416" height="90" rx="8" fill="#fbeee7" stroke="#d9602e"/>
+  <text x="278" y="700" font-size="16" font-weight="600" fill="#12171c" text-anchor="middle">Nudge a copy, score it on the holdout</text>
+  <text x="278" y="724" font-size="14" fill="#41525f" text-anchor="middle">trained on the older 80% only</text>
+  <text x="278" y="746" font-size="13" fill="#9a4a20" text-anchor="middle">kept nudge never sees the newest 20% — known defect</text>
+
+  <!-- outcomes -->
+  <rect x="546" y="496" width="230" height="68" rx="8" fill="#c98a00"/>
+  <text x="661" y="526" font-size="17" font-weight="700" fill="#241900" text-anchor="middle">REBUILD (guard)</text>
+  <text x="661" y="548" font-size="13" fill="#3c2c00" text-anchor="middle">half of all its rebuilds</text>
+
+  <rect x="546" y="584" width="230" height="68" rx="8" fill="#2a78d6"/>
+  <text x="661" y="614" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">SKIP</text>
+  <text x="661" y="636" font-size="13" fill="#e4eefb" text-anchor="middle">zero cost</text>
+
+  <rect x="546" y="672" width="230" height="44" rx="8" fill="#d9602e"/>
+  <text x="661" y="700" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">NUDGE — keep it</text>
+
+  <rect x="546" y="726" width="230" height="52" rx="8" fill="#15986a"/>
+  <text x="661" y="748" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">REBUILD</text>
+  <text x="661" y="768" font-size="13" fill="#dff3ea" text-anchor="middle">cost = failed nudge + rebuild</text>
+
+  <text x="512" y="524" font-size="13" fill="#59636e" text-anchor="middle">yes</text>
+  <text x="512" y="612" font-size="13" fill="#59636e" text-anchor="middle">yes</text>
+  <text x="512" y="690" font-size="13" fill="#59636e" text-anchor="middle">clears</text>
+  <text x="512" y="754" font-size="13" fill="#59636e" text-anchor="middle">fails</text>
+
+  <line x1="278" y1="476" x2="278" y2="492" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="278" y1="564" x2="278" y2="580" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="278" y1="652" x2="278" y2="668" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="486" y1="530" x2="542" y2="530" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="486" y1="618" x2="542" y2="618" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="486" y1="694" x2="542" y2="694" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="486" y1="742" x2="542" y2="752" stroke="#3c4650" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="812" y="496" width="212" height="282" rx="8" fill="#f2f4f0" stroke="#b9c0b6"/>
+  <text x="918" y="524" font-size="15" font-weight="600" fill="#12171c" text-anchor="middle">Baselines</text>
+  <text x="918" y="548" font-size="13" fill="#59636e" text-anchor="middle">policies.py</text>
+  <text x="918" y="582" font-size="14" fill="#41525f" text-anchor="middle">NeverAdapt</text>
+  <text x="918" y="608" font-size="14" fill="#41525f" text-anchor="middle">AlwaysRebuild</text>
+  <text x="918" y="634" font-size="14" fill="#41525f" text-anchor="middle">AlwaysNudge</text>
+  <text x="918" y="660" font-size="14" fill="#41525f" text-anchor="middle">FixedSchedule (k=3)</text>
+  <text x="918" y="700" font-size="13" fill="#59636e" text-anchor="middle">same adapt() signature,</text>
+  <text x="918" y="720" font-size="13" fill="#59636e" text-anchor="middle">same nudge, same rebuild —</text>
+  <text x="918" y="740" font-size="13" fill="#59636e" text-anchor="middle">only the decision differs</text>
+
+  <!-- ============ band 3: mechanisms + measurement ============ -->
+  <rect x="1076" y="360" width="476" height="430" rx="12" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="1098" y="390" font-size="15" font-weight="600" fill="#1f5a82" letter-spacing="1.4">ACTIONS &amp; MEASUREMENT</text>
+
+  <rect x="1098" y="408" width="432" height="150" rx="8" fill="#fbeee7" stroke="#d9602e"/>
+  <text x="1314" y="436" font-size="16" font-weight="600" fill="#12171c" text-anchor="middle">mechanisms.py — the nudge, per family</text>
+  <text x="1314" y="464" font-size="14" fill="#41525f" text-anchor="middle">XGBoost: append 5 boosting rounds (model grows)</text>
+  <text x="1314" y="488" font-size="14" fill="#41525f" text-anchor="middle">Random Forest: +5 trees, retire the 5 oldest</text>
+  <text x="1314" y="512" font-size="14" fill="#41525f" text-anchor="middle">SGD / GaussianNB: one partial_fit</text>
+  <text x="1314" y="540" font-size="13" fill="#9a4a20" text-anchor="middle">4% of a rebuild (trees) · 0.6–1% (SGD) · 80% (GNB)</text>
+
+  <rect x="1098" y="574" width="432" height="74" rx="8" fill="#e6f4ee" stroke="#15986a"/>
+  <text x="1314" y="602" font-size="16" font-weight="600" fill="#12171c" text-anchor="middle">Rebuild: fresh model on the full window</text>
+  <text x="1314" y="626" font-size="14" fill="#41525f" text-anchor="middle">handed no old model to inherit from</text>
+
+  <rect x="1098" y="664" width="210" height="114" rx="8" fill="#f2f4f0" stroke="#b9c0b6"/>
+  <text x="1203" y="692" font-size="15" font-weight="600" fill="#12171c" text-anchor="middle">accounting.py</text>
+  <text x="1203" y="718" font-size="14" fill="#41525f" text-anchor="middle">work_units =</text>
+  <text x="1203" y="740" font-size="14" fill="#41525f" text-anchor="middle">passes × rows</text>
+  <text x="1203" y="764" font-size="13" fill="#59636e" text-anchor="middle">read from the model</text>
+
+  <rect x="1320" y="664" width="210" height="114" rx="8" fill="#f2f4f0" stroke="#b9c0b6"/>
+  <text x="1425" y="692" font-size="15" font-weight="600" fill="#12171c" text-anchor="middle">footprint.py</text>
+  <text x="1425" y="718" font-size="14" fill="#41525f" text-anchor="middle">model size and</text>
+  <text x="1425" y="740" font-size="14" fill="#41525f" text-anchor="middle">node visits / row</text>
+  <text x="1425" y="764" font-size="13" fill="#59636e" text-anchor="middle">cost of using it</text>
+
+  <line x1="786" y1="694" x2="1092" y2="470" stroke="#1f5a82" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arw)"/>
+  <line x1="786" y1="752" x2="1092" y2="606" stroke="#1f5a82" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arw)"/>
+
+  <!-- ============ band 4: outputs + feedback ============ -->
+  <rect x="48" y="820" width="1504" height="150" rx="12" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="70" y="850" font-size="15" font-weight="600" fill="#1f5a82" letter-spacing="1.4">WHAT COMES BACK, AND WHAT IS WRITTEN DOWN</text>
+
+  <rect x="70" y="868" width="330" height="82" rx="8" fill="#eaf0f5" stroke="#9fbdd2"/>
+  <text x="235" y="898" font-size="16" font-weight="600" fill="#12171c" text-anchor="middle">AdaptResult → the loop</text>
+  <text x="235" y="922" font-size="14" fill="#41525f" text-anchor="middle">model to use next + exact cost</text>
+  <text x="235" y="942" font-size="13" fill="#59636e" text-anchor="middle">buffer cleared, reference re-measured</text>
+
+  <rect x="430" y="868" width="330" height="82" rx="8" fill="#f2f4f0" stroke="#b9c0b6"/>
+  <text x="595" y="898" font-size="16" font-weight="600" fill="#12171c" text-anchor="middle">grid.csv — one row per run</text>
+  <text x="595" y="922" font-size="14" fill="#41525f" text-anchor="middle">accuracy, work units, action counts</text>
+  <text x="595" y="942" font-size="13" fill="#59636e" text-anchor="middle">500 runs per detector</text>
+
+  <rect x="790" y="868" width="330" height="82" rx="8" fill="#f2f4f0" stroke="#b9c0b6"/>
+  <text x="955" y="898" font-size="16" font-weight="600" fill="#12171c" text-anchor="middle">events/ — one row per alarm</text>
+  <text x="955" y="922" font-size="14" fill="#41525f" text-anchor="middle">action, accuracies, deficit, cost</text>
+  <text x="955" y="942" font-size="13" fill="#59636e" text-anchor="middle">why every decision was made</text>
+
+  <rect x="1150" y="868" width="382" height="82" rx="8" fill="#f2f4f0" stroke="#b9c0b6"/>
+  <text x="1341" y="898" font-size="16" font-weight="600" fill="#12171c" text-anchor="middle">analysis.py → statistics and figures</text>
+  <text x="1341" y="922" font-size="14" fill="#41525f" text-anchor="middle">Friedman · Nemenyi · Wilcoxon + Holm · Pareto</text>
+  <text x="1341" y="942" font-size="13" fill="#59636e" text-anchor="middle">n = 60 blocks, n = 20 sensitivity</text>
+
+  <path d="M 235 866 L 235 812 L 394 812 L 394 300" fill="none" stroke="#1f5a82" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="248" y="806" font-size="13" fill="#1f5a82">new model returns to the loop</text>
+</svg>

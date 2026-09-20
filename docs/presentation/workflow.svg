@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1120" width="1600" height="1120" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3c4650"/>
+    </marker>
+    <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a6d3b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1600" height="1120" fill="#f6f7f4"/>
+
+  <text x="48" y="58" font-size="30" font-weight="600" fill="#12171c">How the project was built — what we did, in order</text>
+  <text x="48" y="88" font-size="18" fill="#59636e">Each phase had a gate that had to pass before the next one started. Nothing was tuned after results were seen.</text>
+
+  <!-- spine -->
+  <line x1="120" y1="130" x2="120" y2="1010" stroke="#c8cfc4" stroke-width="3"/>
+
+  <!-- P1 -->
+  <circle cx="120" cy="170" r="13" fill="#1f5a82"/>
+  <text x="120" y="176" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <rect x="168" y="132" width="700" height="78" rx="9" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="190" y="162" font-size="19" font-weight="600" fill="#12171c">Data layer</text>
+  <text x="190" y="188" font-size="15" fill="#41525f">Load 5 drift streams in original time order, never shuffled. Record shape and class balance.</text>
+  <rect x="892" y="132" width="660" height="78" rx="9" fill="#eef1ee" stroke="#c8cfc4"/>
+  <text x="912" y="162" font-size="14" font-weight="600" fill="#1f5a82">GATE · all five loaders return correctly shaped arrays</text>
+  <text x="912" y="188" font-size="14" fill="#59636e">datasets.py · elec2, insects ×3, covtype (first 100k rows)</text>
+
+  <!-- P2 -->
+  <circle cx="120" cy="268" r="13" fill="#1f5a82"/>
+  <text x="120" y="274" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <rect x="168" y="230" width="700" height="78" rx="9" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="190" y="260" font-size="19" font-weight="600" fill="#12171c">Cost accounting</text>
+  <text x="190" y="286" font-size="15" fill="#41525f">Define work_units = passes × rows, with the pass count read from the fitted model.</text>
+  <rect x="892" y="230" width="660" height="78" rx="9" fill="#eef1ee" stroke="#c8cfc4"/>
+  <text x="912" y="260" font-size="14" font-weight="600" fill="#1f5a82">GATE · a 300-tree fit costs exactly 30× a 10-tree fit</text>
+  <text x="912" y="286" font-size="14" fill="#59636e">accounting.py · energy logged but never used to decide</text>
+
+  <!-- P3 -->
+  <circle cx="120" cy="366" r="13" fill="#1f5a82"/>
+  <text x="120" y="372" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <rect x="168" y="328" width="700" height="78" rx="9" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="190" y="358" font-size="19" font-weight="600" fill="#12171c">Repair mechanisms</text>
+  <text x="190" y="384" font-size="15" fill="#41525f">Skip, nudge and rebuild for four model families. Measure the real cost ratio of each.</text>
+  <rect x="892" y="328" width="660" height="78" rx="9" fill="#eef1ee" stroke="#c8cfc4"/>
+  <text x="912" y="358" font-size="14" font-weight="600" fill="#1f5a82">GATE · nudge cheaper than rebuild; forest size constant; SVC raises</text>
+  <text x="912" y="384" font-size="14" fill="#59636e">mechanisms.py · 4% · 0.6–1% · 80% of a rebuild</text>
+
+  <!-- P4 -->
+  <circle cx="120" cy="464" r="13" fill="#1f5a82"/>
+  <text x="120" y="470" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <rect x="168" y="426" width="700" height="78" rx="9" fill="#ffffff" stroke="#1f5a82" stroke-width="2.5"/>
+  <text x="190" y="456" font-size="19" font-weight="600" fill="#12171c">The selector</text>
+  <text x="190" y="482" font-size="15" fill="#41525f">Try the cheap option first, verify on held-out recent rows, escalate to a rebuild if it fails.</text>
+  <rect x="892" y="426" width="660" height="78" rx="9" fill="#eef1ee" stroke="#c8cfc4"/>
+  <text x="912" y="456" font-size="14" font-weight="600" fill="#1f5a82">GATE · holdout rows never appear in training data</text>
+  <text x="912" y="482" font-size="14" fill="#59636e">selector.py · the contribution</text>
+
+  <!-- P5 -->
+  <circle cx="120" cy="562" r="13" fill="#1f5a82"/>
+  <text x="120" y="568" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+  <rect x="168" y="524" width="700" height="78" rx="9" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="190" y="554" font-size="19" font-weight="600" fill="#12171c">Baseline policies</text>
+  <text x="190" y="580" font-size="15" fill="#41525f">Four competitors with identical actions, so only the decision rule differs.</text>
+  <rect x="892" y="524" width="660" height="78" rx="9" fill="#eef1ee" stroke="#c8cfc4"/>
+  <text x="912" y="554" font-size="14" font-weight="600" fill="#1f5a82">GATE · all five policies run end to end</text>
+  <text x="912" y="580" font-size="14" fill="#59636e">policies.py · FixedSchedule(k=3) is the one to beat</text>
+
+  <!-- P6 -->
+  <circle cx="120" cy="660" r="13" fill="#1f5a82"/>
+  <text x="120" y="666" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
+  <rect x="168" y="622" width="700" height="78" rx="9" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="190" y="652" font-size="19" font-weight="600" fill="#12171c">Experiment runner · the grid</text>
+  <text x="190" y="678" font-size="15" fill="#41525f">Stream prequentially, detect drift, adapt, log every run and every alarm.</text>
+  <rect x="892" y="622" width="660" height="78" rx="9" fill="#eef1ee" stroke="#c8cfc4"/>
+  <text x="912" y="652" font-size="14" font-weight="600" fill="#1f5a82">GATE · full grid completes — 500 runs, 0 failures</text>
+  <text x="912" y="678" font-size="14" fill="#59636e">runner.py · 5 streams × 4 models × 5 policies × 5 seeds</text>
+
+  <!-- P7 -->
+  <circle cx="120" cy="758" r="13" fill="#1f5a82"/>
+  <text x="120" y="764" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">7</text>
+  <rect x="168" y="720" width="700" height="78" rx="9" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="190" y="750" font-size="19" font-weight="600" fill="#12171c">Analysis</text>
+  <text x="190" y="776" font-size="15" fill="#41525f">Friedman, Nemenyi, Wilcoxon with Holm correction, Pareto frontiers, 11 figures.</text>
+  <rect x="892" y="720" width="660" height="78" rx="9" fill="#eef1ee" stroke="#c8cfc4"/>
+  <text x="912" y="750" font-size="14" font-weight="600" fill="#1f5a82">GATE · deterministic cells verified before collapsing to n = 60</text>
+  <text x="912" y="776" font-size="14" fill="#59636e">analysis.py · n = 20 kept as a stricter check</text>
+
+  <!-- P7b -->
+  <circle cx="120" cy="856" r="13" fill="#c98a00"/>
+  <text x="120" y="861" font-size="12" font-weight="700" fill="#241900" text-anchor="middle">7b</text>
+  <rect x="168" y="818" width="700" height="78" rx="9" fill="#fbf7ec" stroke="#c98a00" stroke-width="1.5"/>
+  <text x="190" y="848" font-size="19" font-weight="600" fill="#12171c">Second detector — DDM</text>
+  <text x="190" y="874" font-size="15" fill="#41525f">Repeat all 500 runs with a one-sided detector, to test our own explanation.</text>
+  <rect x="892" y="818" width="660" height="78" rx="9" fill="#fbf1dc" stroke="#c98a00"/>
+  <text x="912" y="848" font-size="14" font-weight="600" fill="#6d4a00">RESULT · it falsified our explanation, and we kept the finding</text>
+  <text x="912" y="874" font-size="14" fill="#6d4a00">ddm_contrast.py · alarm replay reproduced exactly</text>
+
+  <!-- P8 -->
+  <circle cx="120" cy="954" r="13" fill="#1f5a82"/>
+  <text x="120" y="960" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">8</text>
+  <rect x="168" y="916" width="700" height="78" rx="9" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="190" y="946" font-size="19" font-weight="600" fill="#12171c">Packaging</text>
+  <text x="190" y="972" font-size="15" fill="#41525f">Ship the selector as an installable package whose README states the negative results first.</text>
+  <rect x="892" y="916" width="660" height="78" rx="9" fill="#eef1ee" stroke="#c8cfc4"/>
+  <text x="912" y="946" font-size="14" font-weight="600" fill="#1f5a82">GATE · clean-venv install; 251 tests pass against the installed package</text>
+  <text x="912" y="972" font-size="14" fill="#59636e">package/ · version 0.1.0 · defects documented, not repaired</text>
+
+  <!-- running alongside -->
+  <rect x="48" y="1022" width="1504" height="72" rx="10" fill="#ffffff" stroke="#d3d7cf" stroke-width="1.5"/>
+  <text x="70" y="1050" font-size="15" font-weight="600" fill="#1f5a82" letter-spacing="1.2">RUNNING ALONGSIDE EVERY PHASE</text>
+  <text x="70" y="1076" font-size="15" fill="#41525f">251 tests (invariants, exact cost, chunked prediction equals row-by-row) · verify_*.py phase demos · diagnostics that answered questions the grid could not: nudge_window_diagnostic.py, nudge_overwrite_demo.py, placeholder_sanity.py</text>
+
+  <line x1="120" y1="210" x2="120" y2="226" stroke="#3c4650" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="120" y1="308" x2="120" y2="324" stroke="#3c4650" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="120" y1="406" x2="120" y2="422" stroke="#3c4650" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="120" y1="504" x2="120" y2="520" stroke="#3c4650" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="120" y1="602" x2="120" y2="618" stroke="#3c4650" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="120" y1="700" x2="120" y2="716" stroke="#3c4650" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="120" y1="798" x2="120" y2="814" stroke="#8a6d3b" stroke-width="2" marker-end="url(#a3)"/>
+  <line x1="120" y1="896" x2="120" y2="912" stroke="#3c4650" stroke-width="2" marker-end="url(#a2)"/>
+</svg>
