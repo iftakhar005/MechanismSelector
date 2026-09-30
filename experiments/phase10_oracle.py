@@ -162,6 +162,10 @@ def run_cell(dataset: str, model_name: str, seed: int, max_horizon: int,
             result = policy.adapt(model, X_win, y_win, reference)   # the real trajectory
             rec = {
                 "alarm_row": int(r), "window_rows": int(len(X_win)),
+                "reference": float(reference),
+                "acc_before": float(result.acc_before),
+                "deficit": float(reference - result.acc_before),
+                "rows_since_previous_alarm": int(r - pending["alarm_row"]) if pending else None,
                 "policy_action": result.action,
                 "degraded_to_rebuild": bool(result.degraded_to_rebuild),
                 "policy_work_units": int(result.cost.work_units),
@@ -203,7 +207,20 @@ def finish(records, dataset, model_name, seed, t_branch, truncated) -> dict:
     """Collapse the per-alarm branch data into J-costs over the lambda grid."""
     out = {"dataset": dataset, "model": model_name, "seed": seed,
            "n_alarms": len(records), "branch_seconds": t_branch,
-           "truncated": truncated, "horizons": {}}
+           "truncated": truncated, "horizons": {}, "per_alarm": []}
+
+    for rec in records:
+        row = {k: rec[k] for k in ("alarm_row", "window_rows", "reference", "acc_before",
+                                   "deficit", "rows_since_previous_alarm", "policy_action",
+                                   "degraded_to_rebuild", "policy_work_units", "h_next",
+                                   "horizon_available")}
+        row["h"] = {}
+        for hname in ("next", "500", "1000"):
+            h = rec["h_next"] if hname == "next" else min(int(hname), rec["horizon_available"])
+            row["h"][hname] = {a: [b["train_ops"] + b["eval_ops"] + b["infer_units_per_row"] * h,
+                                   errors_at(b, h)]
+                               for a, b in rec["branches"].items()}
+        out["per_alarm"].append(row)
 
     for hname in ("next", "500", "1000"):
         totals = {a: {"ops": 0.0, "errors": 0} for a in ACTIONS}
