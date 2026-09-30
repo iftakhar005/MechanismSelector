@@ -1,0 +1,5613 @@
+{
+  "label": "diagnostic",
+  "question": "is 'alarm above reference' explained by estimation noise in a 200-row reference?",
+  "config": {
+    "n_ref": 200,
+    "buffer_size": 1000,
+    "min_buffer": 100,
+    "holdout_frac": 0.2,
+    "alpha": 0.05,
+    "ref_sizes": [
+      200,
+      500,
+      1000
+    ]
+  },
+  "caveat": "the null is computed on plain accuracy; multi-class cells score with balanced accuracy, so 'logged_scorer' and 'plain_200' are both reported",
+  "pooled_by_detector": {
+    "adwin": {
+      "logged_scorer": {
+        "above": 2425,
+        "total": 4680,
+        "rate": 0.5181623931623932
+      },
+      "plain_200": {
+        "above": 1010,
+        "total": 2515,
+        "rate": 0.40159045725646125
+      },
+      "plain_500": {
+        "above": 345,
+        "total": 802,
+        "rate": 0.43017456359102246
+      },
+      "plain_1000": {
+        "above": 165,
+        "total": 397,
+        "rate": 0.4156171284634761
+      },
+      "sig_200": {
+        "above": 959,
+        "total": 2515,
+        "rate": 0.38131212723658053
+      },
+      "sig_200_neff": {
+        "above": 917,
+        "total": 2515,
+        "rate": 0.36461232604373756
+      },
+      "null_200": {
+        "expected_rate": 0.5062987316937583,
+        "n": 2515
+      }
+    },
+    "ddm": {
+      "logged_scorer": {
+        "above": 1784,
+        "total": 4946,
+        "rate": 0.3606955115244642
+      },
+      "plain_200": {
+        "above": 378,
+        "total": 2019,
+        "rate": 0.18722139673105498
+      },
+      "plain_500": {
+        "above": 28,
+        "total": 270,
+        "rate": 0.1037037037037037
+      },
+      "plain_1000": {
+        "above": 14,
+        "total": 169,
+        "rate": 0.08284023668639054
+      },
+      "sig_200": {
+        "above": 173,
+        "total": 2019,
+        "rate": 0.08568598315998019
+      },
+      "sig_200_neff": {
+        "above": 70,
+        "total": 2019,
+        "rate": 0.03467062902426944
+      },
+      "null_200": {
+        "expected_rate": 0.5067622507714163,
+        "n": 2019
+      }
+    }
+  },
+  "per_cell": [
+    {
+      "dataset": "elec2",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 79,
+      "n_served": 79,
+      "cell_accuracy_plain": 0.7068978200632647,
+      "scored": {
+        "logged_scorer": {
+          "above": 30,
+          "total": 79,
+          "rate": 0.379746835443038
+        },
+        "plain_200": {
+          "above": 23,
+          "total": 60,
+          "rate": 0.38333333333333336
+        },
+        "plain_500": {
+          "above": 15,
+          "total": 34,
+          "rate": 0.4411764705882353
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 6,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 23,
+          "total": 60,
+          "rate": 0.38333333333333336
+        },
+        "sig_200_neff": {
+          "above": 21,
+          "total": 60,
+          "rate": 0.35
+        },
+        "null_200": {
+          "expected_rate": 0.5044853133714197,
+          "n": 60
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 79,
+      "n_served": 79,
+      "cell_accuracy_plain": 0.7114832887864446,
+      "scored": {
+        "logged_scorer": {
+          "above": 30,
+          "total": 79,
+          "rate": 0.379746835443038
+        },
+        "plain_200": {
+          "above": 22,
+          "total": 59,
+          "rate": 0.3728813559322034
+        },
+        "plain_500": {
+          "above": 12,
+          "total": 31,
+          "rate": 0.3870967741935484
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 8,
+          "rate": 0.25
+        },
+        "sig_200": {
+          "above": 20,
+          "total": 59,
+          "rate": 0.3389830508474576
+        },
+        "sig_200_neff": {
+          "above": 19,
+          "total": 59,
+          "rate": 0.3220338983050847
+        },
+        "null_200": {
+          "expected_rate": 0.5060828176544799,
+          "n": 59
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 80,
+      "n_served": 80,
+      "cell_accuracy_plain": 0.7146465265687452,
+      "scored": {
+        "logged_scorer": {
+          "above": 31,
+          "total": 80,
+          "rate": 0.3875
+        },
+        "plain_200": {
+          "above": 23,
+          "total": 61,
+          "rate": 0.3770491803278688
+        },
+        "plain_500": {
+          "above": 13,
+          "total": 32,
+          "rate": 0.40625
+        },
+        "plain_1000": {
+          "above": 3,
+          "total": 9,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 20,
+          "total": 61,
+          "rate": 0.32786885245901637
+        },
+        "sig_200_neff": {
+          "above": 20,
+          "total": 61,
+          "rate": 0.32786885245901637
+        },
+        "null_200": {
+          "expected_rate": 0.5064347975676563,
+          "n": 61
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 80,
+      "n_served": 80,
+      "cell_accuracy_plain": 0.7103062700767515,
+      "scored": {
+        "logged_scorer": {
+          "above": 32,
+          "total": 80,
+          "rate": 0.4
+        },
+        "plain_200": {
+          "above": 26,
+          "total": 64,
+          "rate": 0.40625
+        },
+        "plain_500": {
+          "above": 15,
+          "total": 29,
+          "rate": 0.5172413793103449
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 7,
+          "rate": 0.14285714285714285
+        },
+        "sig_200": {
+          "above": 25,
+          "total": 64,
+          "rate": 0.390625
+        },
+        "sig_200_neff": {
+          "above": 22,
+          "total": 64,
+          "rate": 0.34375
+        },
+        "null_200": {
+          "expected_rate": 0.5053754080639895,
+          "n": 64
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 80,
+      "n_served": 80,
+      "cell_accuracy_plain": 0.7083936146734999,
+      "scored": {
+        "logged_scorer": {
+          "above": 32,
+          "total": 80,
+          "rate": 0.4
+        },
+        "plain_200": {
+          "above": 24,
+          "total": 61,
+          "rate": 0.39344262295081966
+        },
+        "plain_500": {
+          "above": 14,
+          "total": 31,
+          "rate": 0.45161290322580644
+        },
+        "plain_1000": {
+          "above": 3,
+          "total": 8,
+          "rate": 0.375
+        },
+        "sig_200": {
+          "above": 24,
+          "total": 61,
+          "rate": 0.39344262295081966
+        },
+        "sig_200_neff": {
+          "above": 22,
+          "total": 61,
+          "rate": 0.36065573770491804
+        },
+        "null_200": {
+          "expected_rate": 0.5054870931115475,
+          "n": 61
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 81,
+      "n_served": 81,
+      "cell_accuracy_plain": 0.7075598930874671,
+      "scored": {
+        "logged_scorer": {
+          "above": 33,
+          "total": 81,
+          "rate": 0.4074074074074074
+        },
+        "plain_200": {
+          "above": 25,
+          "total": 61,
+          "rate": 0.4098360655737705
+        },
+        "plain_500": {
+          "above": 15,
+          "total": 31,
+          "rate": 0.4838709677419355
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 8,
+          "rate": 0.25
+        },
+        "sig_200": {
+          "above": 24,
+          "total": 61,
+          "rate": 0.39344262295081966
+        },
+        "sig_200_neff": {
+          "above": 23,
+          "total": 61,
+          "rate": 0.3770491803278688
+        },
+        "null_200": {
+          "expected_rate": 0.5059423779529096,
+          "n": 61
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 81,
+      "n_served": 81,
+      "cell_accuracy_plain": 0.6541036266888993,
+      "scored": {
+        "logged_scorer": {
+          "above": 36,
+          "total": 81,
+          "rate": 0.4444444444444444
+        },
+        "plain_200": {
+          "above": 28,
+          "total": 58,
+          "rate": 0.4827586206896552
+        },
+        "plain_500": {
+          "above": 14,
+          "total": 33,
+          "rate": 0.42424242424242425
+        },
+        "plain_1000": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "sig_200": {
+          "above": 25,
+          "total": 58,
+          "rate": 0.43103448275862066
+        },
+        "sig_200_neff": {
+          "above": 24,
+          "total": 58,
+          "rate": 0.41379310344827586
+        },
+        "null_200": {
+          "expected_rate": 0.5039865534589837,
+          "n": 58
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 79,
+      "n_served": 79,
+      "cell_accuracy_plain": 0.6275961844976827,
+      "scored": {
+        "logged_scorer": {
+          "above": 37,
+          "total": 79,
+          "rate": 0.46835443037974683
+        },
+        "plain_200": {
+          "above": 28,
+          "total": 56,
+          "rate": 0.5
+        },
+        "plain_500": {
+          "above": 17,
+          "total": 32,
+          "rate": 0.53125
+        },
+        "plain_1000": {
+          "above": 5,
+          "total": 7,
+          "rate": 0.7142857142857143
+        },
+        "sig_200": {
+          "above": 24,
+          "total": 56,
+          "rate": 0.42857142857142855
+        },
+        "sig_200_neff": {
+          "above": 24,
+          "total": 56,
+          "rate": 0.42857142857142855
+        },
+        "null_200": {
+          "expected_rate": 0.5047086738776405,
+          "n": 56
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 84,
+      "n_served": 84,
+      "cell_accuracy_plain": 0.6671979598342366,
+      "scored": {
+        "logged_scorer": {
+          "above": 37,
+          "total": 84,
+          "rate": 0.44047619047619047
+        },
+        "plain_200": {
+          "above": 28,
+          "total": 62,
+          "rate": 0.45161290322580644
+        },
+        "plain_500": {
+          "above": 14,
+          "total": 30,
+          "rate": 0.4666666666666667
+        },
+        "plain_1000": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "sig_200": {
+          "above": 25,
+          "total": 62,
+          "rate": 0.4032258064516129
+        },
+        "sig_200_neff": {
+          "above": 24,
+          "total": 62,
+          "rate": 0.3870967741935484
+        },
+        "null_200": {
+          "expected_rate": 0.5042454721743583,
+          "n": 62
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 86,
+      "n_served": 86,
+      "cell_accuracy_plain": 0.688874721071087,
+      "scored": {
+        "logged_scorer": {
+          "above": 31,
+          "total": 86,
+          "rate": 0.36046511627906974
+        },
+        "plain_200": {
+          "above": 22,
+          "total": 64,
+          "rate": 0.34375
+        },
+        "plain_500": {
+          "above": 12,
+          "total": 29,
+          "rate": 0.41379310344827586
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 5,
+          "rate": 0.2
+        },
+        "sig_200": {
+          "above": 20,
+          "total": 64,
+          "rate": 0.3125
+        },
+        "sig_200_neff": {
+          "above": 19,
+          "total": 64,
+          "rate": 0.296875
+        },
+        "null_200": {
+          "expected_rate": 0.5040867233199097,
+          "n": 64
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 87,
+      "n_served": 87,
+      "cell_accuracy_plain": 0.6646967950761384,
+      "scored": {
+        "logged_scorer": {
+          "above": 37,
+          "total": 87,
+          "rate": 0.42528735632183906
+        },
+        "plain_200": {
+          "above": 28,
+          "total": 64,
+          "rate": 0.4375
+        },
+        "plain_500": {
+          "above": 15,
+          "total": 30,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 4,
+          "total": 5,
+          "rate": 0.8
+        },
+        "sig_200": {
+          "above": 26,
+          "total": 64,
+          "rate": 0.40625
+        },
+        "sig_200_neff": {
+          "above": 22,
+          "total": 64,
+          "rate": 0.34375
+        },
+        "null_200": {
+          "expected_rate": 0.5043213563431135,
+          "n": 64
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "accuracy",
+      "n_alarms": 64,
+      "n_served": 64,
+      "cell_accuracy_plain": 0.48049336700914647,
+      "scored": {
+        "logged_scorer": {
+          "above": 27,
+          "total": 64,
+          "rate": 0.421875
+        },
+        "plain_200": {
+          "above": 20,
+          "total": 52,
+          "rate": 0.38461538461538464
+        },
+        "plain_500": {
+          "above": 12,
+          "total": 30,
+          "rate": 0.4
+        },
+        "plain_1000": {
+          "above": 6,
+          "total": 11,
+          "rate": 0.5454545454545454
+        },
+        "sig_200": {
+          "above": 20,
+          "total": 52,
+          "rate": 0.38461538461538464
+        },
+        "sig_200_neff": {
+          "above": 16,
+          "total": 52,
+          "rate": 0.3076923076923077
+        },
+        "null_200": {
+          "expected_rate": 0.5052743433499773,
+          "n": 52
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 9,
+      "n_served": 9,
+      "cell_accuracy_plain": 0.5618324783449669,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 9,
+          "rate": 0.4444444444444444
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 8,
+          "rate": 0.375
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 8,
+          "rate": 0.375
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 7,
+          "rate": 0.2857142857142857
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 8,
+          "rate": 0.375
+        },
+        "sig_200_neff": {
+          "above": 3,
+          "total": 8,
+          "rate": 0.375
+        },
+        "null_200": {
+          "expected_rate": 0.5172038468508455,
+          "n": 8
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 9,
+      "n_served": 9,
+      "cell_accuracy_plain": 0.5569127911866117,
+      "scored": {
+        "logged_scorer": {
+          "above": 5,
+          "total": 9,
+          "rate": 0.5555555555555556
+        },
+        "plain_200": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "plain_500": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "sig_200": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "sig_200_neff": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "null_200": {
+          "expected_rate": 0.5170869234154618,
+          "n": 8
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 8,
+      "n_served": 8,
+      "cell_accuracy_plain": 0.5555251871163065,
+      "scored": {
+        "logged_scorer": {
+          "above": 6,
+          "total": 8,
+          "rate": 0.75
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 6,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "sig_200_neff": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "null_200": {
+          "expected_rate": 0.5166372952276175,
+          "n": 7
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 8,
+      "n_served": 8,
+      "cell_accuracy_plain": 0.5554621142040199,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 6,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "sig_200_neff": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "null_200": {
+          "expected_rate": 0.5166139467855378,
+          "n": 7
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 9,
+      "n_served": 9,
+      "cell_accuracy_plain": 0.5554621142040199,
+      "scored": {
+        "logged_scorer": {
+          "above": 6,
+          "total": 9,
+          "rate": 0.6666666666666666
+        },
+        "plain_200": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "plain_500": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 6,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "sig_200_neff": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "null_200": {
+          "expected_rate": 0.5146377961938956,
+          "n": 8
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 8,
+      "n_served": 8,
+      "cell_accuracy_plain": 0.5574383987890001,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 6,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "sig_200_neff": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "null_200": {
+          "expected_rate": 0.5166613704942282,
+          "n": 7
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 11,
+      "n_served": 11,
+      "cell_accuracy_plain": 0.1960516356908586,
+      "scored": {
+        "logged_scorer": {
+          "above": 7,
+          "total": 11,
+          "rate": 0.6363636363636364
+        },
+        "plain_200": {
+          "above": 6,
+          "total": 10,
+          "rate": 0.6
+        },
+        "plain_500": {
+          "above": 5,
+          "total": 9,
+          "rate": 0.5555555555555556
+        },
+        "plain_1000": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 6,
+          "total": 10,
+          "rate": 0.6
+        },
+        "sig_200_neff": {
+          "above": 6,
+          "total": 10,
+          "rate": 0.6
+        },
+        "null_200": {
+          "expected_rate": 0.5192259043561342,
+          "n": 10
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 10,
+      "n_served": 10,
+      "cell_accuracy_plain": 0.2436716844672442,
+      "scored": {
+        "logged_scorer": {
+          "above": 6,
+          "total": 10,
+          "rate": 0.6
+        },
+        "plain_200": {
+          "above": 5,
+          "total": 9,
+          "rate": 0.5555555555555556
+        },
+        "plain_500": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 9,
+          "rate": 0.3333333333333333
+        },
+        "sig_200_neff": {
+          "above": 3,
+          "total": 9,
+          "rate": 0.3333333333333333
+        },
+        "null_200": {
+          "expected_rate": 0.5203431796946723,
+          "n": 9
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 11,
+      "n_served": 11,
+      "cell_accuracy_plain": 0.20488184341098314,
+      "scored": {
+        "logged_scorer": {
+          "above": 7,
+          "total": 11,
+          "rate": 0.6363636363636364
+        },
+        "plain_200": {
+          "above": 5,
+          "total": 10,
+          "rate": 0.5
+        },
+        "plain_500": {
+          "above": 4,
+          "total": 9,
+          "rate": 0.4444444444444444
+        },
+        "plain_1000": {
+          "above": 4,
+          "total": 9,
+          "rate": 0.4444444444444444
+        },
+        "sig_200": {
+          "above": 5,
+          "total": 10,
+          "rate": 0.5
+        },
+        "sig_200_neff": {
+          "above": 5,
+          "total": 10,
+          "rate": 0.5
+        },
+        "null_200": {
+          "expected_rate": 0.5214411915795012,
+          "n": 10
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 11,
+      "n_served": 11,
+      "cell_accuracy_plain": 0.18791523000588684,
+      "scored": {
+        "logged_scorer": {
+          "above": 7,
+          "total": 11,
+          "rate": 0.6363636363636364
+        },
+        "plain_200": {
+          "above": 5,
+          "total": 10,
+          "rate": 0.5
+        },
+        "plain_500": {
+          "above": 4,
+          "total": 9,
+          "rate": 0.4444444444444444
+        },
+        "plain_1000": {
+          "above": 4,
+          "total": 9,
+          "rate": 0.4444444444444444
+        },
+        "sig_200": {
+          "above": 5,
+          "total": 10,
+          "rate": 0.5
+        },
+        "sig_200_neff": {
+          "above": 5,
+          "total": 10,
+          "rate": 0.5
+        },
+        "null_200": {
+          "expected_rate": 0.5225531800414471,
+          "n": 10
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 11,
+      "n_served": 11,
+      "cell_accuracy_plain": 0.19823816331679422,
+      "scored": {
+        "logged_scorer": {
+          "above": 5,
+          "total": 11,
+          "rate": 0.45454545454545453
+        },
+        "plain_200": {
+          "above": 6,
+          "total": 10,
+          "rate": 0.6
+        },
+        "plain_500": {
+          "above": 6,
+          "total": 10,
+          "rate": 0.6
+        },
+        "plain_1000": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 6,
+          "total": 10,
+          "rate": 0.6
+        },
+        "sig_200_neff": {
+          "above": 6,
+          "total": 10,
+          "rate": 0.6
+        },
+        "null_200": {
+          "expected_rate": 0.5196288141165718,
+          "n": 10
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 8,
+      "n_served": 8,
+      "cell_accuracy_plain": 0.4918425700109327,
+      "scored": {
+        "logged_scorer": {
+          "above": 5,
+          "total": 8,
+          "rate": 0.625
+        },
+        "plain_200": {
+          "above": 4,
+          "total": 7,
+          "rate": 0.5714285714285714
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 6,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 3,
+          "total": 6,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "sig_200_neff": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "null_200": {
+          "expected_rate": 0.5169731767478872,
+          "n": 7
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 7,
+      "n_served": 7,
+      "cell_accuracy_plain": 0.27826086956521734,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 7,
+          "rate": 0.5714285714285714
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "null_200": {
+          "expected_rate": 0.5167928376683902,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 7,
+      "n_served": 7,
+      "cell_accuracy_plain": 0.2571428571428571,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 7,
+          "rate": 0.5714285714285714
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "null_200": {
+          "expected_rate": 0.517111843532203,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 7,
+      "n_served": 7,
+      "cell_accuracy_plain": 0.25134575569358175,
+      "scored": {
+        "logged_scorer": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "null_200": {
+          "expected_rate": 0.5170988998926326,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 7,
+      "n_served": 7,
+      "cell_accuracy_plain": 0.2519898780768346,
+      "scored": {
+        "logged_scorer": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "null_200": {
+          "expected_rate": 0.5172283537592788,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 7,
+      "n_served": 7,
+      "cell_accuracy_plain": 0.25120772946859904,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 7,
+          "rate": 0.5714285714285714
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "null_200": {
+          "expected_rate": 0.5172552339893364,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 7,
+      "n_served": 7,
+      "cell_accuracy_plain": 0.2512997469519208,
+      "scored": {
+        "logged_scorer": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "null_200": {
+          "expected_rate": 0.5170988998926326,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 6,
+      "n_served": 6,
+      "cell_accuracy_plain": 0.18762364849321367,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 6,
+          "rate": 0.6666666666666666
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 4,
+          "rate": 0.75
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 3,
+          "rate": 0.6666666666666666
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "sig_200_neff": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "null_200": {
+          "expected_rate": 0.5141451895887292,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 6,
+      "n_served": 6,
+      "cell_accuracy_plain": 0.15210489993098686,
+      "scored": {
+        "logged_scorer": {
+          "above": 3,
+          "total": 6,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "null_200": {
+          "expected_rate": 0.5219033517542667,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 6,
+      "n_served": 6,
+      "cell_accuracy_plain": 0.17129054520358866,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 6,
+          "rate": 0.6666666666666666
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 3,
+          "rate": 0.6666666666666666
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "sig_200_neff": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "null_200": {
+          "expected_rate": 0.5152805412913117,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 6,
+      "n_served": 6,
+      "cell_accuracy_plain": 0.17152058891189326,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 6,
+          "rate": 0.6666666666666666
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 4,
+          "rate": 0.75
+        },
+        "plain_1000": {
+          "above": 3,
+          "total": 4,
+          "rate": 0.75
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "sig_200_neff": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "null_200": {
+          "expected_rate": 0.5212349369821085,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 7,
+      "n_served": 7,
+      "cell_accuracy_plain": 0.20630319760754545,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 7,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "null_200": {
+          "expected_rate": 0.5133039105853273,
+          "n": 5
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 5,
+      "n_served": 5,
+      "cell_accuracy_plain": 0.3415688980906372,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 5,
+          "rate": 0.2
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "null_200": {
+          "expected_rate": 0.521014209025261,
+          "n": 4
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.22012198686595086,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5240751620846862,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.21265857318237624,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5243595665812111,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.21222986534676613,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "null_200": {
+          "expected_rate": 0.5244016106450906,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.20920942377769547,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "null_200": {
+          "expected_rate": 0.5245299548449964,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.21215191846756432,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "null_200": {
+          "expected_rate": 0.5244016106450906,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.21597131554845372,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "null_200": {
+          "expected_rate": 0.5242355883492569,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.23561392910731338,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.16889140051055207,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.16164234074478245,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 1,
+      "n_served": 1,
+      "cell_accuracy_plain": 0.18822222655260445,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 1,
+      "n_served": 1,
+      "cell_accuracy_plain": 0.26671473390884115,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 5,
+      "n_served": 5,
+      "cell_accuracy_plain": 0.20591616813141844,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 5,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5246617078932698,
+          "n": 4
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 114,
+      "n_served": 114,
+      "cell_accuracy_plain": 0.8261666666666667,
+      "scored": {
+        "logged_scorer": {
+          "above": 42,
+          "total": 114,
+          "rate": 0.3684210526315789
+        },
+        "plain_200": {
+          "above": 15,
+          "total": 103,
+          "rate": 0.14563106796116504
+        },
+        "plain_500": {
+          "above": 7,
+          "total": 36,
+          "rate": 0.19444444444444445
+        },
+        "plain_1000": {
+          "above": 5,
+          "total": 24,
+          "rate": 0.20833333333333334
+        },
+        "sig_200": {
+          "above": 11,
+          "total": 103,
+          "rate": 0.10679611650485436
+        },
+        "sig_200_neff": {
+          "above": 11,
+          "total": 103,
+          "rate": 0.10679611650485436
+        },
+        "null_200": {
+          "expected_rate": 0.5124139258521959,
+          "n": 103
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 152,
+      "n_served": 152,
+      "cell_accuracy_plain": 0.8227444444444445,
+      "scored": {
+        "logged_scorer": {
+          "above": 69,
+          "total": 152,
+          "rate": 0.45394736842105265
+        },
+        "plain_200": {
+          "above": 39,
+          "total": 130,
+          "rate": 0.3
+        },
+        "plain_500": {
+          "above": 12,
+          "total": 30,
+          "rate": 0.4
+        },
+        "plain_1000": {
+          "above": 10,
+          "total": 19,
+          "rate": 0.5263157894736842
+        },
+        "sig_200": {
+          "above": 36,
+          "total": 130,
+          "rate": 0.27692307692307694
+        },
+        "sig_200_neff": {
+          "above": 35,
+          "total": 130,
+          "rate": 0.2692307692307692
+        },
+        "null_200": {
+          "expected_rate": 0.5116456393426049,
+          "n": 130
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 160,
+      "n_served": 160,
+      "cell_accuracy_plain": 0.8235555555555556,
+      "scored": {
+        "logged_scorer": {
+          "above": 85,
+          "total": 160,
+          "rate": 0.53125
+        },
+        "plain_200": {
+          "above": 48,
+          "total": 137,
+          "rate": 0.35036496350364965
+        },
+        "plain_500": {
+          "above": 12,
+          "total": 30,
+          "rate": 0.4
+        },
+        "plain_1000": {
+          "above": 8,
+          "total": 19,
+          "rate": 0.42105263157894735
+        },
+        "sig_200": {
+          "above": 43,
+          "total": 137,
+          "rate": 0.31386861313868614
+        },
+        "sig_200_neff": {
+          "above": 42,
+          "total": 137,
+          "rate": 0.30656934306569344
+        },
+        "null_200": {
+          "expected_rate": 0.5118325056532748,
+          "n": 137
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 158,
+      "n_served": 158,
+      "cell_accuracy_plain": 0.8236555555555556,
+      "scored": {
+        "logged_scorer": {
+          "above": 71,
+          "total": 158,
+          "rate": 0.44936708860759494
+        },
+        "plain_200": {
+          "above": 41,
+          "total": 132,
+          "rate": 0.3106060606060606
+        },
+        "plain_500": {
+          "above": 9,
+          "total": 28,
+          "rate": 0.32142857142857145
+        },
+        "plain_1000": {
+          "above": 8,
+          "total": 18,
+          "rate": 0.4444444444444444
+        },
+        "sig_200": {
+          "above": 38,
+          "total": 132,
+          "rate": 0.2878787878787879
+        },
+        "sig_200_neff": {
+          "above": 34,
+          "total": 132,
+          "rate": 0.25757575757575757
+        },
+        "null_200": {
+          "expected_rate": 0.5116000725981037,
+          "n": 132
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 157,
+      "n_served": 157,
+      "cell_accuracy_plain": 0.825,
+      "scored": {
+        "logged_scorer": {
+          "above": 73,
+          "total": 157,
+          "rate": 0.46496815286624205
+        },
+        "plain_200": {
+          "above": 34,
+          "total": 132,
+          "rate": 0.25757575757575757
+        },
+        "plain_500": {
+          "above": 10,
+          "total": 34,
+          "rate": 0.29411764705882354
+        },
+        "plain_1000": {
+          "above": 8,
+          "total": 24,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 31,
+          "total": 132,
+          "rate": 0.23484848484848486
+        },
+        "sig_200_neff": {
+          "above": 30,
+          "total": 132,
+          "rate": 0.22727272727272727
+        },
+        "null_200": {
+          "expected_rate": 0.5124241127111884,
+          "n": 132
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 158,
+      "n_served": 158,
+      "cell_accuracy_plain": 0.8247333333333333,
+      "scored": {
+        "logged_scorer": {
+          "above": 68,
+          "total": 158,
+          "rate": 0.43037974683544306
+        },
+        "plain_200": {
+          "above": 34,
+          "total": 132,
+          "rate": 0.25757575757575757
+        },
+        "plain_500": {
+          "above": 12,
+          "total": 32,
+          "rate": 0.375
+        },
+        "plain_1000": {
+          "above": 11,
+          "total": 23,
+          "rate": 0.4782608695652174
+        },
+        "sig_200": {
+          "above": 32,
+          "total": 132,
+          "rate": 0.24242424242424243
+        },
+        "sig_200_neff": {
+          "above": 30,
+          "total": 132,
+          "rate": 0.22727272727272727
+        },
+        "null_200": {
+          "expected_rate": 0.5126240628287865,
+          "n": 132
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 479,
+      "n_served": 479,
+      "cell_accuracy_plain": 0.6453888888888889,
+      "scored": {
+        "logged_scorer": {
+          "above": 303,
+          "total": 479,
+          "rate": 0.6325678496868476
+        },
+        "plain_200": {
+          "above": 26,
+          "total": 146,
+          "rate": 0.1780821917808219
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 10,
+          "rate": 0.3
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 26,
+          "total": 146,
+          "rate": 0.1780821917808219
+        },
+        "sig_200_neff": {
+          "above": 25,
+          "total": 146,
+          "rate": 0.17123287671232876
+        },
+        "null_200": {
+          "expected_rate": 0.503766139461295,
+          "n": 146
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 544,
+      "n_served": 543,
+      "cell_accuracy_plain": 0.5454222222222223,
+      "scored": {
+        "logged_scorer": {
+          "above": 292,
+          "total": 543,
+          "rate": 0.5377532228360957
+        },
+        "plain_200": {
+          "above": 16,
+          "total": 109,
+          "rate": 0.14678899082568808
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 6,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 16,
+          "total": 109,
+          "rate": 0.14678899082568808
+        },
+        "sig_200_neff": {
+          "above": 16,
+          "total": 109,
+          "rate": 0.14678899082568808
+        },
+        "null_200": {
+          "expected_rate": 0.5022865848264768,
+          "n": 109
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 335,
+      "n_served": 335,
+      "cell_accuracy_plain": 0.1776333333333333,
+      "scored": {
+        "logged_scorer": {
+          "above": 197,
+          "total": 335,
+          "rate": 0.5880597014925373
+        },
+        "plain_200": {
+          "above": 104,
+          "total": 148,
+          "rate": 0.7027027027027027
+        },
+        "plain_500": {
+          "above": 9,
+          "total": 16,
+          "rate": 0.5625
+        },
+        "plain_1000": {
+          "above": 8,
+          "total": 13,
+          "rate": 0.6153846153846154
+        },
+        "sig_200": {
+          "above": 101,
+          "total": 148,
+          "rate": 0.6824324324324325
+        },
+        "sig_200_neff": {
+          "above": 99,
+          "total": 148,
+          "rate": 0.668918918918919
+        },
+        "null_200": {
+          "expected_rate": 0.4949725250720017,
+          "n": 148
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 404,
+      "n_served": 404,
+      "cell_accuracy_plain": 0.24005555555555558,
+      "scored": {
+        "logged_scorer": {
+          "above": 270,
+          "total": 404,
+          "rate": 0.6683168316831684
+        },
+        "plain_200": {
+          "above": 142,
+          "total": 191,
+          "rate": 0.743455497382199
+        },
+        "plain_500": {
+          "above": 7,
+          "total": 10,
+          "rate": 0.7
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 142,
+          "total": 191,
+          "rate": 0.743455497382199
+        },
+        "sig_200_neff": {
+          "above": 138,
+          "total": 191,
+          "rate": 0.7225130890052356
+        },
+        "null_200": {
+          "expected_rate": 0.4950357162032524,
+          "n": 191
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 518,
+      "n_served": 518,
+      "cell_accuracy_plain": 0.4885777777777778,
+      "scored": {
+        "logged_scorer": {
+          "above": 305,
+          "total": 518,
+          "rate": 0.5888030888030888
+        },
+        "plain_200": {
+          "above": 45,
+          "total": 92,
+          "rate": 0.4891304347826087
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 7,
+          "rate": 0.42857142857142855
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 45,
+          "total": 92,
+          "rate": 0.4891304347826087
+        },
+        "sig_200_neff": {
+          "above": 45,
+          "total": 92,
+          "rate": 0.4891304347826087
+        },
+        "null_200": {
+          "expected_rate": 0.5021097423259056,
+          "n": 92
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "adwin",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 321,
+      "n_served": 321,
+      "cell_accuracy_plain": 0.45614444444444446,
+      "scored": {
+        "logged_scorer": {
+          "above": 150,
+          "total": 321,
+          "rate": 0.4672897196261682
+        },
+        "plain_200": {
+          "above": 87,
+          "total": 160,
+          "rate": 0.54375
+        },
+        "plain_500": {
+          "above": 16,
+          "total": 23,
+          "rate": 0.6956521739130435
+        },
+        "plain_1000": {
+          "above": 6,
+          "total": 11,
+          "rate": 0.5454545454545454
+        },
+        "sig_200": {
+          "above": 84,
+          "total": 160,
+          "rate": 0.525
+        },
+        "sig_200_neff": {
+          "above": 78,
+          "total": 160,
+          "rate": 0.4875
+        },
+        "null_200": {
+          "expected_rate": 0.5015424851920124,
+          "n": 160
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 128,
+      "n_served": 117,
+      "cell_accuracy_plain": 0.7068978200632647,
+      "scored": {
+        "logged_scorer": {
+          "above": 20,
+          "total": 117,
+          "rate": 0.17094017094017094
+        },
+        "plain_200": {
+          "above": 8,
+          "total": 53,
+          "rate": 0.1509433962264151
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 17,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 7,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 53,
+          "rate": 0.05660377358490566
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 53,
+          "rate": 0.018867924528301886
+        },
+        "null_200": {
+          "expected_rate": 0.5072883859854279,
+          "n": 53
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 169,
+      "n_served": 155,
+      "cell_accuracy_plain": 0.7114832887864446,
+      "scored": {
+        "logged_scorer": {
+          "above": 39,
+          "total": 155,
+          "rate": 0.25161290322580643
+        },
+        "plain_200": {
+          "above": 10,
+          "total": 59,
+          "rate": 0.1694915254237288
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 15,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 7,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 59,
+          "rate": 0.03389830508474576
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 59,
+          "rate": 0.01694915254237288
+        },
+        "null_200": {
+          "expected_rate": 0.5066844858239189,
+          "n": 59
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 144,
+      "n_served": 135,
+      "cell_accuracy_plain": 0.7146465265687452,
+      "scored": {
+        "logged_scorer": {
+          "above": 24,
+          "total": 135,
+          "rate": 0.17777777777777778
+        },
+        "plain_200": {
+          "above": 7,
+          "total": 57,
+          "rate": 0.12280701754385964
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 16,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 9,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 57,
+          "rate": 0.05263157894736842
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 57,
+          "rate": 0.017543859649122806
+        },
+        "null_200": {
+          "expected_rate": 0.5078490534861156,
+          "n": 57
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 172,
+      "n_served": 157,
+      "cell_accuracy_plain": 0.7103062700767515,
+      "scored": {
+        "logged_scorer": {
+          "above": 35,
+          "total": 157,
+          "rate": 0.2229299363057325
+        },
+        "plain_200": {
+          "above": 10,
+          "total": 63,
+          "rate": 0.15873015873015872
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 13,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 6,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 63,
+          "rate": 0.031746031746031744
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 63,
+          "rate": 0.015873015873015872
+        },
+        "null_200": {
+          "expected_rate": 0.5069069347994265,
+          "n": 63
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 179,
+      "n_served": 161,
+      "cell_accuracy_plain": 0.7083936146734999,
+      "scored": {
+        "logged_scorer": {
+          "above": 37,
+          "total": 161,
+          "rate": 0.22981366459627328
+        },
+        "plain_200": {
+          "above": 9,
+          "total": 56,
+          "rate": 0.16071428571428573
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 14,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 5,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 56,
+          "rate": 0.03571428571428571
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 56,
+          "rate": 0.03571428571428571
+        },
+        "null_200": {
+          "expected_rate": 0.5069209904686593,
+          "n": 56
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 163,
+      "n_served": 148,
+      "cell_accuracy_plain": 0.7075598930874671,
+      "scored": {
+        "logged_scorer": {
+          "above": 35,
+          "total": 148,
+          "rate": 0.23648648648648649
+        },
+        "plain_200": {
+          "above": 9,
+          "total": 56,
+          "rate": 0.16071428571428573
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 14,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 7,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 56,
+          "rate": 0.017857142857142856
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 56,
+          "rate": 0.017857142857142856
+        },
+        "null_200": {
+          "expected_rate": 0.5076883807669837,
+          "n": 56
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 118,
+      "n_served": 107,
+      "cell_accuracy_plain": 0.6541036266888993,
+      "scored": {
+        "logged_scorer": {
+          "above": 32,
+          "total": 107,
+          "rate": 0.29906542056074764
+        },
+        "plain_200": {
+          "above": 8,
+          "total": 33,
+          "rate": 0.24242424242424243
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 12,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 5,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 4,
+          "total": 33,
+          "rate": 0.12121212121212122
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 33,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5066123978862576,
+          "n": 33
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 118,
+      "n_served": 105,
+      "cell_accuracy_plain": 0.6275961844976827,
+      "scored": {
+        "logged_scorer": {
+          "above": 20,
+          "total": 105,
+          "rate": 0.19047619047619047
+        },
+        "plain_200": {
+          "above": 4,
+          "total": 38,
+          "rate": 0.10526315789473684
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 11,
+          "rate": 0.09090909090909091
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 38,
+          "rate": 0.05263157894736842
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 38,
+          "rate": 0.05263157894736842
+        },
+        "null_200": {
+          "expected_rate": 0.5053911958204768,
+          "n": 38
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 131,
+      "n_served": 120,
+      "cell_accuracy_plain": 0.6671979598342366,
+      "scored": {
+        "logged_scorer": {
+          "above": 30,
+          "total": 120,
+          "rate": 0.25
+        },
+        "plain_200": {
+          "above": 8,
+          "total": 38,
+          "rate": 0.21052631578947367
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 12,
+          "rate": 0.08333333333333333
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 6,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 38,
+          "rate": 0.02631578947368421
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 38,
+          "rate": 0.02631578947368421
+        },
+        "null_200": {
+          "expected_rate": 0.5064577894365607,
+          "n": 38
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 141,
+      "n_served": 130,
+      "cell_accuracy_plain": 0.688874721071087,
+      "scored": {
+        "logged_scorer": {
+          "above": 28,
+          "total": 130,
+          "rate": 0.2153846153846154
+        },
+        "plain_200": {
+          "above": 8,
+          "total": 52,
+          "rate": 0.15384615384615385
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 16,
+          "rate": 0.125
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 6,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 52,
+          "rate": 0.038461538461538464
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 52,
+          "rate": 0.038461538461538464
+        },
+        "null_200": {
+          "expected_rate": 0.5056254432739652,
+          "n": 52
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 131,
+      "n_served": 118,
+      "cell_accuracy_plain": 0.6646967950761384,
+      "scored": {
+        "logged_scorer": {
+          "above": 29,
+          "total": 118,
+          "rate": 0.2457627118644068
+        },
+        "plain_200": {
+          "above": 9,
+          "total": 42,
+          "rate": 0.21428571428571427
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 11,
+          "rate": 0.18181818181818182
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 5,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 42,
+          "rate": 0.023809523809523808
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 42,
+          "rate": 0.023809523809523808
+        },
+        "null_200": {
+          "expected_rate": 0.505854780326379,
+          "n": 42
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "accuracy",
+      "n_alarms": 32,
+      "n_served": 30,
+      "cell_accuracy_plain": 0.48049336700914647,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 30,
+          "rate": 0.13333333333333333
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 16,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 16,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 16,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5023480905800493,
+          "n": 16
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 5,
+      "n_served": 5,
+      "cell_accuracy_plain": 0.5618324783449669,
+      "scored": {
+        "logged_scorer": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "null_200": {
+          "expected_rate": 0.5200900920714733,
+          "n": 4
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.5569127911866117,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5200657938640971,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.5555251871163065,
+      "scored": {
+        "logged_scorer": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5200611892006143,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.5554621142040199,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "null_200": {
+          "expected_rate": 0.5200566691205926,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.5554621142040199,
+      "scored": {
+        "logged_scorer": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5200566691205926,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.5574383987890001,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "null_200": {
+          "expected_rate": 0.5200657938640971,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 5,
+      "n_served": 5,
+      "cell_accuracy_plain": 0.1960516356908586,
+      "scored": {
+        "logged_scorer": {
+          "above": 3,
+          "total": 5,
+          "rate": 0.6
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 3,
+          "rate": 0.6666666666666666
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 3,
+          "rate": 0.6666666666666666
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 3,
+          "rate": 0.6666666666666666
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "null_200": {
+          "expected_rate": 0.5251271189684321,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.2436716844672442,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.20488184341098314,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.18791523000588684,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.19823816331679422,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 2,
+      "n_served": 2,
+      "cell_accuracy_plain": 0.4918425700109327,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5199372095047823,
+          "n": 1
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.27826086956521734,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5222546844224003,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 8,
+      "n_served": 8,
+      "cell_accuracy_plain": 0.2571428571428571,
+      "scored": {
+        "logged_scorer": {
+          "above": 4,
+          "total": 8,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5164889929923935,
+          "n": 4
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.25134575569358175,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5149886341601785,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.2519898780768346,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5229670618432387,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.25120772946859904,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5229975014061153,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.2512997469519208,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5229975014061153,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.18762364849321367,
+      "scored": {
+        "logged_scorer": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "null_200": {
+          "expected_rate": 0.5137416299735361,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 2,
+      "n_served": 2,
+      "cell_accuracy_plain": 0.15210489993098686,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5277953851210109,
+          "n": 1
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.17129054520358866,
+      "scored": {
+        "logged_scorer": {
+          "above": 2,
+          "total": 4,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5168768642130495,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.17152058891189326,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5264369864659977,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 2,
+      "n_served": 2,
+      "cell_accuracy_plain": 0.20630319760754545,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5246617078932698,
+          "n": 1
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.3415688980906372,
+      "scored": {
+        "logged_scorer": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.521014209025261,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.22012198686595086,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5240751620846862,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 2,
+      "n_served": 2,
+      "cell_accuracy_plain": 0.21265857318237624,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5243595665812111,
+          "n": 1
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.21222986534676613,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5244016106450906,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.20920942377769547,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5245299548449964,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 3,
+      "n_served": 3,
+      "cell_accuracy_plain": 0.21215191846756432,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5244016106450906,
+          "n": 2
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 2,
+      "n_served": 2,
+      "cell_accuracy_plain": 0.21597131554845372,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5242355883492569,
+          "n": 1
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.23561392910731338,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.16889140051055207,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 0,
+      "n_served": 0,
+      "cell_accuracy_plain": 0.16164234074478245,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 1,
+      "n_served": 1,
+      "cell_accuracy_plain": 0.18822222655260445,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 1,
+      "n_served": 1,
+      "cell_accuracy_plain": 0.26671473390884115,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 1,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 0,
+          "rate": null
+        },
+        "null_200": {
+          "expected_rate": null,
+          "n": 0
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 4,
+      "n_served": 4,
+      "cell_accuracy_plain": 0.20591616813141844,
+      "scored": {
+        "logged_scorer": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "plain_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5246617078932698,
+          "n": 3
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "xgb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 205,
+      "n_served": 194,
+      "cell_accuracy_plain": 0.8261666666666667,
+      "scored": {
+        "logged_scorer": {
+          "above": 81,
+          "total": 194,
+          "rate": 0.4175257731958763
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 65,
+          "rate": 0.03076923076923077
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 5,
+          "rate": 0.4
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "sig_200": {
+          "above": 2,
+          "total": 65,
+          "rate": 0.03076923076923077
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 65,
+          "rate": 0.03076923076923077
+        },
+        "null_200": {
+          "expected_rate": 0.5112978060912765,
+          "n": 65
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 162,
+      "n_served": 159,
+      "cell_accuracy_plain": 0.8227444444444445,
+      "scored": {
+        "logged_scorer": {
+          "above": 89,
+          "total": 159,
+          "rate": 0.559748427672956
+        },
+        "plain_200": {
+          "above": 2,
+          "total": 60,
+          "rate": 0.03333333333333333
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 3,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 60,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 60,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5104531340557416,
+          "n": 60
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 454,
+      "n_served": 433,
+      "cell_accuracy_plain": 0.8235555555555556,
+      "scored": {
+        "logged_scorer": {
+          "above": 198,
+          "total": 433,
+          "rate": 0.45727482678983833
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 139,
+          "rate": 0.02158273381294964
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 6,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 4,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 139,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 139,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5105399585105701,
+          "n": 139
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 425,
+      "n_served": 408,
+      "cell_accuracy_plain": 0.8236555555555556,
+      "scored": {
+        "logged_scorer": {
+          "above": 171,
+          "total": 408,
+          "rate": 0.41911764705882354
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 123,
+          "rate": 0.024390243902439025
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 7,
+          "rate": 0.14285714285714285
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 6,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 123,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 123,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5103336696350101,
+          "n": 123
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 417,
+      "n_served": 403,
+      "cell_accuracy_plain": 0.825,
+      "scored": {
+        "logged_scorer": {
+          "above": 180,
+          "total": 403,
+          "rate": 0.4466501240694789
+        },
+        "plain_200": {
+          "above": 3,
+          "total": 134,
+          "rate": 0.022388059701492536
+        },
+        "plain_500": {
+          "above": 0,
+          "total": 9,
+          "rate": 0.0
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 7,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 134,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 134,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.510585963013801,
+          "n": 134
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 396,
+      "n_served": 379,
+      "cell_accuracy_plain": 0.8247333333333333,
+      "scored": {
+        "logged_scorer": {
+          "above": 173,
+          "total": 379,
+          "rate": 0.45646437994722955
+        },
+        "plain_200": {
+          "above": 6,
+          "total": 129,
+          "rate": 0.046511627906976744
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 8,
+          "rate": 0.125
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 5,
+          "rate": 0.2
+        },
+        "sig_200": {
+          "above": 0,
+          "total": 129,
+          "rate": 0.0
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 129,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.5107577968626684,
+          "n": 129
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 261,
+      "n_served": 257,
+      "cell_accuracy_plain": 0.6453888888888889,
+      "scored": {
+        "logged_scorer": {
+          "above": 160,
+          "total": 257,
+          "rate": 0.622568093385214
+        },
+        "plain_200": {
+          "above": 76,
+          "total": 182,
+          "rate": 0.4175824175824176
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 3,
+          "rate": 0.6666666666666666
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 33,
+          "total": 182,
+          "rate": 0.1813186813186813
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 182,
+          "rate": 0.01098901098901099
+        },
+        "null_200": {
+          "expected_rate": 0.5049624482257637,
+          "n": 182
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 1,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 344,
+      "n_served": 343,
+      "cell_accuracy_plain": 0.5454222222222223,
+      "scored": {
+        "logged_scorer": {
+          "above": 160,
+          "total": 343,
+          "rate": 0.46647230320699706
+        },
+        "plain_200": {
+          "above": 88,
+          "total": 201,
+          "rate": 0.43781094527363185
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 4,
+          "rate": 0.25
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 60,
+          "total": 201,
+          "rate": 0.29850746268656714
+        },
+        "sig_200_neff": {
+          "above": 34,
+          "total": 201,
+          "rate": 0.1691542288557214
+        },
+        "null_200": {
+          "expected_rate": 0.5022864135083043,
+          "n": 201
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 2,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 19,
+      "n_served": 19,
+      "cell_accuracy_plain": 0.1776333333333333,
+      "scored": {
+        "logged_scorer": {
+          "above": 5,
+          "total": 19,
+          "rate": 0.2631578947368421
+        },
+        "plain_200": {
+          "above": 1,
+          "total": 11,
+          "rate": 0.09090909090909091
+        },
+        "plain_500": {
+          "above": 2,
+          "total": 3,
+          "rate": 0.6666666666666666
+        },
+        "plain_1000": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 11,
+          "rate": 0.09090909090909091
+        },
+        "sig_200_neff": {
+          "above": 1,
+          "total": 11,
+          "rate": 0.09090909090909091
+        },
+        "null_200": {
+          "expected_rate": 0.5001415341352204,
+          "n": 11
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 3,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 65,
+      "n_served": 65,
+      "cell_accuracy_plain": 0.24005555555555558,
+      "scored": {
+        "logged_scorer": {
+          "above": 7,
+          "total": 65,
+          "rate": 0.1076923076923077
+        },
+        "plain_200": {
+          "above": 4,
+          "total": 39,
+          "rate": 0.10256410256410256
+        },
+        "plain_500": {
+          "above": 3,
+          "total": 4,
+          "rate": 0.75
+        },
+        "plain_1000": {
+          "above": 2,
+          "total": 3,
+          "rate": 0.6666666666666666
+        },
+        "sig_200": {
+          "above": 3,
+          "total": 39,
+          "rate": 0.07692307692307693
+        },
+        "sig_200_neff": {
+          "above": 2,
+          "total": 39,
+          "rate": 0.05128205128205128
+        },
+        "null_200": {
+          "expected_rate": 0.49760821316214404,
+          "n": 39
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 4,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 324,
+      "n_served": 323,
+      "cell_accuracy_plain": 0.4885777777777778,
+      "scored": {
+        "logged_scorer": {
+          "above": 119,
+          "total": 323,
+          "rate": 0.3684210526315789
+        },
+        "plain_200": {
+          "above": 77,
+          "total": 200,
+          "rate": 0.385
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 2,
+          "rate": 0.5
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 45,
+          "total": 200,
+          "rate": 0.225
+        },
+        "sig_200_neff": {
+          "above": 11,
+          "total": 200,
+          "rate": 0.055
+        },
+        "null_200": {
+          "expected_rate": 0.5018095900257423,
+          "n": 200
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "gnb",
+      "seed": 0,
+      "detector": "ddm",
+      "scorer": "balanced_accuracy",
+      "n_alarms": 397,
+      "n_served": 383,
+      "cell_accuracy_plain": 0.45614444444444446,
+      "scored": {
+        "logged_scorer": {
+          "above": 79,
+          "total": 383,
+          "rate": 0.206266318537859
+        },
+        "plain_200": {
+          "above": 8,
+          "total": 109,
+          "rate": 0.07339449541284404
+        },
+        "plain_500": {
+          "above": 1,
+          "total": 3,
+          "rate": 0.3333333333333333
+        },
+        "plain_1000": {
+          "above": 0,
+          "total": 2,
+          "rate": 0.0
+        },
+        "sig_200": {
+          "above": 1,
+          "total": 109,
+          "rate": 0.009174311926605505
+        },
+        "sig_200_neff": {
+          "above": 0,
+          "total": 109,
+          "rate": 0.0
+        },
+        "null_200": {
+          "expected_rate": 0.500286443397642,
+          "n": 109
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,742 @@
+{
+  "label": "diagnostic",
+  "question": "what does DDM compare against, and how many of its alarms survive a stationary null?",
+  "source_facts": {
+    "file": "river/drift/binary/ddm.py (river 0.25.0)",
+    "reset_is_lazy": "update() line 122-124: `if self.drift_detected: self._reset()`",
+    "state_cleared": "_reset() lines 109-120: _p (cumulative Mean), _p_min, _s_min, _ps_min",
+    "cumulative_not_windowed": "p_i = self._p.get() over all samples since reset (line 129)",
+    "warm_start": "statistics evaluated only when n > 30 (line 134); no other lockout",
+    "rule": "drift when p_i + s_i > p_min + 3 * s_min (lines 145-146)"
+  },
+  "bins_rows_since_reset": [
+    0,
+    50,
+    100,
+    200,
+    400,
+    800,
+    1600,
+    3200,
+    "inf"
+  ],
+  "pooled": {
+    "observed_alarms": 1515,
+    "stationary_null_alarms": 5.0,
+    "ratio_observed_to_null": 303.0
+  },
+  "per_cell": [
+    {
+      "dataset": "elec2",
+      "model": "xgb",
+      "seed": 0,
+      "n_alarms": 128,
+      "n_served": 117,
+      "stream_error_rate": 0.29310217993673526,
+      "median_rows_since_reset": 170.5,
+      "hist_rows_since_reset": [
+        20,
+        22,
+        33,
+        34,
+        9,
+        6,
+        2,
+        2
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.3359375,
+      "p_min_below_reference_error": {
+        "share": 0.7890625,
+        "median_gap_pp": 8.402439024390246
+      },
+      "median_p_i_minus_p_min_pp": 7.047673875317055,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 0,
+      "n_alarms": 169,
+      "n_served": 155,
+      "stream_error_rate": 0.2885167112135553,
+      "median_rows_since_reset": 127.0,
+      "hist_rows_since_reset": [
+        29,
+        38,
+        39,
+        43,
+        11,
+        7,
+        2,
+        0
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.40236686390532544,
+      "p_min_below_reference_error": {
+        "share": 0.7455621301775148,
+        "median_gap_pp": 9.018991600885768
+      },
+      "median_p_i_minus_p_min_pp": 7.386944956005731,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 0,
+      "n_alarms": 118,
+      "n_served": 107,
+      "stream_error_rate": 0.34589637331110074,
+      "median_rows_since_reset": 105.0,
+      "hist_rows_since_reset": [
+        21,
+        36,
+        26,
+        19,
+        8,
+        4,
+        2,
+        2
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.4830508474576271,
+      "p_min_below_reference_error": {
+        "share": 0.7457627118644068,
+        "median_gap_pp": 15.152046783625728
+      },
+      "median_p_i_minus_p_min_pp": 8.489911727616645,
+      "null": {
+        "alarms_mean": 0.3333333333333333,
+        "alarms_per_10k": 0.08173741039536384,
+        "median_rows_since_reset": 2041.0,
+        "hist_rows_since_reset": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "gnb",
+      "seed": 0,
+      "n_alarms": 32,
+      "n_served": 30,
+      "stream_error_rate": 0.5195066329908535,
+      "median_rows_since_reset": 204.0,
+      "hist_rows_since_reset": [
+        5,
+        5,
+        6,
+        14,
+        1,
+        1,
+        0,
+        0
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.3125,
+      "p_min_below_reference_error": {
+        "share": 0.9375,
+        "median_gap_pp": 4.072261072261066
+      },
+      "median_p_i_minus_p_min_pp": 5.550687598880371,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "xgb",
+      "seed": 0,
+      "n_alarms": 5,
+      "n_served": 5,
+      "stream_error_rate": 0.4381675216550332,
+      "median_rows_since_reset": 7329.0,
+      "hist_rows_since_reset": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        3
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.2,
+      "p_min_below_reference_error": {
+        "share": 1.0,
+        "median_gap_pp": 15.505207464512905
+      },
+      "median_p_i_minus_p_min_pp": 0.9955866973295785,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 0,
+      "n_alarms": 3,
+      "n_served": 3,
+      "stream_error_rate": 0.44308720881338826,
+      "median_rows_since_reset": 13722.0,
+      "hist_rows_since_reset": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.0,
+      "p_min_below_reference_error": {
+        "share": 1.0,
+        "median_gap_pp": 27.297080830645854
+      },
+      "median_p_i_minus_p_min_pp": 0.8113132528362488,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 0,
+      "n_alarms": 5,
+      "n_served": 5,
+      "stream_error_rate": 0.8039483643091414,
+      "median_rows_since_reset": 7630.0,
+      "hist_rows_since_reset": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.0,
+      "p_min_below_reference_error": {
+        "share": 0.8,
+        "median_gap_pp": 19.608185888190434
+      },
+      "median_p_i_minus_p_min_pp": 1.1847166283611377,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "gnb",
+      "seed": 0,
+      "n_alarms": 2,
+      "n_served": 2,
+      "stream_error_rate": 0.5081574299890673,
+      "median_rows_since_reset": 4614.5,
+      "hist_rows_since_reset": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.5,
+      "p_min_below_reference_error": {
+        "share": 0.5,
+        "median_gap_pp": 7.918718224383847
+      },
+      "median_p_i_minus_p_min_pp": 7.377478064528151,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "xgb",
+      "seed": 0,
+      "n_alarms": 4,
+      "n_served": 4,
+      "stream_error_rate": 0.7217391304347827,
+      "median_rows_since_reset": 4645.0,
+      "hist_rows_since_reset": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.0,
+      "p_min_below_reference_error": {
+        "share": 0.5,
+        "median_gap_pp": 25.893129935375107
+      },
+      "median_p_i_minus_p_min_pp": 1.484859397134236,
+      "null": {
+        "alarms_mean": 0.3333333333333333,
+        "alarms_per_10k": 0.1533624722030519,
+        "median_rows_since_reset": 2140.0,
+        "hist_rows_since_reset": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 0,
+      "n_alarms": 8,
+      "n_served": 8,
+      "stream_error_rate": 0.7428571428571429,
+      "median_rows_since_reset": 335.5,
+      "hist_rows_since_reset": [
+        2,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        2
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.375,
+      "p_min_below_reference_error": {
+        "share": 0.75,
+        "median_gap_pp": 37.98209917884806
+      },
+      "median_p_i_minus_p_min_pp": 2.540459230967171,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 0,
+      "n_alarms": 4,
+      "n_served": 4,
+      "stream_error_rate": 0.8123763515067863,
+      "median_rows_since_reset": 3320.0,
+      "hist_rows_since_reset": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        2
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.0,
+      "p_min_below_reference_error": {
+        "share": 0.75,
+        "median_gap_pp": 32.440323037985344
+      },
+      "median_p_i_minus_p_min_pp": 4.335796267419134,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "gnb",
+      "seed": 0,
+      "n_alarms": 3,
+      "n_served": 3,
+      "stream_error_rate": 0.6584311019093628,
+      "median_rows_since_reset": 8342.0,
+      "hist_rows_since_reset": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        2
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.0,
+      "p_min_below_reference_error": {
+        "share": 0.3333333333333333,
+        "median_gap_pp": 12.49443801726442
+      },
+      "median_p_i_minus_p_min_pp": 1.2489840393906104,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "xgb",
+      "seed": 0,
+      "n_alarms": 3,
+      "n_served": 3,
+      "stream_error_rate": 0.7798780131340491,
+      "median_rows_since_reset": 1933.0,
+      "hist_rows_since_reset": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.0,
+      "p_min_below_reference_error": {
+        "share": 1.0,
+        "median_gap_pp": 4.036716074740465
+      },
+      "median_p_i_minus_p_min_pp": 9.782165293301759,
+      "null": {
+        "alarms_mean": 0.6666666666666666,
+        "alarms_per_10k": 0.12991146533637327,
+        "median_rows_since_reset": 6424.0,
+        "hist_rows_since_reset": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 0,
+      "n_alarms": 2,
+      "n_served": 2,
+      "stream_error_rate": 0.7873414268176238,
+      "median_rows_since_reset": 5452.5,
+      "hist_rows_since_reset": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.0,
+      "p_min_below_reference_error": {
+        "share": 1.0,
+        "median_gap_pp": 8.93171410983578
+      },
+      "median_p_i_minus_p_min_pp": 16.846458835957772,
+      "null": {
+        "alarms_mean": 1.0,
+        "alarms_per_10k": 0.1948671980045599,
+        "median_rows_since_reset": 3030.0,
+        "hist_rows_since_reset": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 0,
+      "n_alarms": 0,
+      "n_served": 0,
+      "stream_error_rate": 0.7643860708926866,
+      "median_rows_since_reset": null,
+      "hist_rows_since_reset": null,
+      "share_alarms_within_100_rows_of_reset": null,
+      "p_min_below_reference_error": {
+        "share": null,
+        "median_gap_pp": null
+      },
+      "median_p_i_minus_p_min_pp": null,
+      "null": {
+        "alarms_mean": 0.6666666666666666,
+        "alarms_per_10k": 0.12991146533637327,
+        "median_rows_since_reset": 6969.0,
+        "hist_rows_since_reset": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "gnb",
+      "seed": 0,
+      "n_alarms": 4,
+      "n_served": 4,
+      "stream_error_rate": 0.7940838318685816,
+      "median_rows_since_reset": 7132.0,
+      "hist_rows_since_reset": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        3
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.0,
+      "p_min_below_reference_error": {
+        "share": 0.75,
+        "median_gap_pp": 3.0935669722434556
+      },
+      "median_p_i_minus_p_min_pp": 9.871435069317533,
+      "null": {
+        "alarms_mean": 0.3333333333333333,
+        "alarms_per_10k": 0.06495573266818663,
+        "median_rows_since_reset": 12302.0,
+        "hist_rows_since_reset": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "xgb",
+      "seed": 0,
+      "n_alarms": 205,
+      "n_served": 194,
+      "stream_error_rate": 0.17383333333333334,
+      "median_rows_since_reset": 112.0,
+      "hist_rows_since_reset": [
+        17,
+        68,
+        48,
+        65,
+        3,
+        0,
+        2,
+        2
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.424390243902439,
+      "p_min_below_reference_error": {
+        "share": 0.9707317073170731,
+        "median_gap_pp": 14.709492161267185
+      },
+      "median_p_i_minus_p_min_pp": 5.178979436405179,
+      "null": {
+        "alarms_mean": 0.6666666666666666,
+        "alarms_per_10k": 0.07407407407407407,
+        "median_rows_since_reset": 1125.5,
+        "hist_rows_since_reset": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 0,
+      "n_alarms": 162,
+      "n_served": 159,
+      "stream_error_rate": 0.17725555555555556,
+      "median_rows_since_reset": 155.5,
+      "hist_rows_since_reset": [
+        14,
+        38,
+        43,
+        55,
+        9,
+        0,
+        1,
+        2
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.32098765432098764,
+      "p_min_below_reference_error": {
+        "share": 0.9259259259259259,
+        "median_gap_pp": 23.445667776075197
+      },
+      "median_p_i_minus_p_min_pp": 5.013741472731561,
+      "null": {
+        "alarms_mean": 0.6666666666666666,
+        "alarms_per_10k": 0.07407407407407407,
+        "median_rows_since_reset": 1026.0,
+        "hist_rows_since_reset": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 0,
+      "n_alarms": 261,
+      "n_served": 257,
+      "stream_error_rate": 0.3546111111111111,
+      "median_rows_since_reset": 287.0,
+      "hist_rows_since_reset": [
+        8,
+        26,
+        40,
+        180,
+        5,
+        0,
+        1,
+        1
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.13409961685823754,
+      "p_min_below_reference_error": {
+        "share": 0.9808429118773946,
+        "median_gap_pp": 26.48362020097457
+      },
+      "median_p_i_minus_p_min_pp": 6.111969964664304,
+      "null": {
+        "alarms_mean": 0.3333333333333333,
+        "alarms_per_10k": 0.037037037037037035,
+        "median_rows_since_reset": 1927.0,
+        "hist_rows_since_reset": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "reps": 3
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "gnb",
+      "seed": 0,
+      "n_alarms": 397,
+      "n_served": 383,
+      "stream_error_rate": 0.5438555555555555,
+      "median_rows_since_reset": 131.0,
+      "hist_rows_since_reset": [
+        21,
+        115,
+        140,
+        108,
+        10,
+        0,
+        0,
+        3
+      ],
+      "share_alarms_within_100_rows_of_reset": 0.3425692695214106,
+      "p_min_below_reference_error": {
+        "share": 0.5062972292191436,
+        "median_gap_pp": 12.540092678572234
+      },
+      "median_p_i_minus_p_min_pp": 10.018382352941163,
+      "null": {
+        "alarms_mean": 0.0,
+        "alarms_per_10k": 0.0,
+        "median_rows_since_reset": null,
+        "hist_rows_since_reset": null,
+        "reps": 3
+      }
+    }
+  ]
+}

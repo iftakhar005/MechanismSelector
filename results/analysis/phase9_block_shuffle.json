@@ -1,0 +1,195 @@
+{
+  "label": "diagnostic",
+  "question": "do the detectors' alarms survive destroying local label dependence?",
+  "design": "rows after the initial training slice permuted within blocks of 50; initial model and overall order unchanged",
+  "pooled": {
+    "adwin": {
+      "original": 1369,
+      "block_shuffled": 822,
+      "retained": 0.6004382761139518
+    },
+    "ddm": {
+      "original": 1472,
+      "block_shuffled": 455,
+      "retained": 0.30910326086956524
+    }
+  },
+  "per_cell": [
+    {
+      "dataset": "elec2",
+      "model": "xgb",
+      "seed": 0,
+      "block_size": 50,
+      "stream_rows": 40781,
+      "error_rate": 0.29310217993673526,
+      "lag1_original": 0.5828137605280725,
+      "lag1_shuffled": 0.1537125534485255,
+      "alarms": {
+        "adwin": {
+          "original": 79,
+          "block_shuffled": 51,
+          "retained": 0.6455696202531646
+        },
+        "ddm": {
+          "original": 128,
+          "block_shuffled": 47,
+          "retained": 0.3671875
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 0,
+      "block_size": 50,
+      "stream_rows": 40781,
+      "error_rate": 0.2885167112135553,
+      "lag1_original": 0.6041202614606997,
+      "lag1_shuffled": 0.16121309422872723,
+      "alarms": {
+        "adwin": {
+          "original": 79,
+          "block_shuffled": 49,
+          "retained": 0.620253164556962
+        },
+        "ddm": {
+          "original": 169,
+          "block_shuffled": 23,
+          "retained": 0.13609467455621302
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 0,
+      "block_size": 50,
+      "stream_rows": 40781,
+      "error_rate": 0.34589637331110074,
+      "lag1_original": 0.6318280125028584,
+      "lag1_shuffled": 0.14497827219165108,
+      "alarms": {
+        "adwin": {
+          "original": 81,
+          "block_shuffled": 50,
+          "retained": 0.6172839506172839
+        },
+        "ddm": {
+          "original": 118,
+          "block_shuffled": 47,
+          "retained": 0.3983050847457627
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "gnb",
+      "seed": 0,
+      "block_size": 50,
+      "stream_rows": 40781,
+      "error_rate": 0.5195066329908535,
+      "lag1_original": 0.7122152224696724,
+      "lag1_shuffled": 0.18939884000291085,
+      "alarms": {
+        "adwin": {
+          "original": 64,
+          "block_shuffled": 39,
+          "retained": 0.609375
+        },
+        "ddm": {
+          "original": 32,
+          "block_shuffled": 13,
+          "retained": 0.40625
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "xgb",
+      "seed": 0,
+      "block_size": 50,
+      "stream_rows": 90000,
+      "error_rate": 0.17383333333333334,
+      "lag1_original": 0.6305708546195907,
+      "lag1_shuffled": 0.171103868887626,
+      "alarms": {
+        "adwin": {
+          "original": 114,
+          "block_shuffled": 58,
+          "retained": 0.5087719298245614
+        },
+        "ddm": {
+          "original": 205,
+          "block_shuffled": 34,
+          "retained": 0.16585365853658537
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 0,
+      "block_size": 50,
+      "stream_rows": 90000,
+      "error_rate": 0.17725555555555556,
+      "lag1_original": 0.6380248585912185,
+      "lag1_shuffled": 0.17267865207238658,
+      "alarms": {
+        "adwin": {
+          "original": 152,
+          "block_shuffled": 79,
+          "retained": 0.5197368421052632
+        },
+        "ddm": {
+          "original": 162,
+          "block_shuffled": 77,
+          "retained": 0.47530864197530864
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 0,
+      "block_size": 50,
+      "stream_rows": 90000,
+      "error_rate": 0.3546111111111111,
+      "lag1_original": 0.8979956948191699,
+      "lag1_shuffled": 0.48502633743309576,
+      "alarms": {
+        "adwin": {
+          "original": 479,
+          "block_shuffled": 369,
+          "retained": 0.7703549060542797
+        },
+        "ddm": {
+          "original": 261,
+          "block_shuffled": 174,
+          "retained": 0.6666666666666666
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "gnb",
+      "seed": 0,
+      "block_size": 50,
+      "stream_rows": 90000,
+      "error_rate": 0.5438555555555555,
+      "lag1_original": 0.8241559894862381,
+      "lag1_shuffled": 0.22225233781565298,
+      "alarms": {
+        "adwin": {
+          "original": 321,
+          "block_shuffled": 127,
+          "retained": 0.3956386292834891
+        },
+        "ddm": {
+          "original": 397,
+          "block_shuffled": 40,
+          "retained": 0.10075566750629723
+        }
+      }
+    }
+  ]
+}
