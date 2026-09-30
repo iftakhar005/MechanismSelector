@@ -1,0 +1,1075 @@
+{
+  "label": "diagnostic",
+  "question": "is the falling-error share what a population of spurious two-sided alarms produces?",
+  "direction_measure": "runner.alarm_direction, from ADWIN's own estimate before/after the update -- reference-free",
+  "null_iid_pooled_share_falling": null,
+  "null_ar1_pooled_share_falling": 0.42127799617503126,
+  "null_iid_total_alarms": 0.0,
+  "null_ar1_total_alarms": 789.3333333333334,
+  "observed_pooled_share_falling": 0.4164934164934165,
+  "insects_abrupt_true_false_split": {
+    "500": {
+      "true_alarms": 29,
+      "share_falling_given_true": 0.9310344827586207,
+      "false_alarms": 84,
+      "share_falling_given_false": 0.2976190476190476,
+      "share_of_falling_alarms_that_are_false": 0.4807692307692308,
+      "cross_tab": {
+        "false_error_down": 25,
+        "false_error_up": 59,
+        "true_error_down": 27,
+        "true_error_up": 2
+      }
+    },
+    "1000": {
+      "true_alarms": 31,
+      "share_falling_given_true": 0.9032258064516129,
+      "false_alarms": 82,
+      "share_falling_given_false": 0.2926829268292683,
+      "share_of_falling_alarms_that_are_false": 0.46153846153846156,
+      "cross_tab": {
+        "false_error_down": 24,
+        "false_error_up": 58,
+        "true_error_down": 28,
+        "true_error_up": 3
+      }
+    },
+    "2000": {
+      "true_alarms": 33,
+      "share_falling_given_true": 0.8787878787878788,
+      "false_alarms": 80,
+      "share_falling_given_false": 0.2875,
+      "share_of_falling_alarms_that_are_false": 0.4423076923076923,
+      "cross_tab": {
+        "false_error_down": 23,
+        "false_error_up": 57,
+        "true_error_down": 29,
+        "true_error_up": 4
+      }
+    }
+  },
+  "null_per_cell": [
+    {
+      "dataset": "elec2",
+      "model": "xgb",
+      "error_rate": 0.29310217993673526,
+      "lag1_observed": 0.5828137605280725,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 16.666666666666668,
+          "share_falling_mean": 0.2816993464052287,
+          "reps": [
+            {
+              "alarms": 17,
+              "share_falling": 0.4117647058823529
+            },
+            {
+              "alarms": 18,
+              "share_falling": 0.16666666666666666
+            },
+            {
+              "alarms": 15,
+              "share_falling": 0.26666666666666666
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "error_rate": 0.2885167112135553,
+      "lag1_observed": 0.6041202614606997,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 17.666666666666668,
+          "share_falling_mean": 0.26686507936507936,
+          "reps": [
+            {
+              "alarms": 16,
+              "share_falling": 0.375
+            },
+            {
+              "alarms": 21,
+              "share_falling": 0.23809523809523808
+            },
+            {
+              "alarms": 16,
+              "share_falling": 0.1875
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "error_rate": 0.34589637331110074,
+      "lag1_observed": 0.6318280125028584,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 20.666666666666668,
+          "share_falling_mean": 0.3080808080808081,
+          "reps": [
+            {
+              "alarms": 22,
+              "share_falling": 0.36363636363636365
+            },
+            {
+              "alarms": 22,
+              "share_falling": 0.22727272727272727
+            },
+            {
+              "alarms": 18,
+              "share_falling": 0.3333333333333333
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "elec2",
+      "model": "gnb",
+      "error_rate": 0.5195066329908535,
+      "lag1_observed": 0.7122152224696724,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 42.666666666666664,
+          "share_falling_mean": 0.4785314384151593,
+          "reps": [
+            {
+              "alarms": 43,
+              "share_falling": 0.4883720930232558
+            },
+            {
+              "alarms": 45,
+              "share_falling": 0.6222222222222222
+            },
+            {
+              "alarms": 40,
+              "share_falling": 0.325
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "xgb",
+      "error_rate": 0.4381675216550332,
+      "lag1_observed": 0.17682253838266607,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "error_rate": 0.44308720881338826,
+      "lag1_observed": 0.20220224680234664,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "error_rate": 0.8039483643091414,
+      "lag1_observed": 0.1214894998686787,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.3333333333333333,
+          "share_falling_mean": 1.0,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 1,
+              "share_falling": 1.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "gnb",
+      "error_rate": 0.5081574299890673,
+      "lag1_observed": 0.10898576907565338,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "xgb",
+      "error_rate": 0.7217391304347827,
+      "lag1_observed": 0.20076138726985787,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "error_rate": 0.7428571428571429,
+      "lag1_observed": 0.20595340720492322,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "error_rate": 0.8123763515067863,
+      "lag1_observed": 0.0803083260967428,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "gnb",
+      "error_rate": 0.6584311019093628,
+      "lag1_observed": 0.34391361463529185,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "xgb",
+      "error_rate": 0.7798780131340491,
+      "lag1_observed": 0.05411105792362212,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "error_rate": 0.7873414268176238,
+      "lag1_observed": 0.07221018238736146,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.3333333333333333,
+          "share_falling_mean": 1.0,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 1,
+              "share_falling": 1.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "error_rate": 0.7643860708926866,
+      "lag1_observed": -0.005395238645708817,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "gnb",
+      "error_rate": 0.7940838318685816,
+      "lag1_observed": 0.04221881011089603,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "xgb",
+      "error_rate": 0.17383333333333334,
+      "lag1_observed": 0.6305708546195907,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 36.666666666666664,
+          "share_falling_mean": 0.13354011579818031,
+          "reps": [
+            {
+              "alarms": 31,
+              "share_falling": 0.0967741935483871
+            },
+            {
+              "alarms": 40,
+              "share_falling": 0.15
+            },
+            {
+              "alarms": 39,
+              "share_falling": 0.15384615384615385
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "error_rate": 0.17725555555555556,
+      "lag1_observed": 0.6380248585912185,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 37.333333333333336,
+          "share_falling_mean": 0.152000777000777,
+          "reps": [
+            {
+              "alarms": 33,
+              "share_falling": 0.15151515151515152
+            },
+            {
+              "alarms": 39,
+              "share_falling": 0.1794871794871795
+            },
+            {
+              "alarms": 40,
+              "share_falling": 0.125
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "error_rate": 0.3546111111111111,
+      "lag1_observed": 0.8979956948191699,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 389.0,
+          "share_falling_mean": 0.41312240400895045,
+          "reps": [
+            {
+              "alarms": 386,
+              "share_falling": 0.4015544041450777
+            },
+            {
+              "alarms": 406,
+              "share_falling": 0.4458128078817734
+            },
+            {
+              "alarms": 375,
+              "share_falling": 0.392
+            }
+          ]
+        }
+      }
+    },
+    {
+      "dataset": "covtype",
+      "model": "gnb",
+      "error_rate": 0.5438555555555555,
+      "lag1_observed": 0.8241559894862381,
+      "nulls": {
+        "iid": {
+          "alarms_mean": 0.0,
+          "share_falling_mean": null,
+          "reps": [
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            },
+            {
+              "alarms": 0,
+              "share_falling": null
+            }
+          ]
+        },
+        "ar1": {
+          "alarms_mean": 228.0,
+          "share_falling_mean": 0.5455805540312583,
+          "reps": [
+            {
+              "alarms": 231,
+              "share_falling": 0.5541125541125541
+            },
+            {
+              "alarms": 240,
+              "share_falling": 0.5333333333333333
+            },
+            {
+              "alarms": 213,
+              "share_falling": 0.5492957746478874
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "observed_per_cell": [
+    {
+      "dataset": "elec2",
+      "model": "xgb",
+      "alarms": 79,
+      "share_falling": 0.4050632911392405,
+      "error_rate": 0.29310217993673526
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "alarms": 79,
+      "share_falling": 0.3924050632911392,
+      "error_rate": 0.2885167112135553
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "alarms": 81,
+      "share_falling": 0.43209876543209874,
+      "error_rate": 0.34589637331110074
+    },
+    {
+      "dataset": "elec2",
+      "model": "gnb",
+      "alarms": 64,
+      "share_falling": 0.453125,
+      "error_rate": 0.5195066329908535
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "xgb",
+      "alarms": 9,
+      "share_falling": 0.3333333333333333,
+      "error_rate": 0.4381675216550332
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "alarms": 9,
+      "share_falling": 0.4444444444444444,
+      "error_rate": 0.44308720881338826
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "alarms": 11,
+      "share_falling": 0.5454545454545454,
+      "error_rate": 0.8039483643091414
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "gnb",
+      "alarms": 8,
+      "share_falling": 0.625,
+      "error_rate": 0.5081574299890673
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "xgb",
+      "alarms": 7,
+      "share_falling": 0.2857142857142857,
+      "error_rate": 0.7217391304347827
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "alarms": 7,
+      "share_falling": 0.2857142857142857,
+      "error_rate": 0.7428571428571429
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "alarms": 6,
+      "share_falling": 0.5,
+      "error_rate": 0.8123763515067863
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "gnb",
+      "alarms": 5,
+      "share_falling": 0.4,
+      "error_rate": 0.6584311019093628
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "xgb",
+      "alarms": 3,
+      "share_falling": 0.0,
+      "error_rate": 0.7798780131340491
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "alarms": 4,
+      "share_falling": 0.25,
+      "error_rate": 0.7873414268176238
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "alarms": 0,
+      "share_falling": null,
+      "error_rate": 0.7643860708926866
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "gnb",
+      "alarms": 5,
+      "share_falling": 0.0,
+      "error_rate": 0.7940838318685816
+    },
+    {
+      "dataset": "covtype",
+      "model": "xgb",
+      "alarms": 114,
+      "share_falling": 0.14912280701754385,
+      "error_rate": 0.17383333333333334
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "alarms": 152,
+      "share_falling": 0.3223684210526316,
+      "error_rate": 0.17725555555555556
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "alarms": 479,
+      "share_falling": 0.4572025052192067,
+      "error_rate": 0.3546111111111111
+    },
+    {
+      "dataset": "covtype",
+      "model": "gnb",
+      "alarms": 321,
+      "share_falling": 0.5015576323987538,
+      "error_rate": 0.5438555555555555
+    }
+  ]
+}

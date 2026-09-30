@@ -28,12 +28,19 @@ seeds, with ADWIN as the drift detector and a DDM contrast:
   nudge left predictions unchanged in most attempts; for SGD it changed many
   predictions without a systematic gain.
 - **Nudging XGBoost grows the model without bound.** Each nudge appends boosting
-  rounds that every later prediction must evaluate: over 34 nudges, per-prediction
-  cost grew 2.45×. Training cost alone hides this.
-- **Many alarms are not degradations.** With ADWIN, about 45% of alarms fired
-  while the error rate was falling, and a quarter to a third of adaptation compute
-  went on reacting to them. These are properties of detector-triggered adaptation
-  in general, not just of this policy.
+  rounds that every later prediction must evaluate: 100 -> 365 rounds over 53 nudges on
+  elec2, raising per-prediction node visits 2.87x (3.18x on covtype). Training cost
+  alone hides this.
+- **Many alarms are not responses to drift.** With ADWIN, 38% of alarms fired while
+  the model was *significantly* better than its post-adaptation reference (against the
+  5% a test yields by chance), 73% of alarms on a stream with published change points
+  fell outside 1,000 rows of any of them, and 40% disappear when local label
+  dependence is destroyed. These are properties of detector-triggered adaptation on
+  these benchmarks, not of this policy.
+- **Training cost is the minor term.** Over a full stream, per-prediction inference is
+  85-100% of combined cost, so a saving measured on training alone can be reversed by
+  the model it leaves behind. Report training, inference and combined, with the
+  prediction horizon stated.
 
 ## Install
 

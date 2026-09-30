@@ -185,6 +185,47 @@ because NeverAdapt's model never changes.
 **Verdict: does not explain the alarms, but changes a headline.** "Never adapting is free" is only
 true if inference is not counted.
 
+## 9.6 Direction on the null, and the true/false split (added at review)
+
+`results/analysis/phase9_direction_null.json` · `experiments/phase9_direction_null.py`
+
+Asked before rewriting Finding 2: if ADWIN's two-sidedness makes spurious alarms land on falling
+error about half the time, is the observed 42% just that?
+
+**The i.i.d. null cannot answer it: ADWIN fired 0 alarms in all 20 cells.** At δ = 0.002 it does
+not produce spurious alarms on independent noise, so a second null was built — a two-state Markov
+chain with each cell's own error rate *and* its own lag-1 autocorrelation, and no drift anywhere.
+
+| stream population | alarms | share on falling error |
+|---|---|---|
+| observed (NeverAdapt, ADWIN) | 1,369 | **0.416** |
+| AR(1) null, no drift, same autocorrelation | 789 | **0.421** |
+| i.i.d. null, same error rate | 0 | undefined |
+
+The match is close to exact: a stream with no drift at all, carrying only the dependence the real
+streams have, produces the same falling-error share. **The 42% figure is what an
+autocorrelation-driven alarm population produces, and carries no evidence about improvements.**
+
+The second half of the hypothesis is **not** supported. On insects_abrupt, splitting by whether an
+alarm follows a published change point:
+
+| tolerance | falling share, true detections | falling share, false alarms | share of falling alarms that are false |
+|---|---|---|---|
+| 500 | 0.931 (n = 29) | 0.298 (n = 84) | 0.481 |
+| 1000 | 0.903 (n = 31) | 0.293 (n = 82) | 0.462 |
+| 2000 | 0.879 (n = 33) | 0.287 (n = 80) | 0.442 |
+
+Conditional on being a true detection an alarm is *more* likely to be falling-error, not less —
+the opposite of the expected pattern. Because false alarms are three times as numerous, they still
+carry about half the falling-error alarms in absolute terms. Why alarms near these change points
+are overwhelmingly falling is unexplained; n is 29–33, and the insects temperature shifts may make
+the new concept easier for an unchanged model. Reported, not explained.
+
+**Verdict: supports the aggregate reframing, not the conditional one.** The defensible sentence is
+that most ADWIN alarms on these benchmarks are not responses to published drift, and the
+falling-error share is reproduced by a no-drift AR(1) null — not that falling-error alarms are the
+spurious ones.
+
 ---
 
 ## What Phase 9 means for the four findings
