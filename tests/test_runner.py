@@ -117,8 +117,10 @@ def test_chunked_prediction_is_exactly_equivalent_to_row_by_row(model_name, poli
     rec_b, ev_b = run_stream(X, y, model_name, policy_key, 0, chunked)
 
     assert rec_a["n_adaptations"] >= 2, "precondition: the stream must actually trigger adaptations"
-    strip = lambda r: {k: v for k, v in r.items() if k not in TIMING_FIELDS | {"config_json"}}  # noqa: E731
+    arrays = {"prequential_errors"}
+    strip = lambda r: {k: v for k, v in r.items() if k not in TIMING_FIELDS | {"config_json"} | arrays}  # noqa: E731
     assert strip(rec_a) == strip(rec_b)
+    assert all(np.array_equal(rec_a[k], rec_b[k]) for k in arrays)
     assert ev_a == ev_b
 
 

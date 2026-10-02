@@ -108,3 +108,11 @@ def test_sticky_sampling_adds_label_persistence_without_changing_rows():
     _, y_sticky, _ = synthetic.make_stream("sea_abrupt_sticky", 0, n_rows=8000)
     persist = lambda y: np.mean(y[1:] == y[:-1])  # noqa: E731
     assert persist(y_sticky) > persist(y_iid) + 0.25
+
+
+def test_delay_only_control_waits_but_never_dismisses():
+    X, y = drifting_stream(n=3000, n_segments=1)
+    cfg = replace(CFG, confirm_rows=100, confirm_dismiss=False)
+    record, events = run_stream(X, y, "rf", "always_rebuild", 0, cfg, detector_factory=scripted([600]))
+    assert record["n_alarms_dismissed"] == 0
+    assert len(events) == 1 and events[0]["adapt_row"] - events[0]["alarm_row"] == 100

@@ -12,6 +12,8 @@ results/*
 !results/grid_direction/
 !results/grid_ddm/
 !results/placeholder_sanity.json
+!results/confirm/
+!results/confirm_delay_only/
 emissions.csv
 .pytest_cache/
 

@@ -65,13 +65,13 @@ def plan():
 _cache: dict = {}
 
 
-def run_one(job):
+def run_one(job, delay_only=False):
     stream, model, policy, w, seed = job
     if (stream, seed) not in _cache:
         _cache.clear()
         _cache[(stream, seed)] = synthetic.make_stream(stream, seed)
     X, y, cps = _cache[(stream, seed)]
-    record, events = run_stream(X, y, model, policy, seed, replace(BASE, confirm_rows=w), stream)
+    record, events = run_stream(X, y, model, policy, seed, replace(BASE, confirm_rows=w, confirm_dismiss=not delay_only), stream)
 
     n_init = len(X) - record["n_stream_rows"]
     err = record["prequential_errors"]
@@ -103,16 +103,20 @@ def main():
     ap.add_argument("--out", default="results/confirm")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--limit", type=int, default=None, help="run only the first N jobs (smoke test)")
+    ap.add_argument("--delay-only", action="store_true",
+                    help="post-hoc control: W in {200, 500} with no dismissal, adaptive policies only")
     args = ap.parse_args()
 
     out = ROOT / args.out
     out.mkdir(parents=True, exist_ok=True)
     jobs = plan()[: args.limit]
+    if args.delay_only:
+        jobs = [j for j in jobs if j[3] > 0]
     started = time.perf_counter()
     rows, eps = [], []
     # chunked by (stream, seed) so each worker reuses its generated stream
     with ProcessPoolExecutor(args.workers) as pool:
-        futures = {pool.submit(run_one, j): j for j in jobs}
+        futures = {pool.submit(run_one, j, args.delay_only): j for j in jobs}
         for i, f in enumerate(as_completed(futures), 1):
             row, episodes = f.result()
             rows.append(row)

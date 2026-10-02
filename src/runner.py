@@ -154,6 +154,9 @@ class RunConfig:
     # pre-registered grid did. W > 0: keep predicting W rows, then adapt only if the model
     # scored below reference - floor_drop on them; otherwise dismiss the alarm.
     confirm_rows: int = 0
+    # Post-hoc control (docs/confirm/REPORT.md): False = wait confirm_rows and then always adapt,
+    # with no dismissal -- separates "when the window is taken" from "which alarms are dropped".
+    confirm_dismiss: bool = True
     # Re-measure the footprint after every adaptation and charge each model for the rows it
     # served -- exact inference cost, at the price of one probe pass per adaptation.
     track_inference: bool = False
@@ -354,7 +357,7 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                     continue
                 lo, hi = pending_since + 1, row + 1
                 score = float(scorer(y[lo:hi], preds[lo - n_init:hi - n_init]))
-                if score >= reference_accuracy - config.floor_drop:
+                if config.confirm_dismiss and score >= reference_accuracy - config.floor_drop:
                     dismissed.append({"alarm_row": pending_since, "decide_row": row,
                                       "confirm_score": score, "reference_accuracy": reference_accuracy,
                                       "reference_carried": not ref_ready,
