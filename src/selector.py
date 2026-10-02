@@ -1,109 +1,4 @@
-"""MechanismSelector: the project's contribution.
 
-## Framing
-
-This is a **cost-ordered try-and-escalate policy under an accuracy
-constraint**, not "selection by measured compute." The decision variable at
-runtime is accuracy: a nudge is kept if it clears the floor, discarded (and
-escalated to a rebuild) if it does not. Cost only determines the *order* in
-which options are attempted -- cheapest first -- and is what makes attempting
-the cheap option rational in the first place: a nudge costs a few percent of a
-rebuild, so trying and occasionally failing is cheaper than building a
-predictor of when it would succeed.
-
-## Procedure (see `MechanismSelector.adapt`)
-
-1. Split the adaptation window by time -- train_part (older) / holdout (most
-   recent) -- never randomly.
-2. Score the current model on holdout. Good enough -> SKIP, zero cost.
-3. Otherwise nudge a *copy* of the model on train_part only, score the nudge
-   on the same holdout. Cleared the floor -> NUDGE, keep it.
-4. Otherwise rebuild from scratch on the full window (holdout included) and
-   use that. The failed nudge's cost is not discarded -- it is added to the
-   rebuild's, because that honesty is what makes the economic argument
-   credible (spec trap #5).
-
-## Known defect: a kept NUDGE never trains on the newest rows
-
-The nudge is fit on `X_train` (the older `1 - holdout_frac` of the window) so
-that the holdout can judge it out-of-sample. When the nudge is *kept*, that
-model is returned and the runner clears its buffer, so the holdout rows -- the
-most recent fifth of the adaptation window, and the rows most likely to carry
-whatever the detector reacted to -- are never trained on by anything. The
-rebuild path does not have this problem: a REBUILD is fit on the full window.
-
-This is a defect, not a trade-off: nothing ever revisits those rows. A caller
-who wants the kept nudge to see them must re-fit it on the holdout after
-`adapt()` returns, which this module does not do. Every result in this
-repository was produced with the defect present, so it is documented rather
-than repaired; `results/analysis/nudge_window_diagnostic.json` measures what it
-costs.
-
-## The reference-accuracy problem
-
-`reference_accuracy` is an input, not something this module maintains. After a
-REBUILD the model has trained on the entire window, so no clean holdout
-remains inside it to certify a new baseline -- that would require scoring on
-data the model has already seen.
-
-The caller (the runner, from Phase 6) therefore owns the baseline, and must
-follow this rule after every `adapt()` call:
-
-1. Score the *returned* model on the next N rows the stream has not yet
-   produced -- rows no model has trained on -- and use that as the
-   `reference_accuracy` for the next alarm. Default N = 200.
-2. Those N rows are not consumed: they continue through the normal stream loop
-   afterwards (predicted, counted in prequential accuracy, buffered) like any
-   other row. Skipping them would remove them from prequential accuracy.
-3. If fewer than N rows remain, carry the previous `reference_accuracy`
-   forward rather than scoring on a shorter, noisier slice, and log that this
-   happened.
-
-It must never use `AdaptResult.acc_after` as the new baseline: for a REBUILD
-that number is scored on training data (see below) and would inflate the floor
-for every later decision.
-
-`experiments/verify_selector.py` illustrates the scoring rule with N = 200, but
-it has no stream loop -- it only walks fixed windows -- so it steps past the N
-reference rows instead of feeding them onward. That shortcut is specific to the
-script and is not the runner's rule.
-
-## Guard condition
-
-With very small windows a holdout of a handful of rows makes accuracy noise,
-not signal -- one misclassification can swing it past the floor in either
-direction. Below `min_holdout_rows` / `min_train_rows` this module does not
-trust *any* decision computed from that holdout, so it bypasses both the SKIP
-and NUDGE checks and goes straight to REBUILD (`degraded_to_rebuild=True`).
-`acc_before` is still recorded (from the small holdout) for audit purposes,
-but it is not used to decide anything in this branch.
-
-The thresholds are checked against the row counts `_split` actually produces,
-not against `len(window) * holdout_frac`. The two differ by rounding: a
-249-row window splits into 199 train and 50 holdout rows, while
-`249 * 0.2 = 49.8` would wrongly report it as under the 50-row minimum. Windows
-this small are the common case, not an edge case -- the runner clears its
-buffer after every adaptation, so the guard fires exactly where the rounding
-lives.
-
-## Rebuild construction
-
-The rebuild mechanism owns model construction; this module never builds a
-model itself. It passes `None` as the model argument to
-`rebuild_mechanism.apply`, because there is nothing a rebuild should inherit.
-Passing the live model instead would invite a rebuild to snapshot it as a
-cost baseline -- subtracting the old model's estimators from the new one's and
-billing the rebuild at or near zero.
-
-## REBUILD's `acc_after` is optimistic
-
-A REBUILD trains on the full window, holdout included, then is scored on that
-same holdout -- data it just trained on. `acc_after` for a REBUILD is
-therefore not comparable to `acc_before` / `acc_nudged`, which are always
-scored on data the model being evaluated has never trained on. This is
-correct (the rebuild is the final answer and should use all available data)
-but must not be treated as an apples-to-apples number by the analysis.
-"""
 
 from __future__ import annotations
 
@@ -124,44 +19,14 @@ REBUILD = "REBUILD"
 def temporal_split(
     X: np.ndarray, y: np.ndarray, holdout_frac: float
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    """Temporal split: train_part is the older prefix, holdout the recent
-    suffix. Never randomised -- a shuffle here would leak future rows into
-    training and invalidate every downstream result.
-
-    Module-level so every policy in `policies.py` splits a window exactly as
-    the selector does. The baselines perform the same nudge on the same rows,
-    so a comparison between policies isolates the decision rule rather than
-    differences in how much data each policy trained on.
-    """
+  
     k = int(len(X) * (1 - holdout_frac))
     return X[:k], y[:k], X[k:], y[k:]
 
 
 @dataclass
 class AdaptResult:
-    """Everything the runner needs to log one adaptation decision.
-
-    Attributes:
-        model: the model to use going forward.
-        action: "SKIP" | "NUDGE" | "REBUILD".
-        cost: cumulative cost -- includes a failed nudge when action is REBUILD.
-        acc_before: current model's accuracy on the holdout, before any action.
-        acc_nudged: nudged model's accuracy on the holdout, or None when the
-            nudge was never attempted (SKIP, or degraded_to_rebuild).
-        acc_after: accuracy of the returned model. For REBUILD this is
-            measured on data the model trained on -- see module docstring.
-        floor: reference_accuracy - floor_drop, the threshold actually used.
-        n_train_rows: rows in train_part (never seen by the holdout check).
-        n_holdout_rows: rows in the holdout.
-        degraded_to_rebuild: True if the window was too small to trust a
-            holdout-based decision, so REBUILD was taken unconditionally.
-        prediction_change: share of holdout rows whose predicted label the
-            nudge changed, whenever a nudge was performed; otherwise None.
-            Distinguishes a nudge that moved predictions without improving
-            accuracy from one that left predictions untouched -- accuracy
-            alone cannot, because flips can cancel.
-    """
-
+   
     model: Any
     action: str
     cost: CostRecord
@@ -176,26 +41,7 @@ class AdaptResult:
 
 
 class MechanismSelector:
-    """Cost-ordered try-and-escalate policy under an accuracy constraint.
-
-    Args:
-        nudge_mechanism: a `mechanisms.py` Mechanism applied to a *copy* of the
-            current model, trained on `train_part` only.
-        rebuild_mechanism: a `mechanisms.py` Mechanism that constructs a fresh
-            model itself and trains it on the full window. It is handed `None`
-            as its model argument -- see "Rebuild construction" in the module
-            docstring.
-        holdout_frac: fraction of the window held out as the most recent slice.
-        floor_drop: how far below `reference_accuracy` is still acceptable.
-            In the units of `scorer` -- e.g. 0.02 means 2 percentage points
-            for accuracy, 2 points of balanced accuracy if that scorer is used.
-        min_holdout_rows / min_train_rows: below these, the holdout is too
-            small to trust; see the guard condition in the module docstring.
-        scorer: `(y_true, y_pred) -> float`. Default plain accuracy. Pass
-            `balanced_accuracy_score` for the imbalanced multi-class streams.
-        seed: every random operation is derived from this, so the same
-            (window, model, reference_accuracy, seed) reproduces exactly.
-    """
+    
 
     name = "MechanismSelector"
 
