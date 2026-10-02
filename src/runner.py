@@ -150,6 +150,13 @@ class RunConfig:
     track_energy: bool = True
     energy_country_iso: str = "USA"  # affects only the CO2 figure, which is not recorded
     detector: str = "adwin"  # "adwin" (primary) or "ddm" (one-sided contrast, library defaults)
+    # Confirm-before-acting (docs/confirm/PREREGISTRATION.md). 0 = act on the alarm, as the
+    # pre-registered grid did. W > 0: keep predicting W rows, then adapt only if the model
+    # scored below reference - floor_drop on them; otherwise dismiss the alarm.
+    confirm_rows: int = 0
+    # Re-measure the footprint after every adaptation and charge each model for the rows it
+    # served -- exact inference cost, at the price of one probe pass per adaptation.
+    track_inference: bool = False
 
 
 def alarm_direction(before: float | None, after: float | None) -> str | None:
@@ -296,6 +303,9 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
     alarm_windows: dict = {}
     errors = np.zeros(n - n_init, dtype=np.int8)
     n_with_placeholders = total_placeholders = 0
+    dismissed: list[dict] = []
+    confirmed = False
+    infer_units, infer_from, infer_ops = initial_fp.inference_units, n_init, 0.0
     nudges_since_rebuild = 0  # consecutive-nudge depth; the initial model counts as a rebuild
     totals = dict(work_units=0, estimators=0, rows=0, passes=0, wall=0.0)
 
@@ -338,6 +348,20 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
 
             if pending_since is None:
                 continue
+
+            if config.confirm_rows > 0 and not confirmed:
+                if row - pending_since < config.confirm_rows:
+                    continue
+                lo, hi = pending_since + 1, row + 1
+                score = float(scorer(y[lo:hi], preds[lo - n_init:hi - n_init]))
+                if score >= reference_accuracy - config.floor_drop:
+                    dismissed.append({"alarm_row": pending_since, "decide_row": row,
+                                      "confirm_score": score, "reference_accuracy": reference_accuracy,
+                                      "reference_carried": not ref_ready,
+                                      "alarm_direction": alarm_direction(alarm_before, alarm_after)})
+                    pending_since = None
+                    continue
+                confirmed = True
 
             window_start = max(buf_start, row + 1 - config.buffer_size)
             buffer_rows = row + 1 - window_start
@@ -395,6 +419,11 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                 **alarm_windows,
             })
 
+            confirmed = False
+            if config.track_inference:
+                infer_ops += infer_units * (row + 1 - infer_from)
+                infer_units, infer_from = measure_footprint(model, probe).inference_units, row + 1
+                events[-1]["inference_units_after"] = infer_units
             buf_start = row + 1
             pending_since = None
             ref_start, ref_ready = row + 1, False
@@ -404,6 +433,8 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
         t = adapted_at + 1 if adapted_at is not None else chunk_end
 
     final_fp = measure_footprint(model, probe)
+    if config.track_inference:
+        infer_ops += infer_units * (n - infer_from)
     y_stream = y[n_init:]
     block = slice(max(0, len(y_stream) - config.eval_block), len(y_stream))
     is_selector = policy_key == "mechanism_selector"
@@ -443,6 +474,11 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
         "final_predict_us_per_row": final_fp.predict_us_per_row,
         "run_wall_clock_s": None,
         "config_json": json.dumps(asdict(config), sort_keys=True),
+        # Extra keys, not in RECORD_FIELDS: the grid CSV schema is unchanged.
+        "n_alarms_dismissed": len(dismissed),
+        "dismissed_alarms": dismissed,
+        "total_inference_ops": infer_ops if config.track_inference else None,
+        "prequential_errors": errors,   # per stream row after init, 1 = wrong; not written to CSV
     }
     return record, events
 
