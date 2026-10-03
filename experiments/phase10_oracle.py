@@ -215,10 +215,13 @@ def finish(records, dataset, model_name, seed, t_branch, truncated) -> dict:
                                    "degraded_to_rebuild", "policy_work_units", "h_next",
                                    "horizon_available")}
         row["h"] = {}
+        row["branch_ops"] = {a: {"train": b["train_ops"], "eval": b["eval_ops"],
+                                 "infer_per_row": b["infer_units_per_row"]}
+                             for a, b in rec["branches"].items()}
         for hname in ("next", "500", "1000"):
             h = rec["h_next"] if hname == "next" else min(int(hname), rec["horizon_available"])
             row["h"][hname] = {a: [b["train_ops"] + b["eval_ops"] + b["infer_units_per_row"] * h,
-                                   errors_at(b, h)]
+                                   errors_at(b, h), h]
                                for a, b in rec["branches"].items()}
         out["per_alarm"].append(row)
 
