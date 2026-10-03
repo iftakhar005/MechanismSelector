@@ -1,0 +1,338 @@
+{
+  "label": "diagnostic (comparison only, no verdict)",
+  "rule": "cancel if reference - acc_W <= Theta*sigma, Theta=2, sigma=sqrt(p(1-p)/W)",
+  "approximation": "sigma from the reference estimate over W rows rather than from a training-set distribution; balanced accuracy is not a binomial proportion, so sigma is approximate on multi-class streams",
+  "per_dataset": {
+    "covtype": {
+      "selector": {
+        "training": 12177454.916666666,
+        "acc_balanced": 52.264645089583226,
+        "alarms": 1860,
+        "cancelled": 0,
+        "guard_rebuilds": 752
+      },
+      "waitandcheck_200": {
+        "training": 3753329.0833333335,
+        "training_ratio": 0.3082195014490542,
+        "acc_balanced": 54.24279831528957,
+        "accuracy_delta_pp": 1.9781532257063361,
+        "alarms": 3196,
+        "cancelled": 1621,
+        "proceeded": 628,
+        "guard_rebuilds": 40
+      },
+      "waitandcheck_500": {
+        "training": 7314054.416666667,
+        "training_ratio": 0.6006225821995277,
+        "acc_balanced": 57.20454119939223,
+        "accuracy_delta_pp": 4.939896109808998,
+        "alarms": 3059,
+        "cancelled": 695,
+        "proceeded": 499,
+        "guard_rebuilds": 0
+      },
+      "confirmmd3_200": {
+        "training": 3137791.6666666665,
+        "training_ratio": 0.2576722055749211,
+        "acc_balanced": 59.611128208130225,
+        "accuracy_delta_pp": 7.346483118546992,
+        "alarms": 2840,
+        "cancelled": 1551,
+        "proceeded": 469,
+        "guard_rebuilds": 13
+      },
+      "confirmmd3_500": {
+        "training": 5546680.666666667,
+        "training_ratio": 0.45548767822373176,
+        "acc_balanced": 58.81990617824102,
+        "accuracy_delta_pp": 6.555261088657787,
+        "alarms": 3104,
+        "cancelled": 792,
+        "proceeded": 427,
+        "guard_rebuilds": 0
+      }
+    },
+    "elec2": {
+      "selector": {
+        "training": 1456171.5,
+        "acc_balanced": 66.50053934588617,
+        "alarms": 735,
+        "cancelled": 0,
+        "guard_rebuilds": 143
+      },
+      "waitandcheck_200": {
+        "training": 865157.8333333334,
+        "training_ratio": 0.5941318267342366,
+        "acc_balanced": 68.60496341874895,
+        "accuracy_delta_pp": 2.104424072862784,
+        "alarms": 773,
+        "cancelled": 395,
+        "proceeded": 265,
+        "guard_rebuilds": 10
+      },
+      "waitandcheck_500": {
+        "training": 919174.75,
+        "training_ratio": 0.6312269880299127,
+        "acc_balanced": 68.22733806673989,
+        "accuracy_delta_pp": 1.726798720853722,
+        "alarms": 794,
+        "cancelled": 266,
+        "proceeded": 224,
+        "guard_rebuilds": 0
+      },
+      "confirmmd3_200": {
+        "training": 783048.5833333334,
+        "training_ratio": 0.5377447528215827,
+        "acc_balanced": 68.26092069435195,
+        "accuracy_delta_pp": 1.7603813484657849,
+        "alarms": 791,
+        "cancelled": 452,
+        "proceeded": 226,
+        "guard_rebuilds": 7
+      },
+      "confirmmd3_500": {
+        "training": 813358.1666666666,
+        "training_ratio": 0.5585593226255744,
+        "acc_balanced": 67.65105743022973,
+        "accuracy_delta_pp": 1.1505180843435596,
+        "alarms": 785,
+        "cancelled": 300,
+        "proceeded": 194,
+        "guard_rebuilds": 0
+      }
+    },
+    "insects_abrupt": {
+      "selector": {
+        "training": 237204.83333333334,
+        "acc_balanced": 36.59683896810174,
+        "alarms": 116,
+        "cancelled": 0,
+        "guard_rebuilds": 7
+      },
+      "waitandcheck_200": {
+        "training": 611072.8333333334,
+        "training_ratio": 2.5761398903479344,
+        "acc_balanced": 45.99913828841475,
+        "accuracy_delta_pp": 9.402299320313006,
+        "alarms": 180,
+        "cancelled": 79,
+        "proceeded": 98,
+        "guard_rebuilds": 1
+      },
+      "waitandcheck_500": {
+        "training": 650956.3333333334,
+        "training_ratio": 2.7442793816033824,
+        "acc_balanced": 47.31994448637559,
+        "accuracy_delta_pp": 10.723105518273847,
+        "alarms": 196,
+        "cancelled": 76,
+        "proceeded": 104,
+        "guard_rebuilds": 0
+      },
+      "confirmmd3_200": {
+        "training": 500345.9166666667,
+        "training_ratio": 2.1093411531102864,
+        "acc_balanced": 43.49553501839542,
+        "accuracy_delta_pp": 6.89869605029368,
+        "alarms": 168,
+        "cancelled": 92,
+        "proceeded": 72,
+        "guard_rebuilds": 0
+      },
+      "confirmmd3_500": {
+        "training": 653711.1666666666,
+        "training_ratio": 2.7558931134764677,
+        "acc_balanced": 47.224817383338,
+        "accuracy_delta_pp": 10.627978415236257,
+        "alarms": 196,
+        "cancelled": 80,
+        "proceeded": 101,
+        "guard_rebuilds": 0
+      }
+    },
+    "insects_gradual": {
+      "selector": {
+        "training": 301626.5833333333,
+        "acc_balanced": 34.64074876470636,
+        "alarms": 77,
+        "cancelled": 0,
+        "guard_rebuilds": 8
+      },
+      "waitandcheck_200": {
+        "training": 309224.0,
+        "training_ratio": 1.025188153453539,
+        "acc_balanced": 41.00513855645665,
+        "accuracy_delta_pp": 6.364389791750298,
+        "alarms": 104,
+        "cancelled": 47,
+        "proceeded": 53,
+        "guard_rebuilds": 0
+      },
+      "waitandcheck_500": {
+        "training": 290218.8333333333,
+        "training_ratio": 0.9621792287870294,
+        "acc_balanced": 44.19460637885357,
+        "accuracy_delta_pp": 9.55385761414722,
+        "alarms": 110,
+        "cancelled": 45,
+        "proceeded": 54,
+        "guard_rebuilds": 0
+      },
+      "confirmmd3_200": {
+        "training": 276986.6666666667,
+        "training_ratio": 0.9183098638244476,
+        "acc_balanced": 40.10935800116109,
+        "accuracy_delta_pp": 5.468609236454739,
+        "alarms": 104,
+        "cancelled": 55,
+        "proceeded": 44,
+        "guard_rebuilds": 0
+      },
+      "confirmmd3_500": {
+        "training": 285504.25,
+        "training_ratio": 0.946548698874077,
+        "acc_balanced": 44.15284567210403,
+        "accuracy_delta_pp": 9.512096907397677,
+        "alarms": 110,
+        "cancelled": 48,
+        "proceeded": 51,
+        "guard_rebuilds": 0
+      }
+    },
+    "insects_incremental": {
+      "selector": {
+        "training": 289633.3333333333,
+        "acc_balanced": 43.58694547535373,
+        "alarms": 42,
+        "cancelled": 0,
+        "guard_rebuilds": 0
+      },
+      "waitandcheck_200": {
+        "training": 231241.66666666666,
+        "training_ratio": 0.798394521809184,
+        "acc_balanced": 42.51720571851577,
+        "accuracy_delta_pp": -1.0697397568379614,
+        "alarms": 43,
+        "cancelled": 7,
+        "proceeded": 35,
+        "guard_rebuilds": 0
+      },
+      "waitandcheck_500": {
+        "training": 215524.58333333334,
+        "training_ratio": 0.7441290712394983,
+        "acc_balanced": 42.68467187956148,
+        "accuracy_delta_pp": -0.9022735957922521,
+        "alarms": 50,
+        "cancelled": 15,
+        "proceeded": 34,
+        "guard_rebuilds": 0
+      },
+      "confirmmd3_200": {
+        "training": 139183.33333333334,
+        "training_ratio": 0.48055012084244453,
+        "acc_balanced": 41.799197301567,
+        "accuracy_delta_pp": -1.7877481737867313,
+        "alarms": 42,
+        "cancelled": 21,
+        "proceeded": 21,
+        "guard_rebuilds": 0
+      },
+      "confirmmd3_500": {
+        "training": 174346.25,
+        "training_ratio": 0.6019550581194615,
+        "acc_balanced": 41.53963533675552,
+        "accuracy_delta_pp": -2.0473101385982133,
+        "alarms": 52,
+        "cancelled": 22,
+        "proceeded": 26,
+        "guard_rebuilds": 0
+      }
+    }
+  },
+  "md3_vs_wait_training": {
+    "200": [
+      {
+        "dataset": "covtype",
+        "metric": "training",
+        "n": 12,
+        "median_difference": -305785.0,
+        "p": 0.20361328125,
+        "p_holm": 0.4072265625
+      },
+      {
+        "dataset": "elec2",
+        "metric": "training",
+        "n": 12,
+        "median_difference": -74512.5,
+        "p": 0.33935546875,
+        "p_holm": 0.4072265625
+      },
+      {
+        "dataset": "insects_abrupt",
+        "metric": "training",
+        "n": 12,
+        "median_difference": -3982.5,
+        "p": 0.03125,
+        "p_holm": 0.125
+      },
+      {
+        "dataset": "insects_gradual",
+        "metric": "training",
+        "n": 12,
+        "median_difference": 0.0,
+        "p": null,
+        "p_holm": null
+      },
+      {
+        "dataset": "insects_incremental",
+        "metric": "training",
+        "n": 12,
+        "median_difference": -400.0,
+        "p": 0.078125,
+        "p_holm": 0.234375
+      }
+    ],
+    "500": [
+      {
+        "dataset": "covtype",
+        "metric": "training",
+        "n": 12,
+        "median_difference": -60322.5,
+        "p": 0.048828125,
+        "p_holm": 0.048828125
+      },
+      {
+        "dataset": "elec2",
+        "metric": "training",
+        "n": 12,
+        "median_difference": -34624.5,
+        "p": 0.01171875,
+        "p_holm": 0.0234375
+      },
+      {
+        "dataset": "insects_abrupt",
+        "metric": "training",
+        "n": 12,
+        "median_difference": 0.0,
+        "p": null,
+        "p_holm": null
+      },
+      {
+        "dataset": "insects_gradual",
+        "metric": "training",
+        "n": 12,
+        "median_difference": 0.0,
+        "p": null,
+        "p_holm": null
+      },
+      {
+        "dataset": "insects_incremental",
+        "metric": "training",
+        "n": 12,
+        "median_difference": 0.0,
+        "p": null,
+        "p_holm": null
+      }
+    ]
+  }
+}

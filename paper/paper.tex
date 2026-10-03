@@ -358,7 +358,7 @@ Elec2 and Covertype, and 85--100\% pooled across policies
 (Fig.~\ref{fig:split}). Mean inference cost is 779 operations per prediction,
 ranging from 9 (Elec2/SGD) to 8{,}046 (a Covertype/XGBoost run).
 
-The mechanism has a direction. For the 32 kept XGBoost nudges (24 of them on
+The mechanism has a direction, and it is known in the boosting literature that adding iterations enlarges the model and hurts inference throughput~\cite{lin2025}. For the 32 kept XGBoost nudges (24 of them on
 Covertype), the nudge adds $+18.8$ to $+184.9$ operations per prediction, with a
 break-even near 300 predictions against a typical gap of 640--17{,}014
 predictions to the next adaptation; median net cost is negative on three of four
@@ -403,6 +403,51 @@ Cancelling also discards real drift: 23 of 79 cancelled alarms on INSECTS-abrupt
 fall within 1{,}000 rows of a published change point. On Covertype it loses to
 NeverAdapt by 8.6 points of balanced accuracy.
 
+\subsection{An MD3-style cancel rule 	extsc{[diag]}}
+
+To separate the \emph{waiting} from the \emph{cancel rule}, we re-ran the same
+grid with one change: cancel unless the drop in accuracy exceeds $\Theta$
+standard errors of the reference estimate,
+$	extit{reference}-	extit{acc}_W \leq \Theta\sigma$ with $\Theta=2$ and
+$\sigma=\sqrt{p(1-p)/W}$, $p$ the reference accuracy. This approximates
+MD3~\cite{sethi2017}, which uses $Acc_{Ref}-Acc_{Labeled} > \Theta\sigma_{Acc}$
+with $\sigma$ estimated from training data; our $\sigma$ comes from the
+reference estimate over the $W$ rows, and for multi-class streams the metric is
+balanced accuracy, for which the binomial standard error is only approximate.
+This is a comparison, not a verdict: the pre-declared rules were written for
+WaitAndCheck and are not re-used.
+
+egin{table}[t]
+\caption{ConfirmMD3 ($\Theta=2$) beside WaitAndCheck, $W=200$. Training is a
+ratio to the selector; accuracy is the change in whole-stream balanced accuracy
+against the selector. Elec2 and Covertype are not held-out.}
+\label{tab:md3}
+\centering\small
+egin{tabular}{lcccc}
+	oprule
+& \multicolumn{2}{c}{WaitAndCheck} & \multicolumn{2}{c}{ConfirmMD3} \
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Stream & train & $\Delta$acc & train & $\Delta$acc \
+\midrule
+Elec2 & 0.59 & $+2.10$ & 0.54 & $+1.76$ \
+Covertype & 0.31 & $+1.98$ & 0.26 & $+7.35$ \
+INSECTS abrupt & 2.58 & $+9.40$ & 2.11 & $+6.90$ \
+INSECTS gradual & 1.03 & $+6.36$ & 0.92 & $+5.47$ \
+INSECTS incremental & 0.80 & $-1.07$ & 0.48 & $-1.79$ \
+ottomrule
+\end{tabular}
+\end{table}
+
+The looser rule cancels more and trains less on every stream
+(Table~ef{tab:md3}); paired against WaitAndCheck the training reduction is
+significant after Holm correction at $W=500$ on Covertype ($p=0.049$) and Elec2
+($p=0.023$), not at $W=200$. It does not rescue the two failures that decided the
+WaitAndCheck verdict: INSECTS-abrupt still trains more than the selector
+($2.11	imes$), and INSECTS-incremental is further below the selector in accuracy
+($-1.79$ points). Covertype is the exception, where it is both much cheaper and
+5.4 points more accurate than WaitAndCheck --- on a stream that is not held-out
+evidence.
+
 \section{Discussion}
 
 Four things follow for a practitioner. First, \emph{adapt less}: on these
@@ -432,10 +477,10 @@ oracle and its learnability analysis cover two streams only. XGBoost and Gaussia
 NB are deterministic at these settings, so the effective sample is 12 blocks per
 stream and 60 overall rather than 100. Elec2 and Covertype motivated WaitAndCheck
 and are not held-out evidence for it. Inference totals between two measured
-endpoints are interpolated from the logged size trajectory. Finally, an
-MD3-style comparison under the same grid is reported as a diagnostic only
-[TODO: ConfirmMD3 status], and no result here should be read as a statement
-about detectors or repairs outside these configurations.
+endpoints are interpolated from the logged size trajectory. The MD3-style
+comparison uses our own approximation of $\sigma$ and a single $\Theta$, is run
+on the same five streams, and carries no verdict. No result here should be read
+as a statement about detectors or repairs outside these configurations.
 
 \section{Conclusion}
 
@@ -447,8 +492,9 @@ temporal dependence on these benchmarks; and inference, not training, dominates
 the cost. A pre-declared confirm-before-acting rule improved accuracy but failed
 our cost and safety rules.
 
-Future work: an MD3-style confirmation rule evaluated under the same accounting;
-repair-window size as a declared experiment in its own right, since it appears to
+Future work: an MD3-style confirmation rule evaluated under pre-declared rules of
+its own, with $\Theta$ and $\sigma$ treated as design choices rather than fixed
+as here; repair-window size as a declared experiment in its own right, since it appears to
 drive the accuracy effect we attributed to waiting; and more streams, including
 synthetic generators with known change points and stationary controls, where a
 false alarm is false by construction.

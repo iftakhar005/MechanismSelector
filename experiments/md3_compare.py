@@ -163,7 +163,7 @@ def main() -> None:
     (ROOT / "results/analysis/md3_compare.json").write_text(json.dumps(payload, indent=2),
                                                             encoding="utf-8")
 
-    print(f"{'dataset':22}{'arm':20}{'training':>14}{'ratio':>8}{'acc':>8}{'Δacc':>8}"
+    print(f"{'dataset':22}{'arm':20}{'training':>14}{'ratio':>8}{'acc':>8}{'d_acc':>8}"
           f"{'cancelled':>11}{'guard':>8}")
     for ds_, row in per_dataset.items():
         s = row["selector"]

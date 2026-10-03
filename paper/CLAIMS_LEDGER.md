@@ -108,6 +108,21 @@ Accuracy metrics used in the paper:
 | 23 of 79 cancelled alarms within 1,000 rows of a change point | `phase14_waitandcheck.json` | INSECTS-abrupt only | [D] |
 | Loses to NeverAdapt on Covertype by 8.6 points | `phase14_waitandcheck.json` | balanced accuracy | [D] |
 
+## Results 7 — ConfirmMD3 (comparison only)
+
+Rule: cancel unless `reference − acc_W > Θ·σ`, Θ = 2, σ = sqrt(p(1−p)/W).
+Approximates MD3 (Sethi & Kantardzic 2017); our σ comes from the reference
+estimate over the W rows rather than a training-set distribution, and balanced
+accuracy is not a binomial proportion, so σ is approximate on multi-class
+streams. **No verdict is attached.**
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| Training ratios 0.54, 0.26, 2.11, 0.92, 0.48 (Elec2, Covertype, abrupt, gradual, incremental) | `md3_compare.json` | ratio to selector, W = 200 | [D] |
+| Accuracy deltas +1.76, +7.35, +6.90, +5.47, −1.79 | `md3_compare.json` | whole-stream prequential, balanced | [D] |
+| Cheaper than WaitAndCheck on every stream; significant after Holm at W = 500 on Covertype (p = 0.049) and Elec2 (p = 0.023) | `md3_compare.json` | Wilcoxon on training ops, n = 12 per stream, Holm across 5 | [D] |
+| Grids: `results/grid_md3_200/`, `results/grid_md3_500/` | run logs | 100 runs each, ADWIN | [D] |
+
 ## Numbers quoted elsewhere
 
 | Claim | Source | Metric / scope | Label |
@@ -120,7 +135,7 @@ Accuracy metrics used in the paper:
 ## Summary
 
 - **Verdict claims [V]: 3** (the WaitAndCheck verdict and its two rule inputs).
-- **Diagnostic claims [D]: 47.**
+- **Diagnostic claims [D]: 51.**
 - Configuration statements with no claim attached: 3.
 
 ## Withdrawn claims that must not appear
