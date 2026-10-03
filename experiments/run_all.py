@@ -46,6 +46,8 @@ def main() -> int:
     parser.add_argument("--no-energy", action="store_true", help="skip CodeCarbon (secondary metric)")
     parser.add_argument("--detector", choices=("adwin", "ddm"), default="adwin",
                         help="drift detector; DDM is the one-sided contrast condition")
+    parser.add_argument("--confirm-theta", type=float, default=None,
+                        help="MD3-style cancel rule: cancel unless reference - acc_W > theta*sigma")
     parser.add_argument("--wait-rows", type=int, default=0,
                         help="WaitAndCheck(W): wait W labelled rows after an alarm, then check "
                              "the model on exactly those rows before acting. 0 = original behaviour")
@@ -74,7 +76,7 @@ def main() -> int:
             f.write(line + "\n")
 
     config = RunConfig(track_energy=not args.no_energy, detector=args.detector,
-                       wait_rows=args.wait_rows)
+                       wait_rows=args.wait_rows, confirm_theta=args.confirm_theta)
     started = time.perf_counter()
     result = run_grid(args.out, seeds=args.seeds, datasets=args.datasets, models=args.models,
                       policies=args.policies, config=config, log=log)

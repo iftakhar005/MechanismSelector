@@ -152,6 +152,7 @@ class RunConfig:
     energy_country_iso: str = "USA"  # affects only the CO2 figure, which is not recorded
     detector: str = "adwin"  # "adwin" (primary) or "ddm" (one-sided contrast, library defaults)
     wait_rows: int = 0  # WaitAndCheck(W): 0 is the original behaviour, act on the alarm at once
+    confirm_theta: float | None = None  # MD3-style cancel rule: cancel if reference - acc_W <= theta*sigma
 
 
 def alarm_direction(before: float | None, after: float | None) -> str | None:
@@ -359,11 +360,20 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                 # exactly the W rows after the alarm, each already scored before its label was used
                 wait_slice = slice(wait_start - n_init, wait_until + 1 - n_init)
                 wait_acc = float(scorer(y[wait_start:wait_until + 1], preds[wait_slice]))
-                floor = reference_accuracy - config.floor_drop
+                if config.confirm_theta is None:
+                    floor = reference_accuracy - config.floor_drop
+                    cancel = wait_acc >= floor
+                else:
+                    # MD3-style (Sethi & Kantardzic 2017): cancel unless the drop in accuracy
+                    # exceeds theta standard errors of the reference estimate.
+                    p_ref = min(max(reference_accuracy, 0.0), 1.0)
+                    sigma = (p_ref * (1 - p_ref) / max(1, config.wait_rows)) ** 0.5
+                    floor = reference_accuracy - config.confirm_theta * sigma
+                    cancel = (reference_accuracy - wait_acc) <= config.confirm_theta * sigma
                 wait_info = {"wait_start": wait_start,
                              "wait_rows_scored": wait_until + 1 - wait_start,
                              "wait_accuracy": wait_acc}
-                if wait_acc >= floor:                      # cancel: the selector's SKIP branch
+                if cancel:                                 # cancel: the selector's SKIP branch
                     n_cancelled += 1
                     events.append({
                         "dataset": dataset, "model": model_name, "policy_key": policy_key,

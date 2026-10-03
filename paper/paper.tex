@@ -1,0 +1,464 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+
+\title{When Not to Retrain: An Operation-Count Study of Cheap Repairs,
+Spurious Alarms, and Delayed Action in Drift Adaptation}
+
+\author{Author names --- United International University}
+
+\maketitle
+
+\begin{abstract}
+Retraining a deployed model after a drift alarm is the dominant recurring compute
+cost of keeping it alive. Recent work reports energy savings from drift-triggered
+retraining, \emph{provided a reliable data change detector is in place}. We
+examine that condition. We build a cost-accounted evaluation of what happens
+\emph{after} a detector fires: hardware-independent operation counts for both
+training and inference, a frozen grid of 500 runs (5 streams $\times$ 4 model
+families $\times$ 5 policies $\times$ 5 seeds), a replicate grid under a second
+detector, and a full-information oracle that executes every available action at
+every alarm. A cost-ordered ``try the cheap repair first'' policy does not win:
+it is less accurate than always rebuilding (median $-1.3$ points) and not
+reliably cheaper than a fixed schedule, and half of its rebuilds are forced by
+its own minimum-window guard. On these benchmarks most of the oracle's advantage
+comes from \emph{not acting}: SKIP accounts for roughly 80\% of it, and only
+27\% of alarms on the one stream with published change points fall within 1{,}000
+rows of one. Inference, not training, is 81--100\% of operations in our setting.
+A pre-declared confirm-before-acting rule improves balanced accuracy but fails
+our stated cost and safety rules. We report operation counts, never joules.
+\end{abstract}
+
+\begin{IEEEkeywords}
+concept drift, model retraining, drift detection, cost accounting, measurement study
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+A model in production decays as the data changes. The standard remedy is to
+monitor a drift detector and retrain when it fires, for the operational life of
+the system. Because that loop repeats, its compute cost accumulates in a way the
+initial training cost does not.
+
+Poenaru-Olaru et al.~\cite{poenaruolaru2025} measure this directly and report
+that retraining on recent data only can use up to 25\% less energy, and that
+drift-triggered retraining can save up to 40\% ``provided a reliable data change
+detector is in place.'' That conditional clause is the subject of this paper. We
+do not propose a better detector or a better repair. We ask what the condition is
+worth: on standard benchmarks, how much of the achievable gain survives when the
+alarms themselves are examined, and where the cost actually sits.
+
+Our answer, in one sentence: on these benchmarks most of the achievable gain
+comes from \emph{not acting} on alarms, and the cost that dominates is inference,
+not training.
+
+\textbf{Contributions.}
+\begin{enumerate}
+\item \textbf{A cost-accounted evaluation setup.} Hardware-independent operation
+counts for training \emph{and} inference; a frozen 500-run grid (5 streams
+$\times$ 4 families $\times$ 5 policies $\times$ 5 seeds) replicated under a
+second detector; and a full-information oracle with a per-branch decomposition.
+\item \textbf{A negative result for cost-ordered ``try cheap repair first''
+adaptation.} The selector is not the best policy; cheap repairs fail in
+family-specific ways (inert for Random Forest and Gaussian NB, overwriting for
+SGD and XGBoost); and small post-alarm windows trigger guard-forced rebuilds.
+\item \textbf{Alarm validity under cost.} Only 27\% of ADWIN alarms on
+INSECTS-abrupt fall within 1{,}000 rows of a published change point; 40\%
+(ADWIN) and 69\% (DDM) of alarms on Elec2 and Covertype vanish under
+block-shuffling; and a no-drift Markov null with matched lag-1 dependence
+reproduces the observed falling-error share (0.421 vs 0.416). This extends
+Bifet's temporal-dependence result~\cite{bifet2017} to cost; it does not
+discover it.
+\item \textbf{An oracle decomposition.} About 80\% of the oracle's advantage
+comes from SKIP. ``Always SKIP'' captures 95.3\% and 78.1\% of the gap at
+$\lambda=10^2$ and $10^3$ but goes negative at $\lambda \geq 10^4$. Oracle
+decisions do not transfer across streams from simple features.
+\item \textbf{Inference dominates cost} in our setting (81--100\% of
+operations). XGBoost warm-start nudges grow the model by $+18.8$ to $+184.9$
+operations per prediction, while the add-$k$-retire-$k$ Random Forest nudge is
+flat; break-even is near 300 predictions.
+\item \textbf{WaitAndCheck}, a supervised instance of the confirm-before-acting
+idea of MD3~\cite{sethi2017}, evaluated under rules fixed in advance. The
+verdict is \textbf{NO}. Diagnostically it raises balanced accuracy, mostly by
+enlarging repair windows rather than by cancelling.
+\end{enumerate}
+
+Throughout, results are labelled \textsc{[verdict]} when judged against rules
+fixed before the data were seen, and \textsc{[diag]} when they are measurements
+that carry no verdict. Thresholds in our decision rules are our own choices, not
+standard values.
+
+\section{Background and Related Work}
+
+\textbf{Detectors.} ADWIN~\cite{adwin2007} maintains a variable-length window and
+flags a significant change in the monitored error rate in either direction.
+DDM~\cite{ddm2004} tracks the cumulative error rate since its own last reset and
+fires when it exceeds the best rate seen by three standard deviations. We use
+both through river~\cite{river2021}.
+
+\textbf{Energy-aware retraining.} The anchor paper~\cite{poenaruolaru2025}
+optimises retraining frequency and data scope and measures training, detection
+and inference energy with CodeCarbon for Random Forest. Omar et
+al.~\cite{omar2024} measure detector energy only. We count operations instead of
+estimating energy, because software energy estimators can err by up to
+40\%~\cite{fischer2025}.
+
+\textbf{Benchmark temporal dependence.} Bifet~\cite{bifet2017} showed that a
+No-Change classifier is hard to beat on Electricity and Covertype, attributing
+this to temporal dependence; see also~\cite{bifet2013,zliobaite2013}. Our alarm
+analysis is consistent with that line and adds the cost consequence.
+
+\textbf{Confirming an alarm.} MD3~\cite{sethi2017} labels the next $N$ samples
+after a suspected drift and retrains only if $Acc_{Ref}-Acc_{Labeled} >
+\Theta\sigma_{Acc}$, discarding the labelled samples otherwise; the idea is
+extended in~\cite{sethi2018}. Our WaitAndCheck is a supervised instance of the
+same idea and is not claimed as new.
+
+\textbf{Retraining decisions.} CARA~\cite{mahadevan2024} trades staleness
+against an abstract retraining cost; CALIPER~\cite{caliper2026} tests post-drift
+data sufficiency; Dasari~\cite{dasari2026} finds that with per-sample incremental
+updates no retraining policy beats no-retrain by a practically significant margin.
+Our position is complementary: we bring operation-level cost accounting over both
+training and inference, and an oracle decomposition, to supervised error-rate
+detectors.
+
+\section{Method}
+
+\subsection{Streams and models}
+
+Table~\ref{tab:streams} lists the five streams, loaded in their original temporal
+order and never shuffled. Four model families are used: XGBoost~\cite{xgboost},
+Random Forest, SGD and Gaussian NB (scikit-learn~\cite{sklearn}).
+
+\begin{table}[t]
+\caption{Streams. Covertype is a temporal prefix.}
+\label{tab:streams}
+\centering\small
+\begin{tabular}{lrrrl}
+\toprule
+Stream & Rows & Feat. & Cls. & Source \\
+\midrule
+Elec2 & 45{,}312 & 8 & 2 & \cite{harries1999} \\
+INSECTS abrupt & 52{,}848 & 33 & 6 & \cite{souza2020} \\
+INSECTS gradual & 24{,}150 & 33 & 6 & \cite{souza2020} \\
+INSECTS incremental & 57{,}018 & 33 & 6 & \cite{souza2020} \\
+Covertype & 100{,}000 & 54 & 7 & \cite{covtype1999} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Mechanisms}
+
+Three actions are available at an alarm. \textbf{Skip} returns the model
+untouched at zero cost. \textbf{Rebuild} trains a fresh model of the same family
+on the full window. \textbf{Nudge} is each family's cheapest incremental update:
+append $\lceil 0.05\times100\rceil=5$ boosting rounds for XGBoost; add 5 trees
+and retire the 5 oldest for Random Forest, so the forest stays at 100 trees; one
+\texttt{partial\_fit} epoch for SGD and Gaussian NB. Measured nudge cost is 4\%
+of a rebuild for the tree families, 0.6--1.0\% for SGD and 80\% for Gaussian NB,
+whose rebuild is already a single pass and which therefore acts as a negative
+control.
+
+Windows frequently lack classes (92\% of 1{,}000-row Covertype windows), so every
+\texttt{fit} appends one zero-weight placeholder row per missing class; these
+carry no probability mass and are never charged as cost.
+
+\subsection{The selector and the baselines}
+
+\textsc{MechanismSelector} (Fig.~\ref{fig:flow}) splits the alarm window by time
+into an older 80\% training part and the newest 20\% as holdout. If the window is
+below the minimum (50 holdout or 100 training rows, i.e.\ about 250 rows) it does
+not trust any check and rebuilds, recording a \emph{guard-forced} rebuild. Else
+it skips if the incoming model is at or above the floor (reference accuracy minus
+2 points), otherwise nudges a copy and keeps it if it clears the floor, otherwise
+rebuilds and is charged for both. The reference is measured causally on the next
+200 rows the stream produces after each adaptation, never on the rebuild's own
+training data.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/f1_decision_flow.pdf}
+\caption{The selector's decision at one alarm.}
+\label{fig:flow}
+\end{figure}
+
+Four baselines share \emph{identical} mechanisms and the same temporal split, so
+any difference is attributable to the decision rule: NeverAdapt, AlwaysRebuild,
+AlwaysNudge and FixedSchedule ($k=3$: nudge, nudge, rebuild).
+
+\subsection{Cost accounting}
+
+Training cost is $\textit{work units} = \textit{passes} \times \textit{rows}$,
+with the pass count read from the fitted model (boosting rounds added, trees
+added, \texttt{n\_iter\_} epochs, or one for a closed-form fit) rather than
+assumed; warm-started fits are counted as a delta against a snapshot taken
+before the fit. Inference cost is counted per prediction: tree node visits for
+XGBoost and Random Forest (leaf depth per round; \texttt{decision\_path} length
+per tree), and parameter reads for SGD and Gaussian NB. Units are comparable
+within a family, not across families, and operation counts are not joules.
+
+\subsection{The oracle}
+
+At every alarm on the selector's real trajectory we snapshot the model, window,
+reference and position, and execute all four branches (SKIP, NUDGE, REBUILD,
+DEFER) from that snapshot, scoring each over a horizon $H$ (rows to the next
+alarm, capped at 1{,}000; $H=500$ and $1{,}000$ as sensitivity). Each branch is
+charged $\textit{Ops}(a)$ = training + evaluation + inference over the horizon,
+and the cost of an action is
+\begin{equation}
+J(a) = \textit{Ops}(a) + \lambda\,\textit{Errors}(a),
+\end{equation}
+reported over a grid of $\lambda$ rather than at one value. $O_1$ is the best of
+SKIP/NUDGE/REBUILD and $G_1 = \textit{cost(selector)} - \textit{cost}(O_1)$. In a
+per-alarm frame DEFER coincides with SKIP, so $G_2$ cannot exceed $G_1$ here;
+that limitation is stated rather than worked around.
+
+\subsection{WaitAndCheck and its pre-declared rules}
+
+On an alarm, WaitAndCheck$(W)$ takes no action and keeps predicting for $W$
+labelled rows; further alarms are ignored and counted, the detector is not reset,
+and the rows enter the buffer. It then scores the model on exactly those $W$ rows
+with the floor's metric: if the score is at or above the floor it cancels the
+alarm (zero training), otherwise it hands the enlarged buffer to the unchanged
+selector. $W=200$ is primary, $W=500$ secondary. The rules, fixed before the runs:
+(1) training operations $\leq 0.75\times$ the selector's on $\geq 4$ of 5 streams;
+(2) balanced accuracy $\geq$ selector $-1$ point on $\geq 4$ of 5; (3) a hard
+safety rule on INSECTS gradual and incremental, where a failure makes the verdict
+NO regardless. Elec2 and Covertype motivated the experiment and are therefore not
+held-out evidence.
+
+\subsection{Statistics}
+
+XGBoost and Gaussian NB are deterministic at these settings, verified on the
+grid, so their five seeds are one observation: blocks are
+(stream $\times$ family $\times$ seed) with those two families at seed 0, giving
+$n=60$ overall and $n=12$ per stream. We use Friedman with Nemenyi, and paired
+Wilcoxon signed-rank with Holm correction; $n=20$ (one observation per cell) is
+reported as a stricter check, and conclusions that do not survive it are marked.
+
+\section{Results}
+
+\subsection{The selector does not win \textsc{[diag]}}
+
+Across the 500-run grid, Friedman finds no significant difference between the
+five policies in mean prequential accuracy ($p=0.18$ at $n=60$; $p=0.45$ at
+$n=20$), while cost separates them sharply ($p=2.9\times10^{-43}$). The selector
+is significantly \emph{less} accurate than AlwaysRebuild (median $-1.3$ points,
+Holm $p=0.017$) while being much cheaper (cheaper in 51 of 57 non-tied blocks,
+rank-biserial $r=-0.96$). It is \emph{more} expensive than FixedSchedule at
+$n=60$ (Holm $p=0.0087$), a result that does not survive the stricter $n=20$
+check ($p=0.088$) or the DDM replicate ($p=0.065$). Across 20 cells, never
+adapting at all was at least as accurate at zero training cost in 10.
+
+Pooling hides the structure: within each stream the policies differ
+significantly, with adaptation gaining 20.3 and 36.2 points of median accuracy
+over NeverAdapt on INSECTS gradual and incremental and losing 14.8 points on
+Covertype. The pooled null is cancellation across streams, a Simpson's-paradox
+effect, which is why we report per-stream results throughout.
+
+\subsection{How cheap repair fails \textsc{[diag]}}
+
+Of the selector's 2{,}830 adaptations, 841 were skips, 164 kept nudges and 1{,}825
+rebuilds; only 15.2\% of 1{,}079 nudge attempts cleared the floor. Of the 915
+failures, 69\% missed by more than 10 points, and in that group the model was
+already a median 22.5 points below its floor when the alarm fired.
+
+The failures differ in kind by family, measured at the level of predictions
+rather than accuracy: a Random Forest nudge changed \emph{no} prediction in 60\%
+of 1{,}876 nudges and Gaussian NB in 77\% of 364, whereas SGD changed a median
+9.4\% of predictions for a median accuracy gain of 0.0 points, and only XGBoost
+had a positive median gain ($+2.5$ points over 212 nudges). Refitting the nudge on
+the full window instead of the older 80\% does not change this (median 0.00
+points over 1{,}225 paired alarms; XGBoost $+2.28$).
+
+Half of the selector's rebuilds, 910 of 1{,}825, were forced by its own
+minimum-window guard rather than by a failed nudge --- 32\% of all its
+adaptations. The runner clears the buffer after each adaptation, so a
+closely-following alarm arrives on a window too small to judge.
+
+\subsection{What the alarms are \textsc{[diag]}}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/f2_alarm_validity.pdf}
+\caption{ADWIN alarms with the model never changed: observed, under a no-drift
+Markov null with the stream's own lag-1 dependence, and after shuffling within
+blocks of 50 rows (Elec2 and Covertype only). Log scale.}
+\label{fig:alarms}
+\end{figure}
+
+On INSECTS-abrupt, whose change points are published~\cite{souza2020}, only
+27.4\% of ADWIN alarms fall within 1{,}000 rows of one; the share rises with
+tolerance but stays a minority. Destroying local label dependence by shuffling
+within blocks of 50 rows removes 40\% of ADWIN alarms and 69\% of DDM alarms on
+Elec2 and Covertype, where the error stream's lag-1 autocorrelation is $+0.58$ to
+$+0.90$ (Fig.~\ref{fig:alarms}). An i.i.d.\ null produced \emph{no} ADWIN alarms
+at all, so we built a two-state Markov null with each cell's own error rate and
+autocorrelation and no drift anywhere: it reproduces the observed falling-error
+share almost exactly (0.421 against 0.416 observed). The share of alarms that
+fire on a falling error rate is therefore what an autocorrelation-driven alarm
+population produces.
+
+Testing the model against its own reference rather than comparing raw estimates,
+38.1\% of 2{,}515 ADWIN alarms fired while the model was \emph{significantly}
+above the reference measured on the 200 rows after the previous adaptation
+(36.5\% with an effective-sample-size correction), against the 5\% such a test
+yields by construction. Under DDM the same test gives 8.6\% and 3.5\%, which is
+indistinguishable from the test's own rate; this is an ADWIN result only. The
+difference has a mechanism: DDM compares against the minimum cumulative error
+since its own last reset, which sits below our reference error in 79\% of its
+alarms by a median 14.7 points.
+
+\subsection{The oracle: most of the gain is not acting \textsc{[diag]}}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/f3_oracle_branches.pdf}
+\caption{Where the oracle's advantage over the selector comes from, per stream,
+at $\lambda=10^3$, horizon ``next''.}
+\label{fig:oracle}
+\end{figure}
+
+On Elec2 and Covertype under ADWIN (2{,}595 alarms), $G_1$ is 16.8--25.5\% and
+24.8--37.1\% of the selector's cost respectively, across the whole $\lambda$
+grid --- far above the 5\% we had set as the threshold for ``no decision model
+can help''. Fig.~\ref{fig:oracle} shows where it comes from: SKIP accounts for
+80.8\% (Covertype) and 78.9\% (Elec2) of the advantage, NUDGE about 16\% and
+REBUILD 3--5\%.
+
+An ``always SKIP'' rule captures 95.3\% of $G_1$ at $\lambda=10^2$ and 78.1\% at
+$\lambda=10^3$ (in-sample reference values), but $-3.6\%$ at $\lambda=10^4$: once
+errors are priced heavily the choice of action does matter. At that point,
+however, a fitted model does not transfer: trained on one stream and tested on
+the other it captures $-0.122$ and $+0.162$ of $G_1$ at $\lambda=10^4$. Within a
+stream across seeds it holds on Covertype (0.645) but not Elec2 (0.085).
+
+\subsection{Inference dominates the cost \textsc{[diag]}}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/f4_cost_split.pdf}
+\caption{Training as a share of total operations, by family and policy, over
+whole streams (mean horizon 50{,}279 predictions per run). The remainder is
+inference.}
+\label{fig:split}
+\end{figure*}
+
+Over a whole stream, training is a small fraction of the operations a policy
+causes: inference accounts for 81--90\% of the selector's combined operations on
+Elec2 and Covertype, and 85--100\% pooled across policies
+(Fig.~\ref{fig:split}). Mean inference cost is 779 operations per prediction,
+ranging from 9 (Elec2/SGD) to 8{,}046 (a Covertype/XGBoost run).
+
+The mechanism has a direction. For the 32 kept XGBoost nudges (24 of them on
+Covertype), the nudge adds $+18.8$ to $+184.9$ operations per prediction, with a
+break-even near 300 predictions against a typical gap of 640--17{,}014
+predictions to the next adaptation; median net cost is negative on three of four
+cells with data. The Random Forest add-$k$-retire-$k$ nudge adds $+4.8$, $+8.0$,
+$+1.3$, $-0.2$ and $-2.1$ operations per prediction --- flat, as designed, which
+makes it a clean control only once growth is separated from the window-size
+effect. The sample is small and we present this as a mechanism with limited
+evidence on lifetime net cost.
+
+A related diagnostic: models rebuilt on 1{,}000-row windows are cheaper to query
+than the initial model trained on 3{,}624--8{,}000 rows, but a control model
+trained on 1{,}000 rows from the \emph{initial} era is equally cheap, so this is a
+window-size artifact rather than a property of rebuilding.
+
+\subsection{WaitAndCheck \textsc{[verdict: no]}}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/f5_waitandcheck.pdf}
+\caption{WaitAndCheck ($W=200$) against the selector per stream: change in
+balanced accuracy (top) and training operations as a ratio (bottom). Grey bars
+mark the two streams that motivated the experiment and are not held-out
+evidence; dashed lines are our pre-declared thresholds.}
+\label{fig:wac}
+\end{figure}
+
+The verdict is \textbf{NO}. Rule 1 fails: training operations reach
+$\leq 0.75\times$ the selector's on only 2 of 5 streams (Covertype 0.494, Elec2
+0.578, INSECTS incremental 0.867, gradual 1.188, abrupt 3.235). Rule 3, the hard
+safety rule, also fails: INSECTS-incremental is $-1.07$ points, which is near the
+$-1$ point bar but fails the pre-declared rule. Rule 2 passes (4 of 5).
+
+Diagnostically the picture is more favourable and worth stating. Balanced
+accuracy rises on 4 of 5 streams ($+1.98$ to $+9.40$ points; median $+2.8$,
+Holm $p=0.0004$ pooled), significantly on INSECTS abrupt (Holm $p=0.0024$) and
+gradual (Holm $p=0.0098$) per stream. But the gain is not mainly from
+cancelling: guard-forced rebuilds collapse from 752 to 40 on Covertype and 143 to
+10 on Elec2 because the waited rows enlarge the repair window, and INSECTS-abrupt
+is significantly \emph{worse} on training (median $+332{,}806$ work units, Holm
+$p=0.0024$) because each adaptation it still takes is over a bigger window.
+Cancelling also discards real drift: 23 of 79 cancelled alarms on INSECTS-abrupt
+fall within 1{,}000 rows of a published change point. On Covertype it loses to
+NeverAdapt by 8.6 points of balanced accuracy.
+
+\section{Discussion}
+
+Four things follow for a practitioner. First, \emph{adapt less}: on these
+benchmarks the largest single lever in the oracle is skipping alarms, and never
+adapting was at least as accurate as the adaptive policies at zero training cost
+in half the cells. Second, \emph{check what the detector is reacting to}: a large
+share of alarms here is produced by temporal dependence rather than by concept
+change, which is a property of the benchmarks as much as of the detectors.
+Third, \emph{count inference}: at realistic horizons it is the dominant term, and
+a repair that grows the model can cost more over its lifetime than the training
+it saved. Fourth, \emph{repair-window size matters for accuracy}: most of
+WaitAndCheck's accuracy gain came from adapting on larger windows, not from
+cancelling alarms, which suggests the window the repair sees is worth studying
+directly.
+
+\section{Limitations}
+
+Five streams, one configuration of each detector (ADWIN $\delta=0.002$ two-sided
+on the raw error stream; DDM at library defaults), and four model families. We
+count operations, not joules: our cost numbers cannot be converted to energy, and
+training and inference operations are different quantities that we report
+separately. Only 164 nudges were kept by the selector and only 32 of those were
+XGBoost, so the growth analysis rests on a small sample. The oracle decides per
+alarm with foresight and is therefore an upper bound; DEFER coincides with SKIP
+in that frame, so the guard question it was meant to answer is untested. The
+oracle and its learnability analysis cover two streams only. XGBoost and Gaussian
+NB are deterministic at these settings, so the effective sample is 12 blocks per
+stream and 60 overall rather than 100. Elec2 and Covertype motivated WaitAndCheck
+and are not held-out evidence for it. Inference totals between two measured
+endpoints are interpolated from the logged size trajectory. Finally, an
+MD3-style comparison under the same grid is reported as a diagnostic only
+[TODO: ConfirmMD3 status], and no result here should be read as a statement
+about detectors or repairs outside these configurations.
+
+\section{Conclusion}
+
+We measured what happens after a drift alarm, with operation counts for both
+training and inference, a frozen grid, and an oracle. A cost-ordered
+try-cheap-repair-first policy is not the best choice; most of the oracle's
+advantage is in not acting; the alarms themselves are largely explained by
+temporal dependence on these benchmarks; and inference, not training, dominates
+the cost. A pre-declared confirm-before-acting rule improved accuracy but failed
+our cost and safety rules.
+
+Future work: an MD3-style confirmation rule evaluated under the same accounting;
+repair-window size as a declared experiment in its own right, since it appears to
+drive the accuracy effect we attributed to waiting; and more streams, including
+synthetic generators with known change points and stationary controls, where a
+false alarm is false by construction.
+
+\section*{Artifact}
+
+Code, the frozen grids, every analysis file, and a claims ledger mapping each
+number in this paper to its source are available in the project repository.
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}

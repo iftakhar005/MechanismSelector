@@ -1,0 +1,132 @@
+# Claims ledger
+
+Every number in `paper.tex` with its source file, metric, scope and label.
+**[V]** = pre-declared verdict (judged against rules fixed before the results
+were seen). **[D]** = diagnostic (a measurement that carries no verdict).
+
+Shared scope unless stated otherwise: 5 streams (Elec2, INSECTS abrupt/gradual/
+incremental, Covertype 100k prefix) × 4 families (XGBoost, RandomForest, SGD,
+GaussianNB) × 5 seeds, ADWIN δ = 0.002 two-sided on the raw 0/1 error stream.
+Deterministic families (XGBoost, GaussianNB) contribute seed 0 only, so n = 60
+blocks overall and n = 12 per stream.
+
+Accuracy metrics used in the paper:
+- **whole-stream prequential, balanced** — balanced on multi-class streams; the
+  metric the floor uses. Default for policy comparisons.
+- **whole-stream prequential, plain** — plain 0/1.
+- **horizon accuracy, plain** — post-alarm rows only, pooled over families
+  (Phase 10 oracle tables).
+
+---
+
+## Method section
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| 500-run grid; 5 × 4 × 5 × 5 | `results/grid/grid.csv` | run count | [D] |
+| Replicate grid under DDM | `results/grid_ddm/grid.csv` | run count (500) | [D] |
+| Nudge = 4% of a rebuild (trees), 0.6–1.0% (SGD), 80% (GNB) | `results/mechanism_ratios.json` | work units, per family | [D] |
+| 92% of 1,000-row Covertype windows lack a class | `src/mechanisms.py` docstring, measured in Phase 3 | share of windows | [D] |
+| Guard thresholds 50 holdout / 100 train ≈ 250-row window | `src/selector.py` | configuration | — |
+| Floor = reference − 2 points; reference from next 200 rows; buffer cap 1,000 | `src/runner.py`, `src/selector.py` | configuration | — |
+| n = 60 overall, n = 12 per stream | `results/analysis/phase7.json` (`determinism_groups_verified` = 50) | block counts | [D] |
+
+## Results 1 — the selector does not win
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| Friedman accuracy p = 0.18 (n60), 0.45 (n20) | `phase7.json` | whole-stream prequential, balanced on multi-class | [D] |
+| Friedman cost p = 2.9e−43 | `phase7.json` | total work units | [D] |
+| Selector vs AlwaysRebuild: median −1.3 points, Holm p = 0.017 | `phase7.json` | accuracy, n = 60 | [D] |
+| Selector cheaper in 51 of 57 blocks, r = −0.96 | `phase7.json` | work units, n = 60 | [D] |
+| Selector dearer than FixedSchedule, Holm p = 0.0087; n20 p = 0.088; DDM p = 0.065 | `phase7.json`, `ddm_contrast.json` | work units | [D] |
+| NeverAdapt at least as accurate at zero cost in 10 of 20 cells | `detector_premise.json` | accuracy, per cell | [D] |
+| Per-stream medians: +20.3 (gradual), +36.2 (incremental), −14.8 (Covertype) | `detector_premise.json` | AlwaysRebuild − NeverAdapt, accuracy points | [D] |
+
+## Results 2 — how cheap repair fails
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| 2,830 adaptations: 841 SKIP, 164 NUDGE, 1,825 REBUILD | `results/grid/grid.csv` | counts, selector, 60 runs | [D] |
+| 15.2% of 1,079 nudge attempts cleared the floor | `grid.csv` | counts | [D] |
+| 69% of 915 failures missed by > 10 points; median deficit 22.5 points in that group | `results/grid/events/` | floor − nudged accuracy, points | [D] |
+| RF changed no prediction in 60% of 1,876 nudges; GNB 77% of 364 | `phase7.json` → `event_split` | prediction change, AlwaysNudge | [D] |
+| SGD median 9.4% of predictions changed, 0.0 point gain; XGB +2.5 points over 212 | `phase7.json` → `event_split` | per-nudge medians | [D] |
+| Full-window nudge: median 0.00 points over 1,225 paired alarms; XGB +2.28 | `nudge_window_diagnostic.json` | paired per-alarm, next-200-row scoring | [D] |
+| 910 of 1,825 rebuilds guard-forced (32% of adaptations) | `grid.csv` (`n_degraded`) | counts | [D] |
+
+## Results 3 — what the alarms are
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| 27.4% of ADWIN alarms within 1,000 rows of a change point | `phase9_change_points.json` | NeverAdapt, INSECTS-abrupt only, tolerance 1,000 | [D] |
+| Change points 14352; 19500; 33240; 38682; 39510 | Souza et al. 2020, Table 2 (arXiv:2505.00113 p. 37), verified | ground truth | — |
+| Block-shuffling removes 40% (ADWIN) / 69% (DDM) of alarms | `phase9_block_shuffle.json` | Elec2 + Covertype only, blocks of 50 | [D] |
+| Error-stream lag-1 autocorrelation +0.58 to +0.90 | `phase9_block_shuffle.json` | Elec2 + Covertype | [D] |
+| AR(1) no-drift null reproduces falling-error share: 0.421 vs 0.416 observed | `phase9_direction_null.json` | ADWIN, NeverAdapt, all 5 streams | [D] |
+| i.i.d. null produced 0 ADWIN alarms | `phase9_direction_null.json` | 20 cells | [D] |
+| 38.1% of 2,515 ADWIN alarms significantly above reference; 36.5% n_eff-corrected | `phase9_reference_noise.json` | one-sided two-proportion test, α = 0.05, plain accuracy | [D] |
+| DDM equivalent 8.6% / 3.5% | `phase9_reference_noise.json` | same test, DDM grid | [D] |
+| DDM `p_min` below our reference error in 79% of alarms, median 14.7 points | `phase9_ddm_internals.json` | NeverAdapt + DDM, 20 cells | [D] |
+
+## Results 4 — the oracle
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| G1 = 16.8–25.5% (Elec2), 24.8–37.1% (Covertype) | `phase10_per_stream.json` | share of selector's J, λ grid, horizon "next" | [D] |
+| 2,595 alarms | `phase10_oracle.json` | ADWIN, Elec2 + Covertype, seeds 0–4 | [D] |
+| SKIP 80.8% (Covertype) / 78.9% (Elec2) of the advantage; NUDGE ~16%; REBUILD 3–5% | `phase10_per_stream.json` | λ = 1e3, horizon "next" | [D] |
+| Always-SKIP captures 95.3% / 78.1% / −3.6% at λ = 1e2 / 1e3 / 1e4 | `phase10_summary.json` | **in-sample reference values**, labelled as such | [D] |
+| Cross-stream transfer −0.122 / +0.162 at λ = 1e4 | `phase10_learnability.json` | out-of-sample, GBM, train one stream test the other | [D] |
+| Leave-one-seed-out 0.645 (Covertype) / 0.085 (Elec2) at λ = 1e4 | `phase10_learnability.json` | out-of-sample | [D] |
+
+## Results 5 — inference dominates
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| Inference 81–90% of the selector's combined ops | `phase10_per_stream.json` | Elec2 + Covertype, horizon "next" | [D] |
+| Inference 85–100% pooled across policies | `phase9_inference_cost.json` | whole streams, all 5, mean horizon 50,279 predictions/run | [D] |
+| Mean 779 operations per prediction (range 9–8,046) | `phase9_inference_cost.json` + `grid.csv` | per run, divided by that run's stream length | [D] |
+| 32 kept XGBoost nudges (24 Covertype); 17 RF | `nudge_growth_diagnostic.json` | selector trajectory, all seeds | [D] |
+| XGBoost nudge adds +18.8 to +184.9 ops/prediction | `nudge_growth_diagnostic.json` | growth term, per-cell medians | [D] |
+| RF adds +4.8, +8.0, +1.3, −0.2, −2.1 ops/prediction | `nudge_growth_diagnostic.json` | growth term, per-cell medians | [D] |
+| Break-even ≈ 300 predictions; gaps 640–17,014 | `nudge_growth_diagnostic.json` | per-cell medians | [D] |
+| Rebuilt-model cheapness is a window-size artifact (control/initial 0.57–0.88) | `inference_audit.json` | ops/prediction on a common 1,000-row probe | [D] |
+
+## Results 6 — WaitAndCheck
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| **Verdict NO** (rule 1 fails 2 of 5; rule 3 fails) | `phase14_waitandcheck.json` | pre-declared rules, W = 200 | **[V]** |
+| Training ratios 0.494, 0.578, 0.867, 1.188, 3.235 | `phase14_waitandcheck.json` | median over family × seed, per stream | **[V]** input |
+| INSECTS-incremental −1.07 points ("near, but fails the pre-declared rule") | `phase14_waitandcheck.json` | whole-stream prequential, balanced | **[V]** input |
+| Accuracy +1.98 to +9.40 points on 4 of 5 | `phase14_waitandcheck.json` | whole-stream prequential, balanced | [D] |
+| Pooled median +2.8 points, Holm p = 0.0004 | `phase14_waitandcheck.json` | Wilcoxon, n = 60 | [D] |
+| Per stream: abrupt Holm p = 0.0024 (accuracy), gradual 0.0098 | `phase14_breakdown.json` | Wilcoxon, n = 12 per stream, Holm across 5 | [D] |
+| INSECTS-abrupt training +332,806 median, Holm p = 0.0024 | `phase14_breakdown.json` | work units | [D] |
+| Guard-forced rebuilds 752 → 40 (Covertype), 143 → 10 (Elec2) | `phase14_waitandcheck.json` | counts, W = 200 | [D] |
+| 23 of 79 cancelled alarms within 1,000 rows of a change point | `phase14_waitandcheck.json` | INSECTS-abrupt only | [D] |
+| Loses to NeverAdapt on Covertype by 8.6 points | `phase14_waitandcheck.json` | balanced accuracy | [D] |
+
+## Numbers quoted elsewhere
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| Candidate A (DEFER-perfect) −52.2% / −44.7% training ops | `phase10_per_stream.json` | Covertype / Elec2, oracle foresight (upper bound) | [D] |
+| Candidate A accuracy +3.30 / +2.72 points plain; +2.80 / +2.55 balanced | `phase10_candidate_a_balanced.json` | post-alarm horizon rows, pooled over families | [D] |
+
+---
+
+## Summary
+
+- **Verdict claims [V]: 3** (the WaitAndCheck verdict and its two rule inputs).
+- **Diagnostic claims [D]: 47.**
+- Configuration statements with no claim attached: 3.
+
+## Withdrawn claims that must not appear
+
+These were measured, found wrong, and withdrawn. They appear nowhere in the paper:
+the raw "45% of alarms on healthy models" framing; the DDM "above reference"
+claim; "~56k operations per prediction"; "compact rebuild" as a method (it is a
+window-size artifact, reported as a diagnostic only); and "false alarms carry
+most of the falling-error share".
