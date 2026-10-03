@@ -40,7 +40,7 @@ O1_ACTIONS = ("SKIP", "NUDGE", "REBUILD")
 
 
 def j(row_h: dict, action: str, lam: float) -> float:
-    ops, errs = row_h[action]
+    ops, errs = row_h[action][0], row_h[action][1]
     return ops + lam * errs
 
 
