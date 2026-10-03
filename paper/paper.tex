@@ -18,21 +18,21 @@ Spurious Alarms, and Delayed Action in Drift Adaptation}
 \maketitle
 
 \begin{abstract}
-Retraining a deployed model after a drift alarm is the dominant recurring compute
-cost of keeping it alive. Recent work reports energy savings from drift-triggered
-retraining, \emph{provided a reliable data change detector is in place}. We
-examine that condition. We build a cost-accounted evaluation of what happens
+Recent work reports energy savings from retraining only when drift is detected,
+provided a reliable data change detector is in place. We examine that condition. We build a cost-accounted evaluation of what happens
 \emph{after} a detector fires: hardware-independent operation counts for both
 training and inference, a frozen grid of 500 runs (5 streams $\times$ 4 model
 families $\times$ 5 policies $\times$ 5 seeds), a replicate grid under a second
 detector, and a full-information oracle that executes every available action at
 every alarm. A cost-ordered ``try the cheap repair first'' policy does not win:
-it is less accurate than always rebuilding (median $-1.3$ points) and not
-reliably cheaper than a fixed schedule, and half of its rebuilds are forced by
-its own minimum-window guard. On these benchmarks most of the oracle's advantage
-comes from \emph{not acting}: SKIP accounts for roughly 80\% of it, and only
-27\% of alarms on the one stream with published change points fall within 1{,}000
-rows of one. Inference, not training, is 81--100\% of operations in our setting.
+it is less accurate than always rebuilding (median $-1.3$ points of mean
+prequential accuracy, balanced on multi-class streams) and not reliably cheaper
+than a fixed schedule, and half of its rebuilds are forced by its own
+minimum-window guard. On the two streams where we ran the oracle (Elec2,
+Covertype; ADWIN), roughly 80\% of its advantage comes from not acting. On
+INSECTS-abrupt, the stream with published change points, only 27\% of ADWIN
+alarms fall within 1{,}000 rows of one. Inference, not training, is 81--100\% of
+operations in our setting.
 A pre-declared confirm-before-acting rule improves balanced accuracy but fails
 our stated cost and safety rules. We report operation counts, never joules.
 \end{abstract}
@@ -45,8 +45,9 @@ concept drift, model retraining, drift detection, cost accounting, measurement s
 
 A model in production decays as the data changes. The standard remedy is to
 monitor a drift detector and retrain when it fires, for the operational life of
-the system. Because that loop repeats, its compute cost accumulates in a way the
-initial training cost does not.
+the system. That loop repeats for as long as the model is deployed, so its cost
+accumulates in a way the one-off initial training does not --- though, as we
+show, the retraining itself is not where most of the operations go.
 
 Poenaru-Olaru et al.~\cite{poenaruolaru2025} measure this directly and report
 that retraining on recent data only can use up to 25\% less energy, and that
@@ -77,8 +78,8 @@ block-shuffling; and a no-drift Markov null with matched lag-1 dependence
 reproduces the observed falling-error share (0.421 vs 0.416). This extends
 Bifet's temporal-dependence result~\cite{bifet2017} to cost; it does not
 discover it.
-\item \textbf{An oracle decomposition.} About 80\% of the oracle's advantage
-comes from SKIP. ``Always SKIP'' captures 95.3\% and 78.1\% of the gap at
+\item \textbf{An oracle decomposition} on Elec2 and Covertype under ADWIN. About
+80\% of the oracle's advantage comes from SKIP at $\lambda=10^3$. ``Always SKIP'' captures 95.3\% and 78.1\% of the gap at
 $\lambda=10^2$ and $10^3$ but goes negative at $\lambda \geq 10^4$. Oracle
 decisions do not transfer across streams from simple features.
 \item \textbf{Inference dominates cost} in our setting (81--100\% of
@@ -251,8 +252,8 @@ reported as a stricter check, and conclusions that do not survive it are marked.
 Across the 500-run grid, Friedman finds no significant difference between the
 five policies in mean prequential accuracy ($p=0.18$ at $n=60$; $p=0.45$ at
 $n=20$), while cost separates them sharply ($p=2.9\times10^{-43}$). The selector
-is significantly \emph{less} accurate than AlwaysRebuild (median $-1.3$ points,
-Holm $p=0.017$) while being much cheaper (cheaper in 51 of 57 non-tied blocks,
+is significantly \emph{less} accurate than AlwaysRebuild (median $-1.3$ points of
+mean prequential accuracy, balanced on multi-class streams; Holm $p=0.017$) while being much cheaper (cheaper in 51 of 57 non-tied blocks,
 rank-biserial $r=-0.96$). It is \emph{more} expensive than FixedSchedule at
 $n=60$ (Holm $p=0.0087$), a result that does not survive the stricter $n=20$
 check ($p=0.088$) or the DDM replicate ($p=0.065$). Across 20 cells, never
@@ -403,50 +404,45 @@ Cancelling also discards real drift: 23 of 79 cancelled alarms on INSECTS-abrupt
 fall within 1{,}000 rows of a published change point. On Covertype it loses to
 NeverAdapt by 8.6 points of balanced accuracy.
 
-\subsection{An MD3-style cancel rule 	extsc{[diag]}}
-
-To separate the \emph{waiting} from the \emph{cancel rule}, we re-ran the same
-grid with one change: cancel unless the drop in accuracy exceeds $\Theta$
-standard errors of the reference estimate,
-$	extit{reference}-	extit{acc}_W \leq \Theta\sigma$ with $\Theta=2$ and
-$\sigma=\sqrt{p(1-p)/W}$, $p$ the reference accuracy. This approximates
+\textbf{An MD3-style cancel rule \textsc{[diag]}.} To separate the \emph{waiting}
+from the \emph{cancel rule}, we re-ran the same grid with one change: cancel
+unless the drop in accuracy exceeds $\Theta$ standard errors of the reference
+estimate, $\textit{reference}-\textit{acc}_W \leq \Theta\sigma$ with $\Theta=2$
+and $\sigma=\sqrt{p(1-p)/W}$, $p$ the reference accuracy. This approximates
 MD3~\cite{sethi2017}, which uses $Acc_{Ref}-Acc_{Labeled} > \Theta\sigma_{Acc}$
-with $\sigma$ estimated from training data; our $\sigma$ comes from the
-reference estimate over the $W$ rows, and for multi-class streams the metric is
-balanced accuracy, for which the binomial standard error is only approximate.
-This is a comparison, not a verdict: the pre-declared rules were written for
-WaitAndCheck and are not re-used.
+with $\sigma$ estimated from training data; our $\sigma$ comes from the reference
+estimate over the $W$ rows, and for multi-class streams the metric is balanced
+accuracy, for which the binomial standard error is only approximate. This is a
+comparison, not a verdict: the pre-declared rules were written for WaitAndCheck
+and are not re-used. The looser rule cancels more and trains less than
+WaitAndCheck on every stream (Table~\ref{tab:md3}); paired against WaitAndCheck
+the training reduction is significant after Holm correction at $W=500$ on
+Covertype ($p=0.049$) and Elec2 ($p=0.023$), not at $W=200$. It does not rescue
+either failure behind the verdict: INSECTS-abrupt still trains $2.11\times$ the
+selector, and INSECTS-incremental falls further below it in accuracy ($-1.79$
+points). Covertype is the exception, both cheaper and 5.4 points more accurate
+than WaitAndCheck --- on a stream that is not held-out evidence.
 
-egin{table}[t]
+\begin{table}[t]
 \caption{ConfirmMD3 ($\Theta=2$) beside WaitAndCheck, $W=200$. Training is a
 ratio to the selector; accuracy is the change in whole-stream balanced accuracy
 against the selector. Elec2 and Covertype are not held-out.}
 \label{tab:md3}
 \centering\small
-egin{tabular}{lcccc}
-	oprule
-& \multicolumn{2}{c}{WaitAndCheck} & \multicolumn{2}{c}{ConfirmMD3} \
+\begin{tabular}{lcccc}
+\toprule
+& \multicolumn{2}{c}{WaitAndCheck} & \multicolumn{2}{c}{ConfirmMD3} \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-Stream & train & $\Delta$acc & train & $\Delta$acc \
+Stream & train & $\Delta$acc & train & $\Delta$acc \\
 \midrule
-Elec2 & 0.59 & $+2.10$ & 0.54 & $+1.76$ \
-Covertype & 0.31 & $+1.98$ & 0.26 & $+7.35$ \
-INSECTS abrupt & 2.58 & $+9.40$ & 2.11 & $+6.90$ \
-INSECTS gradual & 1.03 & $+6.36$ & 0.92 & $+5.47$ \
-INSECTS incremental & 0.80 & $-1.07$ & 0.48 & $-1.79$ \
-ottomrule
+Elec2 & 0.59 & $+2.10$ & 0.54 & $+1.76$ \\
+Covertype & 0.31 & $+1.98$ & 0.26 & $+7.35$ \\
+INSECTS abrupt & 2.58 & $+9.40$ & 2.11 & $+6.90$ \\
+INSECTS gradual & 1.03 & $+6.36$ & 0.92 & $+5.47$ \\
+INSECTS incremental & 0.80 & $-1.07$ & 0.48 & $-1.79$ \\
+\bottomrule
 \end{tabular}
 \end{table}
-
-The looser rule cancels more and trains less on every stream
-(Table~ef{tab:md3}); paired against WaitAndCheck the training reduction is
-significant after Holm correction at $W=500$ on Covertype ($p=0.049$) and Elec2
-($p=0.023$), not at $W=200$. It does not rescue the two failures that decided the
-WaitAndCheck verdict: INSECTS-abrupt still trains more than the selector
-($2.11	imes$), and INSECTS-incremental is further below the selector in accuracy
-($-1.79$ points). Covertype is the exception, where it is both much cheaper and
-5.4 points more accurate than WaitAndCheck --- on a stream that is not held-out
-evidence.
 
 \section{Discussion}
 
