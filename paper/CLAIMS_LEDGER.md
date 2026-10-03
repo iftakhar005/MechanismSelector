@@ -132,10 +132,60 @@ streams. **No verdict is attached.**
 
 ---
 
+## Revision of 4 October — statistic, new tables and figures
+
+**One statistic throughout for WaitAndCheck and ConfirmMD3.** Table~III and
+Section V-E now use the **median over the twelve (family x seed) blocks** of a
+stream, which is the statistic the pre-declared training rule uses. The earlier
+Table III used a ratio of means over the same blocks, and the earlier Section V-E
+quoted the median for training but the *mean* for accuracy. The two differ
+because per-block ratios are right-skewed: a cell where WaitAndCheck trains much
+more (INSECTS-abrupt/gnb, 4.12x) pulls the mean up but not the median, and on
+covtype the mean accuracy gain (+1.98) exceeds the median (+0.55) because two
+families gain heavily and two barely move. The pre-declared verdict is unchanged:
+it was decided on its own stated statistics, which are quoted in the verdict
+paragraph with that fact noted.
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| Table I setup values | `src/runner.py`, `src/selector.py`, `src/mechanisms.py` | configuration, fixed before the grid | - |
+| Run times: 78 min ADWIN grid, 52+12 min DDM, 8.5+9.0 min WaitAndCheck, 7.7+7.8 min MD3 | `results/*/run.log` | wall clock, 12-core AMD, Windows 11 | [D] |
+| Table III (main results): median balanced accuracy and median training work units, 5 streams x 7 policies | `results/grid/`, `grid_wait200/`, `grid_md3_200/` | median over 12 blocks per stream | [D] |
+| Table IV (related work) | the cited papers only; "?" where we could not verify | - | - |
+| Fig. 6 nudge failure: no-prediction-change share 11.8 / 60.2 / 77.2 / 40.1%, median gain +2.52 / 0.00 / 0.00 / 0.00 pp (xgb / rf / gnb / sgd), n = 212 / 1,876 / 364 / 1,816 | `phase7.json` -> `event_split` | per nudge, AlwaysNudge, ADWIN | [D] |
+| Fig. 7 cost-accuracy scatter | same as Table III | median over 12 blocks | [D] |
+| Per-prediction inference 201 (SGD) to 4,009 (XGBoost under AlwaysNudge) | `phase9_inference_cost.json` + `grid.csv` | mean per run, own stream length | [D] |
+| WaitAndCheck medians: training 0.58 / 0.49 / 3.23 / 1.19 / 0.71; accuracy +1.72 / +0.55 / +8.34 / +6.04 / -0.66 | `results/grid_wait200/` | median over 12 blocks | [D] |
+| ConfirmMD3 medians: training 0.51 / 0.43 / 2.76 / 0.92 / 0.43; accuracy +2.76 / +9.24 / +5.59 / +5.19 / -2.44 | `results/grid_md3_200/` | median over 12 blocks | [D] |
+| INSECTS-incremental -1.07 pp (rule's mean) vs -0.66 pp (median) | `phase14_waitandcheck.json`, `paper/numbers.json` | both stated in the text | **[V]** input |
+
+## Claims removed in this revision
+
+1. **"Inference, not training, is 81-100% of operations"** - removed from the
+   abstract, contribution 5, the introduction, Section V-D, the discussion and
+   the conclusion. Training work units and inference operations are not
+   commensurable, so a share of their sum is not a valid quantity. Figure 4 now
+   plots the two on separate axes in their own units.
+2. **"Mean 779 operations per prediction (range 9-8,046)"** - removed as a pooled
+   cross-family figure; per-family values are given instead.
+3. **"Break-even near 300 predictions"** and **"median net cost is negative on
+   three of four cells"** - removed. Both depended on trading training work units
+   against inference operations at a 1:1 rate, which the units do not support.
+4. **"A No-Change classifier is hard to beat"** as a description of
+   Bifet 2017 - replaced with the verified wording about a No-Change *Detector*
+   signalling every 60 instances.
+5. **"(in-sample reference values)"** attached to the always-SKIP numbers -
+   removed; always-SKIP is a fixed rule, not a fitted one.
+6. The unqualified **"adapt less"** advice - now scoped to Elec2 and Covertype,
+   with the INSECTS gradual and incremental counter-examples (+20.3 and +36.2
+   points for adaptation) stated in the same paragraph.
+
+---
+
 ## Summary
 
 - **Verdict claims [V]: 3** (the WaitAndCheck verdict and its two rule inputs).
-- **Diagnostic claims [D]: 51.**
+- **Diagnostic claims [D]: 58.**
 - Configuration statements with no claim attached: 3.
 
 ## Withdrawn claims that must not appear
