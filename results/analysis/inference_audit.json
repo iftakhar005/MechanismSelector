@@ -1,0 +1,774 @@
+{
+  "label": "diagnostic",
+  "unit_definitions": {
+    "xgb": "tree node visits: leaf reached per boosting round plus its depth, summed over rounds",
+    "rf": "tree node visits: decision_path length per row summed over trees",
+    "sgd": "parameter reads: n_classes x n_features + n_classes",
+    "gnb": "parameter reads: 2 x n_classes x n_features + n_classes",
+    "comparability": "within a family only; a node visit and a parameter read differ"
+  },
+  "probe_rows": 1000,
+  "rebuild_window": 1000,
+  "cells": [
+    {
+      "dataset": "elec2",
+      "model": "xgb",
+      "seed": 0,
+      "scorer": "accuracy",
+      "initial": {
+        "rows_trained": 3624,
+        "ops_per_prediction": 572.532,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 4628,
+        "mean_path_per_tree": 5.72532,
+        "accuracy_next_1000": 0.8004410143329658
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 419.937,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 2278,
+        "mean_path_per_tree": 4.19937,
+        "accuracy_next_1000": 0.815
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 402.108,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 2202,
+        "mean_path_per_tree": 4.02108,
+        "accuracy_next_1000": 0.7883131201764058
+      },
+      "ratio_rebuilt_over_initial": 0.7334734128398063,
+      "ratio_control_over_initial": 0.7023327953721363
+    },
+    {
+      "dataset": "elec2",
+      "model": "rf",
+      "seed": 0,
+      "scorer": "accuracy",
+      "initial": {
+        "rows_trained": 3624,
+        "ops_per_prediction": 788.708,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 66150,
+        "mean_path_per_tree": 7.88708,
+        "accuracy_next_1000": 0.7794928335170893
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 669.303,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 16370,
+        "mean_path_per_tree": 6.69303,
+        "accuracy_next_1000": 0.839
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 605.245,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 16868,
+        "mean_path_per_tree": 6.05245,
+        "accuracy_next_1000": 0.75303197353914
+      },
+      "ratio_rebuilt_over_initial": 0.8486068354828403,
+      "ratio_control_over_initial": 0.7673879306409978
+    },
+    {
+      "dataset": "elec2",
+      "model": "sgd",
+      "seed": 0,
+      "scorer": "accuracy",
+      "initial": {
+        "rows_trained": 3624,
+        "ops_per_prediction": 9.0,
+        "unit": "params_read",
+        "size": 9,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.7364939360529217
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 9.0,
+        "unit": "params_read",
+        "size": 9,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.737
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 9.0,
+        "unit": "params_read",
+        "size": 9,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.6945975744211687
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    },
+    {
+      "dataset": "elec2",
+      "model": "gnb",
+      "seed": 0,
+      "scorer": "accuracy",
+      "initial": {
+        "rows_trained": 3624,
+        "ops_per_prediction": 34.0,
+        "unit": "params_read",
+        "size": 34,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.772877618522602
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 34.0,
+        "unit": "params_read",
+        "size": 34,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.762
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 34.0,
+        "unit": "params_read",
+        "size": 34,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.6405733186328556
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "xgb",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 4227,
+        "ops_per_prediction": 3728.295,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 29416,
+        "mean_path_per_tree": 37.28295,
+        "accuracy_next_1000": 0.7295633099702555
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 1598.428,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 5432,
+        "mean_path_per_tree": 15.984280000000002,
+        "accuracy_next_1000": 0.7013392857142857
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 2603.654,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 12450,
+        "mean_path_per_tree": 26.03654,
+        "accuracy_next_1000": 0.6938624551822898
+      },
+      "ratio_rebuilt_over_initial": 0.42872894982827275,
+      "ratio_control_over_initial": 0.6983497818708015
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "rf",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 4227,
+        "ops_per_prediction": 1309.355,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 122898,
+        "mean_path_per_tree": 13.09355,
+        "accuracy_next_1000": 0.7201559270610333
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 836.072,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 13988,
+        "mean_path_per_tree": 8.36072,
+        "accuracy_next_1000": 0.7049107142857143
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 1005.101,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 33040,
+        "mean_path_per_tree": 10.05101,
+        "accuracy_next_1000": 0.6731903901491235
+      },
+      "ratio_rebuilt_over_initial": 0.6385372950804021,
+      "ratio_control_over_initial": 0.7676306272935911
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "sgd",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 4227,
+        "ops_per_prediction": 204.0,
+        "unit": "params_read",
+        "size": 204,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.20147804982321316
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 204.0,
+        "unit": "params_read",
+        "size": 204,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.3019345238095238
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 204.0,
+        "unit": "params_read",
+        "size": 204,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.2205783275392783
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    },
+    {
+      "dataset": "insects_abrupt",
+      "model": "gnb",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 4227,
+        "ops_per_prediction": 402.0,
+        "unit": "params_read",
+        "size": 402,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.6463030138345929
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 402.0,
+        "unit": "params_read",
+        "size": 402,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.6981806134862705
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 402.0,
+        "unit": "params_read",
+        "size": 402,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.6452785919432086
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "xgb",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 1932,
+        "ops_per_prediction": 1888.489,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 8232,
+        "mean_path_per_tree": 18.88489,
+        "accuracy_next_1000": 0.613492103934929
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 2676.319,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 14776,
+        "mean_path_per_tree": 26.763189999999998,
+        "accuracy_next_1000": 0.549675183204595
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 1576.849,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 5462,
+        "mean_path_per_tree": 15.76849,
+        "accuracy_next_1000": 0.5844256546891076
+      },
+      "ratio_rebuilt_over_initial": 1.4171747889450244,
+      "ratio_control_over_initial": 0.8349791817691286
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "rf",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 1932,
+        "ops_per_prediction": 1024.145,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 26588,
+        "mean_path_per_tree": 10.24145,
+        "accuracy_next_1000": 0.5746432939258052
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 972.742,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 39764,
+        "mean_path_per_tree": 9.72742,
+        "accuracy_next_1000": 0.5692612398494751
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 898.687,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 16244,
+        "mean_path_per_tree": 8.98687,
+        "accuracy_next_1000": 0.5619649408887077
+      },
+      "ratio_rebuilt_over_initial": 0.9498088649556459,
+      "ratio_control_over_initial": 0.8774997680992438
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "sgd",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 1932,
+        "ops_per_prediction": 204.0,
+        "unit": "params_read",
+        "size": 204,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.219859064702114
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 204.0,
+        "unit": "params_read",
+        "size": 204,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.13279857397504458
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 204.0,
+        "unit": "params_read",
+        "size": 204,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.232082799487508
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    },
+    {
+      "dataset": "insects_gradual",
+      "model": "gnb",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 1932,
+        "ops_per_prediction": 402.0,
+        "unit": "params_read",
+        "size": 402,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.7462823704695902
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 402.0,
+        "unit": "params_read",
+        "size": 402,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.37991285403050107
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 402.0,
+        "unit": "params_read",
+        "size": 402,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.7248848591617649
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "xgb",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 4560,
+        "ops_per_prediction": 3934.435,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 36642,
+        "mean_path_per_tree": 39.34435,
+        "accuracy_next_1000": 0.6066916627820071
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 2787.522,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 14122,
+        "mean_path_per_tree": 27.87522,
+        "accuracy_next_1000": 0.6803649264764237
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 2837.91,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 15148,
+        "mean_path_per_tree": 28.379099999999998,
+        "accuracy_next_1000": 0.5871022035171666
+      },
+      "ratio_rebuilt_over_initial": 0.708493595649693,
+      "ratio_control_over_initial": 0.7213005171009306
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "rf",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 4560,
+        "ops_per_prediction": 1346.32,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 190346,
+        "mean_path_per_tree": 13.463199999999999,
+        "accuracy_next_1000": 0.5897485174941338
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 974.686,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 38308,
+        "mean_path_per_tree": 9.74686,
+        "accuracy_next_1000": 0.7000590700198052
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 1002.759,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 40678,
+        "mean_path_per_tree": 10.02759,
+        "accuracy_next_1000": 0.5847282650535627
+      },
+      "ratio_rebuilt_over_initial": 0.7239630994117298,
+      "ratio_control_over_initial": 0.7448147542931844
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "sgd",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 4560,
+        "ops_per_prediction": 204.0,
+        "unit": "params_read",
+        "size": 204,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.24353046803270761
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 204.0,
+        "unit": "params_read",
+        "size": 204,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.16666666666666666
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 204.0,
+        "unit": "params_read",
+        "size": 204,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.2543966483108687
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    },
+    {
+      "dataset": "insects_incremental",
+      "model": "gnb",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 4560,
+        "ops_per_prediction": 402.0,
+        "unit": "params_read",
+        "size": 402,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.555116058387885
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 402.0,
+        "unit": "params_read",
+        "size": 402,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.5940910392932592
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 402.0,
+        "unit": "params_read",
+        "size": 402,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.5585594425003292
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    },
+    {
+      "dataset": "covtype",
+      "model": "xgb",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 8000,
+        "ops_per_prediction": 4133.173,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 34130,
+        "mean_path_per_tree": 41.33173,
+        "accuracy_next_1000": 0.5871902648286145
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 1173.607,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 3272,
+        "mean_path_per_tree": 11.73607,
+        "accuracy_next_1000": 0.694278378622229
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 2357.553,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "rounds",
+        "n_nodes": 10076,
+        "mean_path_per_tree": 23.57553,
+        "accuracy_next_1000": 0.5133060984798455
+      },
+      "ratio_rebuilt_over_initial": 0.2839481918613133,
+      "ratio_control_over_initial": 0.5703978517231193
+    },
+    {
+      "dataset": "covtype",
+      "model": "rf",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 8000,
+        "ops_per_prediction": 1448.101,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 285840,
+        "mean_path_per_tree": 14.481010000000001,
+        "accuracy_next_1000": 0.6039153471652108
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 582.563,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 9284,
+        "mean_path_per_tree": 5.82563,
+        "accuracy_next_1000": 0.6021180584159412
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 1059.143,
+        "unit": "node_visits",
+        "size": 100,
+        "size_unit": "trees",
+        "n_nodes": 33116,
+        "mean_path_per_tree": 10.59143,
+        "accuracy_next_1000": 0.565851151346804
+      },
+      "ratio_rebuilt_over_initial": 0.40229445321838736,
+      "ratio_control_over_initial": 0.7314013318131815
+    },
+    {
+      "dataset": "covtype",
+      "model": "sgd",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 8000,
+        "ops_per_prediction": 385.0,
+        "unit": "params_read",
+        "size": 385,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.1305435216412756
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 385.0,
+        "unit": "params_read",
+        "size": 385,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.5345717659334926
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 385.0,
+        "unit": "params_read",
+        "size": 385,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.1966522036866992
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    },
+    {
+      "dataset": "covtype",
+      "model": "gnb",
+      "seed": 0,
+      "scorer": "balanced_accuracy",
+      "initial": {
+        "rows_trained": 8000,
+        "ops_per_prediction": 763.0,
+        "unit": "params_read",
+        "size": 763,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.5615240425974953
+      },
+      "rebuilt": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 763.0,
+        "unit": "params_read",
+        "size": 763,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.6361020559471832
+      },
+      "control_initial_era_1000_rows": {
+        "rows_trained": 1000,
+        "ops_per_prediction": 763.0,
+        "unit": "params_read",
+        "size": 763,
+        "size_unit": "params",
+        "n_nodes": null,
+        "mean_path_per_tree": null,
+        "accuracy_next_1000": 0.5804268161424577
+      },
+      "ratio_rebuilt_over_initial": 1.0,
+      "ratio_control_over_initial": 1.0
+    }
+  ]
+}
