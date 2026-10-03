@@ -11,7 +11,24 @@ fair test. All numbers come from committed files: `results/grid_wait200/`, `resu
 
 ---
 
-## Surprises first
+## How to read the labels
+
+Every section below is marked **[PRE-DECLARED VERDICT]** — judged against rules fixed before the
+results were seen — or **[DIAGNOSTIC]** — a measurement or re-cut that carries no verdict. Only
+section 7 is a verdict. Everything else, including the per-family and per-dataset breakdowns, is
+diagnostic and must not be read as a pass or fail.
+
+## 0. ConfirmMD3 — [not run]
+
+**ConfirmMD3 was never specified, implemented or run in this project.** There is no such policy in
+`src/`, no results directory for it, and no mention of it in any committed file (the only textual
+match in the working tree is inside scipy's own test suite). So there is nothing to put beside
+WaitAndCheck at W = 200 and W = 500. If it should exist, it needs a design and a declared-follow-up
+run; it is not something that can be read out of committed results.
+
+---
+
+## Surprises first [DIAGNOSTIC]
 
 **1. WaitAndCheck can cost far more training, not less.** On insects_abrupt it trains **3.2× the
 selector** at W = 200. Waiting adds W rows to the buffer, so every adaptation it still takes is over
@@ -32,7 +49,7 @@ within 1,000 rows of a published change point.
 
 ---
 
-## Test change, as requested
+## Test change, as requested [DIAGNOSTIC]
 
 | | test | why |
 |---|---|---|
@@ -55,7 +72,7 @@ proceed path hands those rows to the selector, and alarms during a wait are igno
 
 ---
 
-## 1. Per-cell table (families separate, mean over seeds)
+## 1. Per-cell table (families separate, mean over seeds) [DIAGNOSTIC]
 
 Accuracy is **whole-stream prequential, balanced on multi-class** — the metric the floor uses.
 Training is work units, inference is inference operations over the stream; combined is their sum,
@@ -184,7 +201,73 @@ with the standing caveat that they are different units.
 | insects_incremental/xgb | waitandcheck_200 | 267,900 | 173,333,893 | 173,601,793 | 56.4 |
 | insects_incremental/xgb | waitandcheck_500 | 216,000 | 182,654,319 | 182,870,319 | 58.5 |
 
-## 2. Wilcoxon against the selector, Holm-corrected
+## 1b. Which families drive the headline numbers [DIAGNOSTIC]
+
+Training ratio is WaitAndCheck ÷ selector; accuracy is balanced, whole-stream prequential.
+
+**W = 200**
+
+| cell | selector training | WaitAndCheck training | ratio | selector acc | wait acc | Δ acc |
+|---|---|---|---|---|---|---|
+| covtype/xgb | 4,595,395 | 1,874,350 | 0.41 | 52.1 | 44.2 | -7.91 |
+| covtype/rf | 5,392,468 | 2,963,798 | 0.55 | 69.9 | 73.3 | +3.37 |
+| covtype/sgd | 22,901,046 | 5,661,119 | 0.25 | 34.8 | 37.7 | +2.93 |
+| covtype/gnb | 66,495 | 41,013 | 0.62 | 51.7 | 51.9 | +0.14 |
+| elec2/xgb | 2,051,495 | 1,135,560 | 0.55 | 70.7 | 73.6 | +2.91 |
+| elec2/rf | 2,112,303 | 1,272,533 | 0.60 | 70.7 | 73.7 | +2.99 |
+| elec2/sgd | 965,000 | 571,539 | 0.59 | 61.8 | 63.7 | +1.89 |
+| elec2/gnb | 36,049 | 25,973 | 0.72 | 65.0 | 62.9 | -2.05 |
+| insects_abrupt/xgb | 476,575 | 743,965 | 1.56 | 45.4 | 64.1 | +18.73 |
+| insects_abrupt/rf | 349,760 | 867,346 | 2.48 | 50.9 | 62.4 | +11.47 |
+| insects_abrupt/sgd | 123,671 | 448,189 | 3.62 | 19.8 | 24.2 | +4.40 |
+| insects_abrupt/gnb | 2,728 | 11,233 | 4.12 | 40.2 | 55.0 | +14.72 |
+| insects_gradual/xgb | 405,855 | 320,000 | 0.79 | 39.7 | 52.8 | +13.11 |
+| insects_gradual/rf | 395,689 | 468,248 | 1.18 | 44.9 | 53.2 | +8.36 |
+| insects_gradual/sgd | 245,699 | 208,664 | 0.85 | 19.6 | 24.2 | +4.64 |
+| insects_gradual/gnb | 6,724 | 6,128 | 0.91 | 53.8 | 52.1 | -1.72 |
+| insects_incremental/xgb | 316,000 | 267,900 | 0.85 | 57.7 | 56.4 | -1.32 |
+| insects_incremental/rf | 604,000 | 500,000 | 0.83 | 61.8 | 60.5 | -1.25 |
+| insects_incremental/sgd | 26,520 | 160 | 0.01 | 20.5 | 19.9 | -0.56 |
+| insects_incremental/gnb | 7,000 | 6,200 | 0.89 | 54.2 | 51.7 | -2.49 |
+
+**The 3.2× training on insects_abrupt is driven by every family, not one.** The ratios are
+xgb 1.56, rf 2.48, sgd 3.62, gnb 4.12 — all above 1, with the two cheap families worst in relative
+terms. In absolute work units the increase is carried by rf (+517,586) and xgb (+267,390); gnb's
+4.12× is only +8,505 work units on a tiny base.
+
+**The +9.40 pp accuracy on insects_abrupt is also broad**: xgb +18.73, gnb +14.72, rf +11.47,
+sgd +4.40. Every family gains.
+
+**Where WaitAndCheck loses accuracy**, the losses are small and concentrated: covtype/xgb −7.91 is
+the single worst cell at W = 200 and it disappears at W = 500 (+3.07); insects_incremental loses on
+all four families (−0.56 to −2.49), which is what fails the hard safety rule.
+
+**W = 500**
+
+| cell | selector training | WaitAndCheck training | ratio | selector acc | wait acc | Δ acc |
+|---|---|---|---|---|---|---|
+| covtype/xgb | 4,595,395 | 2,243,770 | 0.49 | 52.1 | 55.2 | +3.07 |
+| covtype/rf | 5,392,468 | 3,721,843 | 0.69 | 69.9 | 80.4 | +10.49 |
+| covtype/sgd | 22,901,046 | 13,373,406 | 0.58 | 34.8 | 35.5 | +0.72 |
+| covtype/gnb | 66,495 | 48,637 | 0.73 | 51.7 | 51.9 | +0.17 |
+| elec2/xgb | 2,051,495 | 1,150,415 | 0.56 | 70.7 | 72.1 | +1.41 |
+| elec2/rf | 2,112,303 | 1,468,764 | 0.70 | 70.7 | 73.6 | +2.84 |
+| elec2/sgd | 965,000 | 502,499 | 0.52 | 61.8 | 62.7 | +0.96 |
+| elec2/gnb | 36,049 | 23,368 | 0.65 | 65.0 | 65.3 | +0.31 |
+| insects_abrupt/xgb | 476,575 | 595,900 | 1.25 | 45.4 | 64.0 | +18.58 |
+| insects_abrupt/rf | 349,760 | 1,006,322 | 2.88 | 50.9 | 66.0 | +15.15 |
+| insects_abrupt/sgd | 123,671 | 435,713 | 3.52 | 19.8 | 23.9 | +4.13 |
+| insects_abrupt/gnb | 2,728 | 5,400 | 1.98 | 40.2 | 53.9 | +13.71 |
+| insects_gradual/xgb | 405,855 | 375,645 | 0.93 | 39.7 | 60.4 | +20.69 |
+| insects_gradual/rf | 395,689 | 555,775 | 1.40 | 44.9 | 62.0 | +17.07 |
+| insects_gradual/sgd | 245,699 | 64,581 | 0.26 | 19.6 | 20.8 | +1.29 |
+| insects_gradual/gnb | 6,724 | 5,200 | 0.77 | 53.8 | 56.0 | +2.12 |
+| insects_incremental/xgb | 316,000 | 216,000 | 0.68 | 57.7 | 58.5 | +0.80 |
+| insects_incremental/rf | 604,000 | 472,908 | 0.78 | 61.8 | 60.3 | -1.44 |
+| insects_incremental/sgd | 26,520 | 0 | 0.00 | 20.5 | 20.4 | -0.05 |
+| insects_incremental/gnb | 7,000 | 5,755 | 0.82 | 54.2 | 50.1 | -4.15 |
+
+## 2. Wilcoxon against the selector, Holm-corrected [DIAGNOSTIC]
 
 Paired on (dataset × family × seed) with deterministic families collapsed to seed 0, so **n = 60
 blocks**; `nonzero` is the number of blocks where the two differ.
@@ -201,7 +284,58 @@ blocks**; `nonzero` is the number of blocks where the two differ.
 Training ops fall significantly at both W, accuracy rises significantly at both, and **combined cost
 does not move** — because inference dominates and barely changes.
 
-## 3. Alarms per dataset
+### Effective n
+
+Blocks are (family × seed) within a dataset. XGBoost and GaussianNB are deterministic at these
+settings, so they contribute seed 0 only: **12 blocks per dataset, 60 overall**. That is the same
+collapsing rule the main analysis uses, and it is why `n = 60` rather than 100.
+
+### Per dataset, W = 200 — training ops
+
+| dataset | n | nonzero | median difference | p | Holm | direction |
+|---|---|---|---|---|---|---|
+| covtype | 12 | 12 | -2,703,150.00 | 0.01221 | 0.03662 | wait lower |
+| elec2 | 12 | 12 | -467,771.00 | 0.0004883 | 0.002441 | wait lower |
+| insects_abrupt | 12 | 12 | +332,806.00 | 0.0004883 | 0.002441 | wait higher |
+| insects_gradual | 12 | 12 | +76,850.00 | 0.3687 | 0.3687 | wait higher |
+| insects_incremental | 12 | 9 | -800.00 | 0.1719 | 0.3438 | wait lower |
+
+### Per dataset, W = 200 — balanced accuracy
+
+| dataset | n | nonzero | median difference | p | Holm | direction |
+|---|---|---|---|---|---|---|
+| covtype | 12 | 12 | +0.55 | 0.5693 | 0.5693 | wait higher |
+| elec2 | 12 | 12 | +1.72 | 0.02686 | 0.08057 | wait higher |
+| insects_abrupt | 12 | 12 | +8.34 | 0.0004883 | 0.002441 | wait higher |
+| insects_gradual | 12 | 12 | +6.04 | 0.002441 | 0.009766 | wait higher |
+| insects_incremental | 12 | 9 | -0.66 | 0.1289 | 0.2578 | wait lower |
+
+Holm is applied across the five datasets within each metric. Pooled significance is carried by
+elec2 and covtype on training ops and by the two Insects streams on accuracy; **insects_abrupt is
+significantly *worse* on training** (+332,806 median, Holm p = 0.0024) while being significantly
+better on accuracy (+8.34 pp, Holm p = 0.0024). insects_incremental moves on neither.
+
+### Per dataset, W = 500 (secondary) — training ops
+
+| dataset | n | nonzero | median difference | p | Holm | direction |
+|---|---|---|---|---|---|---|
+| covtype | 12 | 12 | -2,421,542.50 | 0.021 | 0.06299 | wait lower |
+| elec2 | 12 | 12 | -545,073.50 | 0.0004883 | 0.002441 | wait lower |
+| insects_abrupt | 12 | 12 | +203,487.50 | 0.002441 | 0.009766 | wait higher |
+| insects_gradual | 12 | 12 | +15,177.00 | 0.4692 | 0.4692 | wait higher |
+| insects_incremental | 12 | 8 | -1,022.50 | 0.07812 | 0.1562 | wait lower |
+
+### Per dataset, W = 500 (secondary) — balanced accuracy
+
+| dataset | n | nonzero | median difference | p | Holm | direction |
+|---|---|---|---|---|---|---|
+| covtype | 12 | 12 | +3.13 | 0.1514 | 0.3027 | wait higher |
+| elec2 | 12 | 12 | +1.52 | 0.04248 | 0.1274 | wait higher |
+| insects_abrupt | 12 | 12 | +14.10 | 0.0004883 | 0.002441 | wait higher |
+| insects_gradual | 12 | 12 | +10.70 | 0.009277 | 0.03711 | wait higher |
+| insects_incremental | 12 | 9 | +0.00 | 0.25 | 0.3027 | wait higher |
+
+## 3. Alarms per dataset [DIAGNOSTIC]
 
 | W | dataset | alarms | cancelled | proceeded | ignored during wait | truncated |
 |---|---|---|---|---|---|---|
@@ -216,7 +350,7 @@ does not move** — because inference dominates and barely changes.
 | 500 | insects_gradual | 110 | 45 | 54 | 11 | 0 |
 | 500 | insects_incremental | 50 | 15 | 34 | 0 | 1 |
 
-## 4. Missed real drift
+## 4. Missed real drift [DIAGNOSTIC]
 
 On insects_abrupt, change points verified against Souza et al. 2020, Table 2:
 
@@ -229,7 +363,7 @@ Nearly a third of what WaitAndCheck cancels sits right after a real change point
 rises on that stream (+9.4 pp), so those cancellations were not individually harmful here, but the
 rule is clearly not a drift test.
 
-## 5. Window effect vs cancel effect
+## 5. Window effect vs cancel effect [DIAGNOSTIC]
 
 | W | dataset | guard-forced rebuilds, selector → WaitAndCheck | adaptations, selector → WaitAndCheck |
 |---|---|---|---|
@@ -251,7 +385,7 @@ WaitAndCheck adapts more often, but each adaptation is no longer a guard-forced 
 window. An exact split between the two effects would need a third arm (wait, then always proceed),
 which was not run.
 
-## 6. Capture fraction against the Phase 10 oracle (training ops, λ = 1e3)
+## 6. Capture fraction against the Phase 10 oracle (training ops, λ = 1e3) [DIAGNOSTIC]
 
 | stream | W = 200 | W = 500 |
 |---|---|---|
@@ -261,13 +395,13 @@ which was not run.
 WaitAndCheck captures roughly half to three-quarters of the available training-op headroom on the
 two streams that motivated it. These are not held-out streams.
 
-## 7. The verdict
+## 7. The verdict [PRE-DECLARED VERDICT]
 
 | rule | W = 200 result | pass? |
 |---|---|---|
 | 1. training ≤ 0.75× on ≥4 of 5 datasets | covtype 0.494, elec2 0.578, insects_incremental 0.867, insects_gradual 1.188, insects_abrupt 3.235 → **2 of 5** | **NO** |
 | 2. accuracy ≥ selector − 1 pp on ≥4 of 5 | +1.98, +2.10, +9.40, +6.36, −1.07 → **4 of 5** | yes |
-| 3. hard safety on insects_gradual and insects_incremental | gradual +6.36 pp; **incremental −1.07 pp** | **NO** |
+| 3. hard safety on insects_gradual and insects_incremental | gradual +6.36 pp; **insects_incremental −1.07 pp, near, but fails the pre-declared rule** | **NO** |
 
 **Verdict: NO.** Rule 3 fails on insects_incremental by 0.07 pp — that is **near**, and it would pass
 a −1.1 pp bar, but the rule was fixed before the results were seen. Rule 1 fails independently and
@@ -292,7 +426,7 @@ is dearer in training ops everywhere, which is trivially true since NeverAdapt n
 
 ---
 
-## Closed item 1.2 — nudge growth (diagnostic, not a finding)
+## Closed item 1.2 — nudge growth [DIAGNOSTIC]
 
 **Sample size: 49 kept nudges in total — 32 XGBoost (24 covtype, 5 elec2, 1 each on the three
 Insects streams) and 17 Random Forest.** The Insects cells rest on one nudge each.
@@ -325,7 +459,7 @@ family.
 For XGBoost, growth is real and always positive (+18.8 to +184.9 ops/prediction per nudge), but it
 is not the whole of "extra" either: on insects_abrupt the window/era term (−1,412) swamps it.
 
-## Closed item 1.3 — learnability, out of sample
+## Closed item 1.3 — learnability, out of sample [DIAGNOSTIC]
 
 The in-sample figure (94–100% of G1) is now labelled in-sample in PHASE10_REPORT.md and replaced as
 the headline by cross-stream and leave-one-seed-out tests. A fitted model transfers badly between
@@ -334,7 +468,7 @@ elec2→covtype, against 94.7% in-sample at the same λ). Within a stream across
 covtype (0.645) but not elec2 (0.085). Where it looks useful (λ ≤ 1e2) it is no better than
 always-SKIP, which is now surprise #1 in PHASE10_REPORT.md.
 
-## Closed item 1.1 — accuracy labels
+## Closed item 1.1 — accuracy labels [DIAGNOSTIC]
 
 Definitions are in GATE_DECISION.md section 0. The Phase 10 Candidate A gains are **plain accuracy,
 post-alarm rows, pooled over families**, and the balanced equivalents are now measured:
