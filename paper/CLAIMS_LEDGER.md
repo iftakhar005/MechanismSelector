@@ -182,6 +182,52 @@ paragraph with that fact noted.
 
 ---
 
+## Rule 1 and Rule 3 statistics, stated openly
+
+**Rule 1** was pre-declared as "training operations <= 0.75x the selector's on >= 4
+of 5 datasets (median over family x seed cells)". The rule named the statistic but
+not what to do with a cell where the selector performs no training at all, which
+makes the ratio undefined. That happens in exactly three blocks, all
+INSECTS-incremental SGD (seeds 0, 1 and 2), where the selector takes no
+adaptation and so trains nothing.
+
+| stream | undefined ranked highest (decision-time computation) | undefined dropped |
+|---|---|---|
+| Elec2 | 0.58 | 0.58 |
+| Covertype | 0.49 | 0.49 |
+| INSECTS abrupt | 3.23 | 3.23 |
+| INSECTS gradual | 1.19 | 1.19 |
+| INSECTS incremental | **0.87** | **0.71** |
+| streams passing <= 0.75x | **2 of 5** | **3 of 5** |
+
+The 0.867 in the earlier Phase 14 report and the 0.71 in the first draft of this
+paper are these two computations. **The pre-declared one is the first**: it is the
+computation that produced the numbers the verdict was taken on. The paper, Table
+III and Fig. 5 now all use it, and the caption names it. Rule 1 fails under both,
+since neither reaches 4 of 5.
+
+**Rule 3** did not specify an accuracy statistic. INSECTS-incremental is -1.07
+points on the mean over blocks and -0.66 on the median. Rule 3 therefore fails
+under the mean and passes under the median. We report both and do not pick the
+favourable one. The verdict is NO regardless, because Rule 1 fails under both
+treatments.
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| Training ratios 0.58 / 0.49 / 3.23 / 1.19 / 0.87 (WaitAndCheck, W=200) | `results/grid_wait200/`, `results/grid/` | median over 12 blocks, undefined ranked highest | **[V]** input |
+| Alternative 0.71 for INSECTS-incremental | same | median over 12 blocks, undefined dropped | [D] |
+| ConfirmMD3 ratios 0.51 / 0.43 / 2.76 / 0.92 / 0.60 | `results/grid_md3_200/` | same statistic as above | [D] |
+| Rule 3: -1.07 (mean) vs -0.66 (median) | `phase14_waitandcheck.json`, `paper/numbers.json` | both stated in the paper | **[V]** input |
+
+## Style pass
+
+The prose was rewritten for readability on 4 October. No number, claim, scope or
+citation was changed in that pass. The sentences where we were unsure whether the
+rewrite shifted meaning are listed in the hand-off notes and were each checked
+against the source number before the rewrite was kept.
+
+---
+
 ## Summary
 
 - **Verdict claims [V]: 3** (the WaitAndCheck verdict and its two rule inputs).
