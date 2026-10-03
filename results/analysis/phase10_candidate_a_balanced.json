@@ -1,0 +1,24 @@
+{
+  "label": "declared follow-up",
+  "note": "post-alarm horizon rows, pooled over families; both metrics reported",
+  "per_stream": {
+    "covtype": {
+      "rows": 759708,
+      "selector_plain": 0.7798746360443749,
+      "defer_perfect_plain": 0.8128873198650007,
+      "selector_balanced": 0.529762089156434,
+      "defer_perfect_balanced": 0.5577862207316154,
+      "delta_plain_pp": 3.301268382062583,
+      "delta_balanced_pp": 2.8024131575181466
+    },
+    "elec2": {
+      "rows": 402663,
+      "selector_plain": 0.6764614578444009,
+      "defer_perfect_plain": 0.7036479636817885,
+      "selector_balanced": 0.6651612290933379,
+      "defer_perfect_balanced": 0.6906686411380554,
+      "delta_plain_pp": 2.7186505837387576,
+      "delta_balanced_pp": 2.5507412044717515
+    }
+  }
+}

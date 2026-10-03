@@ -19,6 +19,18 @@ rebuilds are on ≤1,000 rows and horizons are ≤1,000 rows.
 horizon (inference units × H), as required. Inference units come from `measure_footprint` on a
 200-row probe from the window, so a shallower rebuilt model is correctly cheaper to query.
 
+**Accuracy convention:** where this report quotes accuracy it is horizon accuracy — plain 0/1
+over post-alarm rows, pooled over families. See GATE_DECISION.md section 0 for how that
+relates to whole-stream prequential and balanced accuracy.
+
+## Surprise first: near-NeverAdapt behaviour captures most of the oracle's gain
+
+On elec2 and covtype, **"always SKIP" captures 95.3% of G1 at λ = 1e2 and 78.1% at λ = 1e3**
+(in-sample reference figures; the out-of-sample versions below agree: 0.91–0.96 at λ ≤ 1e2,
+0.57–0.83 at λ = 1e3). When cost is weighted at all, the oracle's advantage is almost entirely
+"do not act", not "act better". Only once errors are priced heavily (λ ≥ 1e4) does always-SKIP turn
+negative and the choice of action start to matter.
+
 ## G1 and G2
 
 | horizon | λ = 0 | 1e2 | 1e3 | 1e4 | 1e5 | 1e6 |
@@ -56,20 +68,38 @@ Finding 3 reports at the prediction level.
 
 In-sample overfit GBM is an upper bound by construction. Share of G1 captured, horizon "next":
 
-| λ | G1 | overfit GBM | family only | deficit stump | always SKIP |
+**In-sample (uninformative, kept only for reference — fitted and scored on the same alarms):**
+
+| λ | G1 | overfit GBM (in-sample) | family only (in-sample) | deficit stump (in-sample) | always SKIP (in-sample) |
 |---|---|---|---|---|---|
 | 1e2 | 2.65e8 | 99.9% | 95.3% | 95.3% | 95.3% |
 | 1e3 | 2.90e8 | 99.1% | 78.1% | 78.1% | 78.1% |
 | 1e4 | 9.31e8 | 94.7% | 20.4% | 9.6% | **−3.6%** |
 | 1e5 | 8.68e9 | 94.0% | 12.9% | 25.9% | **−30.3%** |
 
+**Out-of-sample (`results/analysis/phase10_learnability.json`), share of G1 captured on held-out
+alarms — this is the number that can fail:**
+
+| λ | GBM covtype→elec2 | GBM elec2→covtype | family only (cross-stream) | always SKIP | leave-one-seed-out, covtype / elec2 |
+|---|---|---|---|---|---|
+| 0 | 0.925 | 0.953 | 0.937 / 0.964 | 0.937 / 0.964 | 0.971 / 0.966 |
+| 1e2 | 0.899 | 0.898 | 0.910 / 0.962 | 0.910 / 0.962 | 0.969 / 0.939 |
+| 1e3 | 0.512 | 0.638 | 0.574 / 0.785 | 0.574 / 0.830 | 0.891 / 0.700 |
+| 1e4 | **−0.122** | 0.162 | −0.154 / 0.516 | −0.228 / 0.034 | 0.645 / 0.085 |
+| 1e5 | **−0.054** | 0.182 | −0.072 / 0.274 | −0.387 / −0.271 | 0.577 / 0.062 |
+
+A fitted model **transfers badly between the two streams**: at λ = 1e4 it is worse than doing what
+the selector already does in one direction (−0.12) and captures only 0.16 in the other, while the
+in-sample figure at the same λ was 94.7%. Within a stream, across seeds, it holds up on covtype
+(0.65 at λ = 1e4) but not on elec2 (0.085). Where a learned rule looks useful (λ ≤ 1e2) it is no
+better than always-SKIP, and where the problem is genuinely a decision (λ ≥ 1e4) it does not
+generalise across streams.
+
 Two things matter here. First, **at low λ the trivial rules and "always SKIP" are the same rule** —
-they capture 78–95% of the headroom simply by adapting less, so most of G1 at those trade-offs is
-not a decision problem at all. Second, **at high λ "always SKIP" is worse than the current policy**
-(negative capture), so the headroom there is genuinely about *which* action to take. The
-in-sample GBM captures 94–100% throughout, which bounds what is learnable but says nothing about
-generalisation — it is fitted and scored on the same alarms, and a leave-one-stream-out version
-is the only honest test.
+they capture most of the headroom simply by adapting less, so G1 at those trade-offs is not a
+decision problem at all. Second, **at high λ "always SKIP" is worse than the current policy**, so
+the headroom there is genuinely about which action to take — and that is exactly where the fitted
+model fails to transfer between streams.
 
 ## Which Gate 10 case are we in?
 

@@ -46,6 +46,9 @@ def main() -> int:
     parser.add_argument("--no-energy", action="store_true", help="skip CodeCarbon (secondary metric)")
     parser.add_argument("--detector", choices=("adwin", "ddm"), default="adwin",
                         help="drift detector; DDM is the one-sided contrast condition")
+    parser.add_argument("--wait-rows", type=int, default=0,
+                        help="WaitAndCheck(W): wait W labelled rows after an alarm, then check "
+                             "the model on exactly those rows before acting. 0 = original behaviour")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -70,7 +73,8 @@ def main() -> int:
         with log_path.open("a", encoding="utf-8") as f:
             f.write(line + "\n")
 
-    config = RunConfig(track_energy=not args.no_energy, detector=args.detector)
+    config = RunConfig(track_energy=not args.no_energy, detector=args.detector,
+                       wait_rows=args.wait_rows)
     started = time.perf_counter()
     result = run_grid(args.out, seeds=args.seeds, datasets=args.datasets, models=args.models,
                       policies=args.policies, config=config, log=log)

@@ -54,6 +54,9 @@ in all 10 tree-model cells — away from NeverAdapt, because a model rebuilt on 
 shallower than one trained on 8,000. Repeated nudging runs the other way: an XGBoost booster
 grows 100 → 365 rounds on elec2, raising per-prediction node visits 2.87× (3.18× on covtype).
 
+Accuracy below is whole-stream prequential, balanced on multi-class streams, averaged over
+cells; costs are totals over 60 runs.
+
 | policy | accuracy | training | inference | combined |
 |---|---|---|---|---|
 | NeverAdapt | 43.5% | 0 | 2.81e9 | 2.81e9 |

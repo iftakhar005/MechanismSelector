@@ -30,9 +30,38 @@ data is.
 
 ---
 
+## 0. What each accuracy number means
+
+Three different accuracies appear across these reports. They are all correct; they are not
+interchangeable.
+
+| name | rows scored | metric | grouping | where |
+|---|---|---|---|---|
+| **horizon accuracy** | only the rows after each alarm, up to the next alarm or 1,000 | plain 0/1 | pooled over families within a stream | Phase 10 tables |
+| **whole-stream prequential** | every row after the initial slice | plain, or balanced on multi-class | per family, averaged over seeds | `grid.csv`, inference tables |
+| **next-1,000 accuracy** | the 1,000 rows following that model's own training slice | the stream's own scorer | one fitted model, not a policy | inference audit |
+
+Reconciliation of the two numbers that looked inconsistent, both for the selector on covtype:
+
+| family | horizon accuracy (plain) | whole-stream plain | whole-stream balanced |
+|---|---|---|---|
+| xgb | 0.890 | 88.9% | 52.1% |
+| rf | 0.875 | 87.5% | 69.9% |
+| sgd | 0.629 | 46.4% | 34.8% |
+| gnb | 0.771 | 78.3% | 51.7% |
+| **pooled** | **0.780** | — | — |
+
+So Phase 10's 0.780 is plain accuracy on post-alarm rows pooled over families, and e257208's 52.1%
+is balanced accuracy over the whole stream for XGBoost alone. For xgb and rf the horizon and
+whole-stream plain figures agree to within 0.1 points; for sgd they differ by 16 points, because
+SGD scores far better in the first 1,000 rows after an adaptation than it does later. **No number
+changes; the labels do.**
+
 ## 1. Phase 10, per stream (ADWIN, horizon "next", 2,595 alarms)
 
 ### covtype — 1,860 alarms
+
+Accuracy below is **horizon accuracy**: plain 0/1 over post-alarm rows, pooled over families.
 
 | λ | selector train | selector infer | selector acc | oracle train | oracle infer | oracle acc | G1 share | guard share of shortfall |
 |---|---|---|---|---|---|---|---|---|
@@ -101,6 +130,9 @@ covtype/rf = 100 trees × 14.5 = 1,448 ✓ against 285,840 total nodes. Nothing 
 
 ### Initial vs rebuilt vs control (common 1,000-row probe, seed 0)
 
+`acc next 1,000` is that model's accuracy on the 1,000 rows following its own training slice, in
+the stream's own scorer (balanced on multi-class) — a property of one fitted model, not of a policy.
+
 | cell | model | rows trained | ops/pred | size | nodes | path/tree | acc next 1,000 |
 |---|---|---|---|---|---|---|---|
 | elec2/xgb | initial | 3,624 | 573 | 100 | 4,628 | 5.73 | 0.800 |
@@ -151,9 +183,9 @@ Rule: on both streams, perfect DEFER cuts the selector's training ops by ≥25% 
 | covtype | **52.2%** | 0.7799 | 0.8129 | **+3.30 pp** | 1,103 / 1,860 |
 | elec2 | **44.7%** | 0.6765 | 0.7036 | **+2.72 pp** | 440 / 735 |
 
-Both streams clear 25% by a wide margin. On accuracy, a literal reading of "within 1 pp" fails,
-because the difference is +2.7 to +3.3 pp — *in the policy's favour*. Under the obvious intent (do
-not lose more than 1 pp), it passes decisively. Flagged rather than resolved silently.
+Both streams clear 25% by a wide margin. On accuracy, "within 1 pp" was confirmed to mean "no more
+than 1 pp worse", so the condition is met with room to spare: the difference is +2.7 to +3.3 pp in
+the policy's favour. **A = YES, unambiguously.**
 
 **Caveat that limits the strength of this yes:** "perfectly" means oracle foresight about whether
 deferring will cost errors, so these are upper bounds; and because DEFER coincides with SKIP in

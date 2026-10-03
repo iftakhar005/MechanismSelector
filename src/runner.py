@@ -102,6 +102,7 @@ RECORD_FIELDS = [
     "n_stream_rows", "n_init_train_rows", "scorer",
     "n_alarms", "n_adaptations", "n_skip", "n_nudge", "n_rebuild", "n_degraded",
     "n_alarms_deferred", "n_alarms_coalesced", "n_alarms_unserved", "n_reference_carried",
+    "n_alarms_ignored_during_wait", "n_waits_cancelled", "n_waits_proceeded", "n_waits_truncated",
     "n_nudge_attempts", "n_nudge_successes",
     "n_adaptations_with_placeholders", "total_placeholder_rows", "initial_placeholder_rows",
     "n_adaptations_on_falling_error", "work_units_on_falling_error",
@@ -119,7 +120,7 @@ RECORD_FIELDS = [
 EVENT_FIELDS = [
     "dataset", "model", "policy_key", "seed",
     "event_index", "alarm_row", "adapt_row", "deferred_rows", "buffer_rows",
-    "action", "degraded_to_rebuild",
+    "action", "degraded_to_rebuild", "wait_start", "wait_rows_scored", "wait_accuracy",
     "reference_accuracy_used", "reference_carried", "floor",
     "acc_before", "acc_nudged", "acc_after",
     "work_units", "n_passes", "n_estimators_fitted", "rows_processed",
@@ -150,6 +151,7 @@ class RunConfig:
     track_energy: bool = True
     energy_country_iso: str = "USA"  # affects only the CO2 figure, which is not recorded
     detector: str = "adwin"  # "adwin" (primary) or "ddm" (one-sided contrast, library defaults)
+    wait_rows: int = 0  # WaitAndCheck(W): 0 is the original behaviour, act on the alarm at once
 
 
 def alarm_direction(before: float | None, after: float | None) -> str | None:
@@ -290,6 +292,10 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
     events: list[dict] = []
     counts = {SKIP: 0, NUDGE: 0, REBUILD: 0}
     n_alarms = n_degraded = n_deferred = n_coalesced = n_carried = 0
+    n_ignored_wait = n_cancelled = n_proceeded = n_truncated = 0
+    wait_until: int | None = None      # last row of the current wait, None when not waiting
+    wait_start: int | None = None
+    wait_info: dict = {}
     n_nudge_attempts = 0
     n_on_falling = work_on_falling = 0
     alarm_before = alarm_after = None  # detector error estimate around the alarm that opened the episode
@@ -333,11 +339,61 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                         recent, prior = window_error_rates(errors, row - n_init, width)
                         alarm_windows[f"window_error_recent_{width}"] = recent
                         alarm_windows[f"window_error_prior_{width}"] = prior
+                elif config.wait_rows > 0 and wait_until is not None:
+                    n_ignored_wait += 1
                 else:
                     n_coalesced += 1
 
             if pending_since is None:
                 continue
+
+            # --- WaitAndCheck(W): hold off, keep predicting, then check the W rows.
+            if config.wait_rows > 0:
+                if wait_until is None:
+                    wait_until = row + config.wait_rows
+                    wait_start = row + 1
+                    wait_info = {}
+                    continue
+                if row < wait_until:
+                    continue
+                # exactly the W rows after the alarm, each already scored before its label was used
+                wait_slice = slice(wait_start - n_init, wait_until + 1 - n_init)
+                wait_acc = float(scorer(y[wait_start:wait_until + 1], preds[wait_slice]))
+                floor = reference_accuracy - config.floor_drop
+                wait_info = {"wait_start": wait_start,
+                             "wait_rows_scored": wait_until + 1 - wait_start,
+                             "wait_accuracy": wait_acc}
+                if wait_acc >= floor:                      # cancel: the selector's SKIP branch
+                    n_cancelled += 1
+                    events.append({
+                        "dataset": dataset, "model": model_name, "policy_key": policy_key,
+                        "seed": seed, "event_index": len(events), "alarm_row": pending_since,
+                        "adapt_row": row, "deferred_rows": row - pending_since,
+                        "buffer_rows": row + 1 - max(buf_start, row + 1 - config.buffer_size),
+                        "action": "CANCELLED", "degraded_to_rebuild": False,
+                        "reference_accuracy_used": reference_accuracy,
+                        "reference_carried": not ref_ready, "floor": floor,
+                        "acc_before": wait_acc, "acc_nudged": None, "acc_after": wait_acc,
+                        "work_units": 0, "n_passes": 0, "n_estimators_fitted": 0,
+                        "rows_processed": 0, "cumulative_work_units": totals["work_units"],
+                        "model_size_after": model_size(model)[0],
+                        "model_size_unit": model_size(model)[1],
+                        "placeholders_injected": False, "n_placeholder_rows": 0,
+                        "nudges_since_rebuild": nudges_since_rebuild,
+                        "accuracy_deficit": reference_accuracy - wait_acc,
+                        "nudge_prediction_change": None,
+                        "alarm_error_before": alarm_before, "alarm_error_after": alarm_after,
+                        "alarm_direction": alarm_direction(alarm_before, alarm_after),
+                        **wait_info, **alarm_windows,
+                    })
+                    buf_start = row + 1
+                    pending_since = None
+                    ref_start, ref_ready = row + 1, False
+                    wait_until = wait_start = None
+                    adapted_at = row
+                    break
+                n_proceeded += 1
+                wait_until = wait_start = None               # fall through to the selector
 
             window_start = max(buf_start, row + 1 - config.buffer_size)
             buffer_rows = row + 1 - window_start
@@ -392,8 +448,9 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
                 "nudge_prediction_change": result.prediction_change,
                 "alarm_error_before": alarm_before, "alarm_error_after": alarm_after,
                 "alarm_direction": direction,
-                **alarm_windows,
+                **wait_info, **alarm_windows,
             })
+            wait_info = {}
 
             buf_start = row + 1
             pending_since = None
@@ -417,6 +474,9 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
         "n_degraded": n_degraded, "n_alarms_deferred": n_deferred,
         "n_alarms_coalesced": n_coalesced, "n_alarms_unserved": int(pending_since is not None),
         "n_reference_carried": n_carried,
+        "n_alarms_ignored_during_wait": n_ignored_wait,
+        "n_waits_cancelled": n_cancelled, "n_waits_proceeded": n_proceeded,
+        "n_waits_truncated": int(wait_until is not None),
         "n_nudge_attempts": n_nudge_attempts,
         "n_nudge_successes": counts[NUDGE] if is_selector else None,
         "n_adaptations_with_placeholders": n_with_placeholders,

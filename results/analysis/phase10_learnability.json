@@ -1,0 +1,565 @@
+{
+  "label": "declared follow-up",
+  "note": "all numbers here are out-of-sample",
+  "lambda_grid": [
+    0.0,
+    10.0,
+    100.0,
+    1000.0,
+    10000.0,
+    100000.0,
+    1000000.0
+  ],
+  "cross_stream": {
+    "0.0": {
+      "train_covtype_test_elec2": {
+        "n_train": 1860,
+        "n_test": 735,
+        "gbm": {
+          "captured_share_of_G1": 0.9249017343773474,
+          "policy_cost": 174165261.43375,
+          "oracle_cost": 129767129.50979167,
+          "rule_cost": 133101352.21416667,
+          "accuracy_vs_oracle": 0.9210884353741496
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.9372165767210848,
+          "policy_cost": 174165261.43375,
+          "oracle_cost": 129767129.50979167,
+          "rule_cost": 132554596.21916667,
+          "accuracy_vs_oracle": 0.9210884353741496
+        }
+      },
+      "train_elec2_test_covtype": {
+        "n_train": 735,
+        "n_test": 1860,
+        "gbm": {
+          "captured_share_of_G1": 0.9531950592026558,
+          "policy_cost": 778709454.3192563,
+          "oracle_cost": 556903036.300558,
+          "rule_cost": 567284672.5643941,
+          "accuracy_vs_oracle": 0.9586021505376344
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.9636412082598298,
+          "policy_cost": 778709454.3192563,
+          "oracle_cost": 556903036.300558,
+          "rule_cost": 564967649.659933,
+          "accuracy_vs_oracle": 0.9672043010752688
+        }
+      }
+    },
+    "10.0": {
+      "train_covtype_test_elec2": {
+        "n_train": 1860,
+        "n_test": 735,
+        "gbm": {
+          "captured_share_of_G1": 0.9242119051966456,
+          "policy_cost": 175468031.43375,
+          "oracle_cost": 131134779.51479167,
+          "rule_cost": 134494712.21416667,
+          "accuracy_vs_oracle": 0.8925170068027211
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.9363749199014031,
+          "policy_cost": 175468031.43375,
+          "oracle_cost": 131134779.51479167,
+          "rule_cost": 133955486.21916667,
+          "accuracy_vs_oracle": 0.8925170068027211
+        }
+      },
+      "train_elec2_test_covtype": {
+        "n_train": 735,
+        "n_test": 1860,
+        "gbm": {
+          "captured_share_of_G1": 0.9318767016008267,
+          "policy_cost": 780381764.3192563,
+          "oracle_cost": 558772226.300558,
+          "rule_cost": 573868998.9871087,
+          "accuracy_vs_oracle": 0.8311827956989247
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.963637199772985,
+          "policy_cost": 780381764.3192563,
+          "oracle_cost": 558772226.300558,
+          "rule_cost": 566830569.659933,
+          "accuracy_vs_oracle": 0.9672043010752688
+        }
+      }
+    },
+    "100.0": {
+      "train_covtype_test_elec2": {
+        "n_train": 1860,
+        "n_test": 735,
+        "gbm": {
+          "captured_share_of_G1": 0.8991188263283084,
+          "policy_cost": 187192961.43375,
+          "oracle_cost": 142554329.65645835,
+          "rule_cost": 147057527.22125,
+          "accuracy_vs_oracle": 0.7142857142857143
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.910186168278844,
+          "policy_cost": 187192961.43375,
+          "oracle_cost": 142554329.65645835,
+          "rule_cost": 146563496.21916667,
+          "accuracy_vs_oracle": 0.7210884353741497
+        }
+      },
+      "train_elec2_test_covtype": {
+        "n_train": 735,
+        "n_test": 1860,
+        "gbm": {
+          "captured_share_of_G1": 0.8984315050846702,
+          "policy_cost": 795432554.3192563,
+          "oracle_cost": 575231144.084933,
+          "rule_cost": 597596669.9006664,
+          "accuracy_vs_oracle": 0.7
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.9620088465096671,
+          "policy_cost": 795432554.3192563,
+          "oracle_cost": 575231144.084933,
+          "rule_cost": 583596849.659933,
+          "accuracy_vs_oracle": 0.9510752688172043
+        }
+      }
+    },
+    "1000.0": {
+      "train_covtype_test_elec2": {
+        "n_train": 1860,
+        "n_test": 735,
+        "gbm": {
+          "captured_share_of_G1": 0.5117644999775384,
+          "policy_cost": 304442261.43375,
+          "oracle_cost": 249035972.98875,
+          "rule_cost": 276087289.9320833,
+          "accuracy_vs_oracle": 0.5714285714285714
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.5739179812802078,
+          "policy_cost": 304442261.43375,
+          "oracle_cost": 249035972.98875,
+          "rule_cost": 272643596.2191667,
+          "accuracy_vs_oracle": 0.6
+        }
+      },
+      "train_elec2_test_covtype": {
+        "n_train": 735,
+        "n_test": 1860,
+        "gbm": {
+          "captured_share_of_G1": 0.6383653895314121,
+          "policy_cost": 945940454.3192563,
+          "oracle_cost": 711510071.7251413,
+          "rule_cost": 796288211.8165661,
+          "accuracy_vs_oracle": 0.539247311827957
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.7854458394931002,
+          "policy_cost": 945940454.3192563,
+          "oracle_cost": 711510071.7251413,
+          "rule_cost": 761808085.659933,
+          "accuracy_vs_oracle": 0.7139784946236559
+        }
+      }
+    },
+    "10000.0": {
+      "train_covtype_test_elec2": {
+        "n_train": 1860,
+        "n_test": 735,
+        "gbm": {
+          "captured_share_of_G1": -0.12235241421398453,
+          "policy_cost": 1476935261.43375,
+          "oracle_cost": 1229430381.961875,
+          "rule_cost": 1507218080.966875,
+          "accuracy_vs_oracle": 0.37142857142857144
+        },
+        "family_only": {
+          "captured_share_of_G1": -0.15404725634644548,
+          "policy_cost": 1476935261.43375,
+          "oracle_cost": 1229430381.961875,
+          "rule_cost": 1515062709.04875,
+          "accuracy_vs_oracle": 0.3795918367346939
+        }
+      },
+      "train_elec2_test_covtype": {
+        "n_train": 735,
+        "n_test": 1860,
+        "gbm": {
+          "captured_share_of_G1": 0.16215106845777316,
+          "policy_cost": 2451019454.3192563,
+          "oracle_cost": 1767878531.1713848,
+          "rule_cost": 2340247423.7235994,
+          "accuracy_vs_oracle": 0.36774193548387096
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.5160488066218383,
+          "policy_cost": 2451019454.3192563,
+          "oracle_cost": 1767878531.1713848,
+          "rule_cost": 2098485396.1742563,
+          "accuracy_vs_oracle": 0.4946236559139785
+        }
+      }
+    },
+    "100000.0": {
+      "train_covtype_test_elec2": {
+        "n_train": 1860,
+        "n_test": 735,
+        "gbm": {
+          "captured_share_of_G1": -0.054228182887224044,
+          "policy_cost": 13201865261.43375,
+          "oracle_cost": 10774464281.116875,
+          "rule_cost": 13333498805.735,
+          "accuracy_vs_oracle": 0.4163265306122449
+        },
+        "family_only": {
+          "captured_share_of_G1": -0.07210075674936607,
+          "policy_cost": 13201865261.43375,
+          "oracle_cost": 10774464281.116875,
+          "rule_cost": 13376882709.04875,
+          "accuracy_vs_oracle": 0.41904761904761906
+        }
+      },
+      "train_elec2_test_covtype": {
+        "n_train": 735,
+        "n_test": 1860,
+        "gbm": {
+          "captured_share_of_G1": 0.1821682698216857,
+          "policy_cost": 17501809454.319256,
+          "oracle_cost": 11249424418.50419,
+          "rule_cost": 16362823290.085827,
+          "accuracy_vs_oracle": 0.3924731182795699
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.2739908899295224,
+          "policy_cost": 17501809454.319256,
+          "oracle_cost": 11249424418.50419,
+          "rule_cost": 15788712914.174257,
+          "accuracy_vs_oracle": 0.48494623655913977
+        }
+      }
+    },
+    "1000000.0": {
+      "train_covtype_test_elec2": {
+        "n_train": 1860,
+        "n_test": 735,
+        "gbm": {
+          "captured_share_of_G1": 0.010764131946961393,
+          "policy_cost": 130451165261.43375,
+          "oracle_cost": 106142749436.37813,
+          "rule_cost": 130189506266.07124,
+          "accuracy_vs_oracle": 0.4421768707482993
+        },
+        "family_only": {
+          "captured_share_of_G1": -0.06351370071691922,
+          "policy_cost": 130451165261.43375,
+          "oracle_cost": 106142749436.37813,
+          "rule_cost": 131995082709.04875,
+          "accuracy_vs_oracle": 0.4231292517006803
+        }
+      },
+      "train_elec2_test_covtype": {
+        "n_train": 735,
+        "n_test": 1860,
+        "gbm": {
+          "captured_share_of_G1": 0.16843672538940951,
+          "policy_cost": 168009709454.31924,
+          "oracle_cost": 105668617677.5042,
+          "rule_cost": 157509180098.23187,
+          "accuracy_vs_oracle": 0.38924731182795697
+        },
+        "family_only": {
+          "captured_share_of_G1": 0.3011849168019856,
+          "policy_cost": 168009709454.31924,
+          "oracle_cost": 105668617677.5042,
+          "rule_cost": 149233512914.17426,
+          "accuracy_vs_oracle": 0.5
+        }
+      }
+    }
+  },
+  "leave_one_seed_out": {
+    "0.0": {
+      "covtype": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.970641520003754,
+        "folds": [
+          0.924969518915066,
+          0.9574409829586893,
+          0.9853004084338791,
+          0.970641520003754,
+          0.987476846627195
+        ]
+      },
+      "elec2": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.9663288094668708,
+        "folds": [
+          0.9247207118417524,
+          0.9682651432197328,
+          0.9663288094668708,
+          0.9461949809731959,
+          0.9760108750364586
+        ]
+      }
+    },
+    "10.0": {
+      "covtype": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.9693154593794422,
+        "folds": [
+          0.9247535048676156,
+          0.9573548493599814,
+          0.9852208096838676,
+          0.9693154593794422,
+          0.9875220780296962
+        ]
+      },
+      "elec2": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.9643977171511454,
+        "folds": [
+          0.9238821316825103,
+          0.9643977171511454,
+          0.9533579223973487,
+          0.9728177754790376,
+          0.9753777994664351
+        ]
+      }
+    },
+    "100.0": {
+      "covtype": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.9692264613187077,
+        "folds": [
+          0.9190026498017267,
+          0.9692264613187077,
+          0.9822723043082959,
+          0.9658219410032228,
+          0.9793469502266285
+        ]
+      },
+      "elec2": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.9388168798866671,
+        "folds": [
+          0.8168614292914179,
+          0.9299906171334757,
+          0.9528671322234874,
+          0.9388168798866671,
+          0.9449731989985141
+        ]
+      }
+    },
+    "1000.0": {
+      "covtype": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.8910009441769994,
+        "folds": [
+          0.7998597236403876,
+          0.8094326301797115,
+          0.9087545933182853,
+          0.8910009441769994,
+          0.9210555268098795
+        ]
+      },
+      "elec2": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.7003342083290685,
+        "folds": [
+          0.35370237479714506,
+          0.7003342083290685,
+          0.7559709119936824,
+          0.7919937753512596,
+          0.6033776465348303
+        ]
+      }
+    },
+    "10000.0": {
+      "covtype": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.6447075581234534,
+        "folds": [
+          0.26039058247468144,
+          0.28827154843307984,
+          0.6447075581234534,
+          0.6773743964686716,
+          0.6476226610868623
+        ]
+      },
+      "elec2": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.08456913215266151,
+        "folds": [
+          0.0713943242667074,
+          0.33021108871184635,
+          0.3184693093622154,
+          0.08456913215266151,
+          -0.3917946236732016
+        ]
+      }
+    },
+    "100000.0": {
+      "covtype": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.5770248014555228,
+        "folds": [
+          -0.018059987282362303,
+          0.2960790139898353,
+          0.5770248014555228,
+          0.6128771575596039,
+          0.589360198948681
+        ]
+      },
+      "elec2": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.0619287107945811,
+        "folds": [
+          0.0619287107945811,
+          0.41741362660608616,
+          0.34587819991454183,
+          0.0023925281972992686,
+          -0.7207997615235036
+        ]
+      }
+    },
+    "1000000.0": {
+      "covtype": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.576620140872072,
+        "folds": [
+          0.10947085219223882,
+          0.5631878398443458,
+          0.5859286931400927,
+          0.6181061089452334,
+          0.576620140872072
+        ]
+      },
+      "elec2": {
+        "n_folds": 5,
+        "median_captured_share_of_G1": 0.043910894154991255,
+        "folds": [
+          0.043910894154991255,
+          0.49870899758162596,
+          0.35760132262810157,
+          -0.08346181505970543,
+          -0.5134151754529706
+        ]
+      }
+    }
+  },
+  "reference_rules": {
+    "0.0": {
+      "covtype": {
+        "captured_share_of_G1": 0.9636412082598298,
+        "policy_cost": 778709454.3192563,
+        "oracle_cost": 556903036.300558,
+        "rule_cost": 564967649.659933,
+        "accuracy_vs_oracle": 0.9672043010752688
+      },
+      "elec2": {
+        "captured_share_of_G1": 0.9372165767210848,
+        "policy_cost": 174165261.43375,
+        "oracle_cost": 129767129.50979167,
+        "rule_cost": 132554596.21916667,
+        "accuracy_vs_oracle": 0.9210884353741496
+      }
+    },
+    "10.0": {
+      "covtype": {
+        "captured_share_of_G1": 0.963637199772985,
+        "policy_cost": 780381764.3192563,
+        "oracle_cost": 558772226.300558,
+        "rule_cost": 566830569.659933,
+        "accuracy_vs_oracle": 0.9672043010752688
+      },
+      "elec2": {
+        "captured_share_of_G1": 0.9363749199014031,
+        "policy_cost": 175468031.43375,
+        "oracle_cost": 131134779.51479167,
+        "rule_cost": 133955486.21916667,
+        "accuracy_vs_oracle": 0.8925170068027211
+      }
+    },
+    "100.0": {
+      "covtype": {
+        "captured_share_of_G1": 0.9620088465096671,
+        "policy_cost": 795432554.3192563,
+        "oracle_cost": 575231144.084933,
+        "rule_cost": 583596849.659933,
+        "accuracy_vs_oracle": 0.9510752688172043
+      },
+      "elec2": {
+        "captured_share_of_G1": 0.910186168278844,
+        "policy_cost": 187192961.43375,
+        "oracle_cost": 142554329.65645835,
+        "rule_cost": 146563496.21916667,
+        "accuracy_vs_oracle": 0.7210884353741497
+      }
+    },
+    "1000.0": {
+      "covtype": {
+        "captured_share_of_G1": 0.8304418672403364,
+        "policy_cost": 945940454.3192563,
+        "oracle_cost": 711510071.7251413,
+        "rule_cost": 751259649.659933,
+        "accuracy_vs_oracle": 0.8075268817204301
+      },
+      "elec2": {
+        "captured_share_of_G1": 0.5739179812802078,
+        "policy_cost": 304442261.43375,
+        "oracle_cost": 249035972.98875,
+        "rule_cost": 272643596.2191667,
+        "accuracy_vs_oracle": 0.6
+      }
+    },
+    "10000.0": {
+      "covtype": {
+        "captured_share_of_G1": 0.0338609558811574,
+        "policy_cost": 2451019454.3192563,
+        "oracle_cost": 1767878531.1713848,
+        "rule_cost": 2427887649.659933,
+        "accuracy_vs_oracle": 0.42096774193548386
+      },
+      "elec2": {
+        "captured_share_of_G1": -0.2283160433281003,
+        "policy_cost": 1476935261.43375,
+        "oracle_cost": 1229430381.961875,
+        "rule_cost": 1533444596.2191668,
+        "accuracy_vs_oracle": 0.3551020408163265
+      }
+    },
+    "100000.0": {
+      "covtype": {
+        "captured_share_of_G1": -0.27067402049721306,
+        "policy_cost": 17501809454.319256,
+        "oracle_cost": 11249424418.50419,
+        "rule_cost": 19194167649.65993,
+        "accuracy_vs_oracle": 0.3258064516129032
+      },
+      "elec2": {
+        "captured_share_of_G1": -0.38707627722172244,
+        "policy_cost": 13201865261.43375,
+        "oracle_cost": 10774464281.116875,
+        "rule_cost": 14141454596.219166,
+        "accuracy_vs_oracle": 0.24761904761904763
+      }
+    },
+    "1000000.0": {
+      "covtype": {
+        "captured_share_of_G1": -0.3023248014778927,
+        "policy_cost": 168009709454.31924,
+        "oracle_cost": 105668617677.5042,
+        "rule_cost": 186856967649.65994,
+        "accuracy_vs_oracle": 0.3172043010752688
+      },
+      "elec2": {
+        "captured_share_of_G1": -0.4019344331239683,
+        "policy_cost": 130451165261.43375,
+        "oracle_cost": 106142749436.37813,
+        "rule_cost": 140221554596.21918,
+        "accuracy_vs_oracle": 0.23537414965986395
+      }
+    }
+  }
+}

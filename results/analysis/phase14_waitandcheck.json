@@ -1,0 +1,1742 @@
+{
+  "label": "declared follow-up (Phase 14, WaitAndCheck)",
+  "accuracy_definitions": {
+    "acc_balanced": "whole-stream prequential, balanced on multi-class (the floor's metric)",
+    "acc_plain": "whole-stream prequential, plain 0/1"
+  },
+  "thresholds_are_our_own": true,
+  "per_cell": {
+    "covtype/gnb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 69548.0,
+        "inference": 68670000.0,
+        "combined": 68739548.0,
+        "acc_balanced": 54.29672256970727,
+        "acc_plain": 77.75555555555556,
+        "n_alarms": 238,
+        "n_adaptations": 238,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 57927.0,
+        "inference": 68670000.0,
+        "combined": 68727927.0,
+        "acc_balanced": 58.05021465081446,
+        "acc_plain": 77.81222222222223,
+        "n_alarms": 236,
+        "n_adaptations": 236,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 66495.0,
+        "inference": 68670000.0,
+        "combined": 68736495.0,
+        "acc_balanced": 51.72651993956088,
+        "acc_plain": 78.29777777777778,
+        "n_alarms": 241,
+        "n_adaptations": 241,
+        "n_degraded": 122
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 68670000.0,
+        "combined": 68670000.0,
+        "acc_balanced": 65.09634266193369,
+        "acc_plain": 45.614444444444445,
+        "n_alarms": 321,
+        "n_adaptations": 321,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 41013.0,
+        "inference": 68670000.0,
+        "combined": 68711013.0,
+        "acc_balanced": 51.866537790335954,
+        "acc_plain": 75.52111111111111,
+        "n_alarms": 296,
+        "n_adaptations": 198,
+        "n_degraded": 8
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 48637.0,
+        "inference": 68670000.0,
+        "combined": 68718637.0,
+        "acc_balanced": 51.90137749911642,
+        "acc_plain": 73.78777777777778,
+        "n_alarms": 307,
+        "n_adaptations": 113,
+        "n_degraded": 0
+      }
+    },
+    "covtype/rf": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 6746720.0,
+        "inference": 99654084.0,
+        "combined": 106400804.0,
+        "acc_balanced": 63.239711093966235,
+        "acc_plain": 90.06955555555555,
+        "n_alarms": 90.8,
+        "n_adaptations": 90.8,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 1863650.0,
+        "inference": 94972392.0,
+        "combined": 96836042.0,
+        "acc_balanced": 81.39260767798936,
+        "acc_plain": 87.87666666666667,
+        "n_alarms": 140.8,
+        "n_adaptations": 140.8,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 5392468.0,
+        "inference": 99561420.0,
+        "combined": 104953888.0,
+        "acc_balanced": 69.90674180335955,
+        "acc_plain": 87.514,
+        "n_alarms": 120.8,
+        "n_adaptations": 120.8,
+        "n_degraded": 18.6
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 141161526.0,
+        "combined": 141161526.0,
+        "acc_balanced": 81.12276594142689,
+        "acc_plain": 82.39377777777777,
+        "n_alarms": 157,
+        "n_adaptations": 157,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 2963798.0,
+        "inference": 99213741.0,
+        "combined": 102177539.0,
+        "acc_balanced": 73.27906203182269,
+        "acc_plain": 86.68822222222222,
+        "n_alarms": 162.4,
+        "n_adaptations": 142.4,
+        "n_degraded": 3.2
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 3721843.0,
+        "inference": 99400338.0,
+        "combined": 103122181.0,
+        "acc_balanced": 80.39749982622295,
+        "acc_plain": 87.59777777777778,
+        "n_alarms": 160.2,
+        "n_adaptations": 80.6,
+        "n_degraded": 0
+      }
+    },
+    "covtype/sgd": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 60653070.4,
+        "inference": 34650000.0,
+        "combined": 95303070.4,
+        "acc_balanced": 30.355109170357604,
+        "acc_plain": 58.52422222222222,
+        "n_alarms": 248.8,
+        "n_adaptations": 248.8,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 24756384.6,
+        "inference": 34650000.0,
+        "combined": 59406384.6,
+        "acc_balanced": 34.73095017586596,
+        "acc_plain": 74.37755555555556,
+        "n_alarms": 253.6,
+        "n_adaptations": 253.6,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 22901045.8,
+        "inference": 34650000.0,
+        "combined": 57551045.8,
+        "acc_balanced": 34.75446073330748,
+        "acc_plain": 46.36333333333333,
+        "n_alarms": 185.2,
+        "n_adaptations": 185.2,
+        "n_degraded": 106.8
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 34650000.0,
+        "combined": 34650000.0,
+        "acc_balanced": 40.572280287528855,
+        "acc_plain": 41.94155555555555,
+        "n_alarms": 456,
+        "n_adaptations": 455.8,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 5661119.2,
+        "inference": 34650000.0,
+        "combined": 40311119.2,
+        "acc_balanced": 37.68275872802958,
+        "acc_plain": 68.14644444444444,
+        "n_alarms": 382,
+        "n_adaptations": 238,
+        "n_degraded": 2.8
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 13373406.2,
+        "inference": 34650000.0,
+        "combined": 48023406.2,
+        "acc_balanced": 35.46999774657958,
+        "acc_plain": 63.86911111111111,
+        "n_alarms": 347.6,
+        "n_adaptations": 117.2,
+        "n_degraded": 0
+      }
+    },
+    "covtype/xgb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 6721600.0,
+        "inference": 236622240.0,
+        "combined": 243343840.0,
+        "acc_balanced": 64.67111621569704,
+        "acc_plain": 90.15111111111112,
+        "n_alarms": 92,
+        "n_adaptations": 92,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 139410.0,
+        "inference": 148115378.69300002,
+        "combined": 148254788.69300002,
+        "acc_balanced": 43.837109055241676,
+        "acc_plain": 3.451111111111111,
+        "n_alarms": 8,
+        "n_adaptations": 8,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 4595395.0,
+        "inference": 287835017.72900003,
+        "combined": 292430412.72900003,
+        "acc_balanced": 52.14320845210272,
+        "acc_plain": 88.9211111111111,
+        "n_alarms": 89,
+        "n_adaptations": 89,
+        "n_degraded": 3
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 357311430.0,
+        "combined": 357311430.0,
+        "acc_balanced": 80.35559438997134,
+        "acc_plain": 82.61666666666667,
+        "n_alarms": 114,
+        "n_adaptations": 114,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 1874350.0,
+        "inference": 229368285.0,
+        "combined": 231242635.0,
+        "acc_balanced": 44.23793819387751,
+        "acc_plain": 80.68777777777778,
+        "n_alarms": 178,
+        "n_adaptations": 149,
+        "n_degraded": 2
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 2243770.0,
+        "inference": 230103315.0,
+        "combined": 232347085.0,
+        "acc_balanced": 55.21562902957772,
+        "acc_plain": 83.48,
+        "n_alarms": 213,
+        "n_adaptations": 92,
+        "n_degraded": 0
+      }
+    },
+    "elec2/gnb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 36948.0,
+        "inference": 1386554.0,
+        "combined": 1423502.0,
+        "acc_balanced": 66.7811985963427,
+        "acc_plain": 68.10524508962507,
+        "n_alarms": 77,
+        "n_adaptations": 77,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 33970.0,
+        "inference": 1386554.0,
+        "combined": 1420524.0,
+        "acc_balanced": 67.51341647430442,
+        "acc_plain": 68.92915818641033,
+        "n_alarms": 81,
+        "n_adaptations": 81,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 36049.0,
+        "inference": 1386554.0,
+        "combined": 1422603.0,
+        "acc_balanced": 64.95440700401959,
+        "acc_plain": 67.2690713812805,
+        "n_alarms": 66,
+        "n_adaptations": 66,
+        "n_degraded": 14
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 1386554.0,
+        "combined": 1386554.0,
+        "acc_balanced": 53.8042122050073,
+        "acc_plain": 48.049336700914644,
+        "n_alarms": 64,
+        "n_adaptations": 64,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 25973.0,
+        "inference": 1386554.0,
+        "combined": 1412527.0,
+        "acc_balanced": 62.90059320575867,
+        "acc_plain": 64.45403496726416,
+        "n_alarms": 81,
+        "n_adaptations": 67,
+        "n_degraded": 1
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 23368.0,
+        "inference": 1386554.0,
+        "combined": 1409922.0,
+        "acc_balanced": 65.2691009247635,
+        "acc_plain": 65.5623942522253,
+        "n_alarms": 82,
+        "n_adaptations": 44,
+        "n_degraded": 0
+      }
+    },
+    "elec2/rf": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 3532240.0,
+        "inference": 30355606.5046,
+        "combined": 33887846.5046,
+        "acc_balanced": 72.6540180692284,
+        "acc_plain": 73.61712562222604,
+        "n_alarms": 63,
+        "n_adaptations": 63,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 1280451.0,
+        "inference": 29913658.7295,
+        "combined": 31194109.7295,
+        "acc_balanced": 73.16978155450703,
+        "acc_plain": 74.12177239400701,
+        "n_alarms": 67.6,
+        "n_adaptations": 67.6,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 2112303.0,
+        "inference": 27928394.7904,
+        "combined": 30040697.7904,
+        "acc_balanced": 70.71730664757341,
+        "acc_plain": 71.88886981682647,
+        "n_alarms": 62.4,
+        "n_adaptations": 62.4,
+        "n_degraded": 11.4
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 33316135.824399997,
+        "combined": 33316135.824399997,
+        "acc_balanced": 66.87508225322094,
+        "acc_plain": 71.04779186385817,
+        "n_alarms": 80,
+        "n_adaptations": 80,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 1272533.0,
+        "inference": 30108029.1317,
+        "combined": 31380562.1317,
+        "acc_balanced": 73.70696556187707,
+        "acc_plain": 74.65143081336896,
+        "n_alarms": 64.4,
+        "n_adaptations": 54.4,
+        "n_degraded": 0.2
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 1468764.0,
+        "inference": 30760484.3507,
+        "combined": 32229248.3507,
+        "acc_balanced": 73.55867588846006,
+        "acc_plain": 74.77501777788676,
+        "n_alarms": 64.4,
+        "n_adaptations": 40,
+        "n_degraded": 0
+      }
+    },
+    "elec2/sgd": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 2018214.4,
+        "inference": 367029.0,
+        "combined": 2385243.4,
+        "acc_balanced": 63.18664777581494,
+        "acc_plain": 64.52024226968442,
+        "n_alarms": 54.6,
+        "n_adaptations": 54.6,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 684420.8,
+        "inference": 367029.0,
+        "combined": 1051449.8,
+        "acc_balanced": 61.756712241116674,
+        "acc_plain": 62.89252347907114,
+        "n_alarms": 58.4,
+        "n_adaptations": 58.4,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 964999.8,
+        "inference": 367029.0,
+        "combined": 1332028.8,
+        "acc_balanced": 61.762797824948244,
+        "acc_plain": 63.09457835756847,
+        "n_alarms": 57.2,
+        "n_adaptations": 57.2,
+        "n_degraded": 11.2
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 367029.0,
+        "combined": 367029.0,
+        "acc_balanced": 60.53304486611676,
+        "acc_plain": 66.04938574336089,
+        "n_alarms": 83.4,
+        "n_adaptations": 83.4,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 571539.2,
+        "inference": 367029.0,
+        "combined": 938568.2,
+        "acc_balanced": 63.65212458706353,
+        "acc_plain": 64.87923297614084,
+        "n_alarms": 60.8,
+        "n_adaptations": 52.8,
+        "n_degraded": 1.6
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 502498.8,
+        "inference": 367029.0,
+        "combined": 869527.8,
+        "acc_balanced": 62.72016643620535,
+        "acc_plain": 65.13621539442387,
+        "n_alarms": 66,
+        "n_adaptations": 41.6,
+        "n_degraded": 0
+      }
+    },
+    "elec2/xgb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 3742400.0,
+        "inference": 20701026.9245,
+        "combined": 24443426.9245,
+        "acc_balanced": 73.32180228413645,
+        "acc_plain": 74.20367327922317,
+        "n_alarms": 74,
+        "n_adaptations": 74,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 1032595.0,
+        "inference": 15802519.974,
+        "combined": 16835114.974,
+        "acc_balanced": 72.9698439819628,
+        "acc_plain": 73.59799906819352,
+        "n_alarms": 52,
+        "n_adaptations": 52,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 2051495.0,
+        "inference": 18574134.6505,
+        "combined": 20625629.6505,
+        "acc_balanced": 70.65154278400611,
+        "acc_plain": 71.26112650499007,
+        "n_alarms": 71,
+        "n_adaptations": 71,
+        "n_degraded": 16
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 23220660.619,
+        "combined": 23220660.619,
+        "acc_balanced": 66.94052678219897,
+        "acc_plain": 70.68978200632647,
+        "n_alarms": 79,
+        "n_adaptations": 79,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 1135560.0,
+        "inference": 20435359.1,
+        "combined": 21570919.1,
+        "acc_balanced": 73.5635170745257,
+        "acc_plain": 75.02268213138471,
+        "n_alarms": 66,
+        "n_adaptations": 57,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 1150415.0,
+        "inference": 20711466.8605,
+        "combined": 21861881.8605,
+        "acc_balanced": 72.06474425278802,
+        "acc_plain": 73.72060518378657,
+        "n_alarms": 60,
+        "n_adaptations": 38,
+        "n_degraded": 0
+      }
+    },
+    "insects_abrupt/gnb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 9384.0,
+        "inference": 19120728.0,
+        "combined": 19130112.0,
+        "acc_balanced": 57.33682680547112,
+        "acc_plain": 57.25548734336894,
+        "n_alarms": 10,
+        "n_adaptations": 10,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 9086.0,
+        "inference": 19120728.0,
+        "combined": 19129814.0,
+        "acc_balanced": 41.61156070580471,
+        "acc_plain": 41.75006307291228,
+        "n_alarms": 11,
+        "n_adaptations": 11,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 2728.0,
+        "inference": 19120728.0,
+        "combined": 19123456.0,
+        "acc_balanced": 40.23382415452221,
+        "acc_plain": 40.51803885291397,
+        "n_alarms": 11,
+        "n_adaptations": 11,
+        "n_degraded": 1
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 19120728.0,
+        "combined": 19120728.0,
+        "acc_balanced": 49.116669023416264,
+        "acc_plain": 49.184257001093265,
+        "n_alarms": 8,
+        "n_adaptations": 8,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 11233.0,
+        "inference": 19120728.0,
+        "combined": 19131961.0,
+        "acc_balanced": 54.956387136698645,
+        "acc_plain": 55.08577916070978,
+        "n_alarms": 14,
+        "n_adaptations": 14,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 5400.0,
+        "inference": 19120728.0,
+        "combined": 19126128.0,
+        "acc_balanced": 53.940817937079224,
+        "acc_plain": 53.97779833487512,
+        "n_alarms": 13,
+        "n_adaptations": 12,
+        "n_degraded": 0
+      }
+    },
+    "insects_abrupt/rf": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 972320.0,
+        "inference": 54731695.0312,
+        "combined": 55704015.0312,
+        "acc_balanced": 56.64421735404587,
+        "acc_plain": 56.52300058868052,
+        "n_alarms": 10,
+        "n_adaptations": 10,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 239136.0,
+        "inference": 55106751.4404,
+        "combined": 55345887.4404,
+        "acc_balanced": 40.13670492407028,
+        "acc_plain": 40.25901942645699,
+        "n_alarms": 9.6,
+        "n_adaptations": 9.6,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 349760.0,
+        "inference": 54607063.082,
+        "combined": 54956823.082,
+        "acc_balanced": 50.90066807887193,
+        "acc_plain": 50.68413085526869,
+        "n_alarms": 9,
+        "n_adaptations": 9,
+        "n_degraded": 1
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 62182243.6576,
+        "combined": 62182243.6576,
+        "acc_balanced": 56.41477205662011,
+        "acc_plain": 55.616012109999154,
+        "n_alarms": 8.4,
+        "n_adaptations": 8.4,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 867346.0,
+        "inference": 55220681.4896,
+        "combined": 56088027.4896,
+        "acc_balanced": 62.37553673413223,
+        "acc_plain": 62.3997140694643,
+        "n_alarms": 17,
+        "n_adaptations": 17,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 1006322.0,
+        "inference": 57869767.98240001,
+        "combined": 58876089.98240001,
+        "acc_balanced": 66.04987248635578,
+        "acc_plain": 66.0066436800942,
+        "n_alarms": 18.4,
+        "n_adaptations": 17.4,
+        "n_degraded": 0
+      }
+    },
+    "insects_abrupt/sgd": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 3100832.0,
+        "inference": 9703056.0,
+        "combined": 12803888.0,
+        "acc_balanced": 19.95844248834392,
+        "acc_plain": 20.192582625515094,
+        "n_alarms": 9.2,
+        "n_adaptations": 9.2,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 671841.8,
+        "inference": 9703056.0,
+        "combined": 10374897.8,
+        "acc_balanced": 19.512823578791313,
+        "acc_plain": 19.680010091665967,
+        "n_alarms": 9.2,
+        "n_adaptations": 9.2,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 123671.0,
+        "inference": 9703056.0,
+        "combined": 9826727.0,
+        "acc_balanced": 19.80654039024721,
+        "acc_plain": 19.690522243713733,
+        "n_alarms": 9.8,
+        "n_adaptations": 9.8,
+        "n_degraded": 0.2
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 9703056.0,
+        "combined": 9703056.0,
+        "acc_balanced": 20.979047067030326,
+        "acc_plain": 20.615171137835336,
+        "n_alarms": 10.8,
+        "n_adaptations": 10.8,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 448189.2,
+        "inference": 9703056.0,
+        "combined": 10151245.2,
+        "acc_balanced": 24.206703922312744,
+        "acc_plain": 24.59549238920192,
+        "n_alarms": 12.6,
+        "n_adaptations": 12,
+        "n_degraded": 0.2
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 435713.2,
+        "inference": 9703056.0,
+        "combined": 10138769.2,
+        "acc_balanced": 23.93568051101798,
+        "acc_plain": 24.397022958540074,
+        "n_alarms": 14.6,
+        "n_adaptations": 12.8,
+        "n_degraded": 0
+      }
+    },
+    "insects_abrupt/xgb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 900000.0,
+        "inference": 143416352.15600002,
+        "combined": 144316352.15600002,
+        "acc_balanced": 56.08586746253009,
+        "acc_plain": 56.04448742746615,
+        "n_alarms": 9,
+        "n_adaptations": 9,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 325405.0,
+        "inference": 162409391.088,
+        "combined": 162734796.088,
+        "acc_balanced": 49.52741244646035,
+        "acc_plain": 49.42603649819191,
+        "n_alarms": 11,
+        "n_adaptations": 11,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 476575.0,
+        "inference": 163469809.15200004,
+        "combined": 163946384.15200004,
+        "acc_balanced": 45.39220111710304,
+        "acc_plain": 45.650071482633926,
+        "n_alarms": 11,
+        "n_adaptations": 11,
+        "n_degraded": 0
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 174704284.304,
+        "combined": 174704284.304,
+        "acc_balanced": 56.89607474919983,
+        "acc_plain": 56.183247834496676,
+        "n_alarms": 9,
+        "n_adaptations": 9,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 743965.0,
+        "inference": 136202486.75,
+        "combined": 136946451.75,
+        "acc_balanced": 64.12206904205354,
+        "acc_plain": 64.09048860482717,
+        "n_alarms": 18,
+        "n_adaptations": 18,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 595900.0,
+        "inference": 168317201.20000002,
+        "combined": 168913101.20000002,
+        "acc_balanced": 63.97075091255896,
+        "acc_plain": 63.92860146329157,
+        "n_alarms": 18,
+        "n_adaptations": 17,
+        "n_degraded": 0
+      }
+    },
+    "insects_gradual/gnb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 5640.0,
+        "inference": 8737470.0,
+        "combined": 8743110.0,
+        "acc_balanced": 54.828003264113136,
+        "acc_plain": 57.56153669197147,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 4886.0,
+        "inference": 8737470.0,
+        "combined": 8742356.0,
+        "acc_balanced": 49.8109841843976,
+        "acc_plain": 52.22452265930527,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 6724.0,
+        "inference": 8737470.0,
+        "combined": 8744194.0,
+        "acc_balanced": 53.83971044467268,
+        "acc_plain": 56.5631469979296,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 1
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 8737470.0,
+        "combined": 8737470.0,
+        "acc_balanced": 34.18107321216655,
+        "acc_plain": 34.15688980906372,
+        "n_alarms": 5,
+        "n_adaptations": 5,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 6128.0,
+        "inference": 8737470.0,
+        "combined": 8743598.0,
+        "acc_balanced": 52.115690055165054,
+        "acc_plain": 54.00966183574879,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 5200.0,
+        "inference": 8737470.0,
+        "combined": 8742670.0,
+        "acc_balanced": 55.96127161416155,
+        "acc_plain": 57.27168161950771,
+        "n_alarms": 9,
+        "n_adaptations": 8,
+        "n_degraded": 0
+      }
+    },
+    "insects_gradual/rf": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 547840.0,
+        "inference": 19003788.594,
+        "combined": 19551628.594,
+        "acc_balanced": 48.69372775102083,
+        "acc_plain": 49.01495284103979,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 212324.0,
+        "inference": 20772026.478,
+        "combined": 20984350.478,
+        "acc_balanced": 29.21872022347798,
+        "acc_plain": 27.981596503335634,
+        "n_alarms": 6,
+        "n_adaptations": 6,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 395689.0,
+        "inference": 17954750.9925,
+        "combined": 18350439.9925,
+        "acc_balanced": 44.88181032769554,
+        "acc_plain": 45.02967563837129,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 1
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 18924929.667,
+        "combined": 18924929.667,
+        "acc_balanced": 28.16538019536982,
+        "acc_plain": 25.25971934667587,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 468248.0,
+        "inference": 17481964.752,
+        "combined": 17950212.752,
+        "acc_balanced": 53.24218027858205,
+        "acc_plain": 54.17897400506096,
+        "n_alarms": 10.2,
+        "n_adaptations": 10.2,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 555775.0,
+        "inference": 20697749.289,
+        "combined": 21253524.289,
+        "acc_balanced": 61.95543180977143,
+        "acc_plain": 62.93811824246607,
+        "n_alarms": 11,
+        "n_adaptations": 10,
+        "n_degraded": 0
+      }
+    },
+    "insects_gradual/sgd": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 3162200.0,
+        "inference": 4433940.0,
+        "combined": 7596140.0,
+        "acc_balanced": 19.521196568362278,
+        "acc_plain": 19.24269611226133,
+        "n_alarms": 5.6,
+        "n_adaptations": 5.6,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 1064093.6,
+        "inference": 4433940.0,
+        "combined": 5498033.6,
+        "acc_balanced": 23.364236979242822,
+        "acc_plain": 22.65470439383483,
+        "n_alarms": 5.8,
+        "n_adaptations": 5.8,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 245699.0,
+        "inference": 4433940.0,
+        "combined": 4679639.0,
+        "acc_balanced": 19.552143345308227,
+        "acc_plain": 18.148608235564758,
+        "n_alarms": 6,
+        "n_adaptations": 6,
+        "n_degraded": 0.4
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 4433940.0,
+        "combined": 4433940.0,
+        "acc_balanced": 20.558921122565586,
+        "acc_plain": 17.77685760294456,
+        "n_alarms": 6.2,
+        "n_adaptations": 6.2,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 208664.0,
+        "inference": 4433940.0,
+        "combined": 4642604.0,
+        "acc_balanced": 24.18908293264022,
+        "acc_plain": 24.411318150448587,
+        "n_alarms": 7.6,
+        "n_adaptations": 6.8,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 64581.2,
+        "inference": 4433940.0,
+        "combined": 4498521.2,
+        "acc_balanced": 20.84544728703931,
+        "acc_plain": 19.828847481021395,
+        "n_alarms": 7,
+        "n_adaptations": 6.2,
+        "n_degraded": 0
+      }
+    },
+    "insects_gradual/xgb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 588800.0,
+        "inference": 38746223.775,
+        "combined": 39335023.775,
+        "acc_balanced": 50.92618247809012,
+        "acc_plain": 51.313549574419135,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 216350.0,
+        "inference": 70117846.28999999,
+        "combined": 70334196.28999999,
+        "acc_balanced": 43.52276381149092,
+        "acc_plain": 43.39084426040948,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 405855.0,
+        "inference": 47809316.677499995,
+        "combined": 48215171.677499995,
+        "acc_balanced": 39.67950636678477,
+        "acc_plain": 38.99240855762595,
+        "n_alarms": 5,
+        "n_adaptations": 5,
+        "n_degraded": 0
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 39843058.815,
+        "combined": 39843058.815,
+        "acc_balanced": 30.604911004506917,
+        "acc_plain": 27.82608695652174,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 320000.0,
+        "inference": 40971048.680999994,
+        "combined": 41291048.680999994,
+        "acc_balanced": 52.78965656620341,
+        "acc_plain": 53.33793420749943,
+        "n_alarms": 8,
+        "n_adaptations": 8,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 375645.0,
+        "inference": 48370699.125,
+        "combined": 48746344.125,
+        "acc_balanced": 60.36960944802764,
+        "acc_plain": 61.191626409017715,
+        "n_alarms": 11,
+        "n_adaptations": 10,
+        "n_degraded": 0
+      }
+    },
+    "insects_incremental/gnb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 5000.0,
+        "inference": 20629434.0,
+        "combined": 20634434.0,
+        "acc_balanced": 54.845222439592824,
+        "acc_plain": 54.84537287838338,
+        "n_alarms": 5,
+        "n_adaptations": 5,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 4200.0,
+        "inference": 20629434.0,
+        "combined": 20633634.0,
+        "acc_balanced": 52.756519113796905,
+        "acc_plain": 52.7563965157745,
+        "n_alarms": 5,
+        "n_adaptations": 5,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 7000.0,
+        "inference": 20629434.0,
+        "combined": 20636434.0,
+        "acc_balanced": 54.204232760415984,
+        "acc_plain": 54.204259796948385,
+        "n_alarms": 5,
+        "n_adaptations": 5,
+        "n_degraded": 0
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 20629434.0,
+        "combined": 20629434.0,
+        "acc_balanced": 20.591008171981258,
+        "acc_plain": 20.591616813141844,
+        "n_alarms": 5,
+        "n_adaptations": 5,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 6200.0,
+        "inference": 20629434.0,
+        "combined": 20635634.0,
+        "acc_balanced": 51.71463096324588,
+        "acc_plain": 51.713857006450105,
+        "n_alarms": 4,
+        "n_adaptations": 4,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 5755.0,
+        "inference": 20629434.0,
+        "combined": 20635189.0,
+        "acc_balanced": 50.05143413595984,
+        "acc_plain": 50.051639807471204,
+        "n_alarms": 7,
+        "n_adaptations": 7,
+        "n_degraded": 0
+      }
+    },
+    "insects_incremental/rf": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 660000.0,
+        "inference": 57920630.6427,
+        "combined": 58580630.6427,
+        "acc_balanced": 62.32306780925667,
+        "acc_plain": 62.32281700021436,
+        "n_alarms": 6.6,
+        "n_adaptations": 6.6,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 112000.0,
+        "inference": 57402359.7329,
+        "combined": 57514359.7329,
+        "acc_balanced": 40.62214401412581,
+        "acc_plain": 40.622405830426565,
+        "n_alarms": 4,
+        "n_adaptations": 4,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 604000.0,
+        "inference": 57787078.1502,
+        "combined": 58391078.1502,
+        "acc_balanced": 61.75057334981164,
+        "acc_plain": 61.75029717247696,
+        "n_alarms": 6.2,
+        "n_adaptations": 6.2,
+        "n_degraded": 0
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 63909801.7908,
+        "combined": 63909801.7908,
+        "acc_balanced": 21.24395358209042,
+        "acc_plain": 21.244421926457118,
+        "n_alarms": 4,
+        "n_adaptations": 4,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 500000.0,
+        "inference": 57482876.105900005,
+        "combined": 57982876.105900005,
+        "acc_balanced": 60.50460088724886,
+        "acc_plain": 60.504316308435804,
+        "n_alarms": 6.4,
+        "n_adaptations": 6.2,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 472908.0,
+        "inference": 57479673.9251,
+        "combined": 57952581.9251,
+        "acc_balanced": 60.30590431935533,
+        "acc_plain": 60.30555176647115,
+        "n_alarms": 6.8,
+        "n_adaptations": 6.8,
+        "n_degraded": 0
+      }
+    },
+    "insects_incremental/sgd": {
+      "always_rebuild": {
+        "n_runs": 5,
+        "training": 42400.0,
+        "inference": 10468668.0,
+        "combined": 10511068.0,
+        "acc_balanced": 19.932971470035564,
+        "acc_plain": 19.934524621470466,
+        "n_alarms": 0.4,
+        "n_adaptations": 0.4,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 5,
+        "training": 320.0,
+        "inference": 10468668.0,
+        "combined": 10468988.0,
+        "acc_balanced": 20.251625683980215,
+        "acc_plain": 20.252547888613908,
+        "n_alarms": 0.4,
+        "n_adaptations": 0.4,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 5,
+        "training": 26520.0,
+        "inference": 10468668.0,
+        "combined": 10495188.0,
+        "acc_balanced": 20.470513463616303,
+        "acc_plain": 20.471578619171034,
+        "n_alarms": 0.4,
+        "n_adaptations": 0.4,
+        "n_degraded": 0
+      },
+      "never_adapt": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 10468668.0,
+        "combined": 10468668.0,
+        "acc_balanced": 20.420525354855855,
+        "acc_plain": 20.421692616481867,
+        "n_alarms": 0.4,
+        "n_adaptations": 0.4,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 5,
+        "training": 160.0,
+        "inference": 10468668.0,
+        "combined": 10468828.0,
+        "acc_balanced": 19.910127391593992,
+        "acc_plain": 19.91114055770992,
+        "n_alarms": 0.4,
+        "n_adaptations": 0.4,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 5,
+        "training": 0.0,
+        "inference": 10468668.0,
+        "combined": 10468668.0,
+        "acc_balanced": 20.420525354855855,
+        "acc_plain": 20.421692616481867,
+        "n_alarms": 0.4,
+        "n_adaptations": 0.4,
+        "n_degraded": 0
+      }
+    },
+    "insects_incremental/xgb": {
+      "always_rebuild": {
+        "n_runs": 1,
+        "training": 500000.0,
+        "inference": 168531776.1855,
+        "combined": 169031776.1855,
+        "acc_balanced": 60.08576287377034,
+        "acc_plain": 60.085351832726,
+        "n_alarms": 5,
+        "n_adaptations": 5,
+        "n_degraded": 0
+      },
+      "fixed_schedule": {
+        "n_runs": 1,
+        "training": 116000.0,
+        "inference": 192094010.57899997,
+        "combined": 192210010.57899997,
+        "acc_balanced": 57.53476579238944,
+        "acc_plain": 57.53454021084631,
+        "n_alarms": 5,
+        "n_adaptations": 5,
+        "n_degraded": 0
+      },
+      "mechanism_selector": {
+        "n_runs": 1,
+        "training": 316000.0,
+        "inference": 185695686.104,
+        "combined": 186011686.104,
+        "acc_balanced": 57.73367887668904,
+        "acc_plain": 57.73330475281095,
+        "n_alarms": 4,
+        "n_adaptations": 4,
+        "n_degraded": 0
+      },
+      "never_adapt": {
+        "n_runs": 1,
+        "training": 0.0,
+        "inference": 197766737.52499998,
+        "combined": 197766737.52499998,
+        "acc_balanced": 22.011747061026064,
+        "acc_plain": 22.012198686595084,
+        "n_alarms": 3,
+        "n_adaptations": 3,
+        "n_degraded": 0
+      },
+      "waitandcheck_200": {
+        "n_runs": 1,
+        "training": 267900.0,
+        "inference": 173333892.753,
+        "combined": 173601792.753,
+        "acc_balanced": 56.41819626472907,
+        "acc_plain": 56.417951166280176,
+        "n_alarms": 5,
+        "n_adaptations": 5,
+        "n_degraded": 0
+      },
+      "waitandcheck_500": {
+        "n_runs": 1,
+        "training": 216000.0,
+        "inference": 182654319.002,
+        "combined": 182870319.002,
+        "acc_balanced": 58.53248004772201,
+        "acc_plain": 58.532260264629656,
+        "n_alarms": 7,
+        "n_adaptations": 6,
+        "n_degraded": 0
+      }
+    }
+  },
+  "verdict_inputs": {
+    "200": {
+      "covtype": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 78564.2252688172,
+        "training_per_proceed_wait": 20026.65584704313,
+        "adaptations_selector": 1860,
+        "adaptations_wait": 2249,
+        "neveradapt_acc_balanced": 62.82726401639031,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 3753329.0833333335,
+        "median_training_ratio": 0.4943335486264069,
+        "rule1_training_le_0.75": true,
+        "selector_acc_balanced": 52.26464508958323,
+        "wait_acc_balanced": 54.242798315289576,
+        "accuracy_delta_pp": 1.9781532257063432,
+        "rule2_acc_within_1pp": true
+      },
+      "elec2": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 23774.22857142857,
+        "training_per_proceed_wait": 15730.142424242424,
+        "adaptations_selector": 735,
+        "adaptations_wait": 660,
+        "neveradapt_acc_balanced": 63.14878121532456,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 865157.8333333334,
+        "median_training_ratio": 0.5775202286536216,
+        "rule1_training_le_0.75": true,
+        "selector_acc_balanced": 66.50053934588617,
+        "wait_acc_balanced": 68.60496341874897,
+        "accuracy_delta_pp": 2.1044240728627983,
+        "rule2_acc_within_1pp": true
+      },
+      "insects_abrupt": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 24538.431034482757,
+        "training_per_proceed_wait": 41428.666666666664,
+        "adaptations_selector": 116,
+        "adaptations_wait": 177,
+        "neveradapt_acc_balanced": 41.081819949239026,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 611072.8333333334,
+        "median_training_ratio": 3.234691160809372,
+        "rule1_training_le_0.75": false,
+        "selector_acc_balanced": 36.59683896810174,
+        "wait_acc_balanced": 45.99913828841476,
+        "accuracy_delta_pp": 9.40229932031302,
+        "rule2_acc_within_1pp": true
+      },
+      "insects_gradual": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 47006.74025974026,
+        "training_per_proceed_wait": 37106.88,
+        "adaptations_selector": 77,
+        "adaptations_wait": 100,
+        "neveradapt_acc_balanced": 25.700624233862538,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 309224.0,
+        "median_training_ratio": 1.1882031647374296,
+        "rule1_training_le_0.75": false,
+        "selector_acc_balanced": 34.64074876470635,
+        "wait_acc_balanced": 41.00513855645665,
+        "accuracy_delta_pp": 6.364389791750298,
+        "rule2_acc_within_1pp": true
+      },
+      "insects_incremental": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 82752.38095238095,
+        "training_per_proceed_wait": 66069.04761904762,
+        "adaptations_selector": 42,
+        "adaptations_wait": 42,
+        "neveradapt_acc_balanced": 20.91042915981156,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 231241.66666666666,
+        "median_training_ratio": 0.8667495479204339,
+        "rule1_training_le_0.75": false,
+        "selector_acc_balanced": 43.58694547535372,
+        "wait_acc_balanced": 42.51720571851577,
+        "accuracy_delta_pp": -1.0697397568379543,
+        "rule2_acc_within_1pp": false
+      }
+    },
+    "500": {
+      "covtype": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 78564.2252688172,
+        "training_per_proceed_wait": 73508.08458961474,
+        "adaptations_selector": 1860,
+        "adaptations_wait": 1194,
+        "neveradapt_acc_balanced": 62.82726401639031,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 7314054.416666667,
+        "median_training_ratio": 0.6145245887812697,
+        "rule1_training_le_0.75": true,
+        "selector_acc_balanced": 52.26464508958323,
+        "wait_acc_balanced": 57.20454119939223,
+        "accuracy_delta_pp": 4.939896109808998,
+        "rule2_acc_within_1pp": true
+      },
+      "elec2": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 23774.22857142857,
+        "training_per_proceed_wait": 22510.402040816327,
+        "adaptations_selector": 735,
+        "adaptations_wait": 490,
+        "neveradapt_acc_balanced": 63.14878121532456,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 919174.75,
+        "median_training_ratio": 0.6024361157304128,
+        "rule1_training_le_0.75": true,
+        "selector_acc_balanced": 66.50053934588617,
+        "wait_acc_balanced": 68.2273380667399,
+        "accuracy_delta_pp": 1.7267987208537363,
+        "rule2_acc_within_1pp": true
+      },
+      "insects_abrupt": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 24538.431034482757,
+        "training_per_proceed_wait": 43397.08888888889,
+        "adaptations_selector": 116,
+        "adaptations_wait": 180,
+        "neveradapt_acc_balanced": 41.081819949239026,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 650956.3333333334,
+        "median_training_ratio": 2.7883673425735798,
+        "rule1_training_le_0.75": false,
+        "selector_acc_balanced": 36.59683896810174,
+        "wait_acc_balanced": 47.31994448637558,
+        "accuracy_delta_pp": 10.72310551827384,
+        "rule2_acc_within_1pp": true
+      },
+      "insects_gradual": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 47006.74025974026,
+        "training_per_proceed_wait": 35178.0404040404,
+        "adaptations_selector": 77,
+        "adaptations_wait": 99,
+        "neveradapt_acc_balanced": 25.700624233862538,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 290218.8333333333,
+        "median_training_ratio": 1.0742497303393324,
+        "rule1_training_le_0.75": false,
+        "selector_acc_balanced": 34.64074876470635,
+        "wait_acc_balanced": 44.19460637885357,
+        "accuracy_delta_pp": 9.55385761414722,
+        "rule2_acc_within_1pp": true
+      },
+      "insects_incremental": {
+        "n_cells": 12,
+        "training_per_adaptation_selector": 82752.38095238095,
+        "training_per_proceed_wait": 52781.5306122449,
+        "adaptations_selector": 42,
+        "adaptations_wait": 49,
+        "neveradapt_acc_balanced": 20.91042915981156,
+        "neveradapt_training": 0.0,
+        "wait_training_mean": 215524.58333333334,
+        "median_training_ratio": 0.7528435804701628,
+        "rule1_training_le_0.75": false,
+        "selector_acc_balanced": 43.58694547535372,
+        "wait_acc_balanced": 42.68467187956148,
+        "accuracy_delta_pp": -0.902273595792245,
+        "rule2_acc_within_1pp": true
+      }
+    }
+  },
+  "wilcoxon_holm": {
+    "200": [
+      {
+        "metric": "training",
+        "n_blocks": 60,
+        "n_nonzero": 57,
+        "median_difference": -31971.0,
+        "p": 0.024543019199217305,
+        "p_holm": 0.04908603839843461
+      },
+      {
+        "metric": "combined",
+        "n_blocks": 60,
+        "n_nonzero": 57,
+        "median_difference": -78241.0,
+        "p": 0.05303131943792159,
+        "p_holm": 0.05303131943792159
+      },
+      {
+        "metric": "acc_balanced",
+        "n_blocks": 60,
+        "n_nonzero": 57,
+        "median_difference": 2.8011142360570993,
+        "p": 0.0001222806947720331,
+        "p_holm": 0.0003668420843160993
+      }
+    ],
+    "500": [
+      {
+        "metric": "training",
+        "n_blocks": 60,
+        "n_nonzero": 56,
+        "median_difference": -48821.0,
+        "p": 0.0137591455807612,
+        "p_holm": 0.0275182911615224
+      },
+      {
+        "metric": "combined",
+        "n_blocks": 60,
+        "n_nonzero": 57,
+        "median_difference": -1022.5,
+        "p": 0.8456604073237141,
+        "p_holm": 0.8456604073237141
+      },
+      {
+        "metric": "acc_balanced",
+        "n_blocks": 60,
+        "n_nonzero": 57,
+        "median_difference": 3.0293397313571546,
+        "p": 2.093679050730279e-05,
+        "p_holm": 6.281037152190837e-05
+      }
+    ]
+  },
+  "alarms": {
+    "200": {
+      "covtype": {
+        "alarms_total": 3196,
+        "cancelled": 1621,
+        "proceeded": 628,
+        "ignored_during_wait": 945,
+        "truncated": 2,
+        "guard_rebuilds_wait": 40,
+        "guard_rebuilds_selector": 752,
+        "adaptations_wait": 2249,
+        "adaptations_selector": 1860
+      },
+      "elec2": {
+        "alarms_total": 773,
+        "cancelled": 395,
+        "proceeded": 265,
+        "ignored_during_wait": 113,
+        "truncated": 0,
+        "guard_rebuilds_wait": 10,
+        "guard_rebuilds_selector": 143,
+        "adaptations_wait": 660,
+        "adaptations_selector": 735
+      },
+      "insects_abrupt": {
+        "alarms_total": 180,
+        "cancelled": 79,
+        "proceeded": 98,
+        "ignored_during_wait": 3,
+        "truncated": 0,
+        "guard_rebuilds_wait": 1,
+        "guard_rebuilds_selector": 7,
+        "adaptations_wait": 177,
+        "adaptations_selector": 116
+      },
+      "insects_gradual": {
+        "alarms_total": 104,
+        "cancelled": 47,
+        "proceeded": 53,
+        "ignored_during_wait": 3,
+        "truncated": 1,
+        "guard_rebuilds_wait": 0,
+        "guard_rebuilds_selector": 8,
+        "adaptations_wait": 100,
+        "adaptations_selector": 77
+      },
+      "insects_incremental": {
+        "alarms_total": 43,
+        "cancelled": 7,
+        "proceeded": 35,
+        "ignored_during_wait": 0,
+        "truncated": 1,
+        "guard_rebuilds_wait": 0,
+        "guard_rebuilds_selector": 0,
+        "adaptations_wait": 42,
+        "adaptations_selector": 42
+      }
+    },
+    "500": {
+      "covtype": {
+        "alarms_total": 3059,
+        "cancelled": 695,
+        "proceeded": 499,
+        "ignored_during_wait": 1860,
+        "truncated": 5,
+        "guard_rebuilds_wait": 0,
+        "guard_rebuilds_selector": 752,
+        "adaptations_wait": 1194,
+        "adaptations_selector": 1860
+      },
+      "elec2": {
+        "alarms_total": 794,
+        "cancelled": 266,
+        "proceeded": 224,
+        "ignored_during_wait": 299,
+        "truncated": 5,
+        "guard_rebuilds_wait": 0,
+        "guard_rebuilds_selector": 143,
+        "adaptations_wait": 490,
+        "adaptations_selector": 735
+      },
+      "insects_abrupt": {
+        "alarms_total": 196,
+        "cancelled": 76,
+        "proceeded": 104,
+        "ignored_during_wait": 6,
+        "truncated": 10,
+        "guard_rebuilds_wait": 0,
+        "guard_rebuilds_selector": 7,
+        "adaptations_wait": 180,
+        "adaptations_selector": 116
+      },
+      "insects_gradual": {
+        "alarms_total": 110,
+        "cancelled": 45,
+        "proceeded": 54,
+        "ignored_during_wait": 11,
+        "truncated": 0,
+        "guard_rebuilds_wait": 0,
+        "guard_rebuilds_selector": 8,
+        "adaptations_wait": 99,
+        "adaptations_selector": 77
+      },
+      "insects_incremental": {
+        "alarms_total": 50,
+        "cancelled": 15,
+        "proceeded": 34,
+        "ignored_during_wait": 0,
+        "truncated": 1,
+        "guard_rebuilds_wait": 0,
+        "guard_rebuilds_selector": 0,
+        "adaptations_wait": 49,
+        "adaptations_selector": 42
+      }
+    }
+  },
+  "capture_fraction": {
+    "elec2_W200": {
+      "selector_training": 17474058.0,
+      "wait_training": 10381894.0,
+      "oracle_training": 3156747.0,
+      "capture_fraction": 0.4953558667545882
+    },
+    "elec2_W500": {
+      "selector_training": 17474058.0,
+      "wait_training": 11030097.0,
+      "oracle_training": 3156747.0,
+      "capture_fraction": 0.45008179259359526
+    },
+    "covtype_W200": {
+      "selector_training": 146129459.0,
+      "wait_training": 45039949.0,
+      "oracle_training": 6339753.0,
+      "capture_fraction": 0.7231541784628976
+    },
+    "covtype_W500": {
+      "selector_training": 146129459.0,
+      "wait_training": 87768653.0,
+      "oracle_training": 6339753.0,
+      "capture_fraction": 0.41749001174664463
+    }
+  },
+  "missed_real_drift_W200": {
+    "cancelled": 79,
+    "within_1000_rows_of_a_change_point": 23,
+    "share": 0.2911392405063291
+  },
+  "missed_real_drift_W500": {
+    "cancelled": 76,
+    "within_1000_rows_of_a_change_point": 23,
+    "share": 0.3026315789473684
+  }
+}
