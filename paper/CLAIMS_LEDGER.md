@@ -219,6 +219,45 @@ treatments.
 | ConfirmMD3 ratios 0.51 / 0.43 / 2.76 / 0.92 / 0.60 | `results/grid_md3_200/` | same statistic as above | [D] |
 | Rule 3: -1.07 (mean) vs -0.66 (median) | `phase14_waitandcheck.json`, `paper/numbers.json` | both stated in the paper | **[V]** input |
 
+## Item 1 - oracle on the three INSECTS streams [DIAGNOSTIC]
+
+Run 4 October. The Phase 10 oracle unchanged (same branches, horizon "next",
+same lambda grid), ADWIN, seed 0, four families per stream. Sources:
+`results/analysis/phase10_oracle_insects.json`,
+`results/analysis/phase10_per_stream_insects.json`,
+`results/analysis/phase10_always_skip_per_stream.json`. Alarm counts reproduce
+the frozen grid exactly (43 / 25 / 16 alarms over the four families).
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| G1 range 9.5-17.7% (INSECTS-abrupt) | `phase10_per_stream_insects.json` | share of selector cost, over the whole lambda grid, pooled over 4 families, 43 alarms | [D] |
+| G1 range 11.5-25.2% (INSECTS-gradual) | same | same, 25 alarms | [D] |
+| G1 range 1.6-15.5% (INSECTS-incremental) | same | same, 16 alarms | [D] |
+| Branch shares at lambda=1e3, abrupt: SKIP 70.3%, NUDGE 2.0%, REBUILD 27.7% | same | share of G1, DEFER 0.0% | [D] |
+| Branch shares at lambda=1e3, gradual: SKIP 52.0%, NUDGE 8.3%, REBUILD 39.7% | same | same | [D] |
+| Branch shares at lambda=1e3, incremental: SKIP 98.9%, NUDGE 0.0%, REBUILD 1.1% | same | same | [D] |
+| Always-SKIP capture, abrupt: 18.6% / -47.3% / -122.0% | `phase10_always_skip_per_stream.json` | (cost(selector)-cost(always SKIP))/G1 at lambda=1e2/1e3/1e4 | [D] |
+| Always-SKIP capture, gradual: 58.9% / -8.4% / -276.6% | same | same | [D] |
+| Always-SKIP capture, incremental: 86.7% / 64.4% / -938.5% | same | same | [D] |
+| Per-stream always-SKIP capture, Elec2: 91.0% / 57.4% / -22.8% | same | same, recomputed for comparability | [D] |
+| Per-stream always-SKIP capture, Covertype: 96.2% / 83.0% / 3.4% | same | same | [D] |
+
+The capture formula reproduces the published pooled Elec2+Covertype values
+95.3% / 78.1% / -3.6% exactly, so the INSECTS figures are computed identically.
+
+**Pre-declared description rule.** Fixed before the run: SKIP at or above 60% of
+the advantage on all three INSECTS streams would license "skipping dominates on
+all five streams". It is 70.3% (abrupt) and 98.9% (incremental) but 52.0%
+(gradual), so the licensed wording is the second one: **skipping dominates on
+Elec2 and Covertype but not on INSECTS-gradual**, where REBUILD carries 39.7%.
+
+**Caveat carried with every number above.** 43, 25 and 16 alarms respectively,
+against 2,595 for Elec2 and Covertype. The original Phase 10 subset excluded
+these streams for that reason, and excluding them was declared in advance. These
+are diagnostics on thin data, not a revision of the Phase 10 verdict.
+
+---
+
 ## Style pass
 
 The prose was rewritten for readability on 4 October. No number, claim, scope or

@@ -1,0 +1,4018 @@
+{
+  "label": "declared follow-up",
+  "subset": {
+    "detector": "adwin",
+    "datasets": [
+      "insects_abrupt",
+      "insects_gradual",
+      "insects_incremental"
+    ],
+    "models": [
+      "xgb",
+      "rf",
+      "sgd",
+      "gnb"
+    ],
+    "seeds": [
+      0
+    ],
+    "limit_alarms": null
+  },
+  "lambda_grid": [
+    0.0,
+    10.0,
+    100.0,
+    1000.0,
+    10000.0,
+    100000.0,
+    1000000.0
+  ],
+  "per_stream": {
+    "insects_abrupt": {
+      "by_lambda": {
+        "0.0": {
+          "n_alarms": 43,
+          "selector": {
+            "train": 1333248.0,
+            "infer": 39944090.77249999,
+            "ops": 41277338.77249999,
+            "errors": 24221,
+            "scored": 38648,
+            "accuracy": 0.3732922790312565
+          },
+          "oracle_O1": {
+            "train": 667200.0,
+            "infer": 35042562.1725,
+            "ops": 35709762.1725,
+            "errors": 26383,
+            "scored": 38648,
+            "accuracy": 0.3173514800248396
+          },
+          "G1": 5567576.600000001,
+          "G1_share_of_selector_J": 0.13488215969265105,
+          "oracle_pick_counts": {
+            "REBUILD": 8,
+            "SKIP": 35
+          },
+          "advantage_by_branch": {
+            "SKIP": 5567576.600000001,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0034952370480183423,
+          "guard_shortfall": 19460.0,
+          "n_guard_alarms": 3
+        },
+        "10.0": {
+          "n_alarms": 43,
+          "selector": {
+            "train": 1333248.0,
+            "infer": 39944090.77249999,
+            "ops": 41277338.77249999,
+            "errors": 24221,
+            "scored": 38648,
+            "accuracy": 0.3732922790312565
+          },
+          "oracle_O1": {
+            "train": 667200.0,
+            "infer": 35042562.1725,
+            "ops": 35709762.1725,
+            "errors": 26383,
+            "scored": 38648,
+            "accuracy": 0.3173514800248396
+          },
+          "G1": 5545956.600000001,
+          "G1_share_of_selector_J": 0.13357458748861217,
+          "oracle_pick_counts": {
+            "REBUILD": 8,
+            "SKIP": 35
+          },
+          "advantage_by_branch": {
+            "SKIP": 5545956.600000001,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0032311828765482944,
+          "guard_shortfall": 17920.0,
+          "n_guard_alarms": 3
+        },
+        "100.0": {
+          "n_alarms": 43,
+          "selector": {
+            "train": 1333248.0,
+            "infer": 39944090.77249999,
+            "ops": 41277338.77249999,
+            "errors": 24221,
+            "scored": 38648,
+            "accuracy": 0.3732922790312565
+          },
+          "oracle_O1": {
+            "train": 667328.0,
+            "infer": 35053014.1725,
+            "ops": 35720342.1725,
+            "errors": 26180,
+            "scored": 38648,
+            "accuracy": 0.3226040157317326
+          },
+          "G1": 5361096.600000001,
+          "G1_share_of_selector_J": 0.12268113162528148,
+          "oracle_pick_counts": {
+            "REBUILD": 9,
+            "SKIP": 34
+          },
+          "advantage_by_branch": {
+            "SKIP": 5361096.600000001,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.002570369651611948,
+          "guard_shortfall": 13780.0,
+          "n_guard_alarms": 3
+        },
+        "1000.0": {
+          "n_alarms": 43,
+          "selector": {
+            "train": 1333248.0,
+            "infer": 39944090.77249999,
+            "ops": 41277338.77249999,
+            "errors": 24221,
+            "scored": 38648,
+            "accuracy": 0.3732922790312565
+          },
+          "oracle_O1": {
+            "train": 804928.0,
+            "infer": 35697414.1725,
+            "ops": 36502342.1725,
+            "errors": 22788,
+            "scored": 38648,
+            "accuracy": 0.41037052370109706
+          },
+          "G1": 6207996.6,
+          "G1_share_of_selector_J": 0.09478097790483928,
+          "oracle_pick_counts": {
+            "REBUILD": 16,
+            "SKIP": 25,
+            "NUDGE": 2
+          },
+          "advantage_by_branch": {
+            "SKIP": 4362796.6,
+            "NUDGE": 123800.0,
+            "REBUILD": 1721400.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.7027704557699017,
+            "NUDGE": 0.019942021231132763,
+            "REBUILD": 0.2772875229989656,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.009323458714523137,
+          "guard_shortfall": 57880.0,
+          "n_guard_alarms": 3
+        },
+        "10000.0": {
+          "n_alarms": 43,
+          "selector": {
+            "train": 1333248.0,
+            "infer": 39944090.77249999,
+            "ops": 41277338.77249999,
+            "errors": 24221,
+            "scored": 38648,
+            "accuracy": 0.3732922790312565
+          },
+          "oracle_O1": {
+            "train": 1872328.0,
+            "infer": 43190190.0975,
+            "ops": 45062518.0975,
+            "errors": 20377,
+            "scored": 38648,
+            "accuracy": 0.4727540881805009
+          },
+          "G1": 34654820.675,
+          "G1_share_of_selector_J": 0.12224468586517956,
+          "oracle_pick_counts": {
+            "REBUILD": 27,
+            "SKIP": 13,
+            "NUDGE": 3
+          },
+          "advantage_by_branch": {
+            "SKIP": 1703616.12,
+            "NUDGE": 4257000.0,
+            "REBUILD": 28694204.555,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.04915957107315201,
+            "NUDGE": 0.12284005275696035,
+            "REBUILD": 0.8280003761698878,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.014395688400139155,
+          "guard_shortfall": 498880.0,
+          "n_guard_alarms": 3
+        },
+        "100000.0": {
+          "n_alarms": 43,
+          "selector": {
+            "train": 1333248.0,
+            "infer": 39944090.77249999,
+            "ops": 41277338.77249999,
+            "errors": 24221,
+            "scored": 38648,
+            "accuracy": 0.3732922790312565
+          },
+          "oracle_O1": {
+            "train": 2264328.0,
+            "infer": 48962689.217499994,
+            "ops": 51227017.217499994,
+            "errors": 19910,
+            "scored": 38648,
+            "accuracy": 0.484837507762368
+          },
+          "G1": 421150321.555,
+          "G1_share_of_selector_J": 0.17096460007416445,
+          "oracle_pick_counts": {
+            "REBUILD": 31,
+            "SKIP": 11,
+            "NUDGE": 1
+          },
+          "advantage_by_branch": {
+            "SKIP": 7274636.0,
+            "NUDGE": 20418800.0,
+            "REBUILD": 393456885.555,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.017273252868809624,
+            "NUDGE": 0.048483401187035334,
+            "REBUILD": 0.934243345944155,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.01165588567491792,
+          "guard_shortfall": 4908880.0,
+          "n_guard_alarms": 3
+        },
+        "1000000.0": {
+          "n_alarms": 43,
+          "selector": {
+            "train": 1333248.0,
+            "infer": 39944090.77249999,
+            "ops": 41277338.77249999,
+            "errors": 24221,
+            "scored": 38648,
+            "accuracy": 0.3732922790312565
+          },
+          "oracle_O1": {
+            "train": 2264328.0,
+            "infer": 48962689.217499994,
+            "ops": 51227017.217499994,
+            "errors": 19910,
+            "scored": 38648,
+            "accuracy": 0.484837507762368
+          },
+          "G1": 4301050321.555,
+          "G1_share_of_selector_J": 0.17727314965119442,
+          "oracle_pick_counts": {
+            "REBUILD": 31,
+            "SKIP": 11,
+            "NUDGE": 1
+          },
+          "advantage_by_branch": {
+            "SKIP": 72074636.0,
+            "NUDGE": 204918800.0,
+            "REBUILD": 4024056885.5550003,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.01675745006720641,
+            "NUDGE": 0.047643897345965885,
+            "REBUILD": 0.9355986525868277,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.011394630691575203,
+          "guard_shortfall": 49008880.0,
+          "n_guard_alarms": 3
+        }
+      },
+      "by_family": {
+        "gnb": {
+          "0.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 1928.0,
+              "infer": 4942992.0,
+              "ops": 4944920.0,
+              "errors": 6191,
+              "scored": 9844,
+              "accuracy": 0.3710889882161723
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 4771740.0,
+              "ops": 4771740.0,
+              "errors": 7279,
+              "scored": 9844,
+              "accuracy": 0.2605648110524177
+            },
+            "G1": 173180.0,
+            "G1_share_of_selector_J": 0.03502180015045744,
+            "oracle_pick_counts": {
+              "SKIP": 11
+            },
+            "advantage_by_branch": {
+              "SKIP": 173180.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.06109250490818801,
+            "guard_shortfall": 10580.0,
+            "n_guard_alarms": 1
+          },
+          "10.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 1928.0,
+              "infer": 4942992.0,
+              "ops": 4944920.0,
+              "errors": 6191,
+              "scored": 9844,
+              "accuracy": 0.3710889882161723
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 4771740.0,
+              "ops": 4771740.0,
+              "errors": 7279,
+              "scored": 9844,
+              "accuracy": 0.2605648110524177
+            },
+            "G1": 162300.0,
+            "G1_share_of_selector_J": 0.032415720126307467,
+            "oracle_pick_counts": {
+              "SKIP": 11
+            },
+            "advantage_by_branch": {
+              "SKIP": 162300.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.05268022181146026,
+            "guard_shortfall": 8550.0,
+            "n_guard_alarms": 1
+          },
+          "100.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 1928.0,
+              "infer": 4942992.0,
+              "ops": 4944920.0,
+              "errors": 6191,
+              "scored": 9844,
+              "accuracy": 0.3710889882161723
+            },
+            "oracle_O1": {
+              "train": 128.0,
+              "infer": 4782192.0,
+              "ops": 4782320.0,
+              "errors": 7076,
+              "scored": 9844,
+              "accuracy": 0.28118650954896385
+            },
+            "G1": 74100.0,
+            "G1_share_of_selector_J": 0.013317709138356799,
+            "oracle_pick_counts": {
+              "SKIP": 10,
+              "REBUILD": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 74100.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "1000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 1928.0,
+              "infer": 4942992.0,
+              "ops": 4944920.0,
+              "errors": 6191,
+              "scored": 9844,
+              "accuracy": 0.3710889882161723
+            },
+            "oracle_O1": {
+              "train": 6928.0,
+              "infer": 5344992.0,
+              "ops": 5351920.0,
+              "errors": 4279,
+              "scored": 9844,
+              "accuracy": 0.5653189760260057
+            },
+            "G1": 1505000.0,
+            "G1_share_of_selector_J": 0.1351482410074785,
+            "oracle_pick_counts": {
+              "SKIP": 3,
+              "REBUILD": 7,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 123800.0,
+              "REBUILD": 1381200.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.08225913621262458,
+              "REBUILD": 0.9177408637873754,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "10000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 1928.0,
+              "infer": 4942992.0,
+              "ops": 4944920.0,
+              "errors": 6191,
+              "scored": 9844,
+              "accuracy": 0.3710889882161723
+            },
+            "oracle_O1": {
+              "train": 7928.0,
+              "infer": 5425392.0,
+              "ops": 5433320.0,
+              "errors": 4224,
+              "scored": 9844,
+              "accuracy": 0.5709061357171881
+            },
+            "G1": 19181600.0,
+            "G1_share_of_selector_J": 0.2869138127754846,
+            "oracle_pick_counts": {
+              "REBUILD": 8,
+              "SKIP": 2,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 1968800.0,
+              "REBUILD": 17212800.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.10264003002877758,
+              "REBUILD": 0.8973599699712225,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "100000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 1928.0,
+              "infer": 4942992.0,
+              "ops": 4944920.0,
+              "errors": 6191,
+              "scored": 9844,
+              "accuracy": 0.3710889882161723
+            },
+            "oracle_O1": {
+              "train": 7928.0,
+              "infer": 5425392.0,
+              "ops": 5433320.0,
+              "errors": 4224,
+              "scored": 9844,
+              "accuracy": 0.5709061357171881
+            },
+            "G1": 196211600.0,
+            "G1_share_of_selector_J": 0.31441903252733794,
+            "oracle_pick_counts": {
+              "REBUILD": 8,
+              "SKIP": 2,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 20418800.0,
+              "REBUILD": 175792800.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.10406520307667844,
+              "REBUILD": 0.8959347969233216,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "1000000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 1928.0,
+              "infer": 4942992.0,
+              "ops": 4944920.0,
+              "errors": 6191,
+              "scored": 9844,
+              "accuracy": 0.3710889882161723
+            },
+            "oracle_O1": {
+              "train": 7928.0,
+              "infer": 5425392.0,
+              "ops": 5433320.0,
+              "errors": 4224,
+              "scored": 9844,
+              "accuracy": 0.5709061357171881
+            },
+            "G1": 1966511600.0,
+            "G1_share_of_selector_J": 0.31738687567287155,
+            "oracle_pick_counts": {
+              "REBUILD": 8,
+              "SKIP": 2,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 204918800.0,
+              "REBUILD": 1761592800.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.10420421623752435,
+              "REBUILD": 0.8957957837624756,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          }
+        },
+        "rf": {
+          "0.0": {
+            "n_alarms": 10,
+            "selector": {
+              "train": 712800.0,
+              "infer": 10938078.1625,
+              "ops": 11650878.162500001,
+              "errors": 5101,
+              "scored": 9120,
+              "accuracy": 0.44067982456140353
+            },
+            "oracle_O1": {
+              "train": 312800.0,
+              "infer": 9109079.5625,
+              "ops": 9421879.5625,
+              "errors": 5859,
+              "scored": 9120,
+              "accuracy": 0.3575657894736842
+            },
+            "G1": 2228998.6,
+            "G1_share_of_selector_J": 0.1913159307745872,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 6
+            },
+            "advantage_by_branch": {
+              "SKIP": 2228998.6,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "10.0": {
+            "n_alarms": 10,
+            "selector": {
+              "train": 712800.0,
+              "infer": 10938078.1625,
+              "ops": 11650878.162500001,
+              "errors": 5101,
+              "scored": 9120,
+              "accuracy": 0.44067982456140353
+            },
+            "oracle_O1": {
+              "train": 312800.0,
+              "infer": 9109079.5625,
+              "ops": 9421879.5625,
+              "errors": 5859,
+              "scored": 9120,
+              "accuracy": 0.3575657894736842
+            },
+            "G1": 2221418.6,
+            "G1_share_of_selector_J": 0.18983420189562078,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 6
+            },
+            "advantage_by_branch": {
+              "SKIP": 2221418.6,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "100.0": {
+            "n_alarms": 10,
+            "selector": {
+              "train": 712800.0,
+              "infer": 10938078.1625,
+              "ops": 11650878.162500001,
+              "errors": 5101,
+              "scored": 9120,
+              "accuracy": 0.44067982456140353
+            },
+            "oracle_O1": {
+              "train": 312800.0,
+              "infer": 9109079.5625,
+              "ops": 9421879.5625,
+              "errors": 5859,
+              "scored": 9120,
+              "accuracy": 0.3575657894736842
+            },
+            "G1": 2153198.6,
+            "G1_share_of_selector_J": 0.1770580105669193,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 6
+            },
+            "advantage_by_branch": {
+              "SKIP": 2153198.6,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "1000.0": {
+            "n_alarms": 10,
+            "selector": {
+              "train": 712800.0,
+              "infer": 10938078.1625,
+              "ops": 11650878.162500001,
+              "errors": 5101,
+              "scored": 9120,
+              "accuracy": 0.44067982456140353
+            },
+            "oracle_O1": {
+              "train": 312800.0,
+              "infer": 9109079.5625,
+              "ops": 9421879.5625,
+              "errors": 5859,
+              "scored": 9120,
+              "accuracy": 0.3575657894736842
+            },
+            "G1": 1470998.5999999999,
+            "G1_share_of_selector_J": 0.0878109657753428,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 6
+            },
+            "advantage_by_branch": {
+              "SKIP": 1470998.5999999999,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "10000.0": {
+            "n_alarms": 10,
+            "selector": {
+              "train": 712800.0,
+              "infer": 10938078.1625,
+              "ops": 11650878.162500001,
+              "errors": 5101,
+              "scored": 9120,
+              "accuracy": 0.44067982456140353
+            },
+            "oracle_O1": {
+              "train": 812000.0,
+              "infer": 11396093.4875,
+              "ops": 12208093.4875,
+              "errors": 4607,
+              "scored": 9120,
+              "accuracy": 0.49484649122807023
+            },
+            "G1": 4382784.675000001,
+            "G1_share_of_selector_J": 0.06994451408156166,
+            "oracle_pick_counts": {
+              "REBUILD": 9,
+              "SKIP": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 306312.1200000001,
+              "NUDGE": 0.0,
+              "REBUILD": 4076472.5550000006,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.06988984007068522,
+              "NUDGE": 0.0,
+              "REBUILD": 0.9301101599293148,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "100000.0": {
+            "n_alarms": 10,
+            "selector": {
+              "train": 712800.0,
+              "infer": 10938078.1625,
+              "ops": 11650878.162500001,
+              "errors": 5101,
+              "scored": 9120,
+              "accuracy": 0.44067982456140353
+            },
+            "oracle_O1": {
+              "train": 912000.0,
+              "infer": 11692405.607500002,
+              "ops": 12604405.607500002,
+              "errors": 4598,
+              "scored": 9120,
+              "accuracy": 0.49583333333333335
+            },
+            "G1": 49346472.55499999,
+            "G1_share_of_selector_J": 0.09457860948655838,
+            "oracle_pick_counts": {
+              "REBUILD": 10
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 49346472.55499999,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "1000000.0": {
+            "n_alarms": 10,
+            "selector": {
+              "train": 712800.0,
+              "infer": 10938078.1625,
+              "ops": 11650878.162500001,
+              "errors": 5101,
+              "scored": 9120,
+              "accuracy": 0.44067982456140353
+            },
+            "oracle_O1": {
+              "train": 912000.0,
+              "infer": 11692405.607500002,
+              "ops": 12604405.607500002,
+              "errors": 4598,
+              "scored": 9120,
+              "accuracy": 0.49583333333333335
+            },
+            "G1": 502046472.555,
+            "G1_share_of_selector_J": 0.09819690108303206,
+            "oracle_pick_counts": {
+              "REBUILD": 10
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 502046472.555,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          }
+        },
+        "sgd": {
+          "0.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 160120.0,
+              "infer": 2423928.0,
+              "ops": 2584048.0,
+              "errors": 7066,
+              "scored": 9424,
+              "accuracy": 0.25021222410865873
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 2316012.0,
+              "ops": 2316012.0,
+              "errors": 7169,
+              "scored": 9424,
+              "accuracy": 0.23928268251273344
+            },
+            "G1": 268036.0,
+            "G1_share_of_selector_J": 0.10372717534658799,
+            "oracle_pick_counts": {
+              "SKIP": 11
+            },
+            "advantage_by_branch": {
+              "SKIP": 268036.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.03312987807607933,
+            "guard_shortfall": 8880.0,
+            "n_guard_alarms": 1
+          },
+          "10.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 160120.0,
+              "infer": 2423928.0,
+              "ops": 2584048.0,
+              "errors": 7066,
+              "scored": 9424,
+              "accuracy": 0.25021222410865873
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 2316012.0,
+              "ops": 2316012.0,
+              "errors": 7169,
+              "scored": 9424,
+              "accuracy": 0.23928268251273344
+            },
+            "G1": 267006.0,
+            "G1_share_of_selector_J": 0.10057829335655748,
+            "oracle_pick_counts": {
+              "SKIP": 11
+            },
+            "advantage_by_branch": {
+              "SKIP": 267006.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.035092844355557554,
+            "guard_shortfall": 9370.0,
+            "n_guard_alarms": 1
+          },
+          "100.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 160120.0,
+              "infer": 2423928.0,
+              "ops": 2584048.0,
+              "errors": 7066,
+              "scored": 9424,
+              "accuracy": 0.25021222410865873
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 2316012.0,
+              "ops": 2316012.0,
+              "errors": 7169,
+              "scored": 9424,
+              "accuracy": 0.23928268251273344
+            },
+            "G1": 257736.0,
+            "G1_share_of_selector_J": 0.0783237830360464,
+            "oracle_pick_counts": {
+              "SKIP": 11
+            },
+            "advantage_by_branch": {
+              "SKIP": 257736.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.05346556165999317,
+            "guard_shortfall": 13780.0,
+            "n_guard_alarms": 1
+          },
+          "1000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 160120.0,
+              "infer": 2423928.0,
+              "ops": 2584048.0,
+              "errors": 7066,
+              "scored": 9424,
+              "accuracy": 0.25021222410865873
+            },
+            "oracle_O1": {
+              "train": 130800.0,
+              "infer": 2397612.0,
+              "ops": 2528412.0,
+              "errors": 6574,
+              "scored": 9424,
+              "accuracy": 0.30241935483870963
+            },
+            "G1": 547636.0,
+            "G1_share_of_selector_J": 0.05674956228197,
+            "oracle_pick_counts": {
+              "REBUILD": 1,
+              "SKIP": 9,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 207436.0,
+              "NUDGE": 0.0,
+              "REBUILD": 340200.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.37878444806404254,
+              "NUDGE": 0.0,
+              "REBUILD": 0.6212155519359575,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.10569064122884543,
+            "guard_shortfall": 57880.0,
+            "n_guard_alarms": 1
+          },
+          "10000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 160120.0,
+              "infer": 2423928.0,
+              "ops": 2584048.0,
+              "errors": 7066,
+              "scored": 9424,
+              "accuracy": 0.25021222410865873
+            },
+            "oracle_O1": {
+              "train": 490000.0,
+              "infer": 2479212.0,
+              "ops": 2969212.0,
+              "errors": 6385,
+              "scored": 9424,
+              "accuracy": 0.32247453310696095
+            },
+            "G1": 6424836.0,
+            "G1_share_of_selector_J": 0.08771819929996223,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 794636.0,
+              "NUDGE": 0.0,
+              "REBUILD": 5630200.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.12368191188070793,
+              "NUDGE": 0.0,
+              "REBUILD": 0.8763180881192921,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.07764867461208348,
+            "guard_shortfall": 498880.0,
+            "n_guard_alarms": 1
+          },
+          "100000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 160120.0,
+              "infer": 2423928.0,
+              "ops": 2584048.0,
+              "errors": 7066,
+              "scored": 9424,
+              "accuracy": 0.25021222410865873
+            },
+            "oracle_O1": {
+              "train": 490000.0,
+              "infer": 2479212.0,
+              "ops": 2969212.0,
+              "errors": 6385,
+              "scored": 9424,
+              "accuracy": 0.32247453310696095
+            },
+            "G1": 67714836.0,
+            "G1_share_of_selector_J": 0.09548273990505776,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 7274636.0,
+              "NUDGE": 0.0,
+              "REBUILD": 60440200.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.10743046029085856,
+              "NUDGE": 0.0,
+              "REBUILD": 0.8925695397091414,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.07249341931508185,
+            "guard_shortfall": 4908880.0,
+            "n_guard_alarms": 1
+          },
+          "1000000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 160120.0,
+              "infer": 2423928.0,
+              "ops": 2584048.0,
+              "errors": 7066,
+              "scored": 9424,
+              "accuracy": 0.25021222410865873
+            },
+            "oracle_O1": {
+              "train": 490000.0,
+              "infer": 2479212.0,
+              "ops": 2969212.0,
+              "errors": 6385,
+              "scored": 9424,
+              "accuracy": 0.32247453310696095
+            },
+            "G1": 680614836.0,
+            "G1_share_of_selector_J": 0.0962872947931594,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 72074636.0,
+              "NUDGE": 0.0,
+              "REBUILD": 608540200.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.10589636338752981,
+              "NUDGE": 0.0,
+              "REBUILD": 0.8941036366124702,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.07200677594397899,
+            "guard_shortfall": 49008880.0,
+            "n_guard_alarms": 1
+          }
+        },
+        "xgb": {
+          "0.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 458400.0,
+              "infer": 21639092.61,
+              "ops": 22097492.61,
+              "errors": 5863,
+              "scored": 10260,
+              "accuracy": 0.42855750487329436
+            },
+            "oracle_O1": {
+              "train": 354400.0,
+              "infer": 18845730.61,
+              "ops": 19200130.61,
+              "errors": 6076,
+              "scored": 10260,
+              "accuracy": 0.4077972709551657
+            },
+            "G1": 2897362.0,
+            "G1_share_of_selector_J": 0.13111722905108372,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 2897362.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 458400.0,
+              "infer": 21639092.61,
+              "ops": 22097492.61,
+              "errors": 5863,
+              "scored": 10260,
+              "accuracy": 0.42855750487329436
+            },
+            "oracle_O1": {
+              "train": 354400.0,
+              "infer": 18845730.61,
+              "ops": 19200130.61,
+              "errors": 6076,
+              "scored": 10260,
+              "accuracy": 0.4077972709551657
+            },
+            "G1": 2895232.0,
+            "G1_share_of_selector_J": 0.13067412791321434,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 2895232.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 458400.0,
+              "infer": 21639092.61,
+              "ops": 22097492.61,
+              "errors": 5863,
+              "scored": 10260,
+              "accuracy": 0.42855750487329436
+            },
+            "oracle_O1": {
+              "train": 354400.0,
+              "infer": 18845730.61,
+              "ops": 19200130.61,
+              "errors": 6076,
+              "scored": 10260,
+              "accuracy": 0.4077972709551657
+            },
+            "G1": 2876062.0,
+            "G1_share_of_selector_J": 0.12678929178413081,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 2876062.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 458400.0,
+              "infer": 21639092.61,
+              "ops": 22097492.61,
+              "errors": 5863,
+              "scored": 10260,
+              "accuracy": 0.42855750487329436
+            },
+            "oracle_O1": {
+              "train": 354400.0,
+              "infer": 18845730.61,
+              "ops": 19200130.61,
+              "errors": 6076,
+              "scored": 10260,
+              "accuracy": 0.4077972709551657
+            },
+            "G1": 2684362.0,
+            "G1_share_of_selector_J": 0.0960055331442889,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 2684362.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 458400.0,
+              "infer": 21639092.61,
+              "ops": 22097492.61,
+              "errors": 5863,
+              "scored": 10260,
+              "accuracy": 0.42855750487329436
+            },
+            "oracle_O1": {
+              "train": 562400.0,
+              "infer": 23889492.61,
+              "ops": 24451892.61,
+              "errors": 5161,
+              "scored": 10260,
+              "accuracy": 0.4969785575048733
+            },
+            "G1": 4665600.0,
+            "G1_share_of_selector_J": 0.057794437175694664,
+            "oracle_pick_counts": {
+              "REBUILD": 6,
+              "SKIP": 3,
+              "NUDGE": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 602668.0,
+              "NUDGE": 2288200.0,
+              "REBUILD": 1774732.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.12917266803840877,
+              "NUDGE": 0.4904406721536351,
+              "REBUILD": 0.3803866598079561,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 458400.0,
+              "infer": 21639092.61,
+              "ops": 22097492.61,
+              "errors": 5863,
+              "scored": 10260,
+              "accuracy": 0.42855750487329436
+            },
+            "oracle_O1": {
+              "train": 854400.0,
+              "infer": 29365679.61,
+              "ops": 30220079.61,
+              "errors": 4703,
+              "scored": 10260,
+              "accuracy": 0.5416179337231969
+            },
+            "G1": 107877413.0,
+            "G1_share_of_selector_J": 0.177314032865603,
+            "oracle_pick_counts": {
+              "REBUILD": 9,
+              "SKIP": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 107877413.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000000.0": {
+            "n_alarms": 11,
+            "selector": {
+              "train": 458400.0,
+              "infer": 21639092.61,
+              "ops": 22097492.61,
+              "errors": 5863,
+              "scored": 10260,
+              "accuracy": 0.42855750487329436
+            },
+            "oracle_O1": {
+              "train": 854400.0,
+              "infer": 29365679.61,
+              "ops": 30220079.61,
+              "errors": 4703,
+              "scored": 10260,
+              "accuracy": 0.5416179337231969
+            },
+            "G1": 1151877413.0,
+            "G1_share_of_selector_J": 0.195727838739533,
+            "oracle_pick_counts": {
+              "REBUILD": 9,
+              "SKIP": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1151877413.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          }
+        }
+      },
+      "candidate_A_defer_perfect": {
+        "n_alarms": 43,
+        "n_deferred": 24,
+        "selector_training_ops": 1333248,
+        "defer_perfect_training_ops": 1284928,
+        "training_ops_saved_share": 0.03624231950844854,
+        "selector_accuracy": 0.3732922790312565,
+        "defer_perfect_accuracy": 0.37515524736079486,
+        "accuracy_delta_pp": 0.18629683295383614
+      }
+    },
+    "insects_gradual": {
+      "by_lambda": {
+        "0.0": {
+          "n_alarms": 25,
+          "selector": {
+            "train": 833124.0,
+            "infer": 23277791.250000004,
+            "ops": 24110915.250000004,
+            "errors": 9949,
+            "scored": 20468,
+            "accuracy": 0.5139241743208911
+          },
+          "oracle_O1": {
+            "train": 316000.0,
+            "infer": 17708226.195,
+            "ops": 18024226.195,
+            "errors": 12524,
+            "scored": 20468,
+            "accuracy": 0.3881180379128396
+          },
+          "G1": 6086689.054999999,
+          "G1_share_of_selector_J": 0.25244537554417384,
+          "oracle_pick_counts": {
+            "SKIP": 21,
+            "REBUILD": 4
+          },
+          "advantage_by_branch": {
+            "SKIP": 4453486.055,
+            "NUDGE": 0.0,
+            "REBUILD": 1633203.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.73167628816879,
+            "NUDGE": 0.0,
+            "REBUILD": 0.26832371183121007,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0026073288542583523,
+          "guard_shortfall": 15870.0,
+          "n_guard_alarms": 2
+        },
+        "10.0": {
+          "n_alarms": 25,
+          "selector": {
+            "train": 833124.0,
+            "infer": 23277791.250000004,
+            "ops": 24110915.250000004,
+            "errors": 9949,
+            "scored": 20468,
+            "accuracy": 0.5139241743208911
+          },
+          "oracle_O1": {
+            "train": 316000.0,
+            "infer": 17708226.195,
+            "ops": 18024226.195,
+            "errors": 12524,
+            "scored": 20468,
+            "accuracy": 0.3881180379128396
+          },
+          "G1": 6060939.054999999,
+          "G1_share_of_selector_J": 0.25034438673842513,
+          "oracle_pick_counts": {
+            "SKIP": 21,
+            "REBUILD": 4
+          },
+          "advantage_by_branch": {
+            "SKIP": 4424616.055,
+            "NUDGE": 0.0,
+            "REBUILD": 1636323.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.7300215387168252,
+            "NUDGE": 0.0,
+            "REBUILD": 0.26997846128317493,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0021432322420869487,
+          "guard_shortfall": 12990.0,
+          "n_guard_alarms": 2
+        },
+        "100.0": {
+          "n_alarms": 25,
+          "selector": {
+            "train": 833124.0,
+            "infer": 23277791.250000004,
+            "ops": 24110915.250000004,
+            "errors": 9949,
+            "scored": 20468,
+            "accuracy": 0.5139241743208911
+          },
+          "oracle_O1": {
+            "train": 316678.0,
+            "infer": 17748792.195,
+            "ops": 18065470.195,
+            "errors": 11780,
+            "scored": 20468,
+            "accuracy": 0.42446746140316594
+          },
+          "G1": 5862345.054999999,
+          "G1_share_of_selector_J": 0.23350546463532978,
+          "oracle_pick_counts": {
+            "SKIP": 19,
+            "REBUILD": 5,
+            "NUDGE": 1
+          },
+          "advantage_by_branch": {
+            "SKIP": 4177716.0549999992,
+            "NUDGE": 20226.0,
+            "REBUILD": 1664403.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.7126356459411788,
+            "NUDGE": 0.0034501551529706066,
+            "REBUILD": 0.28391419890585073,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 2
+        },
+        "1000.0": {
+          "n_alarms": 25,
+          "selector": {
+            "train": 833124.0,
+            "infer": 23277791.250000004,
+            "ops": 24110915.250000004,
+            "errors": 9949,
+            "scored": 20468,
+            "accuracy": 0.5139241743208911
+          },
+          "oracle_O1": {
+            "train": 420694.0,
+            "infer": 18278318.195,
+            "ops": 18699012.195,
+            "errors": 10170,
+            "scored": 20468,
+            "accuracy": 0.5031268321282001
+          },
+          "G1": 5190903.054999999,
+          "G1_share_of_selector_J": 0.15240504907010885,
+          "oracle_pick_counts": {
+            "SKIP": 13,
+            "REBUILD": 9,
+            "NUDGE": 3
+          },
+          "advantage_by_branch": {
+            "SKIP": 2699958.0549999992,
+            "NUDGE": 432026.0,
+            "REBUILD": 2058919.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.5201326294081599,
+            "NUDGE": 0.08322752234485722,
+            "REBUILD": 0.396639848246983,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 2
+        },
+        "10000.0": {
+          "n_alarms": 25,
+          "selector": {
+            "train": 833124.0,
+            "infer": 23277791.250000004,
+            "ops": 24110915.250000004,
+            "errors": 9949,
+            "scored": 20468,
+            "accuracy": 0.5139241743208911
+          },
+          "oracle_O1": {
+            "train": 896210.0,
+            "infer": 21819572.985,
+            "ops": 22715782.984999996,
+            "errors": 8667,
+            "scored": 20468,
+            "accuracy": 0.5765585303888998
+          },
+          "G1": 14215132.265,
+          "G1_share_of_selector_J": 0.11500830909097981,
+          "oracle_pick_counts": {
+            "REBUILD": 16,
+            "SKIP": 5,
+            "NUDGE": 4
+          },
+          "advantage_by_branch": {
+            "SKIP": 2139791.185,
+            "NUDGE": 5145590.0,
+            "REBUILD": 6929751.08,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.1505291083550815,
+            "NUDGE": 0.3619797483467172,
+            "REBUILD": 0.4874911432982013,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 2
+        },
+        "100000.0": {
+          "n_alarms": 25,
+          "selector": {
+            "train": 833124.0,
+            "infer": 23277791.250000004,
+            "ops": 24110915.250000004,
+            "errors": 9949,
+            "scored": 20468,
+            "accuracy": 0.5139241743208911
+          },
+          "oracle_O1": {
+            "train": 1796210.0,
+            "infer": 23015482.984999996,
+            "ops": 24811692.985,
+            "errors": 8517,
+            "scored": 20468,
+            "accuracy": 0.5838870431893688
+          },
+          "G1": 142499222.26500002,
+          "G1_share_of_selector_J": 0.13984072214775034,
+          "oracle_pick_counts": {
+            "REBUILD": 16,
+            "SKIP": 5,
+            "NUDGE": 4
+          },
+          "advantage_by_branch": {
+            "SKIP": 19062881.185000002,
+            "NUDGE": 52937390.0,
+            "REBUILD": 70498951.08,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.13377533492463234,
+            "NUDGE": 0.37149248366811777,
+            "REBUILD": 0.4947321814072498,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 2
+        },
+        "1000000.0": {
+          "n_alarms": 25,
+          "selector": {
+            "train": 833124.0,
+            "infer": 23277791.250000004,
+            "ops": 24110915.250000004,
+            "errors": 9949,
+            "scored": 20468,
+            "accuracy": 0.5139241743208911
+          },
+          "oracle_O1": {
+            "train": 1796210.0,
+            "infer": 23015482.984999996,
+            "ops": 24811692.985,
+            "errors": 8517,
+            "scored": 20468,
+            "accuracy": 0.5838870431893688
+          },
+          "G1": 1431299222.2649999,
+          "G1_share_of_selector_J": 0.14351582313963676,
+          "oracle_pick_counts": {
+            "REBUILD": 16,
+            "SKIP": 5,
+            "NUDGE": 4
+          },
+          "advantage_by_branch": {
+            "SKIP": 196362881.18499997,
+            "NUDGE": 529937390.0,
+            "REBUILD": 704998951.0799999,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.1371920546943776,
+            "NUDGE": 0.37024919859970695,
+            "REBUILD": 0.4925587467059155,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 2
+        }
+      },
+      "by_family": {
+        "gnb": {
+          "0.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 4324.0,
+              "infer": 3012186.0,
+              "ops": 3016510.0,
+              "errors": 1956,
+              "scored": 5447,
+              "accuracy": 0.640903249495135
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 2641140.0,
+              "ops": 2641140.0,
+              "errors": 2677,
+              "scored": 5447,
+              "accuracy": 0.5085368092527998
+            },
+            "G1": 375370.0,
+            "G1_share_of_selector_J": 0.12443850675117935,
+            "oracle_pick_counts": {
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 375370.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.04227828542504729,
+            "guard_shortfall": 15870.0,
+            "n_guard_alarms": 1
+          },
+          "10.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 4324.0,
+              "infer": 3012186.0,
+              "ops": 3016510.0,
+              "errors": 1956,
+              "scored": 5447,
+              "accuracy": 0.640903249495135
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 2641140.0,
+              "ops": 2641140.0,
+              "errors": 2677,
+              "scored": 5447,
+              "accuracy": 0.5085368092527998
+            },
+            "G1": 368160.0,
+            "G1_share_of_selector_J": 0.12126202623786672,
+            "oracle_pick_counts": {
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 368160.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.03528357235984354,
+            "guard_shortfall": 12990.0,
+            "n_guard_alarms": 1
+          },
+          "100.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 4324.0,
+              "infer": 3012186.0,
+              "ops": 3016510.0,
+              "errors": 1956,
+              "scored": 5447,
+              "accuracy": 0.640903249495135
+            },
+            "oracle_O1": {
+              "train": 192.0,
+              "infer": 2656818.0,
+              "ops": 2657010.0,
+              "errors": 2389,
+              "scored": 5447,
+              "accuracy": 0.5614099504314302
+            },
+            "G1": 316200.0,
+            "G1_share_of_selector_J": 0.0984399662527124,
+            "oracle_pick_counts": {
+              "SKIP": 6,
+              "REBUILD": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 316200.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "1000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 4324.0,
+              "infer": 3012186.0,
+              "ops": 3016510.0,
+              "errors": 1956,
+              "scored": 5447,
+              "accuracy": 0.640903249495135
+            },
+            "oracle_O1": {
+              "train": 2608.0,
+              "infer": 2851386.0,
+              "ops": 2853994.0,
+              "errors": 1826,
+              "scored": 5447,
+              "accuracy": 0.6647695979438223
+            },
+            "G1": 292516.0,
+            "G1_share_of_selector_J": 0.05882662880517083,
+            "oracle_pick_counts": {
+              "SKIP": 3,
+              "REBUILD": 4
+            },
+            "advantage_by_branch": {
+              "SKIP": 178800.0,
+              "NUDGE": 0.0,
+              "REBUILD": 113716.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.6112486154603509,
+              "NUDGE": 0.0,
+              "REBUILD": 0.38875138453964914,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "10000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 4324.0,
+              "infer": 3012186.0,
+              "ops": 3016510.0,
+              "errors": 1956,
+              "scored": 5447,
+              "accuracy": 0.640903249495135
+            },
+            "oracle_O1": {
+              "train": 4608.0,
+              "infer": 3012186.0,
+              "ops": 3016794.0,
+              "errors": 1743,
+              "scored": 5447,
+              "accuracy": 0.6800073434918303
+            },
+            "G1": 2129716.0,
+            "G1_share_of_selector_J": 0.09433326940257816,
+            "oracle_pick_counts": {
+              "REBUILD": 6,
+              "SKIP": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 541400.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1588316.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.2542122987290324,
+              "NUDGE": 0.0,
+              "REBUILD": 0.7457877012709676,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "100000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 4324.0,
+              "infer": 3012186.0,
+              "ops": 3016510.0,
+              "errors": 1956,
+              "scored": 5447,
+              "accuracy": 0.640903249495135
+            },
+            "oracle_O1": {
+              "train": 5408.0,
+              "infer": 3092586.0,
+              "ops": 3097994.0,
+              "errors": 1741,
+              "scored": 5447,
+              "accuracy": 0.6803745180833487
+            },
+            "G1": 21418516.0,
+            "G1_share_of_selector_J": 0.10783854776221775,
+            "oracle_pick_counts": {
+              "REBUILD": 6,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 4800200.0,
+              "REBUILD": 16618316.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.22411449980941722,
+              "REBUILD": 0.7758855001905828,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "1000000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 4324.0,
+              "infer": 3012186.0,
+              "ops": 3016510.0,
+              "errors": 1956,
+              "scored": 5447,
+              "accuracy": 0.640903249495135
+            },
+            "oracle_O1": {
+              "train": 5408.0,
+              "infer": 3092586.0,
+              "ops": 3097994.0,
+              "errors": 1741,
+              "scored": 5447,
+              "accuracy": 0.6803745180833487
+            },
+            "G1": 214918516.0,
+            "G1_share_of_selector_J": 0.10970735310444117,
+            "oracle_pick_counts": {
+              "REBUILD": 6,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 48000200.0,
+              "REBUILD": 166918316.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.2233413895338827,
+              "REBUILD": 0.7766586104661173,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          }
+        },
+        "rf": {
+          "0.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 437600.0,
+              "infer": 5622619.085,
+              "ops": 6060219.085,
+              "errors": 2345,
+              "scored": 5351,
+              "accuracy": 0.5617641562324799
+            },
+            "oracle_O1": {
+              "train": 116000.0,
+              "infer": 5102625.800000001,
+              "ops": 5218625.800000001,
+              "errors": 2933,
+              "scored": 5351,
+              "accuracy": 0.45187815361614647
+            },
+            "G1": 841593.2849999998,
+            "G1_share_of_selector_J": 0.13887175912221988,
+            "oracle_pick_counts": {
+              "SKIP": 5,
+              "REBUILD": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 841593.2849999998,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "10.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 437600.0,
+              "infer": 5622619.085,
+              "ops": 6060219.085,
+              "errors": 2345,
+              "scored": 5351,
+              "accuracy": 0.5617641562324799
+            },
+            "oracle_O1": {
+              "train": 116000.0,
+              "infer": 5102625.800000001,
+              "ops": 5218625.800000001,
+              "errors": 2933,
+              "scored": 5351,
+              "accuracy": 0.45187815361614647
+            },
+            "G1": 835713.2849999998,
+            "G1_share_of_selector_J": 0.1373699445718619,
+            "oracle_pick_counts": {
+              "SKIP": 5,
+              "REBUILD": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 835713.2849999998,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "100.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 437600.0,
+              "infer": 5622619.085,
+              "ops": 6060219.085,
+              "errors": 2345,
+              "scored": 5351,
+              "accuracy": 0.5617641562324799
+            },
+            "oracle_O1": {
+              "train": 116000.0,
+              "infer": 5102625.800000001,
+              "ops": 5218625.800000001,
+              "errors": 2933,
+              "scored": 5351,
+              "accuracy": 0.45187815361614647
+            },
+            "G1": 782793.2849999999,
+            "G1_share_of_selector_J": 0.12435714357219801,
+            "oracle_pick_counts": {
+              "SKIP": 5,
+              "REBUILD": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 782793.2849999999,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "1000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 437600.0,
+              "infer": 5622619.085,
+              "ops": 6060219.085,
+              "errors": 2345,
+              "scored": 5351,
+              "accuracy": 0.5617641562324799
+            },
+            "oracle_O1": {
+              "train": 216000.0,
+              "infer": 5355983.800000001,
+              "ops": 5571983.800000001,
+              "errors": 2277,
+              "scored": 5351,
+              "accuracy": 0.5744720612969538
+            },
+            "G1": 556235.2849999999,
+            "G1_share_of_selector_J": 0.06617736901024512,
+            "oracle_pick_counts": {
+              "SKIP": 4,
+              "REBUILD": 3
+            },
+            "advantage_by_branch": {
+              "SKIP": 556235.2849999999,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "10000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 437600.0,
+              "infer": 5622619.085,
+              "ops": 6060219.085,
+              "errors": 2345,
+              "scored": 5351,
+              "accuracy": 0.5617641562324799
+            },
+            "oracle_O1": {
+              "train": 402400.0,
+              "infer": 5791195.82,
+              "ops": 6193595.82,
+              "errors": 2113,
+              "scored": 5351,
+              "accuracy": 0.6051205382171556
+            },
+            "G1": 2186623.265,
+            "G1_share_of_selector_J": 0.07409715457217522,
+            "oracle_pick_counts": {
+              "REBUILD": 5,
+              "SKIP": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 1598391.185,
+              "NUDGE": 0.0,
+              "REBUILD": 588232.0800000001,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.7309860873541927,
+              "NUDGE": 0.0,
+              "REBUILD": 0.2690139126458073,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "100000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 437600.0,
+              "infer": 5622619.085,
+              "ops": 6060219.085,
+              "errors": 2345,
+              "scored": 5351,
+              "accuracy": 0.5617641562324799
+            },
+            "oracle_O1": {
+              "train": 402400.0,
+              "infer": 5791195.82,
+              "ops": 6193595.82,
+              "errors": 2113,
+              "scored": 5351,
+              "accuracy": 0.6051205382171556
+            },
+            "G1": 23066623.265000004,
+            "G1_share_of_selector_J": 0.09588710615885164,
+            "oracle_pick_counts": {
+              "REBUILD": 5,
+              "SKIP": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 12578391.185000002,
+              "NUDGE": 0.0,
+              "REBUILD": 10488232.080000002,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.5453070022644253,
+              "NUDGE": 0.0,
+              "REBUILD": 0.4546929977355747,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          },
+          "1000000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 437600.0,
+              "infer": 5622619.085,
+              "ops": 6060219.085,
+              "errors": 2345,
+              "scored": 5351,
+              "accuracy": 0.5617641562324799
+            },
+            "oracle_O1": {
+              "train": 402400.0,
+              "infer": 5791195.82,
+              "ops": 6193595.82,
+              "errors": 2113,
+              "scored": 5351,
+              "accuracy": 0.6051205382171556
+            },
+            "G1": 231866623.26499996,
+            "G1_share_of_selector_J": 0.09862215411702181,
+            "oracle_pick_counts": {
+              "REBUILD": 5,
+              "SKIP": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 122378391.18499997,
+              "NUDGE": 0.0,
+              "REBUILD": 109488232.07999998,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.5277964955099809,
+              "NUDGE": 0.0,
+              "REBUILD": 0.47220350449001913,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 1
+          }
+        },
+        "sgd": {
+          "0.0": {
+            "n_alarms": 6,
+            "selector": {
+              "train": 800.0,
+              "infer": 1258680.0,
+              "ops": 1259480.0,
+              "errors": 3337,
+              "scored": 4959,
+              "accuracy": 0.3270820729985884
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 1217880.0,
+              "ops": 1217880.0,
+              "errors": 3685,
+              "scored": 4959,
+              "accuracy": 0.25690663440209716
+            },
+            "G1": 41600.0,
+            "G1_share_of_selector_J": 0.03302950423984501,
+            "oracle_pick_counts": {
+              "SKIP": 6
+            },
+            "advantage_by_branch": {
+              "SKIP": 41600.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10.0": {
+            "n_alarms": 6,
+            "selector": {
+              "train": 800.0,
+              "infer": 1258680.0,
+              "ops": 1259480.0,
+              "errors": 3337,
+              "scored": 4959,
+              "accuracy": 0.3270820729985884
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 1217880.0,
+              "ops": 1217880.0,
+              "errors": 3685,
+              "scored": 4959,
+              "accuracy": 0.25690663440209716
+            },
+            "G1": 38120.0,
+            "G1_share_of_selector_J": 0.029485245774838534,
+            "oracle_pick_counts": {
+              "SKIP": 6
+            },
+            "advantage_by_branch": {
+              "SKIP": 38120.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100.0": {
+            "n_alarms": 6,
+            "selector": {
+              "train": 800.0,
+              "infer": 1258680.0,
+              "ops": 1259480.0,
+              "errors": 3337,
+              "scored": 4959,
+              "accuracy": 0.3270820729985884
+            },
+            "oracle_O1": {
+              "train": 486.0,
+              "infer": 1242768.0,
+              "ops": 1243254.0,
+              "errors": 3229,
+              "scored": 4959,
+              "accuracy": 0.3488606573906029
+            },
+            "G1": 27026.0,
+            "G1_share_of_selector_J": 0.01696355716240475,
+            "oracle_pick_counts": {
+              "SKIP": 5,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 6800.0,
+              "NUDGE": 20226.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.2516095611633242,
+              "NUDGE": 0.7483904388366758,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000.0": {
+            "n_alarms": 6,
+            "selector": {
+              "train": 800.0,
+              "infer": 1258680.0,
+              "ops": 1259480.0,
+              "errors": 3337,
+              "scored": 4959,
+              "accuracy": 0.3270820729985884
+            },
+            "oracle_O1": {
+              "train": 2086.0,
+              "infer": 1324368.0,
+              "ops": 1326454.0,
+              "errors": 2838,
+              "scored": 4959,
+              "accuracy": 0.4277071990320629
+            },
+            "G1": 432026.0,
+            "G1_share_of_selector_J": 0.09399061890838206,
+            "oracle_pick_counts": {
+              "SKIP": 3,
+              "NUDGE": 3
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 432026.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 1.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10000.0": {
+            "n_alarms": 6,
+            "selector": {
+              "train": 800.0,
+              "infer": 1258680.0,
+              "ops": 1259480.0,
+              "errors": 3337,
+              "scored": 4959,
+              "accuracy": 0.3270820729985884
+            },
+            "oracle_O1": {
+              "train": 2802.0,
+              "infer": 1361088.0,
+              "ops": 1363890.0,
+              "errors": 2812,
+              "scored": 4959,
+              "accuracy": 0.4329501915708812
+            },
+            "G1": 5145590.0,
+            "G1_share_of_selector_J": 0.14858987198190673,
+            "oracle_pick_counts": {
+              "NUDGE": 4,
+              "SKIP": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 5145590.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 1.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100000.0": {
+            "n_alarms": 6,
+            "selector": {
+              "train": 800.0,
+              "infer": 1258680.0,
+              "ops": 1259480.0,
+              "errors": 3337,
+              "scored": 4959,
+              "accuracy": 0.3270820729985884
+            },
+            "oracle_O1": {
+              "train": 1002002.0,
+              "infer": 1361088.0,
+              "ops": 2363090.0,
+              "errors": 2739,
+              "scored": 4959,
+              "accuracy": 0.4476709013914095
+            },
+            "G1": 58696390.0,
+            "G1_share_of_selector_J": 0.17523429998159779,
+            "oracle_pick_counts": {
+              "NUDGE": 3,
+              "REBUILD": 1,
+              "SKIP": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 48137190.0,
+              "REBUILD": 10559200.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.8201047798680634,
+              "REBUILD": 0.17989522013193657,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000000.0": {
+            "n_alarms": 6,
+            "selector": {
+              "train": 800.0,
+              "infer": 1258680.0,
+              "ops": 1259480.0,
+              "errors": 3337,
+              "scored": 4959,
+              "accuracy": 0.3270820729985884
+            },
+            "oracle_O1": {
+              "train": 1002002.0,
+              "infer": 1361088.0,
+              "ops": 2363090.0,
+              "errors": 2739,
+              "scored": 4959,
+              "accuracy": 0.4476709013914095
+            },
+            "G1": 596896390.0,
+            "G1_share_of_selector_J": 0.17880467158892036,
+            "oracle_pick_counts": {
+              "NUDGE": 3,
+              "REBUILD": 1,
+              "SKIP": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 481937190.0,
+              "REBUILD": 114959200.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.8074051009087189,
+              "REBUILD": 0.19259489909128116,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          }
+        },
+        "xgb": {
+          "0.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 390400.0,
+              "infer": 13384306.165,
+              "ops": 13774706.165,
+              "errors": 2311,
+              "scored": 4711,
+              "accuracy": 0.5094459774994693
+            },
+            "oracle_O1": {
+              "train": 200000.0,
+              "infer": 8746580.395,
+              "ops": 8946580.395,
+              "errors": 3229,
+              "scored": 4711,
+              "accuracy": 0.3145828911059223
+            },
+            "G1": 4828125.77,
+            "G1_share_of_selector_J": 0.35050662512625724,
+            "oracle_pick_counts": {
+              "SKIP": 3,
+              "REBUILD": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 3194922.7699999996,
+              "NUDGE": 0.0,
+              "REBUILD": 1633203.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.6617314714235375,
+              "NUDGE": 0.0,
+              "REBUILD": 0.3382685285764625,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 390400.0,
+              "infer": 13384306.165,
+              "ops": 13774706.165,
+              "errors": 2311,
+              "scored": 4711,
+              "accuracy": 0.5094459774994693
+            },
+            "oracle_O1": {
+              "train": 200000.0,
+              "infer": 8746580.395,
+              "ops": 8946580.395,
+              "errors": 3229,
+              "scored": 4711,
+              "accuracy": 0.3145828911059223
+            },
+            "G1": 4818945.77,
+            "G1_share_of_selector_J": 0.3492542379441102,
+            "oracle_pick_counts": {
+              "SKIP": 3,
+              "REBUILD": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 3182622.7699999996,
+              "NUDGE": 0.0,
+              "REBUILD": 1636323.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.6604396317993841,
+              "NUDGE": 0.0,
+              "REBUILD": 0.3395603682006158,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 390400.0,
+              "infer": 13384306.165,
+              "ops": 13774706.165,
+              "errors": 2311,
+              "scored": 4711,
+              "accuracy": 0.5094459774994693
+            },
+            "oracle_O1": {
+              "train": 200000.0,
+              "infer": 8746580.395,
+              "ops": 8946580.395,
+              "errors": 3229,
+              "scored": 4711,
+              "accuracy": 0.3145828911059223
+            },
+            "G1": 4736325.77,
+            "G1_share_of_selector_J": 0.33816873617999266,
+            "oracle_pick_counts": {
+              "SKIP": 3,
+              "REBUILD": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 3071922.7699999996,
+              "NUDGE": 0.0,
+              "REBUILD": 1664403.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.6485877279509851,
+              "NUDGE": 0.0,
+              "REBUILD": 0.35141227204901493,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 390400.0,
+              "infer": 13384306.165,
+              "ops": 13774706.165,
+              "errors": 2311,
+              "scored": 4711,
+              "accuracy": 0.5094459774994693
+            },
+            "oracle_O1": {
+              "train": 200000.0,
+              "infer": 8746580.395,
+              "ops": 8946580.395,
+              "errors": 3229,
+              "scored": 4711,
+              "accuracy": 0.3145828911059223
+            },
+            "G1": 3910125.7699999996,
+            "G1_share_of_selector_J": 0.2430807656121325,
+            "oracle_pick_counts": {
+              "SKIP": 3,
+              "REBUILD": 2
+            },
+            "advantage_by_branch": {
+              "SKIP": 1964922.7699999996,
+              "NUDGE": 0.0,
+              "REBUILD": 1945203.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.502521628607358,
+              "NUDGE": 0.0,
+              "REBUILD": 0.497478371392642,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10000.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 390400.0,
+              "infer": 13384306.165,
+              "ops": 13774706.165,
+              "errors": 2311,
+              "scored": 4711,
+              "accuracy": 0.5094459774994693
+            },
+            "oracle_O1": {
+              "train": 486400.0,
+              "infer": 11655103.165,
+              "ops": 12141503.165,
+              "errors": 1999,
+              "scored": 4711,
+              "accuracy": 0.5756739545744003
+            },
+            "G1": 4753203.0,
+            "G1_share_of_selector_J": 0.12886650035212502,
+            "oracle_pick_counts": {
+              "REBUILD": 5
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 4753203.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100000.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 390400.0,
+              "infer": 13384306.165,
+              "ops": 13774706.165,
+              "errors": 2311,
+              "scored": 4711,
+              "accuracy": 0.5094459774994693
+            },
+            "oracle_O1": {
+              "train": 386400.0,
+              "infer": 12770613.165,
+              "ops": 13157013.165,
+              "errors": 1924,
+              "scored": 4711,
+              "accuracy": 0.5915941413712588
+            },
+            "G1": 39317693.0,
+            "G1_share_of_selector_J": 0.1605624917973651,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 6484490.0,
+              "NUDGE": 0.0,
+              "REBUILD": 32833203.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.16492549550147817,
+              "NUDGE": 0.0,
+              "REBUILD": 0.8350745044985218,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000000.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 390400.0,
+              "infer": 13384306.165,
+              "ops": 13774706.165,
+              "errors": 2311,
+              "scored": 4711,
+              "accuracy": 0.5094459774994693
+            },
+            "oracle_O1": {
+              "train": 386400.0,
+              "infer": 12770613.165,
+              "ops": 13157013.165,
+              "errors": 1924,
+              "scored": 4711,
+              "accuracy": 0.5915941413712588
+            },
+            "G1": 387617693.0,
+            "G1_share_of_selector_J": 0.16673344387827704,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 73984490.0,
+              "NUDGE": 0.0,
+              "REBUILD": 313633203.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.19086974443140292,
+              "NUDGE": 0.0,
+              "REBUILD": 0.8091302555685971,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          }
+        }
+      },
+      "candidate_A_defer_perfect": {
+        "n_alarms": 25,
+        "n_deferred": 11,
+        "selector_training_ops": 833124,
+        "defer_perfect_training_ops": 596924,
+        "training_ops_saved_share": 0.28351121801796614,
+        "selector_accuracy": 0.5139241743208911,
+        "defer_perfect_accuracy": 0.5257963650576509,
+        "accuracy_delta_pp": 1.1872190736759825
+      }
+    },
+    "insects_incremental": {
+      "by_lambda": {
+        "0.0": {
+          "n_alarms": 16,
+          "selector": {
+            "train": 1008600.0,
+            "infer": 28980916.275,
+            "ops": 29989516.275,
+            "errors": 5761,
+            "scored": 15565,
+            "accuracy": 0.6298747189206553
+          },
+          "oracle_O1": {
+            "train": 100000.0,
+            "infer": 25253318.5,
+            "ops": 25353318.5,
+            "errors": 7292,
+            "scored": 15565,
+            "accuracy": 0.5315130099582397
+          },
+          "G1": 4636197.775,
+          "G1_share_of_selector_J": 0.15459394984856256,
+          "oracle_pick_counts": {
+            "REBUILD": 1,
+            "SKIP": 15
+          },
+          "advantage_by_branch": {
+            "SKIP": 4636197.775,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 0
+        },
+        "10.0": {
+          "n_alarms": 16,
+          "selector": {
+            "train": 1008600.0,
+            "infer": 28980916.275,
+            "ops": 29989516.275,
+            "errors": 5761,
+            "scored": 15565,
+            "accuracy": 0.6298747189206553
+          },
+          "oracle_O1": {
+            "train": 100000.0,
+            "infer": 25253318.5,
+            "ops": 25353318.5,
+            "errors": 7292,
+            "scored": 15565,
+            "accuracy": 0.5315130099582397
+          },
+          "G1": 4620887.775,
+          "G1_share_of_selector_J": 0.15378801063064393,
+          "oracle_pick_counts": {
+            "REBUILD": 1,
+            "SKIP": 15
+          },
+          "advantage_by_branch": {
+            "SKIP": 4620887.775,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 0
+        },
+        "100.0": {
+          "n_alarms": 16,
+          "selector": {
+            "train": 1008600.0,
+            "infer": 28980916.275,
+            "ops": 29989516.275,
+            "errors": 5761,
+            "scored": 15565,
+            "accuracy": 0.6298747189206553
+          },
+          "oracle_O1": {
+            "train": 200000.0,
+            "infer": 25174137.5,
+            "ops": 25374137.5,
+            "errors": 7030,
+            "scored": 15565,
+            "accuracy": 0.5483456472855766
+          },
+          "G1": 4488478.775,
+          "G1_share_of_selector_J": 0.14684731806540355,
+          "oracle_pick_counts": {
+            "REBUILD": 2,
+            "SKIP": 14
+          },
+          "advantage_by_branch": {
+            "SKIP": 4488478.775,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 0
+        },
+        "1000.0": {
+          "n_alarms": 16,
+          "selector": {
+            "train": 1008600.0,
+            "infer": 28980916.275,
+            "ops": 29989516.275,
+            "errors": 5761,
+            "scored": 15565,
+            "accuracy": 0.6298747189206553
+          },
+          "oracle_O1": {
+            "train": 204000.0,
+            "infer": 25495737.5,
+            "ops": 25699737.5,
+            "errors": 6473,
+            "scored": 15565,
+            "accuracy": 0.5841310632830068
+          },
+          "G1": 3577778.775,
+          "G1_share_of_selector_J": 0.10007628274453499,
+          "oracle_pick_counts": {
+            "REBUILD": 6,
+            "SKIP": 10
+          },
+          "advantage_by_branch": {
+            "SKIP": 3539978.775,
+            "NUDGE": 0.0,
+            "REBUILD": 37800.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9894347855535031,
+            "NUDGE": 0.0,
+            "REBUILD": 0.010565214446496905,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 0
+        },
+        "10000.0": {
+          "n_alarms": 16,
+          "selector": {
+            "train": 1008600.0,
+            "infer": 28980916.275,
+            "ops": 29989516.275,
+            "errors": 5761,
+            "scored": 15565,
+            "accuracy": 0.6298747189206553
+          },
+          "oracle_O1": {
+            "train": 1004800.0,
+            "infer": 27930508.275,
+            "ops": 28935308.275,
+            "errors": 5722,
+            "scored": 15565,
+            "accuracy": 0.632380340507549
+          },
+          "G1": 1444208.0,
+          "G1_share_of_selector_J": 0.01648648373201305,
+          "oracle_pick_counts": {
+            "REBUILD": 14,
+            "SKIP": 1,
+            "NUDGE": 1
+          },
+          "advantage_by_branch": {
+            "SKIP": 94156.0,
+            "NUDGE": 0.0,
+            "REBUILD": 1350052.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.06519559509433544,
+            "NUDGE": 0.0,
+            "REBUILD": 0.9348044049056645,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 0
+        },
+        "100000.0": {
+          "n_alarms": 16,
+          "selector": {
+            "train": 1008600.0,
+            "infer": 28980916.275,
+            "ops": 29989516.275,
+            "errors": 5761,
+            "scored": 15565,
+            "accuracy": 0.6298747189206553
+          },
+          "oracle_O1": {
+            "train": 1104800.0,
+            "infer": 28504664.275,
+            "ops": 29609464.275,
+            "errors": 5664,
+            "scored": 15565,
+            "accuracy": 0.6361066495342114
+          },
+          "G1": 10080052.0,
+          "G1_share_of_selector_J": 0.016631292456519568,
+          "oracle_pick_counts": {
+            "REBUILD": 15,
+            "NUDGE": 1
+          },
+          "advantage_by_branch": {
+            "SKIP": 0.0,
+            "NUDGE": 0.0,
+            "REBUILD": 10080052.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.0,
+            "NUDGE": 0.0,
+            "REBUILD": 1.0,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 0
+        },
+        "1000000.0": {
+          "n_alarms": 16,
+          "selector": {
+            "train": 1008600.0,
+            "infer": 28980916.275,
+            "ops": 29989516.275,
+            "errors": 5761,
+            "scored": 15565,
+            "accuracy": 0.6298747189206553
+          },
+          "oracle_O1": {
+            "train": 1104800.0,
+            "infer": 28504664.275,
+            "ops": 29609464.275,
+            "errors": 5664,
+            "scored": 15565,
+            "accuracy": 0.6361066495342114
+          },
+          "G1": 97380052.0,
+          "G1_share_of_selector_J": 0.016815787997253848,
+          "oracle_pick_counts": {
+            "REBUILD": 15,
+            "NUDGE": 1
+          },
+          "advantage_by_branch": {
+            "SKIP": 0.0,
+            "NUDGE": 0.0,
+            "REBUILD": 97380052.0,
+            "DEFER": 0.0
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.0,
+            "NUDGE": 0.0,
+            "REBUILD": 1.0,
+            "DEFER": 0.0
+          },
+          "guard_share_of_shortfall": 0.0,
+          "guard_shortfall": 0.0,
+          "n_guard_alarms": 0
+        }
+      },
+      "by_family": {
+        "gnb": {
+          "0.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 4600.0,
+              "infer": 2814000.0,
+              "ops": 2818600.0,
+              "errors": 2090,
+              "scored": 5000,
+              "accuracy": 0.5820000000000001
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 2412000.0,
+              "ops": 2412000.0,
+              "errors": 2629,
+              "scored": 5000,
+              "accuracy": 0.47419999999999995
+            },
+            "G1": 406600.0,
+            "G1_share_of_selector_J": 0.14425601362378485,
+            "oracle_pick_counts": {
+              "SKIP": 5
+            },
+            "advantage_by_branch": {
+              "SKIP": 406600.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 4600.0,
+              "infer": 2814000.0,
+              "ops": 2818600.0,
+              "errors": 2090,
+              "scored": 5000,
+              "accuracy": 0.5820000000000001
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 2412000.0,
+              "ops": 2412000.0,
+              "errors": 2629,
+              "scored": 5000,
+              "accuracy": 0.47419999999999995
+            },
+            "G1": 401210.0,
+            "G1_share_of_selector_J": 0.14129600281739743,
+            "oracle_pick_counts": {
+              "SKIP": 5
+            },
+            "advantage_by_branch": {
+              "SKIP": 401210.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 4600.0,
+              "infer": 2814000.0,
+              "ops": 2818600.0,
+              "errors": 2090,
+              "scored": 5000,
+              "accuracy": 0.5820000000000001
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 2412000.0,
+              "ops": 2412000.0,
+              "errors": 2629,
+              "scored": 5000,
+              "accuracy": 0.47419999999999995
+            },
+            "G1": 352700.0,
+            "G1_share_of_selector_J": 0.11649491346280882,
+            "oracle_pick_counts": {
+              "SKIP": 5
+            },
+            "advantage_by_branch": {
+              "SKIP": 352700.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 4600.0,
+              "infer": 2814000.0,
+              "ops": 2818600.0,
+              "errors": 2090,
+              "scored": 5000,
+              "accuracy": 0.5820000000000001
+            },
+            "oracle_O1": {
+              "train": 4000.0,
+              "infer": 2733600.0,
+              "ops": 2737600.0,
+              "errors": 2072,
+              "scored": 5000,
+              "accuracy": 0.5856
+            },
+            "G1": 99000.0,
+            "G1_share_of_selector_J": 0.02016868353502017,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "SKIP": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 61200.0,
+              "NUDGE": 0.0,
+              "REBUILD": 37800.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.6181818181818182,
+              "NUDGE": 0.0,
+              "REBUILD": 0.38181818181818183,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10000.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 4600.0,
+              "infer": 2814000.0,
+              "ops": 2818600.0,
+              "errors": 2090,
+              "scored": 5000,
+              "accuracy": 0.5820000000000001
+            },
+            "oracle_O1": {
+              "train": 4800.0,
+              "infer": 2814000.0,
+              "ops": 2818800.0,
+              "errors": 2052,
+              "scored": 5000,
+              "accuracy": 0.5896
+            },
+            "G1": 379800.0,
+            "G1_share_of_selector_J": 0.016012749487743796,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 379800.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100000.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 4600.0,
+              "infer": 2814000.0,
+              "ops": 2818600.0,
+              "errors": 2090,
+              "scored": 5000,
+              "accuracy": 0.5820000000000001
+            },
+            "oracle_O1": {
+              "train": 4800.0,
+              "infer": 2814000.0,
+              "ops": 2818800.0,
+              "errors": 2052,
+              "scored": 5000,
+              "accuracy": 0.5896
+            },
+            "G1": 3799800.0,
+            "G1_share_of_selector_J": 0.017938934541159274,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 3799800.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000000.0": {
+            "n_alarms": 5,
+            "selector": {
+              "train": 4600.0,
+              "infer": 2814000.0,
+              "ops": 2818600.0,
+              "errors": 2090,
+              "scored": 5000,
+              "accuracy": 0.5820000000000001
+            },
+            "oracle_O1": {
+              "train": 4800.0,
+              "infer": 2814000.0,
+              "ops": 2818800.0,
+              "errors": 2052,
+              "scored": 5000,
+              "accuracy": 0.5896
+            },
+            "G1": 37999800.0,
+            "G1_share_of_selector_J": 0.018157235414478827,
+            "oracle_pick_counts": {
+              "REBUILD": 4,
+              "NUDGE": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 37999800.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          }
+        },
+        "rf": {
+          "0.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 8306728.5,
+              "ops": 8306728.5,
+              "errors": 2936,
+              "scored": 6565,
+              "accuracy": 0.5527798933739527
+            },
+            "G1": 1934907.7750000001,
+            "G1_share_of_selector_J": 0.18892564850434507,
+            "oracle_pick_counts": {
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 1934907.7750000001,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "oracle_O1": {
+              "train": 0.0,
+              "infer": 8306728.5,
+              "ops": 8306728.5,
+              "errors": 2936,
+              "scored": 6565,
+              "accuracy": 0.5527798933739527
+            },
+            "G1": 1926907.7750000001,
+            "G1_share_of_selector_J": 0.18775294498486994,
+            "oracle_pick_counts": {
+              "SKIP": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 1926907.7750000001,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "oracle_O1": {
+              "train": 100000.0,
+              "infer": 8227547.5,
+              "ops": 8327547.5,
+              "errors": 2674,
+              "scored": 6565,
+              "accuracy": 0.5926884996191927
+            },
+            "G1": 1860288.7750000004,
+            "G1_share_of_selector_J": 0.1779289081632926,
+            "oracle_pick_counts": {
+              "REBUILD": 1,
+              "SKIP": 6
+            },
+            "advantage_by_branch": {
+              "SKIP": 1860288.7750000004,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "oracle_O1": {
+              "train": 100000.0,
+              "infer": 8227547.5,
+              "ops": 8327547.5,
+              "errors": 2674,
+              "scored": 6565,
+              "accuracy": 0.5926884996191927
+            },
+            "G1": 1376088.7750000004,
+            "G1_share_of_selector_J": 0.111175408973633,
+            "oracle_pick_counts": {
+              "REBUILD": 1,
+              "SKIP": 6
+            },
+            "advantage_by_branch": {
+              "SKIP": 1376088.7750000004,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "oracle_O1": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "G1": 0.0,
+            "G1_share_of_selector_J": 0.0,
+            "oracle_pick_counts": {
+              "REBUILD": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": null,
+              "NUDGE": null,
+              "REBUILD": null,
+              "DEFER": null
+            },
+            "guard_share_of_shortfall": null,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "oracle_O1": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "G1": 0.0,
+            "G1_share_of_selector_J": 0.0,
+            "oracle_pick_counts": {
+              "REBUILD": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": null,
+              "NUDGE": null,
+              "REBUILD": null,
+              "DEFER": null
+            },
+            "guard_share_of_shortfall": null,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000000.0": {
+            "n_alarms": 7,
+            "selector": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "oracle_O1": {
+              "train": 700000.0,
+              "infer": 9541636.275,
+              "ops": 10241636.275,
+              "errors": 2136,
+              "scored": 6565,
+              "accuracy": 0.6746382330540747
+            },
+            "G1": 0.0,
+            "G1_share_of_selector_J": 0.0,
+            "oracle_pick_counts": {
+              "REBUILD": 7
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": null,
+              "NUDGE": null,
+              "REBUILD": null,
+              "DEFER": null
+            },
+            "guard_share_of_shortfall": null,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          }
+        },
+        "xgb": {
+          "0.0": {
+            "n_alarms": 4,
+            "selector": {
+              "train": 304000.0,
+              "infer": 16625280.0,
+              "ops": 16929280.0,
+              "errors": 1535,
+              "scored": 4000,
+              "accuracy": 0.61625
+            },
+            "oracle_O1": {
+              "train": 100000.0,
+              "infer": 14534590.0,
+              "ops": 14634590.0,
+              "errors": 1727,
+              "scored": 4000,
+              "accuracy": 0.5682499999999999
+            },
+            "G1": 2294690.0,
+            "G1_share_of_selector_J": 0.13554563454559201,
+            "oracle_pick_counts": {
+              "REBUILD": 1,
+              "SKIP": 3
+            },
+            "advantage_by_branch": {
+              "SKIP": 2294690.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10.0": {
+            "n_alarms": 4,
+            "selector": {
+              "train": 304000.0,
+              "infer": 16625280.0,
+              "ops": 16929280.0,
+              "errors": 1535,
+              "scored": 4000,
+              "accuracy": 0.61625
+            },
+            "oracle_O1": {
+              "train": 100000.0,
+              "infer": 14534590.0,
+              "ops": 14634590.0,
+              "errors": 1727,
+              "scored": 4000,
+              "accuracy": 0.5682499999999999
+            },
+            "G1": 2292770.0,
+            "G1_share_of_selector_J": 0.13530953464312884,
+            "oracle_pick_counts": {
+              "REBUILD": 1,
+              "SKIP": 3
+            },
+            "advantage_by_branch": {
+              "SKIP": 2292770.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100.0": {
+            "n_alarms": 4,
+            "selector": {
+              "train": 304000.0,
+              "infer": 16625280.0,
+              "ops": 16929280.0,
+              "errors": 1535,
+              "scored": 4000,
+              "accuracy": 0.61625
+            },
+            "oracle_O1": {
+              "train": 100000.0,
+              "infer": 14534590.0,
+              "ops": 14634590.0,
+              "errors": 1727,
+              "scored": 4000,
+              "accuracy": 0.5682499999999999
+            },
+            "G1": 2275490.0,
+            "G1_share_of_selector_J": 0.13320372913542175,
+            "oracle_pick_counts": {
+              "REBUILD": 1,
+              "SKIP": 3
+            },
+            "advantage_by_branch": {
+              "SKIP": 2275490.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000.0": {
+            "n_alarms": 4,
+            "selector": {
+              "train": 304000.0,
+              "infer": 16625280.0,
+              "ops": 16929280.0,
+              "errors": 1535,
+              "scored": 4000,
+              "accuracy": 0.61625
+            },
+            "oracle_O1": {
+              "train": 100000.0,
+              "infer": 14534590.0,
+              "ops": 14634590.0,
+              "errors": 1727,
+              "scored": 4000,
+              "accuracy": 0.5682499999999999
+            },
+            "G1": 2102690.0,
+            "G1_share_of_selector_J": 0.11387879733192954,
+            "oracle_pick_counts": {
+              "REBUILD": 1,
+              "SKIP": 3
+            },
+            "advantage_by_branch": {
+              "SKIP": 2102690.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 1.0,
+              "NUDGE": 0.0,
+              "REBUILD": 0.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "10000.0": {
+            "n_alarms": 4,
+            "selector": {
+              "train": 304000.0,
+              "infer": 16625280.0,
+              "ops": 16929280.0,
+              "errors": 1535,
+              "scored": 4000,
+              "accuracy": 0.61625
+            },
+            "oracle_O1": {
+              "train": 300000.0,
+              "infer": 15574872.0,
+              "ops": 15874872.0,
+              "errors": 1534,
+              "scored": 4000,
+              "accuracy": 0.6165
+            },
+            "G1": 1064408.0,
+            "G1_share_of_selector_J": 0.032974961027631346,
+            "oracle_pick_counts": {
+              "REBUILD": 3,
+              "SKIP": 1
+            },
+            "advantage_by_branch": {
+              "SKIP": 94156.0,
+              "NUDGE": 0.0,
+              "REBUILD": 970252.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0884585610029237,
+              "NUDGE": 0.0,
+              "REBUILD": 0.9115414389970763,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "100000.0": {
+            "n_alarms": 4,
+            "selector": {
+              "train": 304000.0,
+              "infer": 16625280.0,
+              "ops": 16929280.0,
+              "errors": 1535,
+              "scored": 4000,
+              "accuracy": 0.61625
+            },
+            "oracle_O1": {
+              "train": 400000.0,
+              "infer": 16149028.0,
+              "ops": 16549028.0,
+              "errors": 1476,
+              "scored": 4000,
+              "accuracy": 0.631
+            },
+            "G1": 6280252.0,
+            "G1_share_of_selector_J": 0.03684960706282395,
+            "oracle_pick_counts": {
+              "REBUILD": 4
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 6280252.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          },
+          "1000000.0": {
+            "n_alarms": 4,
+            "selector": {
+              "train": 304000.0,
+              "infer": 16625280.0,
+              "ops": 16929280.0,
+              "errors": 1535,
+              "scored": 4000,
+              "accuracy": 0.61625
+            },
+            "oracle_O1": {
+              "train": 400000.0,
+              "infer": 16149028.0,
+              "ops": 16549028.0,
+              "errors": 1476,
+              "scored": 4000,
+              "accuracy": 0.631
+            },
+            "G1": 59380252.0,
+            "G1_share_of_selector_J": 0.03826221514423647,
+            "oracle_pick_counts": {
+              "REBUILD": 4
+            },
+            "advantage_by_branch": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 59380252.0,
+              "DEFER": 0.0
+            },
+            "advantage_by_branch_share": {
+              "SKIP": 0.0,
+              "NUDGE": 0.0,
+              "REBUILD": 1.0,
+              "DEFER": 0.0
+            },
+            "guard_share_of_shortfall": 0.0,
+            "guard_shortfall": 0.0,
+            "n_guard_alarms": 0
+          }
+        }
+      },
+      "candidate_A_defer_perfect": {
+        "n_alarms": 16,
+        "n_deferred": 0,
+        "selector_training_ops": 1008600,
+        "defer_perfect_training_ops": 1008600,
+        "training_ops_saved_share": 0.0,
+        "selector_accuracy": 0.6298747189206553,
+        "defer_perfect_accuracy": 0.6298747189206553,
+        "accuracy_delta_pp": 0.0
+      }
+    }
+  }
+}
