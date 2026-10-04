@@ -258,6 +258,50 @@ are diagnostics on thin data, not a revision of the Phase 10 verdict.
 
 ---
 
+## Item 2 - re-weighting training against inference in the oracle [DIAGNOSTIC]
+
+Run 4 October, from the stored per-branch records; nothing was re-executed.
+J_w(a) = w * train_ops + eval_ops + infer_per_row * H + lambda * errors, horizon
+"next", w in {1, 10, 100}, all five streams. `eval_ops` is inference units times
+holdout rows, so it is inference work and is not weighted; only `train` is.
+Source: `experiments/phase10_reweight.py`,
+`results/analysis/phase10_reweight.json`. w = 1 reproduces
+`phase10_per_stream.py` exactly on all five streams and is kept as a self-check.
+
+SKIP share of the oracle's advantage at lambda = 1e3:
+
+| stream | w=1 | w=10 | w=100 |
+|---|---|---|---|
+| Elec2 | 78.9% | 87.1% | 96.2% |
+| Covertype | 80.8% | 85.5% | 89.5% |
+| INSECTS-abrupt | 70.3% | 87.5% | 99.0% |
+| INSECTS-gradual | 52.0% | 83.0% | 99.4% |
+| INSECTS-incremental | 98.9% | 99.7% | 100.0% |
+
+G1 as a share of the selector's J, range over the whole lambda grid:
+
+| stream | w=1 | w=10 | w=100 |
+|---|---|---|---|
+| Elec2 | 16.8-25.5% | 18.3-59.5% | 18.5-92.9% |
+| Covertype | 24.8-37.1% | 36.5-73.0% | 37.7-96.3% |
+| INSECTS-abrupt | 9.5-17.7% | 10.9-27.0% | 13.7-77.0% |
+| INSECTS-gradual | 11.5-25.2% | 11.4-36.8% | 13.0-81.0% |
+| INSECTS-incremental | 1.6-15.5% | 1.5-33.6% | 1.5-80.0% |
+
+**Does the main finding change?** No. The SKIP share rises monotonically with w
+on every stream: at w = 10 all five are at or above 83%, at w = 100 all are at or
+above 89.5%. The INSECTS-gradual exception recorded under Item 1 holds only at
+the 1:1 weighting and disappears by w = 10.
+
+**The test is one-sided, and that limits what it licenses.** Raising w makes
+training more expensive, which mechanically favours SKIP, the only zero-training
+action. So this shows the SKIP finding is not an artifact of under-weighting
+training; it does not show the finding survives the opposite error. The weighting
+that could falsify it is w < 1, which was not in the declared set and has not
+been run.
+
+---
+
 ## Style pass
 
 The prose was rewritten for readability on 4 October. No number, claim, scope or

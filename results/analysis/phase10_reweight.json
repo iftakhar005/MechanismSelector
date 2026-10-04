@@ -1,0 +1,1680 @@
+{
+  "label": "[DIAGNOSTIC] training/inference re-weighting of the oracle objective",
+  "definition": "J_w(a) = w*train + eval + infer_per_row*H + lambda*errors, horizon next",
+  "note": "eval_ops is inference work (units x holdout rows) and is not weighted",
+  "weights": [
+    1,
+    10,
+    100
+  ],
+  "lambda_grid": [
+    0.0,
+    10.0,
+    100.0,
+    1000.0,
+    10000.0,
+    100000.0,
+    1000000.0
+  ],
+  "streams": {
+    "elec2": {
+      "1": {
+        "0e+00": {
+          "n_alarms": 735,
+          "G1": 44398131.923958324,
+          "G1_share_of_selector_J": 0.25491956064296284,
+          "oracle_pick_counts": {
+            "REBUILD": 58,
+            "SKIP": 677
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9904650024301688,
+            "NUDGE": 0.0,
+            "REBUILD": 0.009534997569831475,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 735,
+          "G1": 44333251.91895833,
+          "G1_share_of_selector_J": 0.25265714533132405,
+          "oracle_pick_counts": {
+            "REBUILD": 57,
+            "SKIP": 656,
+            "NUDGE": 22
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.986102777185706,
+            "NUDGE": 0.004211128034128353,
+            "REBUILD": 0.009686094780165848,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 735,
+          "G1": 44638631.77729166,
+          "G1_share_of_selector_J": 0.23846319559985088,
+          "oracle_pick_counts": {
+            "REBUILD": 77,
+            "SKIP": 530,
+            "NUDGE": 128
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9450785287902311,
+            "NUDGE": 0.04311709215467302,
+            "REBUILD": 0.011804379055095897,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 735,
+          "G1": 55406288.44500001,
+          "G1_share_of_selector_J": 0.1819927633701967,
+          "oracle_pick_counts": {
+            "REBUILD": 143,
+            "SKIP": 441,
+            "NUDGE": 151
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.789494400593575,
+            "NUDGE": 0.16309964669390334,
+            "REBUILD": 0.04740595271252155,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 735,
+          "G1": 247504879.47187507,
+          "G1_share_of_selector_J": 0.16758004628558143,
+          "oracle_pick_counts": {
+            "REBUILD": 297,
+            "SKIP": 261,
+            "NUDGE": 177
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.3991841634554604,
+            "NUDGE": 0.3723300850285731,
+            "REBUILD": 0.22848575151596615,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 735,
+          "G1": 2427400980.3168755,
+          "G1_share_of_selector_J": 0.18386803169458,
+          "oracle_pick_counts": {
+            "REBUILD": 344,
+            "SKIP": 182,
+            "NUDGE": 209
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.27941538377997405,
+            "NUDGE": 0.4203477462448549,
+            "REBUILD": 0.3002368699751708,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 735,
+          "G1": 24308415825.05563,
+          "G1_share_of_selector_J": 0.18634111681823437,
+          "oracle_pick_counts": {
+            "NUDGE": 215,
+            "REBUILD": 347,
+            "SKIP": 173
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.26617736704910583,
+            "NUDGE": 0.42662766300809596,
+            "REBUILD": 0.30719496994279805,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "10": {
+        "0e+00": {
+          "n_alarms": 735,
+          "G1": 194370240.37604174,
+          "G1_share_of_selector_J": 0.5945571397601342,
+          "oracle_pick_counts": {
+            "REBUILD": 1,
+            "SKIP": 734
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 735,
+          "G1": 194272370.37604174,
+          "G1_share_of_selector_J": 0.5918990309268501,
+          "oracle_pick_counts": {
+            "REBUILD": 1,
+            "SKIP": 733,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9999414739214949,
+            "NUDGE": 5.852607850509958e-05,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 735,
+          "G1": 193982694.37604174,
+          "G1_share_of_selector_J": 0.5706318306249704,
+          "oracle_pick_counts": {
+            "REBUILD": 9,
+            "SKIP": 654,
+            "NUDGE": 72
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9724644354632714,
+            "NUDGE": 0.027446175119513975,
+            "REBUILD": 8.938941721464003e-05,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 735,
+          "G1": 198295641.66041675,
+          "G1_share_of_selector_J": 0.43372414444985224,
+          "oracle_pick_counts": {
+            "REBUILD": 44,
+            "SKIP": 522,
+            "NUDGE": 169
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.8712110127211744,
+            "NUDGE": 0.12621396346224364,
+            "REBUILD": 0.002575023816582086,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 735,
+          "G1": 335471916.71249986,
+          "G1_share_of_selector_J": 0.2058506468367306,
+          "oracle_pick_counts": {
+            "REBUILD": 166,
+            "SKIP": 369,
+            "NUDGE": 200
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.5745971878741397,
+            "NUDGE": 0.3588327378888006,
+            "REBUILD": 0.06657007423706023,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 735,
+          "G1": 2445341722.6306257,
+          "G1_share_of_selector_J": 0.18310835168158543,
+          "oracle_pick_counts": {
+            "NUDGE": 222,
+            "REBUILD": 317,
+            "SKIP": 196
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.29780050413147297,
+            "NUDGE": 0.43846541488240814,
+            "REBUILD": 0.2637340809861185,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 735,
+          "G1": 24315950015.87563,
+          "G1_share_of_selector_J": 0.1861808647173597,
+          "oracle_pick_counts": {
+            "NUDGE": 215,
+            "REBUILD": 345,
+            "SKIP": 175
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.2676148654771691,
+            "NUDGE": 0.42808653883876047,
+            "REBUILD": 0.30429859568407025,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "100": {
+        "0e+00": {
+          "n_alarms": 735,
+          "G1": 1721868761.214583,
+          "G1_share_of_selector_J": 0.9285197764103862,
+          "oracle_pick_counts": {
+            "SKIP": 735
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 735,
+          "G1": 1721770641.214583,
+          "G1_share_of_selector_J": 0.9278150561988308,
+          "oracle_pick_counts": {
+            "SKIP": 735
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 735,
+          "G1": 1720905287.214583,
+          "G1_share_of_selector_J": 0.9215263127588736,
+          "oracle_pick_counts": {
+            "SKIP": 731,
+            "NUDGE": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9995391239681274,
+            "NUDGE": 0.00046087603187258024,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 735,
+          "G1": 1719222666.2945828,
+          "G1_share_of_selector_J": 0.8662378982576321,
+          "oracle_pick_counts": {
+            "SKIP": 639,
+            "NUDGE": 85,
+            "REBUILD": 11
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9620235905912534,
+            "NUDGE": 0.037866068843955845,
+            "REBUILD": 0.00011034056479074803,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 735,
+          "G1": 1766012458.7610412,
+          "G1_share_of_selector_J": 0.5593615147462817,
+          "oracle_pick_counts": {
+            "SKIP": 500,
+            "NUDGE": 200,
+            "REBUILD": 35
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.8276922934841687,
+            "NUDGE": 0.1693136472305935,
+            "REBUILD": 0.002994059285238291,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 735,
+          "G1": 3207100937.203125,
+          "G1_share_of_selector_J": 0.21550022534930474,
+          "oracle_pick_counts": {
+            "NUDGE": 250,
+            "SKIP": 310,
+            "REBUILD": 175
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.484361426592742,
+            "NUDGE": 0.44427521580130935,
+            "REBUILD": 0.07136335760594875,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 735,
+          "G1": 24477316710.11563,
+          "G1_share_of_selector_J": 0.1852497769883331,
+          "oracle_pick_counts": {
+            "NUDGE": 233,
+            "REBUILD": 317,
+            "SKIP": 185
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.2814747941166619,
+            "NUDGE": 0.4510875157377633,
+            "REBUILD": 0.26743769014557467,
+            "DEFER": 0.0
+          }
+        }
+      }
+    },
+    "covtype": {
+      "1": {
+        "0e+00": {
+          "n_alarms": 1860,
+          "G1": 221806418.01869842,
+          "G1_share_of_selector_J": 0.28483848088450453,
+          "oracle_pick_counts": {
+            "REBUILD": 61,
+            "SKIP": 1799
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9804377641379421,
+            "NUDGE": 0.0,
+            "REBUILD": 0.019562235862057954,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 1860,
+          "G1": 221609538.01869842,
+          "G1_share_of_selector_J": 0.2839758028072493,
+          "oracle_pick_counts": {
+            "REBUILD": 61,
+            "SKIP": 1799
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9804659153946941,
+            "NUDGE": 0.0,
+            "REBUILD": 0.019534084605305858,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 1860,
+          "G1": 220201410.2343234,
+          "G1_share_of_selector_J": 0.27683228331379434,
+          "oracle_pick_counts": {
+            "REBUILD": 64,
+            "SKIP": 1769,
+            "NUDGE": 27
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9713181088019411,
+            "NUDGE": 0.009282647181164092,
+            "REBUILD": 0.01939924401689482,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 1860,
+          "G1": 234430382.59411508,
+          "G1_share_of_selector_J": 0.24782784320480544,
+          "oracle_pick_counts": {
+            "REBUILD": 142,
+            "SKIP": 1502,
+            "NUDGE": 216
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.8079189960929133,
+            "NUDGE": 0.15883603306005412,
+            "REBUILD": 0.03324497084703238,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 1860,
+          "G1": 683140923.1478715,
+          "G1_share_of_selector_J": 0.2787170546296648,
+          "oracle_pick_counts": {
+            "SKIP": 783,
+            "NUDGE": 356,
+            "REBUILD": 721
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.43491707342214014,
+            "NUDGE": 0.3306604157186536,
+            "REBUILD": 0.23442251085920615,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 1860,
+          "G1": 6252385035.815065,
+          "G1_share_of_selector_J": 0.3572422069920345,
+          "oracle_pick_counts": {
+            "SKIP": 606,
+            "REBUILD": 902,
+            "NUDGE": 352
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.33197671339985907,
+            "NUDGE": 0.24562390092303715,
+            "REBUILD": 0.4223993856771038,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 1860,
+          "G1": 62341091776.81507,
+          "G1_share_of_selector_J": 0.37105648226696797,
+          "oracle_pick_counts": {
+            "SKIP": 590,
+            "REBUILD": 930,
+            "NUDGE": 340
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.3229445073111118,
+            "NUDGE": 0.23889572022395186,
+            "REBUILD": 0.4381597724649363,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "10": {
+        "0e+00": {
+          "n_alarms": 1860,
+          "G1": 1519777872.3443236,
+          "G1_share_of_selector_J": 0.7295864952125528,
+          "oracle_pick_counts": {
+            "REBUILD": 3,
+            "SKIP": 1857
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 1860,
+          "G1": 1519585782.3443236,
+          "G1_share_of_selector_J": 0.7289091038056542,
+          "oracle_pick_counts": {
+            "REBUILD": 3,
+            "SKIP": 1857
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 1860,
+          "G1": 1518125156.3443236,
+          "G1_share_of_selector_J": 0.7229888543247239,
+          "oracle_pick_counts": {
+            "REBUILD": 5,
+            "SKIP": 1838,
+            "NUDGE": 17
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9906093052075302,
+            "NUDGE": 0.009390694792469774,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 1860,
+          "G1": 1526042730.021615,
+          "G1_share_of_selector_J": 0.6781512635645172,
+          "oracle_pick_counts": {
+            "REBUILD": 41,
+            "SKIP": 1598,
+            "NUDGE": 221
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.8554798661171,
+            "NUDGE": 0.1441531003660914,
+            "REBUILD": 0.00036703351680858004,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 1860,
+          "G1": 1769304733.204605,
+          "G1_share_of_selector_J": 0.47113898983355706,
+          "oracle_pick_counts": {
+            "SKIP": 1176,
+            "NUDGE": 421,
+            "REBUILD": 263
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.6464806351727532,
+            "NUDGE": 0.3219661229705518,
+            "REBUILD": 0.031553241856694926,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 1860,
+          "G1": 6868642986.400066,
+          "G1_share_of_selector_J": 0.36523353355024146,
+          "oracle_pick_counts": {
+            "SKIP": 661,
+            "REBUILD": 776,
+            "NUDGE": 423
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.39127293294492543,
+            "NUDGE": 0.36107621196433304,
+            "REBUILD": 0.2476508550907414,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 1860,
+          "G1": 62642263606.81507,
+          "G1_share_of_selector_J": 0.3699767216877329,
+          "oracle_pick_counts": {
+            "SKIP": 602,
+            "REBUILD": 904,
+            "NUDGE": 354
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.330043041944785,
+            "NUDGE": 0.24616354783022396,
+            "REBUILD": 0.423793410224991,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "100": {
+        "0e+00": {
+          "n_alarms": 1860,
+          "G1": 14561679639.65932,
+          "G1_share_of_selector_J": 0.9626508347253624,
+          "oracle_pick_counts": {
+            "SKIP": 1860
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 1860,
+          "G1": 14561489029.65932,
+          "G1_share_of_selector_J": 0.9625318221274596,
+          "oracle_pick_counts": {
+            "SKIP": 1860
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 1860,
+          "G1": 14559892493.65932,
+          "G1_share_of_selector_J": 0.9614697467829576,
+          "oracle_pick_counts": {
+            "SKIP": 1853,
+            "NUDGE": 5,
+            "REBUILD": 2
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.999310990104881,
+            "NUDGE": 0.0006890098951189915,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 1860,
+          "G1": 14562591263.65932,
+          "G1_share_of_selector_J": 0.9521843307612405,
+          "oracle_pick_counts": {
+            "SKIP": 1660,
+            "NUDGE": 178,
+            "REBUILD": 22
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.8951013243218541,
+            "NUDGE": 0.10487954666498084,
+            "REBUILD": 1.9129013165065022e-05,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 1860,
+          "G1": 14693867107.472448,
+          "G1_share_of_selector_J": 0.8746892354333672,
+          "oracle_pick_counts": {
+            "SKIP": 1420,
+            "REBUILD": 74,
+            "NUDGE": 366
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.7713584610887714,
+            "NUDGE": 0.22810119301780735,
+            "REBUILD": 0.0005403458934212283,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 1860,
+          "G1": 17418444202.30111,
+          "G1_share_of_selector_J": 0.5468942671373204,
+          "oracle_pick_counts": {
+            "SKIP": 995,
+            "NUDGE": 580,
+            "REBUILD": 285
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.5852993595106449,
+            "NUDGE": 0.3806145647460596,
+            "REBUILD": 0.03408607574329538,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 1860,
+          "G1": 68786865086.27507,
+          "G1_share_of_selector_J": 0.3772085575174227,
+          "oracle_pick_counts": {
+            "SKIP": 654,
+            "REBUILD": 776,
+            "NUDGE": 430
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.38867590817937847,
+            "NUDGE": 0.3624238781708772,
+            "REBUILD": 0.24890021364974432,
+            "DEFER": 0.0
+          }
+        }
+      }
+    },
+    "insects_abrupt": {
+      "1": {
+        "0e+00": {
+          "n_alarms": 43,
+          "G1": 5567576.600000001,
+          "G1_share_of_selector_J": 0.13488215969265105,
+          "oracle_pick_counts": {
+            "REBUILD": 8,
+            "SKIP": 35
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 43,
+          "G1": 5545956.600000001,
+          "G1_share_of_selector_J": 0.13357458748861217,
+          "oracle_pick_counts": {
+            "REBUILD": 8,
+            "SKIP": 35
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 43,
+          "G1": 5361096.600000001,
+          "G1_share_of_selector_J": 0.12268113162528148,
+          "oracle_pick_counts": {
+            "REBUILD": 9,
+            "SKIP": 34
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 43,
+          "G1": 6207996.6,
+          "G1_share_of_selector_J": 0.09478097790483928,
+          "oracle_pick_counts": {
+            "REBUILD": 16,
+            "SKIP": 25,
+            "NUDGE": 2
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.7027704557699017,
+            "NUDGE": 0.019942021231132763,
+            "REBUILD": 0.2772875229989656,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 43,
+          "G1": 34654820.675,
+          "G1_share_of_selector_J": 0.12224468586517953,
+          "oracle_pick_counts": {
+            "REBUILD": 27,
+            "SKIP": 13,
+            "NUDGE": 3
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.04915957107315201,
+            "NUDGE": 0.12284005275696035,
+            "REBUILD": 0.8280003761698878,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 43,
+          "G1": 421150321.555,
+          "G1_share_of_selector_J": 0.17096460007416445,
+          "oracle_pick_counts": {
+            "REBUILD": 31,
+            "SKIP": 11,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.017273252868809624,
+            "NUDGE": 0.048483401187035334,
+            "REBUILD": 0.934243345944155,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 43,
+          "G1": 4301050321.555,
+          "G1_share_of_selector_J": 0.17727314965119442,
+          "oracle_pick_counts": {
+            "REBUILD": 31,
+            "SKIP": 11,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.01675745006720641,
+            "NUDGE": 0.047643897345965885,
+            "REBUILD": 0.9355986525868277,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "10": {
+        "0e+00": {
+          "n_alarms": 43,
+          "G1": 14401990.615000002,
+          "G1_share_of_selector_J": 0.27032503042470485,
+          "oracle_pick_counts": {
+            "SKIP": 40,
+            "REBUILD": 3
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 43,
+          "G1": 14369030.615000002,
+          "G1_share_of_selector_J": 0.26848576158863774,
+          "oracle_pick_counts": {
+            "SKIP": 40,
+            "REBUILD": 3
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 43,
+          "G1": 14080958.615000002,
+          "G1_share_of_selector_J": 0.252806008109482,
+          "oracle_pick_counts": {
+            "SKIP": 39,
+            "REBUILD": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 43,
+          "G1": 13888558.615,
+          "G1_share_of_selector_J": 0.17921282533836988,
+          "oracle_pick_counts": {
+            "REBUILD": 11,
+            "SKIP": 29,
+            "NUDGE": 3
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.8749186255999396,
+            "NUDGE": 0.028354274256702627,
+            "REBUILD": 0.09672710014335782,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 43,
+          "G1": 32208333.155,
+          "G1_share_of_selector_J": 0.10900100492146471,
+          "oracle_pick_counts": {
+            "REBUILD": 22,
+            "SKIP": 16,
+            "NUDGE": 5
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.14513944504682644,
+            "NUDGE": 0.13036998778523098,
+            "REBUILD": 0.7244905671679426,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 43,
+          "G1": 413368647.155,
+          "G1_share_of_selector_J": 0.16699222737896338,
+          "oracle_pick_counts": {
+            "REBUILD": 30,
+            "SKIP": 11,
+            "NUDGE": 2
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.018650461405480465,
+            "NUDGE": 0.05082544538536823,
+            "REBUILD": 0.9305240932091514,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 43,
+          "G1": 4292670601.5550003,
+          "G1_share_of_selector_J": 0.17684031031942682,
+          "oracle_pick_counts": {
+            "REBUILD": 31,
+            "SKIP": 11,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.016891469840181486,
+            "NUDGE": 0.04773522569511197,
+            "REBUILD": 0.9353733044647066,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "100": {
+        "0e+00": {
+          "n_alarms": 43,
+          "G1": 133427736.84937501,
+          "G1_share_of_selector_J": 0.770061701523582,
+          "oracle_pick_counts": {
+            "SKIP": 43
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 43,
+          "G1": 133384036.84937501,
+          "G1_share_of_selector_J": 0.7687348893271228,
+          "oracle_pick_counts": {
+            "SKIP": 43
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 43,
+          "G1": 132990736.84937501,
+          "G1_share_of_selector_J": 0.7569582040867594,
+          "oracle_pick_counts": {
+            "SKIP": 43
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 43,
+          "G1": 131056284.84937501,
+          "G1_share_of_selector_J": 0.6636100933406577,
+          "oracle_pick_counts": {
+            "SKIP": 35,
+            "NUDGE": 2,
+            "REBUILD": 6
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9902744076603047,
+            "NUDGE": 0.0019060512838975938,
+            "REBUILD": 0.007819541055797654,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 43,
+          "G1": 126363206.61500001,
+          "G1_share_of_selector_J": 0.30413869253394044,
+          "oracle_pick_counts": {
+            "SKIP": 29,
+            "NUDGE": 5,
+            "REBUILD": 9
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.8162202382948764,
+            "NUDGE": 0.05163686625870609,
+            "REBUILD": 0.13214289544641752,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 43,
+          "G1": 356770036.675,
+          "G1_share_of_selector_J": 0.1374640953520904,
+          "oracle_pick_counts": {
+            "REBUILD": 26,
+            "SKIP": 13,
+            "NUDGE": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.06585594558043892,
+            "NUDGE": 0.10082585223592753,
+            "REBUILD": 0.8333182021836335,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 43,
+          "G1": 4213611447.1549997,
+          "G1_share_of_selector_J": 0.17272956471955844,
+          "oracle_pick_counts": {
+            "REBUILD": 30,
+            "SKIP": 11,
+            "NUDGE": 2
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.01824048490562512,
+            "NUDGE": 0.04973824668658172,
+            "REBUILD": 0.9320212684077933,
+            "DEFER": 0.0
+          }
+        }
+      }
+    },
+    "insects_gradual": {
+      "1": {
+        "0e+00": {
+          "n_alarms": 25,
+          "G1": 6086689.054999999,
+          "G1_share_of_selector_J": 0.25244537554417384,
+          "oracle_pick_counts": {
+            "SKIP": 21,
+            "REBUILD": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.73167628816879,
+            "NUDGE": 0.0,
+            "REBUILD": 0.26832371183121007,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 25,
+          "G1": 6060939.054999999,
+          "G1_share_of_selector_J": 0.25034438673842513,
+          "oracle_pick_counts": {
+            "SKIP": 21,
+            "REBUILD": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.7300215387168252,
+            "NUDGE": 0.0,
+            "REBUILD": 0.26997846128317493,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 25,
+          "G1": 5862345.054999999,
+          "G1_share_of_selector_J": 0.23350546463532978,
+          "oracle_pick_counts": {
+            "SKIP": 19,
+            "REBUILD": 5,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.7126356459411788,
+            "NUDGE": 0.0034501551529706066,
+            "REBUILD": 0.28391419890585073,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 25,
+          "G1": 5190903.054999999,
+          "G1_share_of_selector_J": 0.15240504907010885,
+          "oracle_pick_counts": {
+            "SKIP": 13,
+            "REBUILD": 9,
+            "NUDGE": 3
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.5201326294081599,
+            "NUDGE": 0.08322752234485722,
+            "REBUILD": 0.396639848246983,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 25,
+          "G1": 14215132.265,
+          "G1_share_of_selector_J": 0.11500830909097981,
+          "oracle_pick_counts": {
+            "REBUILD": 16,
+            "SKIP": 5,
+            "NUDGE": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.1505291083550815,
+            "NUDGE": 0.3619797483467172,
+            "REBUILD": 0.4874911432982013,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 25,
+          "G1": 142499222.26500002,
+          "G1_share_of_selector_J": 0.13984072214775034,
+          "oracle_pick_counts": {
+            "REBUILD": 16,
+            "SKIP": 5,
+            "NUDGE": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.13377533492463234,
+            "NUDGE": 0.37149248366811777,
+            "REBUILD": 0.4947321814072498,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 25,
+          "G1": 1431299222.2649999,
+          "G1_share_of_selector_J": 0.14351582313963676,
+          "oracle_pick_counts": {
+            "REBUILD": 16,
+            "SKIP": 5,
+            "NUDGE": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.1371920546943776,
+            "NUDGE": 0.37024919859970695,
+            "REBUILD": 0.4925587467059155,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "10": {
+        "0e+00": {
+          "n_alarms": 25,
+          "G1": 11634001.004999999,
+          "G1_share_of_selector_J": 0.3680593977393723,
+          "oracle_pick_counts": {
+            "SKIP": 23,
+            "REBUILD": 2
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9338831929213848,
+            "NUDGE": 0.0,
+            "REBUILD": 0.06611680707861517,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 25,
+          "G1": 11597881.004999999,
+          "G1_share_of_selector_J": 0.36576543300643505,
+          "oracle_pick_counts": {
+            "SKIP": 23,
+            "REBUILD": 2
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9334082665905055,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0665917334094945,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 25,
+          "G1": 11299855.004999999,
+          "G1_share_of_selector_J": 0.34657952497676175,
+          "oracle_pick_counts": {
+            "SKIP": 21,
+            "REBUILD": 3,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9277641173591324,
+            "NUDGE": 0.0014028498589571062,
+            "REBUILD": 0.07083303278191047,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 25,
+          "G1": 9505931.055,
+          "G1_share_of_selector_J": 0.2287387243590852,
+          "oracle_pick_counts": {
+            "SKIP": 15,
+            "REBUILD": 8,
+            "NUDGE": 2
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.8297257795543731,
+            "NUDGE": 0.044840636601903065,
+            "REBUILD": 0.12543358384372377,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 25,
+          "G1": 14941060.285,
+          "G1_share_of_selector_J": 0.11396773982645278,
+          "oracle_pick_counts": {
+            "REBUILD": 13,
+            "SKIP": 8,
+            "NUDGE": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.29097836445815534,
+            "NUDGE": 0.34318662144398143,
+            "REBUILD": 0.3658350140978633,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 25,
+          "G1": 136523448.26500002,
+          "G1_share_of_selector_J": 0.13299780528842767,
+          "oracle_pick_counts": {
+            "REBUILD": 15,
+            "SKIP": 5,
+            "NUDGE": 5
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.15513584995222945,
+            "NUDGE": 0.4188260165316884,
+            "REBUILD": 0.42603813351608205,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 25,
+          "G1": 1422631448.2649999,
+          "G1_share_of_selector_J": 0.14253954280852393,
+          "oracle_pick_counts": {
+            "REBUILD": 16,
+            "SKIP": 5,
+            "NUDGE": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.13951588194332415,
+            "NUDGE": 0.3724987048798094,
+            "REBUILD": 0.4879854131768665,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "100": {
+        "0e+00": {
+          "n_alarms": 25,
+          "G1": 86363918.005,
+          "G1_share_of_selector_J": 0.8102426404549679,
+          "oracle_pick_counts": {
+            "SKIP": 25
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 25,
+          "G1": 86320708.005,
+          "G1_share_of_selector_J": 0.8090820686091421,
+          "oracle_pick_counts": {
+            "SKIP": 25
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 25,
+          "G1": 85931818.005,
+          "G1_share_of_selector_J": 0.7987335141568698,
+          "oracle_pick_counts": {
+            "SKIP": 25
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 25,
+          "G1": 83110352.005,
+          "G1_share_of_selector_J": 0.713153670568312,
+          "oracle_pick_counts": {
+            "SKIP": 21,
+            "NUDGE": 2,
+            "REBUILD": 2
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9944951261911095,
+            "NUDGE": 0.00460245914945695,
+            "REBUILD": 0.0009024146594336158,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 25,
+          "G1": 66638362.055,
+          "G1_share_of_selector_J": 0.3233613170232343,
+          "oracle_pick_counts": {
+            "SKIP": 12,
+            "NUDGE": 6,
+            "REBUILD": 7
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.7877598193616046,
+            "NUDGE": 0.1903128709786233,
+            "REBUILD": 0.02192730965977222,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 25,
+          "G1": 143037152.365,
+          "G1_share_of_selector_J": 0.12985785393393082,
+          "oracle_pick_counts": {
+            "REBUILD": 14,
+            "SKIP": 6,
+            "NUDGE": 5
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.31887607192158185,
+            "NUDGE": 0.3986194569541198,
+            "REBUILD": 0.2825044711242983,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 25,
+          "G1": 1362873708.2649999,
+          "G1_share_of_selector_J": 0.13553393508925232,
+          "oracle_pick_counts": {
+            "REBUILD": 15,
+            "SKIP": 5,
+            "NUDGE": 5
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.16116510271859413,
+            "NUDGE": 0.42022777938030315,
+            "REBUILD": 0.4186071179011028,
+            "DEFER": 0.0
+          }
+        }
+      }
+    },
+    "insects_incremental": {
+      "1": {
+        "0e+00": {
+          "n_alarms": 16,
+          "G1": 4636197.775,
+          "G1_share_of_selector_J": 0.15459394984856256,
+          "oracle_pick_counts": {
+            "REBUILD": 1,
+            "SKIP": 15
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 16,
+          "G1": 4620887.775,
+          "G1_share_of_selector_J": 0.15378801063064393,
+          "oracle_pick_counts": {
+            "REBUILD": 1,
+            "SKIP": 15
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 16,
+          "G1": 4488478.775,
+          "G1_share_of_selector_J": 0.14684731806540355,
+          "oracle_pick_counts": {
+            "REBUILD": 2,
+            "SKIP": 14
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 16,
+          "G1": 3577778.775,
+          "G1_share_of_selector_J": 0.10007628274453499,
+          "oracle_pick_counts": {
+            "REBUILD": 6,
+            "SKIP": 10
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9894347855535031,
+            "NUDGE": 0.0,
+            "REBUILD": 0.010565214446496905,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 16,
+          "G1": 1444208.0,
+          "G1_share_of_selector_J": 0.01648648373201305,
+          "oracle_pick_counts": {
+            "REBUILD": 14,
+            "SKIP": 1,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.06519559509433544,
+            "NUDGE": 0.0,
+            "REBUILD": 0.9348044049056645,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 16,
+          "G1": 10080052.0,
+          "G1_share_of_selector_J": 0.016631292456519568,
+          "oracle_pick_counts": {
+            "REBUILD": 15,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.0,
+            "NUDGE": 0.0,
+            "REBUILD": 1.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 16,
+          "G1": 97380052.0,
+          "G1_share_of_selector_J": 0.016815787997253848,
+          "oracle_pick_counts": {
+            "REBUILD": 15,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.0,
+            "NUDGE": 0.0,
+            "REBUILD": 1.0,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "10": {
+        "0e+00": {
+          "n_alarms": 16,
+          "G1": 13143641.775,
+          "G1_share_of_selector_J": 0.3364391927553028,
+          "oracle_pick_counts": {
+            "SKIP": 16
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 16,
+          "G1": 13126021.775,
+          "G1_share_of_selector_J": 0.3354934365911374,
+          "oracle_pick_counts": {
+            "SKIP": 16
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 16,
+          "G1": 12967441.775,
+          "G1_share_of_selector_J": 0.32710532632143924,
+          "oracle_pick_counts": {
+            "SKIP": 16
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 16,
+          "G1": 11577041.775,
+          "G1_share_of_selector_J": 0.2582551842021794,
+          "oracle_pick_counts": {
+            "SKIP": 12,
+            "REBUILD": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9968903973312302,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0031096026687698463,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 16,
+          "G1": 4600000.775,
+          "G1_share_of_selector_J": 0.04758116986184353,
+          "oracle_pick_counts": {
+            "REBUILD": 7,
+            "SKIP": 8,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9178261008010373,
+            "NUDGE": 0.0,
+            "REBUILD": 0.08217389919896263,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 16,
+          "G1": 9214252.0,
+          "G1_share_of_selector_J": 0.014978458295180692,
+          "oracle_pick_counts": {
+            "REBUILD": 15,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.0,
+            "NUDGE": 0.0,
+            "REBUILD": 1.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 16,
+          "G1": 96514252.0,
+          "G1_share_of_selector_J": 0.016640196293111864,
+          "oracle_pick_counts": {
+            "REBUILD": 15,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.0,
+            "NUDGE": 0.0,
+            "REBUILD": 1.0,
+            "DEFER": 0.0
+          }
+        }
+      },
+      "100": {
+        "0e+00": {
+          "n_alarms": 16,
+          "G1": 103917641.775,
+          "G1_share_of_selector_J": 0.8003458752162907,
+          "oracle_pick_counts": {
+            "SKIP": 16
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+01": {
+          "n_alarms": 16,
+          "G1": 103900021.775,
+          "G1_share_of_selector_J": 0.7998552774574194,
+          "oracle_pick_counts": {
+            "SKIP": 16
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+02": {
+          "n_alarms": 16,
+          "G1": 103741441.775,
+          "G1_share_of_selector_J": 0.7954594019866906,
+          "oracle_pick_counts": {
+            "SKIP": 16
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+03": {
+          "n_alarms": 16,
+          "G1": 102155641.775,
+          "G1_share_of_selector_J": 0.7533495438798142,
+          "oracle_pick_counts": {
+            "SKIP": 16
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 1.0,
+            "NUDGE": 0.0,
+            "REBUILD": 0.0,
+            "DEFER": 0.0
+          }
+        },
+        "1e+04": {
+          "n_alarms": 16,
+          "G1": 91201342.775,
+          "G1_share_of_selector_J": 0.4865345264101191,
+          "oracle_pick_counts": {
+            "NUDGE": 2,
+            "SKIP": 10,
+            "REBUILD": 4
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.9189074987827118,
+            "NUDGE": 0.07714519091410384,
+            "REBUILD": 0.003947310303184294,
+            "DEFER": 0.0
+          }
+        },
+        "1e+05": {
+          "n_alarms": 16,
+          "G1": 24379092.674999997,
+          "G1_share_of_selector_J": 0.03453418283733974,
+          "oracle_pick_counts": {
+            "REBUILD": 7,
+            "NUDGE": 6,
+            "SKIP": 3
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.3375597734381229,
+            "NUDGE": 0.5073893372448899,
+            "REBUILD": 0.1550508893169873,
+            "DEFER": 0.0
+          }
+        },
+        "1e+06": {
+          "n_alarms": 16,
+          "G1": 87856252.0,
+          "G1_share_of_selector_J": 0.014914042536316669,
+          "oracle_pick_counts": {
+            "REBUILD": 15,
+            "NUDGE": 1
+          },
+          "advantage_by_branch_share": {
+            "SKIP": 0.0,
+            "NUDGE": 0.0,
+            "REBUILD": 1.0,
+            "DEFER": 0.0
+          }
+        }
+      }
+    }
+  }
+}
