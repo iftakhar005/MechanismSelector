@@ -93,11 +93,6 @@ is \textbf{NO}. As a diagnostic it raises balanced accuracy, mostly by enlarging
 repair windows rather than by cancelling alarms.
 \end{enumerate}
 
-We label results \textsc{[verdict]} when they are judged against rules fixed
-before we saw the data, and \textsc{[diag]} when they are measurements that carry
-no verdict. The thresholds in our decision rules are our own choices, not
-standard values.
-
 \section{Background and Related Work}
 
 \textbf{Detectors.} ADWIN~\cite{adwin2007} maintains a variable-length window and
@@ -126,6 +121,13 @@ after a suspected drift and retrains only if $Acc_{Ref}-Acc_{Labeled} >
 extended in~\cite{sethi2018}. Our WaitAndCheck is a supervised instance of that
 idea, and we do not claim it as new.
 
+\textbf{Retraining decisions.} CARA~\cite{mahadevan2024} trades staleness against
+an abstract retraining cost. CALIPER~\cite{caliper2026} tests whether enough
+post-drift data has arrived. Dasari~\cite{dasari2026} finds that with per-sample
+incremental updates no retraining policy beats no-retrain by a practically
+significant margin. Our position is complementary (Table~\ref{tab:related}): we
+bring operation-level cost accounting over training and inference, and an oracle
+decomposition, to supervised error-rate detectors.
 
 \begin{table}[t]
 \caption{What each work does, by its own account. ``?'' marks what we could not
@@ -149,14 +151,6 @@ This paper & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & $\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\textbf{Retraining decisions.} CARA~\cite{mahadevan2024} trades staleness against
-an abstract retraining cost. CALIPER~\cite{caliper2026} tests whether enough
-post-drift data has arrived. Dasari~\cite{dasari2026} finds that with per-sample
-incremental updates no retraining policy beats no-retrain by a practically
-significant margin. Our position is complementary (Table~\ref{tab:related}): we
-bring operation-level cost accounting over training and inference, and an oracle
-decomposition, to supervised error-rate detectors.
 
 \section{Method}
 
@@ -185,11 +179,20 @@ Covertype & 100{,}000 & 54 & 7 & \cite{covtype1999} \\
 \end{table}
 
 
+\subsection{Mechanisms}
+
+Table~\ref{tab:setup} lists every fixed value. Three actions are available at an
+alarm. \textbf{Skip} returns the model untouched at zero cost. \textbf{Rebuild}
+trains a fresh model of the same family on the full window. \textbf{Nudge} is
+each family's cheapest incremental update: five more boosting rounds for
+XGBoost; five more trees for Random Forest, with the five oldest retired so the
+forest stays at 100; one \texttt{partial\_fit} epoch for SGD and Gaussian NB.
+
 \begin{table}[t]
 \caption{Setup. All values were fixed before the grid was run and never tuned.}
 \label{tab:setup}
-\centering\small
-\begin{tabular}{ll}
+\centering\footnotesize
+\begin{tabular}{@{}lp{0.62\columnwidth}@{}}
 \toprule
 Item & Value \\
 \midrule
@@ -208,20 +211,11 @@ Reference & next $N_{\mathrm{REF}}=200$ rows after an adaptation \\
 WaitAndCheck & $W=200$ primary, $W=500$ secondary \\
 ConfirmMD3 & $\Theta=2$, $\sigma=\sqrt{p(1-p)/W}$ \\
 Hardware & 12-core AMD (Family 23), Windows 11, Python 3.12 \\
-Run time & 78 min (ADWIN grid), 52 + 12 min (DDM), \\
- & 8.5 + 9.0 min (WaitAndCheck), 7.7 + 7.8 min (MD3) \\
+Run time & 78 min (ADWIN grid), 52 + 12 min (DDM), 8.5 + 9.0 min
+ (WaitAndCheck), 7.7 + 7.8 min (MD3) \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\subsection{Mechanisms}
-
-Table~\ref{tab:setup} lists every fixed value. Three actions are available at an
-alarm. \textbf{Skip} returns the model untouched at zero cost. \textbf{Rebuild}
-trains a fresh model of the same family on the full window. \textbf{Nudge} is
-each family's cheapest incremental update: five more boosting rounds for
-XGBoost; five more trees for Random Forest, with the five oldest retired so the
-forest stays at 100; one \texttt{partial\_fit} epoch for SGD and Gaussian NB.
 
 We measured what a nudge costs relative to a rebuild in each family: 4\% for the
 tree families, 0.6--1.0\% for SGD, and 80\% for Gaussian NB. The Gaussian NB
@@ -259,6 +253,18 @@ difference between policies is attributable to the decision rule: NeverAdapt,
 AlwaysRebuild, AlwaysNudge and FixedSchedule ($k=3$: nudge, nudge, rebuild).
 
 
+\subsection{Cost accounting}
+
+Training cost is $\textit{work units} = \textit{passes} \times \textit{rows}$. We
+read the pass count from the fitted model, taking boosting rounds added, trees
+added, \texttt{n\_iter\_} epochs, or one for a closed-form fit, rather than
+assuming it; warm-started fits are counted as a delta against a snapshot taken
+before the fit. Inference cost is counted per prediction: tree node visits for
+XGBoost and Random Forest, from leaf depth per round and \texttt{decision\_path}
+length per tree, and parameter reads for SGD and Gaussian NB. These units are
+comparable within a family and not across families, and operation counts are not
+joules.
+
 \begin{algorithm}[t]
 \caption{\textsc{MechanismSelector.adapt} at one alarm}
 \label{alg:selector}
@@ -280,37 +286,6 @@ AlwaysRebuild, AlwaysNudge and FixedSchedule ($k=3$: nudge, nudge, rebuild).
 \State \Return \textsc{Rebuild}$(X,y)$ \Comment{charged for nudge $+$ rebuild}
 \end{algorithmic}
 \end{algorithm}
-
-\begin{algorithm}[t]
-\caption{\textsc{WaitAndCheck}$(W)$ around the selector}
-\label{alg:wac}
-\small
-\begin{algorithmic}[1]
-\State on alarm at row $i$: record it, take no action
-\For{the next $W$ labelled rows}
-  \State predict, reveal label, buffer the row, update the detector
-  \State ignore and count any further alarm
-\EndFor
-\State $a \gets$ \textsc{Score}$(m,\text{those } W \text{ rows})$ \Comment{floor's metric}
-\If{$a \geq r - 0.02$} \Comment{ConfirmMD3: $r-a \leq \Theta\sigma$}
-  \State cancel the alarm \Comment{no training; buffer and reference as SKIP}
-\Else
-  \State \Return \textsc{MechanismSelector.adapt}(buffer incl.\ the $W$ rows, $r$)
-\EndIf
-\end{algorithmic}
-\end{algorithm}
-
-\subsection{Cost accounting}
-
-Training cost is $\textit{work units} = \textit{passes} \times \textit{rows}$. We
-read the pass count from the fitted model, taking boosting rounds added, trees
-added, \texttt{n\_iter\_} epochs, or one for a closed-form fit, rather than
-assuming it; warm-started fits are counted as a delta against a snapshot taken
-before the fit. Inference cost is counted per prediction: tree node visits for
-XGBoost and Random Forest, from leaf depth per round and \texttt{decision\_path}
-length per tree, and parameter reads for SGD and Gaussian NB. These units are
-comparable within a family and not across families, and operation counts are not
-joules.
 
 \subsection{The oracle}
 
@@ -347,6 +322,25 @@ INSECTS gradual and incremental, where a failure makes the verdict NO regardless
 of the others. Elec2 and Covertype motivated the experiment, so they are not
 held-out evidence for it.
 
+\begin{algorithm}[t]
+\caption{\textsc{WaitAndCheck}$(W)$ around the selector}
+\label{alg:wac}
+\small
+\begin{algorithmic}[1]
+\State on alarm at row $i$: record it, take no action
+\For{the next $W$ labelled rows}
+  \State predict, reveal label, buffer the row, update the detector
+  \State ignore and count any further alarm
+\EndFor
+\State $a \gets$ \textsc{Score}$(m,\text{those } W \text{ rows})$ \Comment{floor's metric}
+\If{$a \geq r - 0.02$} \Comment{ConfirmMD3: $r-a \leq \Theta\sigma$}
+  \State cancel the alarm \Comment{no training; buffer and reference as SKIP}
+\Else
+  \State \Return \textsc{MechanismSelector.adapt}(buffer incl.\ the $W$ rows, $r$)
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
 \subsection{Statistics}
 
 XGBoost and Gaussian NB are deterministic at these settings, which we verified on
@@ -357,10 +351,30 @@ paired Wilcoxon signed-rank with Holm correction. We also report $n=20$, one
 observation per cell, as a stricter check, and mark conclusions that do not
 survive it.
 
+We label results \textsc{[verdict]} when they are judged against rules fixed
+before we saw the data, and \textsc{[diag]} when they are measurements that carry
+no verdict. The thresholds in our decision rules are our own choices, not
+standard values.
+
 \section{Results}
 
 
-\begin{table*}[t]
+\subsection{The selector does not win \textsc{[diag]}}
+
+Table~\ref{tab:main} gives the per-stream picture for every policy, and
+Fig.~\ref{fig:tradeoff} plots the same runs as cost against accuracy. Across the
+500-run grid, Friedman finds no significant difference between the five policies
+in mean prequential accuracy ($p=0.18$ at $n=60$; $p=0.45$ at $n=20$), while cost
+separates them sharply ($p=2.9\times10^{-43}$). The selector is significantly
+\emph{less} accurate than AlwaysRebuild (median $-1.3$ points of mean prequential
+accuracy, balanced on multi-class streams; Holm $p=0.017$) and much cheaper
+(cheaper in 51 of 57 non-tied blocks, rank-biserial $r=-0.96$). It is more
+expensive than FixedSchedule at $n=60$ (Holm $p=0.0087$), though that result
+survives neither the stricter $n=20$ check ($p=0.088$) nor the DDM replicate
+($p=0.065$). Across 20 cells, never adapting at all was at least as accurate at
+zero training cost in 10.
+
+\begin{table*}[!t]
 \caption{Main results per stream and policy: median whole-stream prequential
 balanced accuracy (\%) and median training work units, taken over the twelve
 (family $\times$ seed) blocks of each stream. Best accuracy per stream in bold.
@@ -368,7 +382,8 @@ WaitAndCheck and ConfirmMD3 are at $W=200$; ConfirmMD3 is a diagnostic
 comparison with no verdict attached.}
 \label{tab:main}
 \centering\small
-\begin{tabular}{lrrrrrrr}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrrrr@{}}
 \toprule
 & \multicolumn{1}{c}{NeverAdapt} & \multicolumn{1}{c}{AlwaysRebuild}
 & \multicolumn{1}{c}{AlwaysNudge} & \multicolumn{1}{c}{FixedSchedule}
@@ -392,21 +407,6 @@ INSECTS incremental & 0 & 315{,}500 & 9{,}600 & 58{,}100 & 223{,}900 & 137{,}050
 \end{tabular}
 \end{table*}
 
-\subsection{The selector does not win \textsc{[diag]}}
-
-Table~\ref{tab:main} gives the per-stream picture for every policy, and
-Fig.~\ref{fig:tradeoff} plots the same runs as cost against accuracy. Across the
-500-run grid, Friedman finds no significant difference between the five policies
-in mean prequential accuracy ($p=0.18$ at $n=60$; $p=0.45$ at $n=20$), while cost
-separates them sharply ($p=2.9\times10^{-43}$). The selector is significantly
-\emph{less} accurate than AlwaysRebuild (median $-1.3$ points of mean prequential
-accuracy, balanced on multi-class streams; Holm $p=0.017$) and much cheaper
-(cheaper in 51 of 57 non-tied blocks, rank-biserial $r=-0.96$). It is more
-expensive than FixedSchedule at $n=60$ (Holm $p=0.0087$), though that result
-survives neither the stricter $n=20$ check ($p=0.088$) nor the DDM replicate
-($p=0.065$). Across 20 cells, never adapting at all was at least as accurate at
-zero training cost in 10.
-
 Pooling hides the structure. Within each stream the policies differ
 significantly: adaptation gains 20.3 and 36.2 points of median accuracy over
 NeverAdapt on INSECTS gradual and incremental, and loses 14.8 points on
@@ -414,14 +414,13 @@ Covertype. The pooled null is cancellation across streams, a Simpson's-paradox
 effect, so every result below is reported per stream.
 
 
-\begin{figure*}[t]
+\begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/f7_accuracy_cost.pdf}
-\caption{Cost against accuracy per stream: median training work units (log) and
-median whole-stream prequential balanced accuracy, one point per policy, over the
-twelve (family $\times$ seed) blocks of each stream. NeverAdapt trains nothing
-and is drawn at the axis minimum. The ordering changes completely between
-streams.}
+\caption{Cost against accuracy per stream, one point per policy, over the twelve
+(family $\times$ seed) blocks of each stream: median training work units against
+median whole-stream prequential balanced accuracy. NeverAdapt trains nothing and
+is drawn at the axis minimum. The ordering changes completely between streams.}
 \label{fig:tradeoff}
 \end{figure*}
 
@@ -432,16 +431,6 @@ Of the selector's 2{,}830 adaptations, 841 were skips, 164 were kept nudges and
 Of the 915 failures, 69\% missed by more than 10 points, and in that group the
 model was already a median 22.5 points below its floor when the alarm fired.
 
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{figures/f6_nudge_failure.pdf}
-\caption{How a single nudge behaves, per family, under AlwaysNudge with ADWIN:
-the share that changed no prediction at all (left) and the median accuracy gain
-(right). $n$ is the number of nudges.}
-\label{fig:nudge}
-\end{figure}
-
 The failures differ in kind by family, which is visible once we look at
 predictions rather than accuracy (Fig.~\ref{fig:nudge}). A Random Forest nudge
 changed no prediction at all in 60\% of 1{,}876 nudges, and Gaussian NB in 77\%
@@ -450,12 +439,28 @@ of 364. SGD changed a median 9.4\% of predictions for a median accuracy gain of
 nudges. Refitting the nudge on the full window instead of the older 80\% leaves
 this unchanged (median 0.00 points over 1{,}225 paired alarms; XGBoost $+2.28$).
 
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/f6_nudge_failure.pdf}
+\caption{How a single nudge behaves, per family, under AlwaysNudge with ADWIN:
+the share that changed no prediction at all (left) and the median accuracy gain
+(right). $n$ is the number of nudges.}
+\label{fig:nudge}
+\end{figure*}
+
 Half of the selector's rebuilds, 910 of 1{,}825, were forced by its own
 minimum-window guard rather than by a failed nudge, which is 32\% of all its
 adaptations. The runner clears the buffer after each adaptation, so an alarm that
 follows closely arrives on a window too small to judge.
 
 \subsection{What the alarms are \textsc{[diag]}}
+
+On INSECTS-abrupt, whose change points are published~\cite{souza2020}, only
+27.4\% of ADWIN alarms fall within 1{,}000 rows of one. The share rises with the
+tolerance but stays a minority. Shuffling within blocks of 50 rows destroys local
+label dependence and removes 40\% of ADWIN alarms and 69\% of DDM alarms on Elec2
+and Covertype, where the error stream's lag-1 autocorrelation runs from $+0.58$
+to $+0.90$ (Fig.~\ref{fig:alarms}).
 
 \begin{figure}[t]
 \centering
@@ -465,13 +470,6 @@ Markov null with the stream's own lag-1 dependence, and after shuffling within
 blocks of 50 rows (Elec2 and Covertype only). Log scale.}
 \label{fig:alarms}
 \end{figure}
-
-On INSECTS-abrupt, whose change points are published~\cite{souza2020}, only
-27.4\% of ADWIN alarms fall within 1{,}000 rows of one. The share rises with the
-tolerance but stays a minority. Shuffling within blocks of 50 rows destroys local
-label dependence and removes 40\% of ADWIN alarms and 69\% of DDM alarms on Elec2
-and Covertype, where the error stream's lag-1 autocorrelation runs from $+0.58$
-to $+0.90$ (Fig.~\ref{fig:alarms}).
 
 An i.i.d.\ null produced no ADWIN alarms at all, so we built a two-state Markov
 null carrying each cell's own error rate and autocorrelation, with no drift
@@ -491,20 +489,21 @@ error in 79\% of its alarms by a median 14.7 points.
 
 \subsection{The oracle: most of the gain is not acting \textsc{[diag]}}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{figures/f3_oracle_branches.pdf}
-\caption{Where the oracle's advantage over the selector comes from, per stream,
-at $\lambda=10^3$, horizon ``next''.}
-\label{fig:oracle}
-\end{figure}
-
 On Elec2 and Covertype under ADWIN, over 2{,}595 alarms, $G_1$ is 16.8--25.5\%
 and 24.8--37.1\% of the selector's cost respectively, across the whole $\lambda$
 grid. Both are far above the 5\% we had set as the threshold below which no
 decision model could help. Fig.~\ref{fig:oracle} shows where the advantage comes
 from: SKIP accounts for 80.8\% of it on Covertype and 78.9\% on Elec2, NUDGE for
 about 16\%, and REBUILD for 3--5\%.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/f3_oracle_branches.pdf}
+\caption{Where the oracle's advantage over the selector comes from, per stream,
+at $\lambda=10^3$, horizon ``next''. Segments below 8\% are not labelled: REBUILD
+is 4.7\% on Elec2 and 3.3\% on Covertype.}
+\label{fig:oracle}
+\end{figure}
 
 An ``always SKIP'' rule captures 95.3\% of $G_1$ at $\lambda=10^2$ and 78.1\% at
 $\lambda=10^3$, but $-3.6\%$ at $\lambda=10^4$. Once errors are priced heavily
@@ -515,20 +514,21 @@ holds up on Covertype (0.645) but not on Elec2 (0.085).
 
 \subsection{What a repair costs after it is made \textsc{[diag]}}
 
-\begin{figure*}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/f4_cost_split.pdf}
-\caption{Cost on its two scales, by family and policy: training work units
-(median per run, left) and inference operations per prediction (mean per run,
-right). The two are different quantities and are never summed. Log axes.}
-\label{fig:split}
-\end{figure*}
-
 Training work units and inference operations are different quantities, so we
 report them on their own scales rather than as shares of a sum
 (Fig.~\ref{fig:split}). Per-prediction inference cost ranges from 201 operations
 for SGD to 4{,}009 for XGBoost under AlwaysNudge, and it is the one cost term a
 repair changes permanently.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{figures/f4_cost_split.pdf}
+\caption{Cost on its two scales, by family and policy: training work units
+(median per run, left) and inference operations per prediction (mean per run,
+right). The two are different quantities and are never summed. Log axes, so
+NeverAdapt, which trains nothing, is drawn at the axis minimum.}
+\label{fig:split}
+\end{figure*}
 
 Adding boosting iterations is known to enlarge a model and hurt inference
 throughput~\cite{lin2025}. We measured it per repair. Across the 32 kept XGBoost
@@ -546,6 +546,12 @@ a control model trained on 1{,}000 rows from the initial era is equally cheap.
 The effect comes from the window size, not from rebuilding.
 
 \subsection{WaitAndCheck \textsc{[verdict: no]}}
+\label{sec:wac}
+
+
+The verdict is \textbf{NO}. Every ratio and accuracy change in this section, in
+Table~\ref{tab:md3} and in Fig.~\ref{fig:wac} is a median over the twelve
+(family $\times$ seed) blocks of a stream, which is the statistic Rule 1 names.
 
 \begin{figure}[t]
 \centering
@@ -559,10 +565,6 @@ experiment and are not held-out evidence; dashed lines are our pre-declared
 thresholds.}
 \label{fig:wac}
 \end{figure}
-
-The verdict is \textbf{NO}. Every ratio and accuracy change in this section, in
-Table~\ref{tab:md3} and in Fig.~\ref{fig:wac} is a median over the twelve
-(family $\times$ seed) blocks of a stream, which is the statistic Rule 1 names.
 
 Under that statistic the five training ratios are 0.58 (Elec2), 0.49
 (Covertype), 3.23 (INSECTS abrupt), 1.19 (INSECTS gradual) and 0.87 (INSECTS
@@ -613,12 +615,9 @@ exception, cheaper and 8.7 points more accurate than WaitAndCheck, on a stream
 that is not held-out evidence.
 
 \begin{table}[t]
-\caption{ConfirmMD3 ($\Theta=2$) beside WaitAndCheck, $W=200$. Both columns are
-medians over the twelve (family $\times$ seed) blocks of each stream, the
-statistic Rule 1 names, with an undefined ratio ranked above every finite one:
-training as a ratio to the selector, accuracy as the change in whole-stream
-prequential balanced accuracy. Elec2 and Covertype motivated the experiment and
-are not held-out evidence.}
+\caption{ConfirmMD3 ($\Theta=2$) beside WaitAndCheck, $W=200$: training as a
+ratio to the selector and the change in balanced accuracy, both as medians over
+blocks (\S\ref{sec:wac}).}
 \label{tab:md3}
 \centering\small
 \begin{tabular}{lcccc}
