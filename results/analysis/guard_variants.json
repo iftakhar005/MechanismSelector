@@ -1,0 +1,358 @@
+{
+  "label": "[DIAGNOSTIC] guard variants",
+  "statistic": "median over the 12 (family x seed) blocks of a stream",
+  "accuracy": "mean prequential balanced accuracy",
+  "thresholds": {
+    "training_cut": 0.25,
+    "streams": 3,
+    "max_accuracy_loss_pp": 1.0,
+    "note": "our own choices, not standard values"
+  },
+  "variants": {
+    "C": {
+      "name": "C skip when unsure",
+      "n_runs": 100,
+      "streams": {
+        "elec2": {
+          "n_blocks": 12,
+          "median_training": {
+            "mechanism_selector": 1413405.0,
+            "guard_C": 1379953.5,
+            "always_rebuild": 2841360.0,
+            "never_adapt": 0.0
+          },
+          "median_balanced": {
+            "mechanism_selector": 66.93662727699072,
+            "guard_C": 66.32400063257725,
+            "always_rebuild": 69.32631547673265,
+            "never_adapt": 65.2644809515935
+          },
+          "training_cut_vs_selector": 0.023667314039500356,
+          "balanced_delta_vs_selector_pp": -0.6126266444134671,
+          "decisions_variant": {
+            "skip": 663,
+            "nudge": 132,
+            "rebuild": 567,
+            "degraded": 292
+          },
+          "decisions_selector": {
+            "skip": 360,
+            "nudge": 132,
+            "rebuild": 791,
+            "degraded": 263
+          },
+          "beats_always_rebuild": {
+            "balanced": false,
+            "training": true
+          },
+          "beats_never_adapt": {
+            "balanced": true,
+            "training": false
+          },
+          "wilcoxon_vs_selector": [
+            {
+              "metric": "cost",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 12,
+              "median_difference": -50774.5,
+              "target_better_in": 7,
+              "target_worse_in": 5,
+              "p": 0.4697265625,
+              "cliffs_delta": -0.041666666666666664,
+              "rank_biserial": -0.2564102564102564,
+              "p_holm": 1.0
+            },
+            {
+              "metric": "balanced",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 12,
+              "median_difference": -0.900168834653762,
+              "target_better_in": 5,
+              "target_worse_in": 7,
+              "p": 0.5693359375,
+              "cliffs_delta": -0.08333333333333333,
+              "rank_biserial": -0.20512820512820512,
+              "p_holm": 1.0
+            }
+          ]
+        },
+        "covtype": {
+          "n_blocks": 12,
+          "median_training": {
+            "mechanism_selector": 5727920.0,
+            "guard_C": 5055260.5,
+            "always_rebuild": 6916800.0,
+            "never_adapt": 0.0
+          },
+          "median_balanced": {
+            "mechanism_selector": 51.9348641958318,
+            "guard_C": 52.004246898529615,
+            "always_rebuild": 56.12400679064554,
+            "never_adapt": 72.72596852595251
+          },
+          "training_cut_vs_selector": 0.11743521208396765,
+          "balanced_delta_vs_selector_pp": 0.06938270269781555,
+          "decisions_variant": {
+            "skip": 3034,
+            "nudge": 158,
+            "rebuild": 932,
+            "degraded": 2233
+          },
+          "decisions_selector": {
+            "skip": 807,
+            "nudge": 227,
+            "rebuild": 2146,
+            "degraded": 1252
+          },
+          "beats_always_rebuild": {
+            "balanced": false,
+            "training": true
+          },
+          "beats_never_adapt": {
+            "balanced": false,
+            "training": false
+          },
+          "wilcoxon_vs_selector": [
+            {
+              "metric": "cost",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 12,
+              "median_difference": -100135.0,
+              "target_better_in": 9,
+              "target_worse_in": 3,
+              "p": 0.09228515625,
+              "cliffs_delta": -0.25,
+              "rank_biserial": -0.5641025641025641,
+              "p_holm": 0.64599609375
+            },
+            {
+              "metric": "balanced",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 12,
+              "median_difference": 0.24486386891936007,
+              "target_better_in": 8,
+              "target_worse_in": 4,
+              "p": 0.12939453125,
+              "cliffs_delta": 0.08333333333333333,
+              "rank_biserial": 0.5128205128205128,
+              "p_holm": 0.7763671875
+            }
+          ]
+        },
+        "insects_abrupt": {
+          "n_blocks": 12,
+          "median_training": {
+            "mechanism_selector": 224400.0,
+            "guard_C": 262815.0,
+            "always_rebuild": 986400.0,
+            "never_adapt": 0.0
+          },
+          "median_balanced": {
+            "mechanism_selector": 42.813012635812626,
+            "guard_C": 41.41961537374931,
+            "always_rebuild": 54.83817688375277,
+            "never_adapt": 52.72648637667528
+          },
+          "training_cut_vs_selector": -0.17118983957219253,
+          "balanced_delta_vs_selector_pp": -1.393397262063317,
+          "decisions_variant": {
+            "skip": 126,
+            "nudge": 15,
+            "rebuild": 61,
+            "degraded": 11
+          },
+          "decisions_selector": {
+            "skip": 122,
+            "nudge": 19,
+            "rebuild": 63,
+            "degraded": 11
+          },
+          "beats_always_rebuild": {
+            "balanced": false,
+            "training": true
+          },
+          "beats_never_adapt": {
+            "balanced": false,
+            "training": false
+          },
+          "wilcoxon_vs_selector": [
+            {
+              "metric": "cost",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 7,
+              "median_difference": 0.0,
+              "target_better_in": 4,
+              "target_worse_in": 3,
+              "p": 0.9375,
+              "cliffs_delta": 0.09027777777777778,
+              "rank_biserial": 0.07142857142857142,
+              "p_holm": 1.0
+            },
+            {
+              "metric": "balanced",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 7,
+              "median_difference": -0.9754685608395839,
+              "target_better_in": 1,
+              "target_worse_in": 6,
+              "p": 0.03125,
+              "cliffs_delta": -0.14583333333333334,
+              "rank_biserial": -0.9285714285714286,
+              "p_holm": 0.25
+            }
+          ]
+        },
+        "insects_gradual": {
+          "n_blocks": 12,
+          "median_training": {
+            "mechanism_selector": 307532.5,
+            "guard_C": 254927.5,
+            "always_rebuild": 571200.0,
+            "never_adapt": 0.0
+          },
+          "median_balanced": {
+            "mechanism_selector": 39.9747820708731,
+            "guard_C": 34.050118459270394,
+            "always_rebuild": 48.54190036161857,
+            "never_adapt": 28.037767664326278
+          },
+          "training_cut_vs_selector": 0.17105509173827158,
+          "balanced_delta_vs_selector_pp": -5.924663611602703,
+          "decisions_variant": {
+            "skip": 47,
+            "nudge": 17,
+            "rebuild": 56,
+            "degraded": 12
+          },
+          "decisions_selector": {
+            "skip": 31,
+            "nudge": 21,
+            "rebuild": 73,
+            "degraded": 12
+          },
+          "beats_always_rebuild": {
+            "balanced": false,
+            "training": true
+          },
+          "beats_never_adapt": {
+            "balanced": true,
+            "training": false
+          },
+          "wilcoxon_vs_selector": [
+            {
+              "metric": "cost",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 8,
+              "median_difference": -52605.0,
+              "target_better_in": 8,
+              "target_worse_in": 0,
+              "p": 0.0078125,
+              "cliffs_delta": -0.18055555555555555,
+              "rank_biserial": -1.0,
+              "p_holm": 0.078125
+            },
+            {
+              "metric": "balanced",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 8,
+              "median_difference": -6.456700135383931,
+              "target_better_in": 1,
+              "target_worse_in": 7,
+              "p": 0.015625,
+              "cliffs_delta": -0.2777777777777778,
+              "rank_biserial": -0.9444444444444444,
+              "p_holm": 0.140625
+            }
+          ]
+        },
+        "insects_incremental": {
+          "n_blocks": 12,
+          "median_training": {
+            "mechanism_selector": 223900.0,
+            "guard_C": 223900.0,
+            "always_rebuild": 315500.0,
+            "never_adapt": 0.0
+          },
+          "median_balanced": {
+            "mechanism_selector": 55.968955818552516,
+            "guard_C": 55.968955818552516,
+            "always_rebuild": 57.330146073170226,
+            "never_adapt": 21.218581986828347
+          },
+          "training_cut_vs_selector": 0.0,
+          "balanced_delta_vs_selector_pp": 0.0,
+          "decisions_variant": {
+            "skip": 1,
+            "nudge": 17,
+            "rebuild": 60,
+            "degraded": 0
+          },
+          "decisions_selector": {
+            "skip": 1,
+            "nudge": 17,
+            "rebuild": 60,
+            "degraded": 0
+          },
+          "beats_always_rebuild": {
+            "balanced": false,
+            "training": true
+          },
+          "beats_never_adapt": {
+            "balanced": true,
+            "training": false
+          },
+          "wilcoxon_vs_selector": [
+            {
+              "metric": "cost",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 0,
+              "median_difference": 0.0,
+              "target_better_in": 0,
+              "target_worse_in": 0,
+              "p": 1.0,
+              "cliffs_delta": 0.0,
+              "rank_biserial": 0.0,
+              "p_holm": 1.0
+            },
+            {
+              "metric": "balanced",
+              "target": "guard_C",
+              "against": "mechanism_selector",
+              "n": 12,
+              "n_nonzero": 0,
+              "median_difference": 0.0,
+              "target_better_in": 0,
+              "target_worse_in": 0,
+              "p": 1.0,
+              "cliffs_delta": 0.0,
+              "rank_biserial": 0.0,
+              "p_holm": 1.0
+            }
+          ]
+        }
+      },
+      "verdict": "does not help",
+      "streams_cutting_training": 0,
+      "worst_balanced_delta_pp": -5.924663611602703,
+      "holm_family": "5 streams x 2 metrics = 10 tests per variant"
+    }
+  }
+}
