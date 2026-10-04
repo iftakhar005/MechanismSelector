@@ -211,7 +211,10 @@ class MechanismSelector:
         min_train_rows: int = 100,
         scorer: Callable[[np.ndarray, np.ndarray], float] = accuracy_score,
         seed: int = 0,
+        guard_action: str = REBUILD,
     ):
+        if guard_action not in (REBUILD, SKIP):
+            raise ValueError(f"guard_action must be {REBUILD!r} or {SKIP!r}, got {guard_action!r}")
         self.nudge_mechanism = nudge_mechanism
         self.rebuild_mechanism = rebuild_mechanism
         self.holdout_frac = holdout_frac
@@ -220,6 +223,7 @@ class MechanismSelector:
         self.min_train_rows = min_train_rows
         self.scorer = scorer
         self.seed = seed
+        self.guard_action = guard_action
 
     def _score(self, model: Any, X: np.ndarray, y: np.ndarray) -> float:
         return self._predict_score(model, X, y)[1]
@@ -289,9 +293,23 @@ class MechanismSelector:
         n_train_rows, n_holdout_rows = len(X_train), len(X_holdout)
 
         if self._is_degraded(X_window, y_window):
-            # Holdout too small to trust for any decision (SKIP or NUDGE) --
-            # go straight to REBUILD. acc_before is recorded for audit only.
+            # Holdout too small to trust for any decision (SKIP or NUDGE).
+            # The original design goes straight to REBUILD; guard_action=SKIP
+            # (variant C) keeps the model instead and pays nothing.
             acc_before = self._score(model, X_holdout, y_holdout)
+            if self.guard_action == SKIP:
+                return AdaptResult(
+                    model=model,
+                    action=SKIP,
+                    cost=CostRecord.zero(),
+                    acc_before=acc_before,
+                    acc_nudged=None,
+                    acc_after=acc_before,
+                    floor=floor,
+                    n_train_rows=n_train_rows,
+                    n_holdout_rows=n_holdout_rows,
+                    degraded_to_rebuild=True,
+                )
             fresh, rebuild_cost = self.rebuild_mechanism.apply(
                 None, X_window, y_window, rng
             )

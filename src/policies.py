@@ -280,6 +280,9 @@ def make_policy(
     floor_drop: float = 0.02,
     k: int = 3,
     scorer: Callable[[np.ndarray, np.ndarray], float] = accuracy_score,
+    min_holdout_rows: int = 50,
+    min_train_rows: int = 100,
+    guard_action: str = "REBUILD",
 ) -> Policy:
     """Build a fresh policy for one run, wired to identical mechanisms.
 
@@ -301,5 +304,8 @@ def make_policy(
     if key == "fixed_schedule":
         return FixedSchedule(nudge, rebuild, k=k, **common)
     if key == "mechanism_selector":
-        return MechanismSelector(nudge, rebuild, floor_drop=floor_drop, **common)
+        return MechanismSelector(nudge, rebuild, floor_drop=floor_drop,
+                                 min_holdout_rows=min_holdout_rows,
+                                 min_train_rows=min_train_rows,
+                                 guard_action=guard_action, **common)
     raise ValueError(f"Unknown policy {key!r}; expected one of {list(POLICY_KEYS)}")

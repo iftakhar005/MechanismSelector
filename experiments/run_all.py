@@ -51,6 +51,14 @@ def main() -> int:
     parser.add_argument("--wait-rows", type=int, default=0,
                         help="WaitAndCheck(W): wait W labelled rows after an alarm, then check "
                              "the model on exactly those rows before acting. 0 = original behaviour")
+    parser.add_argument("--keep-window", action="store_true",
+                        help="variant A: keep a sliding buffer instead of clearing it")
+    parser.add_argument("--min-holdout", type=int, default=50,
+                        help="guard threshold on holdout rows (variants B and D)")
+    parser.add_argument("--min-train", type=int, default=100,
+                        help="guard threshold on training rows (variants B and D)")
+    parser.add_argument("--guard-action", choices=("REBUILD", "SKIP"), default="REBUILD",
+                        help="variant C: what to do when the window is below the minimum")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -76,7 +84,9 @@ def main() -> int:
             f.write(line + "\n")
 
     config = RunConfig(track_energy=not args.no_energy, detector=args.detector,
-                       wait_rows=args.wait_rows, confirm_theta=args.confirm_theta)
+                       wait_rows=args.wait_rows, confirm_theta=args.confirm_theta,
+                       keep_window=args.keep_window, min_holdout_rows=args.min_holdout,
+                       min_train_rows=args.min_train, guard_action=args.guard_action)
     started = time.perf_counter()
     result = run_grid(args.out, seeds=args.seeds, datasets=args.datasets, models=args.models,
                       policies=args.policies, config=config, log=log)

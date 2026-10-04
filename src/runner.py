@@ -151,6 +151,10 @@ class RunConfig:
     track_energy: bool = True
     energy_country_iso: str = "USA"  # affects only the CO2 figure, which is not recorded
     detector: str = "adwin"  # "adwin" (primary) or "ddm" (one-sided contrast, library defaults)
+    keep_window: bool = False  # variant A: do not clear the buffer after an adaptation
+    min_holdout_rows: int = 50  # variants B and D move the guard thresholds
+    min_train_rows: int = 100
+    guard_action: str = "REBUILD"  # variant C: SKIP instead of REBUILD below the minimum
     wait_rows: int = 0  # WaitAndCheck(W): 0 is the original behaviour, act on the alarm at once
     confirm_theta: float | None = None  # MD3-style cancel rule: cancel if reference - acc_W <= theta*sigma
 
@@ -286,6 +290,8 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
     policy = policy_factory(
         policy_key, spec, seed=seed, holdout_frac=config.holdout_frac,
         floor_drop=config.floor_drop, k=config.k, scorer=scorer,
+        min_holdout_rows=config.min_holdout_rows, min_train_rows=config.min_train_rows,
+        guard_action=config.guard_action,
     )
     detector = detector_factory(config)
 
@@ -462,7 +468,8 @@ def _run(X, y, model_name, policy_key, seed, config, dataset, detector_factory, 
             })
             wait_info = {}
 
-            buf_start = row + 1
+            if not config.keep_window:
+                buf_start = row + 1
             pending_since = None
             ref_start, ref_ready = row + 1, False
             adapted_at = row
