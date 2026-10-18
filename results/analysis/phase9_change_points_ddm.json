@@ -1,0 +1,157 @@
+{
+  "label": "[DIAGNOSTIC] DDM alarms vs published change points, insects_abrupt",
+  "scope": {
+    "stream": "insects_abrupt",
+    "policy": "never_adapt",
+    "families": "all four; seed 0 for xgb and gnb, all seeds for rf and sgd",
+    "ground_truth": "Souza et al. 2020, Table 2 (arXiv:2005.00113)",
+    "change_points": [
+      14352,
+      19500,
+      33240,
+      38682,
+      39510
+    ],
+    "instances": 52848
+  },
+  "detectors": {
+    "adwin": {
+      "cells_with_alarms": 12,
+      "500": {
+        "tolerance": 500,
+        "n_alarms": 113,
+        "within": 29,
+        "outside": 84,
+        "share_within": 0.25663716814159293,
+        "false_alarms_per_10k_rows": 1.3245534362700575
+      },
+      "1000": {
+        "tolerance": 1000,
+        "n_alarms": 113,
+        "within": 31,
+        "outside": 82,
+        "share_within": 0.2743362831858407,
+        "false_alarms_per_10k_rows": 1.293016449692199
+      },
+      "2000": {
+        "tolerance": 2000,
+        "n_alarms": 113,
+        "within": 33,
+        "outside": 80,
+        "share_within": 0.2920353982300885,
+        "false_alarms_per_10k_rows": 1.2614794631143404
+      }
+    },
+    "ddm": {
+      "cells_with_alarms": 8,
+      "500": {
+        "tolerance": 500,
+        "n_alarms": 29,
+        "within": 2,
+        "outside": 27,
+        "share_within": 0.06896551724137931,
+        "false_alarms_per_10k_rows": 0.6386239782016349
+      },
+      "1000": {
+        "tolerance": 1000,
+        "n_alarms": 29,
+        "within": 3,
+        "outside": 26,
+        "share_within": 0.10344827586206896,
+        "false_alarms_per_10k_rows": 0.6149712382682411
+      },
+      "2000": {
+        "tolerance": 2000,
+        "n_alarms": 29,
+        "within": 4,
+        "outside": 25,
+        "share_within": 0.13793103448275862,
+        "false_alarms_per_10k_rows": 0.5913184983348472
+      }
+    }
+  },
+  "adwin_on_ddm_cells": {
+    "cells": [
+      "gnb:0",
+      "rf:0",
+      "rf:1",
+      "rf:2",
+      "rf:3",
+      "rf:4",
+      "sgd:0",
+      "xgb:0"
+    ],
+    "500": {
+      "tolerance": 500,
+      "n_alarms": 70,
+      "within": 14,
+      "outside": 56,
+      "share_within": 0.2,
+      "false_alarms_per_10k_rows": 1.3245534362700575
+    },
+    "1000": {
+      "tolerance": 1000,
+      "n_alarms": 70,
+      "within": 15,
+      "outside": 55,
+      "share_within": 0.21428571428571427,
+      "false_alarms_per_10k_rows": 1.3009006963366636
+    },
+    "2000": {
+      "tolerance": 2000,
+      "n_alarms": 70,
+      "within": 17,
+      "outside": 53,
+      "share_within": 0.24285714285714285,
+      "false_alarms_per_10k_rows": 1.253595216469876
+    }
+  },
+  "per_family": {
+    "xgb": {
+      "adwin": {
+        "n_alarms": 9,
+        "share_within_1000": 0.1111111111111111
+      },
+      "ddm": {
+        "n_alarms": 5,
+        "share_within_1000": 0.0
+      }
+    },
+    "rf": {
+      "adwin": {
+        "n_alarms": 42,
+        "share_within_1000": 0.14285714285714285
+      },
+      "ddm": {
+        "n_alarms": 17,
+        "share_within_1000": 0.0
+      }
+    },
+    "sgd": {
+      "adwin": {
+        "n_alarms": 54,
+        "share_within_1000": 0.37037037037037035
+      },
+      "ddm": {
+        "n_alarms": 5,
+        "share_within_1000": 0.4
+      }
+    },
+    "gnb": {
+      "adwin": {
+        "n_alarms": 8,
+        "share_within_1000": 0.5
+      },
+      "ddm": {
+        "n_alarms": 2,
+        "share_within_1000": 0.5
+      }
+    }
+  },
+  "cells_adwin_only": [
+    "sgd:1",
+    "sgd:2",
+    "sgd:3",
+    "sgd:4"
+  ]
+}
