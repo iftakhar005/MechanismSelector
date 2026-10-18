@@ -302,6 +302,69 @@ been run.
 
 ---
 
+## Results measured after the paper draft (18 October)
+
+None of these are in `paper.tex`. They are recorded here so that any later use
+of them carries its source and scope. All are **[D]** unless the row says
+otherwise. The frozen grid is unchanged; each item reads committed files only.
+
+### Guard variants (pre-symposium item 1)
+
+Scope: 5 streams × 4 families × 5 seeds per variant, 100 runs each, ADWIN
+δ = 0.002, everything except the guard identical to the original selector.
+Statistic: median over the 12 (family × seed) blocks of a stream; accuracy is
+mean prequential balanced accuracy. The decision rule (cut median training
+≥ 25% on ≥ 3 of 5 streams **and** lose ≤ 1 point of accuracy on every stream)
+was fixed before the runs; its thresholds are our own choices, not standard
+values.
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| Variant C (skip when unsure): does not help | `results/analysis/guard_variants.json` | 0/5 streams cut training ≥ 25%; worst accuracy −5.92 pp (INSECTS-gradual) | [V] |
+| Variant A (keep the window): does not help | same | 0/5 streams cut training; training *rose* 89.8% on Elec2, 24.5% on Covertype; worst accuracy −1.08 pp | [V] |
+| Variant B (smaller minimum, 25/50): does not help | same | 0/5 streams cut training ≥ 25% (best +8.3% on Elec2); worst accuracy −1.10 pp | [V] |
+| Variant D (larger minimum, 100/200): does not help | same | 0/5 streams cut training; worst accuracy −0.12 pp | [V] |
+| Guard events fall from 1,252 to 0 on Covertype under A, and to 205 under B | same (`decisions_variant.degraded`) | summed guard-triggered events over the 12 blocks | [D] |
+| Variant A removes the guard almost entirely (5 events on Elec2, 0 elsewhere) and still does not cut training | same | guard events, median training | [D] |
+| No variant is the best policy on any stream | `results/grid/grid.csv` + `results/guard_*/grid.csv` | median balanced accuracy per stream over 12 blocks, 9 policies compared | [D] |
+| Every variant still loses to AlwaysRebuild on accuracy on all five streams | `guard_variants.json` (`beats_always_rebuild`) | median balanced accuracy | [D] |
+| No Wilcoxon accuracy difference against the original selector survives Holm in any variant | same (`wilcoxon_vs_selector`, `p_holm`) | n = 12 per stream, Holm within 10 tests per variant | [D] |
+| The only Holm-significant results are training *increases*: A on Elec2 and Covertype (p_holm = 0.0049 each) and D on Elec2 (p_holm = 0.0098) | same (`wilcoxon_vs_selector`) | n = 12, signed-rank on total work units | [D] |
+
+### Oracle re-weighting below 1:1 (pre-symposium item 2)
+
+Scope: all five streams, λ = 1e3, horizon "next", recomputed from the stored
+per-branch records with J_w(a) = w·train + eval + infer_per_row·H + λ·errors.
+`eval_ops` is inference work and stays unweighted. w ∈ {0.1, 0.01} was declared
+before the numbers were seen, as was the reading.
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| SKIP is the largest single source of the oracle's advantage on all five streams at w = 0.1 and at w = 0.01 | `results/analysis/phase10_reweight_below1.json` | branch share of G1 at λ = 1e3 | [D] |
+| SKIP share at w = 0.1: 72.4 / 72.6 / 65.6 / 46.9 / 98.7% (Elec2, Covertype, abrupt, gradual, incremental) | same | branch share of G1 | [D] |
+| SKIP share at w = 0.01: 71.5 / 69.8 / 64.9 / 45.9 / 98.6% | same | branch share of G1 | [D] |
+| On INSECTS-gradual the SKIP and REBUILD shares are 45.9% and 45.3% at w = 0.01, i.e. nearly equal | same | branch share of G1 | [D] |
+| w = 1 reproduces the committed `phase10_reweight.json` exactly | same (`self_check_w1_matches_committed`) | G1 at every λ on every stream | [D] |
+
+### DDM alarms against published change points (pre-symposium item 3)
+
+Scope: INSECTS-abrupt under NeverAdapt (the model is never changed), all four
+families, seed 0 for XGBoost and Gaussian NB and all five seeds for Random
+Forest and SGD. Ground truth: Souza et al. 2020, Table 2 (arXiv:2005.00113),
+change points 14352; 19500; 33240; 38682; 39510 over 52,848 instances.
+
+| Claim | Source | Metric / scope | Label |
+|---|---|---|---|
+| DDM: 29 alarms, 10.3% within 1,000 rows of a published change point | `results/analysis/phase9_change_points_ddm.json` | share of alarms, 8 cells | [D] |
+| DDM sensitivity: 6.9% at 500 rows, 13.8% at 2,000 rows | same | share of alarms | [D] |
+| ADWIN on the same stream and policy: 113 alarms, 25.7 / 27.4 / 29.2% at 500 / 1,000 / 2,000 rows | same | share of alarms, 12 cells | [D] |
+| Restricted to the 8 cells where DDM alarmed at all, ADWIN is 70 alarms and 20.0 / 21.4 / 24.3% | same (`adwin_on_ddm_cells`) | share of alarms, matched cells | [D] |
+| DDM produced no alarms in 4 cells where ADWIN did (SGD seeds 1–4) | same (`cells_adwin_only`) | cell counts | [D] |
+| False alarms per 10,000 rows at tolerance 1,000: ADWIN 1.293, DDM 0.615 | same | rate per cell-stream | [D] |
+| Per-family share within 1,000 rows rests on 2–17 alarms per cell group and should not be read as a per-family estimate | same (`per_family`) | alarm counts | [D] |
+
+---
+
 ## Style pass
 
 The prose was rewritten for readability on 4 October. No number, claim, scope or
